@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Cambria, Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Remap Amber to Nordic Paw Gentle Purples (Heather & Calming Lavender) */
+  --color-amber-50: #fdfbfe;  /* Soft, luminous lavender-white canvas tint */
+  --color-amber-100: #f6f1f8; /* Soft lilac gray background element */
+  --color-amber-200: #efe4f3; /* Delicate violet-grey border/faint highlights */
+  --color-amber-300: #dfcee6; /* Gentle heather backdrop tint */
+  --color-amber-400: #c5b0d0; /* Muted pastel twilight accent */
+  --color-amber-500: #9f83ae; /* Sophisticated slatey amethyst */
+  --color-amber-600: #7b628b; /* Calming sage-lavender mid-tone */
+  --color-amber-700: #5d476f; /* Signature Scandinavian Heather Purple (Primary) */
+  --color-amber-800: #4a355c; /* Deep twilight violet (Secondary Highlight) */
+  --color-amber-900: #352345; /* Dark royal heather eggplant */
+  --color-amber-950: #21132d; /* Elegant deep midnight plum */
+
+  /* Remap Stone to Premium Scandinavian Beiges & Slate */
+  --color-stone-50: #fdfcfb;  /* Warm premium cream background */
+  --color-stone-100: #f3f0ec; /* Soft warm gray background */
+  --color-stone-200: #eae7e1; /* Subtle clean border lines */
+  --color-stone-300: #ddd9d0;
+  --color-stone-400: #b9b3a7;
+  --color-stone-550: #6e675b;
+  --color-stone-600: #655e53;
+  --color-stone-700: #46413a;
+  --color-stone-800: #2d2a26;
+  --color-stone-850: #211f1d;
+  --color-stone-900: #1a1917;
+  --color-stone-950: #121110;
+}
+
+body {
+  background-color: #fdfcfb;
+  color: #2d2a26;
+}
