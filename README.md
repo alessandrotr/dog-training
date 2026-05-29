@@ -1,21 +1,28 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# NordDog Canine Academy
 
-# Run and deploy your AI Studio app
-
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/a61d072b-dbe5-4801-9908-baa7d168b77f
+A Next.js (App Router) application for Scandinavian-inspired, force-free dog training.
 
 ## Run Locally
 
-**Prerequisites:**  Node.js
-
+**Prerequisites:** Node.js
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
+2. Start the dev server:
    `npm run dev`
-# dog-training
+3. Open http://localhost:3000
+
+## Scripts
+
+- `npm run dev` — start the Next.js dev server on port 3000
+- `npm run build` — production build
+- `npm start` — serve the production build
+- `npm run lint` — type-check with `tsc`
+
+## Structure
+
+- `src/app/layout.tsx` — root layout + metadata
+- `src/app/page.tsx` — client entry that mounts the app and bootstraps i18n
+- `src/app/globals.css` — Tailwind v4 styles and theme
+- `src/App.tsx` — top-level app shell with state-based page navigation
+- `src/components/` — navigation and page components

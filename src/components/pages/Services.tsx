@@ -2,13 +2,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { SERVICES } from '../../data';
 import { CalendarRange, Sparkles, Check, Building, Milestone, ShieldCheck, HeartPulse } from 'lucide-react';
+import { useNavigate } from '../../lib/navigation';
+import { useDraftMode } from '../../lib/draft-mode';
 
-interface ServicesProps {
-  setCurrentPage: (page: string) => void;
-  isDraftMode: boolean;
-}
-
-export default function Services({ setCurrentPage, isDraftMode }: ServicesProps) {
+export default function Services() {
+  const setCurrentPage = useNavigate();
+  const { isDraftMode } = useDraftMode();
   const { t, i18n } = useTranslation();
   const lang = (i18n.language === 'de' ? 'de' : 'en') as 'en' | 'de';
   const services = SERVICES[lang];

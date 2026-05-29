@@ -3,14 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'motion/react';
 import { SERVICES, TESTIMONIALS, BLOG_POSTS } from '../../data';
 import { Sparkles, ArrowRight, ShieldCheck, HeartHandshake, Award, Star, ArrowLeft, ArrowUpRight, MessageSquareQuote } from 'lucide-react';
+import { useNavigate, usePostNavigate } from '../../lib/navigation';
+import { useDraftMode } from '../../lib/draft-mode';
 
-interface HomeProps {
-  setCurrentPage: (page: string) => void;
-  setSelectedBlogSlug: (slug: string | null) => void;
-  isDraftMode: boolean; // Storyblok draft state
-}
-
-export default function Home({ setCurrentPage, setSelectedBlogSlug, isDraftMode }: HomeProps) {
+export default function Home() {
+  const setCurrentPage = useNavigate();
+  const goToPost = usePostNavigate();
+  const { isDraftMode } = useDraftMode();
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
   const { t, i18n } = useTranslation();
   const lang = (i18n.language === 'de' ? 'de' : 'en') as 'en' | 'de';
@@ -35,13 +34,10 @@ export default function Home({ setCurrentPage, setSelectedBlogSlug, isDraftMode 
 
   const handleNavigateToService = (slug: string) => {
     setCurrentPage('services');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleNavigateToPost = (slug: string) => {
-    setSelectedBlogSlug(slug);
-    setCurrentPage('blog');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    goToPost(slug);
   };
 
   return (

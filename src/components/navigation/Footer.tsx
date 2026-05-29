@@ -1,18 +1,12 @@
 import React from 'react';
 import { Sparkles, Instagram, Facebook, Mail, Phone, MapPin, Award } from 'lucide-react';
+import { useNavigate } from '../../lib/navigation';
 
-interface FooterProps {
-  currentPage: string;
-  setCurrentPage: (page: string) => void;
-  onBlogSlugChange: (slug: string | null) => void;
-}
+export default function Footer() {
+  const setCurrentPage = useNavigate();
 
-export default function Footer({ currentPage, setCurrentPage, onBlogSlugChange }: FooterProps) {
-  
   const handleNavClick = (page: string) => {
     setCurrentPage(page);
-    onBlogSlugChange(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (

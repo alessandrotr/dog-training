@@ -2,10 +2,10 @@ import { BlogPost, ServiceItem, TestimonialItem, FAQItem, StoryblokPage } from '
 
 // Concrete paths for generated premium images
 export const IMAGES = {
-  hero: '/src/assets/images/hero_trainer_1780093921073.png',
-  puppy: '/src/assets/images/puppy_training_1780093940929.png',
-  reactive: '/src/assets/images/reactive_dog_1780093958673.png',
-  obedience: '/src/assets/images/obedience_dog_1780093976803.png',
+  hero: '/assets/images/hero_trainer_1780093921073.png',
+  puppy: '/assets/images/puppy_training_1780093940929.png',
+  reactive: '/assets/images/reactive_dog_1780093958673.png',
+  obedience: '/assets/images/obedience_dog_1780093976803.png',
   dog1: 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&q=80&w=200&h=200',
   dog2: 'https://images.unsplash.com/photo-1537151625747-768eb6cf92b2?auto=format&fit=crop&q=80&w=200&h=200',
   dog3: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&q=80&w=200&h=200',

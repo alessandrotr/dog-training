@@ -1,17 +1,12 @@
 import React from 'react';
 import { CalendarRange, Sparkles } from 'lucide-react';
+import { useNavigate } from '../../lib/navigation';
 
-interface MobileStickyCTAProps {
-  setCurrentPage: (page: string) => void;
-  onBlogSlugChange: (slug: string | null) => void;
-}
+export default function MobileStickyCTA() {
+  const setCurrentPage = useNavigate();
 
-export default function MobileStickyCTA({ setCurrentPage, onBlogSlugChange }: MobileStickyCTAProps) {
-  
   const handleAction = () => {
     setCurrentPage('booking');
-    onBlogSlugChange(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (

@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Menu, X, Sparkles, Phone, CalendarRange } from 'lucide-react';
+import { useNavigate, useCurrentPage } from '../../lib/navigation';
 
-interface NavbarProps {
-  currentPage: string;
-  setCurrentPage: (page: string) => void;
-  onBlogSlugChange: (slug: string | null) => void;
-}
-
-export default function Navbar({ currentPage, setCurrentPage, onBlogSlugChange }: NavbarProps) {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { t, i18n } = useTranslation();
+  const setCurrentPage = useNavigate();
+  const currentPage = useCurrentPage();
 
   const navItems = [
     { id: 'nav-home', name: t('nav.home'), page: 'home' },
@@ -24,9 +21,7 @@ export default function Navbar({ currentPage, setCurrentPage, onBlogSlugChange }
 
   const handleNavClick = (page: string) => {
     setCurrentPage(page);
-    onBlogSlugChange(null); // Clear active blog post when navigating away
     setIsOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (

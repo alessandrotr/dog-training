@@ -3,19 +3,22 @@ import { useTranslation } from 'react-i18next';
 import { BlogPost } from '../../types';
 import { BLOG_POSTS } from '../../data';
 import { ArrowLeft, Clock, CalendarDays, Share2, Bookmark, Check, CalendarRange, Sparkles } from 'lucide-react';
+import { useNavigate, usePostNavigate } from '../../lib/navigation';
 
 interface BlogPostTemplateProps {
   post: BlogPost;
-  onBack: () => void;
-  onNavigate: (slug: string) => void;
-  setCurrentPage: (page: string) => void;
 }
 
-export default function BlogPostTemplate({ post, onBack, onNavigate, setCurrentPage }: BlogPostTemplateProps) {
+export default function BlogPostTemplate({ post }: BlogPostTemplateProps) {
   const [copiedLink, setCopiedLink] = useState(false);
   const { t, i18n } = useTranslation();
   const lang = (i18n.language === 'de' ? 'de' : 'en') as 'en' | 'de';
   const blogPosts = BLOG_POSTS[lang];
+  const setCurrentPage = useNavigate();
+  const goToPost = usePostNavigate();
+
+  const onBack = () => setCurrentPage('blog');
+  const onNavigate = (slug: string) => goToPost(slug);
 
   // Find other posts for Related Section
   const relatedPosts = blogPosts.filter((p) => p.slug !== post.slug);

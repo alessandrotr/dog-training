@@ -2,12 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TESTIMONIALS } from '../../data';
 import { Star, ShieldCheck, Sparkles, MessageSquare, Award, ArrowUpRight } from 'lucide-react';
+import { useNavigate } from '../../lib/navigation';
 
-interface TestimonialsProps {
-  setCurrentPage: (page: string) => void;
-}
-
-export default function Testimonials({ setCurrentPage }: TestimonialsProps) {
+export default function Testimonials() {
+  const setCurrentPage = useNavigate();
   const { t, i18n } = useTranslation();
   const lang = (i18n.language === 'de' ? 'de' : 'en') as 'en' | 'de';
   const testimonials = TESTIMONIALS[lang];

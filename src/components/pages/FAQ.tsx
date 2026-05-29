@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FAQS } from '../../data';
 import { ChevronDown, ChevronUp, Search, MessageCircle, HelpCircle } from 'lucide-react';
+import { useNavigate } from '../../lib/navigation';
 
-interface FAQProps {
-  setCurrentPage: (page: string) => void;
-}
-
-export default function FAQ({ setCurrentPage }: FAQProps) {
+export default function FAQ() {
+  const setCurrentPage = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFAQId, setActiveFAQId] = useState<string | null>(null);
   const { t, i18n } = useTranslation();

@@ -1,16 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BLOG_POSTS, TESTIMONIALS } from '../../data';
-import BlogPostTemplate from './BlogPostTemplate';
 import { Search, SlidersHorizontal, BookOpen, Clock, Heart, Award, ArrowRight } from 'lucide-react';
+import { useNavigate, usePostNavigate } from '../../lib/navigation';
 
-interface BlogProps {
-  selectedBlogSlug: string | null;
-  setSelectedBlogSlug: (slug: string | null) => void;
-  setCurrentPage: (page: string) => void;
-}
-
-export default function Blog({ selectedBlogSlug, setSelectedBlogSlug, setCurrentPage }: BlogProps) {
+export default function Blog() {
+  const setCurrentPage = useNavigate();
+  const goToPost = usePostNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const { t, i18n } = useTranslation();
@@ -41,27 +37,8 @@ export default function Blog({ selectedBlogSlug, setSelectedBlogSlug, setCurrent
   }, [blogPosts, searchQuery, selectedCategory]);
 
   const handleSelectPost = (slug: string) => {
-    setSelectedBlogSlug(slug);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    goToPost(slug);
   };
-
-  // If a blog post slug is chosen, route directly into the BlogPostTemplate
-  if (selectedBlogSlug) {
-    const activePost = blogPosts.find((p) => p.slug === selectedBlogSlug);
-    if (activePost) {
-      return (
-        <BlogPostTemplate
-          post={activePost}
-          onBack={() => setSelectedBlogSlug(null)}
-          onNavigate={(p) => {
-            setSelectedBlogSlug(p);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          setCurrentPage={setCurrentPage}
-        />
-      );
-    }
-  }
 
   return (
     <div className="space-y-16 py-12 pb-24 text-left">

@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import { Database, Code2, Sparkles, AlertCircle, HelpCircle, Check, Eye, EyeOff } from 'lucide-react';
 import { STORYBLOK_DEMO_DATA } from '../../data';
+import { useCurrentPage } from '../../lib/navigation';
+import { useDraftMode } from '../../lib/draft-mode';
 
-interface CMSVisualDebuggerProps {
-  currentPage: string;
-  isDraftMode: boolean;
-  setIsDraftMode: (val: boolean) => void;
-}
-
-export default function CMSVisualDebugger({ currentPage, isDraftMode, setIsDraftMode }: CMSVisualDebuggerProps) {
+export default function CMSVisualDebugger() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'schema' | 'instructions'>('schema');
+  const currentPage = useCurrentPage();
+  const { isDraftMode, setIsDraftMode } = useDraftMode();
 
   const currentPageSchema = STORYBLOK_DEMO_DATA[currentPage] || {
     name: `${currentPage.toUpperCase()} page template`,

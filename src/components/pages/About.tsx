@@ -1,13 +1,11 @@
 import React from 'react';
 import { Award, CheckCircle, Sparkles, Star, Milestone, Building, BrainCircuit, HeartHandshake } from 'lucide-react';
 import { IMAGES } from '../../data';
+import { useNavigate } from '../../lib/navigation';
 
-interface AboutProps {
-  setCurrentPage: (page: string) => void;
-}
+export default function About() {
+  const setCurrentPage = useNavigate();
 
-export default function About({ setCurrentPage }: AboutProps) {
-  
   const coreValues = [
     {
       id: 'val-1',
