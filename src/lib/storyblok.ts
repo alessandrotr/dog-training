@@ -1,10 +1,32 @@
 import {apiPlugin, storyblokInit} from '@storyblok/react/rsc';
+import Page from '../components/bloks/Page';
+import Hero from '../components/bloks/Hero';
+import TrustStats from '../components/bloks/TrustStats';
+import HowItWorks from '../components/bloks/HowItWorks';
+import CtaBanner from '../components/bloks/CtaBanner';
+import ServicesGrid from '../components/bloks/ServicesGrid';
+import Testimonials from '../components/bloks/Testimonials';
+import BlogList from '../components/bloks/BlogList';
+
+// Registry mapping Storyblok blok names -> React components, so StoryblokStory
+// / StoryblokServerComponent can render composed pages.
+const components = {
+  page: Page,
+  hero: Hero,
+  trust_stats: TrustStats,
+  how_it_works: HowItWorks,
+  cta_banner: CtaBanner,
+  services_grid: ServicesGrid,
+  testimonials: Testimonials,
+  blog_list: BlogList,
+};
 
 // Server-side Storyblok client. The token stays server-only (no NEXT_PUBLIC_
 // prefix), so it is never shipped to the browser.
 export const getStoryblokApi = storyblokInit({
   accessToken: process.env.STORYBLOK_DELIVERY_API_TOKEN,
   use: [apiPlugin],
+  components,
   apiOptions: {
     // Storyblok default is 'eu'. Set STORYBLOK_REGION=us in .env.local if your
     // space lives in the US region.

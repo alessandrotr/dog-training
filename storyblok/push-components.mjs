@@ -52,6 +52,8 @@ for (const component of components) {
   } else {
     console.error(`✗ ${component.name} failed (${res.status}): ${await res.text()}`);
   }
+  // Stay under Storyblok's 6 req/s management API limit.
+  await new Promise((r) => setTimeout(r, 250));
 }
 
 console.log('Done.');

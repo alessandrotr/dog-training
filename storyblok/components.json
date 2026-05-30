@@ -100,6 +100,139 @@
         "meta_title": { "type": "text", "pos": 11, "translatable": true },
         "meta_description": { "type": "textarea", "pos": 12, "translatable": true }
       }
+    },
+    {
+      "name": "page",
+      "display_name": "Page",
+      "is_root": true,
+      "is_nestable": false,
+      "schema": {
+        "body": {
+          "type": "bloks",
+          "pos": 0,
+          "restrict_components": true,
+          "component_whitelist": [
+            "hero",
+            "trust_stats",
+            "how_it_works",
+            "cta_banner",
+            "services_grid",
+            "testimonials",
+            "blog_list"
+          ]
+        },
+        "seo_title": { "type": "text", "pos": 1, "translatable": true },
+        "seo_description": { "type": "textarea", "pos": 2, "translatable": true }
+      }
+    },
+    {
+      "name": "hero",
+      "display_name": "Hero",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "eyebrow": { "type": "text", "pos": 0, "translatable": true },
+        "headline": { "type": "text", "pos": 1, "translatable": true },
+        "headline_highlight": { "type": "text", "pos": 2, "translatable": true, "description": "Italic accent word" },
+        "headline_suffix": { "type": "text", "pos": 3, "translatable": true },
+        "subheadline": { "type": "textarea", "pos": 4, "translatable": true },
+        "image": { "type": "asset", "filetypes": ["images"], "pos": 5 },
+        "primary_label": { "type": "text", "pos": 6, "translatable": true },
+        "primary_target": { "type": "option", "pos": 7, "use_uuid": false, "default_value": "booking", "options": [{"name": "Booking", "value": "booking"}, {"name": "Services", "value": "services"}, {"name": "Contact", "value": "contact"}, {"name": "About", "value": "about"}, {"name": "Blog", "value": "blog"}, {"name": "Testimonials", "value": "testimonials"}, {"name": "FAQ", "value": "faq"}, {"name": "Home", "value": "home"}] },
+        "secondary_label": { "type": "text", "pos": 8, "translatable": true },
+        "secondary_target": { "type": "option", "pos": 9, "use_uuid": false, "default_value": "services", "options": [{"name": "Booking", "value": "booking"}, {"name": "Services", "value": "services"}, {"name": "Contact", "value": "contact"}, {"name": "About", "value": "about"}, {"name": "Blog", "value": "blog"}, {"name": "Testimonials", "value": "testimonials"}, {"name": "FAQ", "value": "faq"}, {"name": "Home", "value": "home"}] },
+        "badge_title": { "type": "text", "pos": 10, "translatable": true },
+        "badge_subtitle": { "type": "text", "pos": 11, "translatable": true },
+        "availability": { "type": "text", "pos": 12, "translatable": true }
+      }
+    },
+    {
+      "name": "trust_stats",
+      "display_name": "Trust Stats",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "stat1_value": { "type": "text", "pos": 0, "translatable": true },
+        "stat1_label": { "type": "text", "pos": 1, "translatable": true },
+        "stat1_note": { "type": "text", "pos": 2, "translatable": true },
+        "stat2_value": { "type": "text", "pos": 3, "translatable": true },
+        "stat2_label": { "type": "text", "pos": 4, "translatable": true },
+        "stat2_note": { "type": "text", "pos": 5, "translatable": true },
+        "stat3_value": { "type": "text", "pos": 6, "translatable": true },
+        "stat3_label": { "type": "text", "pos": 7, "translatable": true },
+        "stat3_note": { "type": "text", "pos": 8, "translatable": true },
+        "badges_title": { "type": "text", "pos": 9, "translatable": true },
+        "badges": { "type": "textarea", "pos": 10, "translatable": true, "description": "One badge per line" }
+      }
+    },
+    {
+      "name": "how_it_works",
+      "display_name": "How It Works",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "eyebrow": { "type": "text", "pos": 0, "translatable": true },
+        "headline": { "type": "text", "pos": 1, "translatable": true },
+        "subheadline": { "type": "textarea", "pos": 2, "translatable": true },
+        "step1_title": { "type": "text", "pos": 3, "translatable": true },
+        "step1_desc": { "type": "textarea", "pos": 4, "translatable": true },
+        "step2_title": { "type": "text", "pos": 5, "translatable": true },
+        "step2_desc": { "type": "textarea", "pos": 6, "translatable": true },
+        "step3_title": { "type": "text", "pos": 7, "translatable": true },
+        "step3_desc": { "type": "textarea", "pos": 8, "translatable": true },
+        "step4_title": { "type": "text", "pos": 9, "translatable": true },
+        "step4_desc": { "type": "textarea", "pos": 10, "translatable": true }
+      }
+    },
+    {
+      "name": "cta_banner",
+      "display_name": "CTA Banner",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "headline": { "type": "text", "pos": 0, "translatable": true },
+        "description": { "type": "textarea", "pos": 1, "translatable": true },
+        "primary_label": { "type": "text", "pos": 2, "translatable": true },
+        "primary_target": { "type": "option", "pos": 3, "use_uuid": false, "default_value": "booking", "options": [{"name": "Booking", "value": "booking"}, {"name": "Services", "value": "services"}, {"name": "Contact", "value": "contact"}, {"name": "About", "value": "about"}, {"name": "Blog", "value": "blog"}, {"name": "Testimonials", "value": "testimonials"}, {"name": "FAQ", "value": "faq"}, {"name": "Home", "value": "home"}] },
+        "secondary_label": { "type": "text", "pos": 4, "translatable": true },
+        "secondary_target": { "type": "option", "pos": 5, "use_uuid": false, "default_value": "contact", "options": [{"name": "Booking", "value": "booking"}, {"name": "Services", "value": "services"}, {"name": "Contact", "value": "contact"}, {"name": "About", "value": "about"}, {"name": "Blog", "value": "blog"}, {"name": "Testimonials", "value": "testimonials"}, {"name": "FAQ", "value": "faq"}, {"name": "Home", "value": "home"}] },
+        "note": { "type": "text", "pos": 6, "translatable": true }
+      }
+    },
+    {
+      "name": "services_grid",
+      "display_name": "Services Grid (auto)",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "eyebrow": { "type": "text", "pos": 0, "translatable": true },
+        "headline": { "type": "text", "pos": 1, "translatable": true },
+        "subheadline": { "type": "textarea", "pos": 2, "translatable": true },
+        "limit": { "type": "number", "pos": 3, "description": "Max services to show (blank = all). Items come from the Services folder." },
+        "footer_label": { "type": "text", "pos": 4, "translatable": true }
+      }
+    },
+    {
+      "name": "testimonials",
+      "display_name": "Testimonials (auto)",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "eyebrow": { "type": "text", "pos": 0, "translatable": true },
+        "footer_label": { "type": "text", "pos": 1, "translatable": true, "description": "Items come from the Testimonials folder." }
+      }
+    },
+    {
+      "name": "blog_list",
+      "display_name": "Blog List (auto)",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "eyebrow": { "type": "text", "pos": 0, "translatable": true },
+        "headline": { "type": "text", "pos": 1, "translatable": true },
+        "footer_label": { "type": "text", "pos": 2, "translatable": true },
+        "limit": { "type": "number", "pos": 3, "description": "Max posts to show (blank = all). Items come from the Blog folder." }
+      }
     }
   ]
 }
