@@ -64,9 +64,9 @@ export default function BlogList({blok}: {blok: BlogListBlok}) {
               key={post.id}
               href={href.post(post.slug)}
               {...slideProps}
-              className="group flex flex-[0_0_64%] sm:flex-[0_0_34%] lg:flex-[0_0_23%] min-w-0 cursor-pointer flex-col overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm transition-all hover:shadow-md"
+              className="group flex flex-[0_0_72%] sm:flex-[0_0_40%] lg:flex-[0_0_28%] min-w-0 cursor-pointer flex-col overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm transition-all hover:shadow-md"
             >
-              <div className="relative h-24 overflow-hidden bg-stone-150">
+              <div className="relative h-32 overflow-hidden bg-stone-150">
                 {post.imageUrl && (
                   <img
                     src={post.imageUrl}
@@ -76,14 +76,15 @@ export default function BlogList({blok}: {blok: BlogListBlok}) {
                   />
                 )}
               </div>
-              <div className="flex flex-1 flex-col justify-between p-3 text-left space-y-2">
-                <div className="space-y-1">
-                  <span className="block text-[9px] font-mono font-bold uppercase text-amber-750">{post.category}</span>
-                  <h3 className="font-sans text-xs font-bold text-stone-900 group-hover:text-amber-950 transition-colors leading-snug line-clamp-2">
+              <div className="flex flex-1 flex-col justify-between p-4 text-left space-y-2.5">
+                <div className="space-y-1.5">
+                  <span className="block text-[10px] font-mono font-bold uppercase text-amber-750">{post.category}</span>
+                  <h3 className="font-sans text-sm font-bold text-stone-900 group-hover:text-amber-950 transition-colors leading-snug line-clamp-2">
                     {post.title}
                   </h3>
+                  <p className="text-[11px] text-stone-500 leading-relaxed line-clamp-2">{post.summary}</p>
                 </div>
-                <div className="flex items-center justify-between border-t border-stone-100 pt-2 text-[9px] font-mono">
+                <div className="flex items-center justify-between border-t border-stone-100 pt-2.5 text-[10px] font-mono">
                   <span className="text-amber-900 font-semibold group-hover:underline">Read →</span>
                   <span className="text-stone-400">{post.readingTime}</span>
                 </div>
