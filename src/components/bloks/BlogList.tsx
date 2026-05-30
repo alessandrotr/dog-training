@@ -86,13 +86,16 @@ export default function BlogList({blok}: {blok: BlogListBlok}) {
         </div>
       </div>
 
-      <div className="overflow-hidden" ref={emblaRef}>
+      <div className="overflow-hidden cursor-grab active:cursor-grabbing select-none" ref={emblaRef}>
         <div className="flex gap-6">
           {items.map((post) => (
             <article
               key={post.id}
-              onClick={() => goToPost(post.slug)}
-              className="group flex flex-[0_0_85%] sm:flex-[0_0_48%] lg:flex-[0_0_32%] min-w-0 cursor-pointer flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-all hover:shadow-md"
+              onClick={() => {
+                if (emblaApi && !(emblaApi as any).clickAllowed?.()) return;
+                goToPost(post.slug);
+              }}
+              className="group flex flex-[0_0_85%] sm:flex-[0_0_48%] lg:flex-[0_0_32%] min-w-0 flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-all hover:shadow-md"
             >
               <div className="relative h-48 overflow-hidden bg-stone-150">
                 {post.imageUrl && (
