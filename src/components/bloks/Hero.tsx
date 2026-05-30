@@ -31,7 +31,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
       className="relative overflow-hidden bg-gradient-to-b from-stone-100 to-stone-50 pt-8 md:pt-24"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex max-lg:flex-col-reverse gap-12  lg:items-center">
+        <div className="flex max-md:flex-col-reverse gap-12 md:items-center">
           <div className="lg:w-2/3 space-y-6 text-left">
             {blok.eyebrow && (
               <div className="inline-flex items-center space-x-1.5 rounded-full bg-stone-200 px-3.5 py-1 text-xs font-mono text-stone-700">
