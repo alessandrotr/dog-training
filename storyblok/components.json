@@ -1,0 +1,106 @@
+{
+  "components": [
+    {
+      "name": "service",
+      "display_name": "Service",
+      "is_root": true,
+      "is_nestable": false,
+      "schema": {
+        "title": { "type": "text", "pos": 0, "required": true, "translatable": true },
+        "short_description": { "type": "textarea", "pos": 1, "translatable": true },
+        "long_description": { "type": "textarea", "pos": 2, "translatable": true },
+        "price": { "type": "text", "pos": 3, "translatable": true },
+        "duration": { "type": "text", "pos": 4, "translatable": true },
+        "audience": { "type": "text", "pos": 5, "translatable": true },
+        "icon": {
+          "type": "text",
+          "pos": 6,
+          "description": "Lucide icon name, e.g. Sparkles / ShieldAlert / UserCheck / CalendarDays"
+        },
+        "features": {
+          "type": "textarea",
+          "pos": 7,
+          "translatable": true,
+          "description": "One feature per line"
+        },
+        "image": { "type": "asset", "filetypes": ["images"], "pos": 8 }
+      }
+    },
+    {
+      "name": "testimonial",
+      "display_name": "Testimonial",
+      "is_root": true,
+      "is_nestable": false,
+      "schema": {
+        "name": { "type": "text", "pos": 0, "required": true },
+        "dog_breed": { "type": "text", "pos": 1, "translatable": true },
+        "rating": {
+          "type": "number",
+          "pos": 2,
+          "default_value": "5",
+          "description": "1 to 5"
+        },
+        "text": { "type": "textarea", "pos": 3, "translatable": true },
+        "date": { "type": "text", "pos": 4, "translatable": true },
+        "source": {
+          "type": "option",
+          "pos": 5,
+          "use_uuid": false,
+          "default_value": "direct",
+          "options": [
+            { "name": "Google", "value": "google" },
+            { "name": "Direct", "value": "direct" }
+          ]
+        },
+        "image": { "type": "asset", "filetypes": ["images"], "pos": 6 }
+      }
+    },
+    {
+      "name": "faq",
+      "display_name": "FAQ",
+      "is_root": true,
+      "is_nestable": false,
+      "schema": {
+        "category": { "type": "text", "pos": 0, "translatable": true },
+        "question": { "type": "text", "pos": 1, "required": true, "translatable": true },
+        "answer": { "type": "textarea", "pos": 2, "translatable": true }
+      }
+    },
+    {
+      "name": "blog_post",
+      "display_name": "Blog Post",
+      "is_root": true,
+      "is_nestable": false,
+      "schema": {
+        "title": { "type": "text", "pos": 0, "required": true, "translatable": true },
+        "summary": { "type": "textarea", "pos": 1, "translatable": true },
+        "content": {
+          "type": "textarea",
+          "pos": 2,
+          "translatable": true,
+          "description": "HTML body, rendered as-is on the site"
+        },
+        "category": { "type": "text", "pos": 3, "translatable": true },
+        "reading_time": {
+          "type": "text",
+          "pos": 4,
+          "translatable": true,
+          "description": "e.g. 6 min read"
+        },
+        "publish_date": { "type": "text", "pos": 5, "translatable": true },
+        "tags": {
+          "type": "textarea",
+          "pos": 6,
+          "translatable": true,
+          "description": "One tag per line"
+        },
+        "image": { "type": "asset", "filetypes": ["images"], "pos": 7 },
+        "author_name": { "type": "text", "pos": 8 },
+        "author_role": { "type": "text", "pos": 9, "translatable": true },
+        "author_avatar": { "type": "asset", "filetypes": ["images"], "pos": 10 },
+        "meta_title": { "type": "text", "pos": 11, "translatable": true },
+        "meta_description": { "type": "textarea", "pos": 12, "translatable": true }
+      }
+    }
+  ]
+}

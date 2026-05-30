@@ -1,9 +1,10 @@
 import FAQ from '../../components/pages/FAQ';
 import {getFaqs} from '../../lib/content-server';
 
-export const revalidate = 60;
+type SP = Promise<Record<string, string | string[] | undefined>>;
 
-export default async function Page() {
-  const faqsByLang = await getFaqs();
+export default async function Page({searchParams}: {searchParams: SP}) {
+  const preview = '_storyblok' in (await searchParams);
+  const faqsByLang = await getFaqs(preview);
   return <FAQ faqsByLang={faqsByLang} />;
 }

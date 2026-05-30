@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import SiteChrome from '../components/SiteChrome';
 import StoryblokProvider from '../components/StoryblokProvider';
+import StoryblokBridge from '../components/StoryblokBridge';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body>
         <StoryblokProvider>
           <SiteChrome>{children}</SiteChrome>
+          <StoryblokBridge />
         </StoryblokProvider>
       </body>
     </html>

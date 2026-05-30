@@ -1,13 +1,14 @@
 import Home from '../components/pages/Home';
 import {getServices, getTestimonials, getBlogPosts} from '../lib/content-server';
 
-export const revalidate = 60;
+type SP = Promise<Record<string, string | string[] | undefined>>;
 
-export default async function Page() {
+export default async function Page({searchParams}: {searchParams: SP}) {
+  const preview = '_storyblok' in (await searchParams);
   const [servicesByLang, testimonialsByLang, postsByLang] = await Promise.all([
-    getServices(),
-    getTestimonials(),
-    getBlogPosts(),
+    getServices(preview),
+    getTestimonials(preview),
+    getBlogPosts(preview),
   ]);
   return (
     <Home
