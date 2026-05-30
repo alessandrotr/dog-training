@@ -148,7 +148,8 @@
         "secondary_target": { "type": "option", "pos": 9, "use_uuid": false, "default_value": "services", "options": [{"name": "Booking", "value": "booking"}, {"name": "Services", "value": "services"}, {"name": "Contact", "value": "contact"}, {"name": "About", "value": "about"}, {"name": "Blog", "value": "blog"}, {"name": "Testimonials", "value": "testimonials"}, {"name": "FAQ", "value": "faq"}, {"name": "Home", "value": "home"}] },
         "badge_title": { "type": "text", "pos": 10, "translatable": true },
         "badge_subtitle": { "type": "text", "pos": 11, "translatable": true },
-        "availability": { "type": "text", "pos": 12, "translatable": true }
+        "availability": { "type": "text", "pos": 12, "translatable": true },
+        "aside": { "type": "bloks", "pos": 13, "restrict_components": true, "component_whitelist": ["availability"], "description": "Optional: add an Availability card to show instead of the image" }
       }
     },
     {

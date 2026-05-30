@@ -4,6 +4,7 @@ import Link from 'next/link';
 import {storyblokEditable} from '@storyblok/react';
 import {Award, ArrowRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
+import Availability from './Availability';
 
 interface HeroBlok {
   _uid: string;
@@ -21,10 +22,13 @@ interface HeroBlok {
   badge_title?: string;
   badge_subtitle?: string;
   availability?: string;
+  aside?: Array<{_uid: string; component: string; [key: string]: unknown}>;
 }
 
 export default function Hero({blok}: {blok: HeroBlok}) {
   const href = useHref();
+  // Optional availability card shown in the right column instead of the image.
+  const asideAvailability = (blok.aside || []).find((b) => b.component === 'availability');
 
   return (
     <section
@@ -32,7 +36,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
       className="relative overflow-hidden bg-gradient-to-b from-stone-100 to-stone-50 pt-8 md:pt-24"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex max-md:flex-col-reverse gap-12 md:items-center">
+        <div className="flex gap-12 md:items-center">
           <div className="lg:w-2/3 space-y-6 text-left">
             {blok.eyebrow && (
               <div className="inline-flex items-center space-x-1.5 rounded-full bg-stone-200 px-3.5 py-1 text-xs font-mono text-stone-700">
@@ -60,7 +64,9 @@ export default function Hero({blok}: {blok: HeroBlok}) {
             )}
 
             <div className="flex flex-col sm:flex-row gap-4 pt-3">
-              {blok.primary_label && (
+              {/* When an availability card is shown, it carries the booking CTA — so
+                  hide the hero's primary button to avoid duplication. */}
+              {!asideAvailability && blok.primary_label && (
                 <Link
                   href={href.page(blok.primary_target || 'booking')}
                   className="rounded-xl bg-amber-900 px-6 py-4 text-sm font-semibold text-white shadow-md hover:bg-amber-950 hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-amber-500/50 cursor-pointer flex items-center justify-center space-x-2"
@@ -79,7 +85,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
               )}
             </div>
 
-            {blok.availability && (
+            {!asideAvailability && blok.availability && (
               <div className="flex items-center space-x-1.5 text-xs text-stone-400 font-mono">
                 <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span>{blok.availability}</span>
@@ -87,33 +93,37 @@ export default function Hero({blok}: {blok: HeroBlok}) {
             )}
           </div>
 
-          <div className="lg:max-w-lg relative">
-            <div className="relative mx-auto max-w-[420px] lg:max-w-none">
-              <div className="absolute -inset-1 rounded-3xl bg-amber-900/10 blur-xl"></div>
+          <div className="lg:max-w-lg w-full relative">
+            {asideAvailability ? (
+              <Availability blok={asideAvailability as any} />
+            ) : (
+              <div className="relative mx-auto max-w-[420px] lg:max-w-none">
+                <div className="absolute -inset-1 rounded-3xl bg-amber-900/10 blur-xl"></div>
 
-              <div className="relative overflow-hidden rounded-3xl border-8 border-white bg-stone-105 shadow-2xl aspect-video">
-                {blok.image?.filename && (
-                  <img
-                    src={blok.image.filename}
-                    alt={blok.image.alt || ''}
-                    className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                    referrerPolicy="no-referrer"
-                  />
+                <div className="relative overflow-hidden rounded-3xl border-8 border-white bg-stone-105 shadow-2xl aspect-video">
+                  {blok.image?.filename && (
+                    <img
+                      src={blok.image.filename}
+                      alt={blok.image.alt || ''}
+                      className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                      referrerPolicy="no-referrer"
+                    />
+                  )}
+                </div>
+
+                {(blok.badge_title || blok.badge_subtitle) && (
+                  <div className="absolute -bottom-6 lg:-left-6 rounded-2xl bg-stone-900 p-4 text-stone-100 shadow-xl border border-stone-800 flex items-center space-x-3.5 max-w-[240px]">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-800 text-amber-100">
+                      <Award className="h-5.5 w-5.5" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-xs font-bold leading-tight font-sans text-stone-100">{blok.badge_title}</p>
+                      <p className="text-[10px] font-mono text-stone-400">{blok.badge_subtitle}</p>
+                    </div>
+                  </div>
                 )}
               </div>
-
-              {(blok.badge_title || blok.badge_subtitle) && (
-                <div className="absolute -bottom-6 lg:-left-6 rounded-2xl bg-stone-900 p-4 text-stone-100 shadow-xl border border-stone-800 flex items-center space-x-3.5 max-w-[240px]">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-800 text-amber-100">
-                    <Award className="h-5.5 w-5.5" />
-                  </div>
-                  <div className="text-left">
-                    <p className="text-xs font-bold leading-tight font-sans text-stone-100">{blok.badge_title}</p>
-                    <p className="text-[10px] font-mono text-stone-400">{blok.badge_subtitle}</p>
-                  </div>
-                </div>
-              )}
-            </div>
+            )}
           </div>
         </div>
       </div>

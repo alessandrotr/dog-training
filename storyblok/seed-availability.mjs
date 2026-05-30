@@ -40,8 +40,17 @@ if (!ref) {
   process.exit(1);
 }
 const {story} = await fetch(`${HOST}/v1/spaces/${SPACE}/stories/${ref.id}`, {headers}).then((r) => r.json());
+// Remove any standalone availability block, then nest it inside the hero's aside slot.
 const body = (story.content.body || []).filter((b) => b.component !== 'availability');
-body.splice(1, 0, availability); // after the hero
+const hero = body.find((b) => b.component === 'hero');
+if (hero) {
+  hero.aside = [availability];
+  // The availability card carries the booking CTA + status, so drop them from
+  // the hero's left side on the home page.
+  for (const k of ['primary_label', 'primary_label__i18n__de', 'primary_target', 'availability', 'availability__i18n__de']) {
+    delete hero[k];
+  }
+}
 story.content.body = body;
 
 const res = await fetch(`${HOST}/v1/spaces/${SPACE}/stories/${ref.id}`, {
