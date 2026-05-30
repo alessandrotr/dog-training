@@ -315,6 +315,60 @@
         "cta_label": { "type": "text", "pos": 10, "translatable": true },
         "cta_target": { "type": "option", "pos": 11, "use_uuid": false, "default_value": "booking", "options": [{"name": "Booking", "value": "booking"}, {"name": "Services", "value": "services"}, {"name": "Contact", "value": "contact"}, {"name": "About", "value": "about"}, {"name": "Blog", "value": "blog"}, {"name": "Testimonials", "value": "testimonials"}, {"name": "FAQ", "value": "faq"}, {"name": "Home", "value": "home"}] }
       }
+    },
+    {
+      "name": "config",
+      "display_name": "Site Config (header & footer)",
+      "is_root": true,
+      "is_nestable": false,
+      "schema": {
+        "header_group": { "type": "section", "pos": 0, "keys": ["nav_items", "cta_label", "cta_target"] },
+        "nav_items": { "type": "bloks", "pos": 1, "restrict_components": true, "component_whitelist": ["nav_link"] },
+        "cta_label": { "type": "text", "pos": 2, "translatable": true },
+        "cta_target": { "type": "option", "pos": 3, "use_uuid": false, "default_value": "booking", "options": [{"name": "Booking", "value": "booking"}, {"name": "Services", "value": "services"}, {"name": "Contact", "value": "contact"}, {"name": "About", "value": "about"}, {"name": "Blog", "value": "blog"}, {"name": "Testimonials", "value": "testimonials"}, {"name": "FAQ", "value": "faq"}, {"name": "Home", "value": "home"}] },
+        "footer_brand_name": { "type": "text", "pos": 4 },
+        "footer_brand_subtitle": { "type": "text", "pos": 5, "translatable": true },
+        "footer_tagline": { "type": "textarea", "pos": 6, "translatable": true },
+        "instagram_url": { "type": "text", "pos": 7 },
+        "facebook_url": { "type": "text", "pos": 8 },
+        "footer_columns": { "type": "bloks", "pos": 9, "restrict_components": true, "component_whitelist": ["footer_column"] },
+        "accreditations": { "type": "bloks", "pos": 10, "restrict_components": true, "component_whitelist": ["accreditation"] },
+        "footer_address": { "type": "text", "pos": 11, "translatable": true },
+        "footer_phone": { "type": "text", "pos": 12 },
+        "footer_email": { "type": "text", "pos": 13 },
+        "footer_copyright": { "type": "text", "pos": 14, "translatable": true },
+        "footer_bottom_tags": { "type": "textarea", "pos": 15, "translatable": true, "description": "One tag per line" }
+      }
+    },
+    {
+      "name": "nav_link",
+      "display_name": "Nav Link",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "label": { "type": "text", "pos": 0, "translatable": true },
+        "target": { "type": "option", "pos": 1, "use_uuid": false, "default_value": "home", "options": [{"name": "Home", "value": "home"}, {"name": "About", "value": "about"}, {"name": "Services", "value": "services"}, {"name": "Blog", "value": "blog"}, {"name": "Testimonials", "value": "testimonials"}, {"name": "FAQ", "value": "faq"}, {"name": "Contact", "value": "contact"}, {"name": "Booking", "value": "booking"}] }
+      }
+    },
+    {
+      "name": "footer_column",
+      "display_name": "Footer Column",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "title": { "type": "text", "pos": 0, "translatable": true },
+        "links": { "type": "bloks", "pos": 1, "restrict_components": true, "component_whitelist": ["nav_link"] }
+      }
+    },
+    {
+      "name": "accreditation",
+      "display_name": "Accreditation",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "title": { "type": "text", "pos": 0, "translatable": true },
+        "subtitle": { "type": "text", "pos": 1, "translatable": true }
+      }
     }
   ]
 }

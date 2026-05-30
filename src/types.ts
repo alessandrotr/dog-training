@@ -5,6 +5,39 @@ export interface SEOFields {
   ogType?: 'website' | 'article';
 }
 
+// Site-wide header/footer config (a single Storyblok `config` story).
+export interface NavLink {
+  label: string;
+  target: string;
+}
+export interface FooterColumn {
+  title: string;
+  links: NavLink[];
+}
+export interface Accreditation {
+  title: string;
+  subtitle: string;
+}
+export interface SiteConfig {
+  navItems: NavLink[];
+  ctaLabel: string;
+  ctaTarget: string;
+  footer: {
+    brandName: string;
+    brandSubtitle: string;
+    tagline: string;
+    instagramUrl: string;
+    facebookUrl: string;
+    columns: FooterColumn[];
+    accreditations: Accreditation[];
+    address: string;
+    phone: string;
+    email: string;
+    copyright: string;
+    bottomTags: string[];
+  };
+}
+
 export interface Author {
   name: string;
   role: string;

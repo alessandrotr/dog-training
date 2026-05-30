@@ -6,9 +6,16 @@ import Navbar from './navigation/Navbar';
 import Footer from './navigation/Footer';
 import WhatsAppCTA from './navigation/WhatsAppCTA';
 import MobileStickyCTA from './navigation/MobileStickyCTA';
+import type {SiteConfig} from '../types';
 
 // Persistent app shell rendered around every route by the root layout.
-export default function SiteChrome({children}: {children: React.ReactNode}) {
+export default function SiteChrome({
+  config,
+  children,
+}: {
+  config: SiteConfig;
+  children: React.ReactNode;
+}) {
   const pathname = usePathname();
 
   // Scroll to top on route changes.
@@ -19,7 +26,7 @@ export default function SiteChrome({children}: {children: React.ReactNode}) {
   return (
     <div className="relative min-h-screen flex flex-col bg-stone-50 font-sans text-stone-850 antialiased selection:bg-amber-900/10 selection:text-amber-900">
       {/* Primary Top Header Navigation */}
-      <Navbar />
+      <Navbar config={config} />
 
       {/* Main Display Body */}
       <main className="flex-grow">
@@ -27,7 +34,7 @@ export default function SiteChrome({children}: {children: React.ReactNode}) {
       </main>
 
       {/* Primary Footer Coordinates */}
-      <Footer />
+      <Footer config={config.footer} />
 
       {/* Floating high-priority actions */}
       <WhatsAppCTA />
