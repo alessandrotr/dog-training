@@ -4,15 +4,13 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronDown, ChevronUp, Search, MessageCircle, HelpCircle } from 'lucide-react';
 import { useNavigate } from '../../lib/navigation';
-import type { FAQItem, Localized } from '../../types';
+import type { FAQItem } from '../../types';
 
-export default function FAQ({ faqsByLang }: { faqsByLang: Localized<FAQItem> }) {
+export default function FAQ({ faqs }: { faqs: FAQItem[] }) {
   const setCurrentPage = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFAQId, setActiveFAQId] = useState<string | null>(null);
-  const { t, i18n } = useTranslation();
-  const lang = (i18n.language === 'de' ? 'de' : 'en') as 'en' | 'de';
-  const faqs = faqsByLang[lang];
+  const { t } = useTranslation();
 
   const toggleFAQ = (id: string) => {
     setActiveFAQId(activeFAQId === id ? null : id);

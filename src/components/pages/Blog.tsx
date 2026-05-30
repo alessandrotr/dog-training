@@ -4,16 +4,15 @@ import React, { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Search, SlidersHorizontal, BookOpen, Clock, Heart, Award, ArrowRight } from 'lucide-react';
 import { useNavigate, usePostNavigate } from '../../lib/navigation';
-import type { BlogPost, Localized } from '../../types';
+import type { BlogPost } from '../../types';
 
-export default function Blog({ postsByLang }: { postsByLang: Localized<BlogPost> }) {
+export default function Blog({ posts }: { posts: BlogPost[] }) {
   const setCurrentPage = useNavigate();
   const goToPost = usePostNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const { t, i18n } = useTranslation();
-  const lang = (i18n.language === 'de' ? 'de' : 'en') as 'en' | 'de';
-  const blogPosts = postsByLang[lang];
+  const { t } = useTranslation();
+  const blogPosts = posts;
 
   // Categories extraction
   const categories = useMemo(() => {

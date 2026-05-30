@@ -4,14 +4,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Star, ShieldCheck, Sparkles, MessageSquare, Award, ArrowUpRight } from 'lucide-react';
 import { useNavigate } from '../../lib/navigation';
-import type { TestimonialItem, Localized } from '../../types';
+import type { TestimonialItem } from '../../types';
 
-export default function Testimonials({ testimonialsByLang }: { testimonialsByLang: Localized<TestimonialItem> }) {
+export default function Testimonials({ testimonials }: { testimonials: TestimonialItem[] }) {
   const setCurrentPage = useNavigate();
-  const { t, i18n } = useTranslation();
-  const lang = (i18n.language === 'de' ? 'de' : 'en') as 'en' | 'de';
-  const testimonials = testimonialsByLang[lang];
-  
+  const { t } = useTranslation();
+
   const googlePlaceholderReviews = [
     {
       id: 'g-1',

@@ -1,10 +1,12 @@
 'use client';
 
-import {usePathname, useRouter} from 'next/navigation';
+import {useParams, usePathname, useRouter} from 'next/navigation';
+import {DEFAULT_LOCALE, isLocale, type Locale} from './locales';
 
-// Single source of truth mapping the app's logical page ids to URL routes.
+// Logical page id -> path suffix (locale-agnostic). Home is '' so it resolves
+// to the bare locale root (`/en`). The locale prefix is added by pageToPath.
 export const PAGE_ROUTES: Record<string, string> = {
-  home: '/',
+  home: '',
   about: '/about',
   services: '/services',
   blog: '/blog',
@@ -14,32 +16,53 @@ export const PAGE_ROUTES: Record<string, string> = {
   booking: '/booking',
 };
 
-export function pageToPath(page: string): string {
-  return PAGE_ROUTES[page] ?? '/';
+export function pageToPath(page: string, lang: Locale): string {
+  return `/${lang}${PAGE_ROUTES[page] ?? ''}`;
 }
 
-// Derive the active page id from a pathname (used for nav highlighting).
+// Derive the active page id from a pathname; segment 0 is the locale.
 export function pathToPage(pathname: string | null): string {
-  if (!pathname || pathname === '/') return 'home';
-  if (pathname.startsWith('/blog')) return 'blog';
-  const segment = pathname.split('/').filter(Boolean)[0];
-  return segment ?? 'home';
+  if (!pathname) return 'home';
+  const page = pathname.split('/').filter(Boolean)[1];
+  if (!page) return 'home';
+  if (page === 'blog') return 'blog';
+  return page;
 }
 
-// Returns a setCurrentPage-compatible navigator backed by the Next router,
-// so existing component bodies can keep calling setCurrentPage('booking') etc.
+// Active locale from the route param (falls back to default).
+export function useLocale(): Locale {
+  const params = useParams();
+  const raw = Array.isArray(params.lang) ? params.lang[0] : params.lang;
+  return isLocale(raw) ? raw : DEFAULT_LOCALE;
+}
+
+// setCurrentPage-compatible navigator, locale-aware.
 export function useNavigate(): (page: string) => void {
   const router = useRouter();
-  return (page: string) => router.push(pageToPath(page));
+  const lang = useLocale();
+  return (page: string) => router.push(pageToPath(page, lang));
 }
 
-// Navigate straight to a blog post detail route.
 export function usePostNavigate(): (slug: string) => void {
   const router = useRouter();
-  return (slug: string) => router.push(`/blog/${slug}`);
+  const lang = useLocale();
+  return (slug: string) => router.push(`/${lang}/blog/${slug}`);
 }
 
-// Active page id derived from the current pathname.
 export function useCurrentPage(): string {
   return pathToPage(usePathname());
+}
+
+// Returns the current path with its locale segment swapped — for the EN/DE
+// language toggle links.
+export function useSwitchLocalePath(): (target: Locale) => string {
+  const pathname = usePathname();
+  return (target: Locale) => {
+    const segments = (pathname ?? '/').split('/');
+    if (segments.length > 1 && isLocale(segments[1])) {
+      segments[1] = target;
+      return segments.join('/') || `/${target}`;
+    }
+    return `/${target}`;
+  };
 }

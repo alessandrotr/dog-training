@@ -1,5 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import { DEFAULT_LOCALE } from './locales';
 
 const resources = {
   en: {
@@ -264,10 +265,15 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'en',
-    fallbackLng: 'en',
+    lng: DEFAULT_LOCALE,
+    fallbackLng: DEFAULT_LOCALE,
     interpolation: {
       escapeValue: false,
+    },
+    react: {
+      // Resources are bundled (no async backend), so Suspense isn't needed and
+      // would otherwise risk SSR/hydration friction.
+      useSuspense: false,
     },
   });
 

@@ -2,13 +2,18 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Menu, X, Sparkles, CalendarRange } from 'lucide-react';
-import { useNavigate, useCurrentPage } from '../../lib/navigation';
+import { useRouter } from 'next/navigation';
+import { useNavigate, useCurrentPage, useLocale, useSwitchLocalePath } from '../../lib/navigation';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const setCurrentPage = useNavigate();
   const currentPage = useCurrentPage();
+  const router = useRouter();
+  const locale = useLocale();
+  const switchLocale = useSwitchLocalePath();
+  const changeLocale = (target: 'en' | 'de') => router.push(switchLocale(target));
 
   const navItems = [
     { id: 'nav-home', name: t('nav.home'), page: 'home' },
@@ -77,9 +82,9 @@ export default function Navbar() {
           <div className="flex items-center space-x-1 rounded-lg bg-stone-150 p-0.5 border border-stone-200">
             <button
               id="lang-select-en"
-              onClick={() => i18n.changeLanguage('en')}
+              onClick={() => changeLocale('en')}
               className={`rounded px-1.5 py-1 text-[10px] font-mono font-bold uppercase transition-all ${
-                i18n.language === 'en'
+                locale === 'en'
                   ? 'bg-amber-900 text-white shadow-sm'
                   : 'text-stone-500 hover:text-stone-900'
               }`}
@@ -88,9 +93,9 @@ export default function Navbar() {
             </button>
             <button
               id="lang-select-de"
-              onClick={() => i18n.changeLanguage('de')}
+              onClick={() => changeLocale('de')}
               className={`rounded px-1.5 py-1 text-[10px] font-mono font-bold uppercase transition-all ${
-                i18n.language === 'de'
+                locale === 'de'
                   ? 'bg-amber-900 text-white shadow-sm'
                   : 'text-stone-500 hover:text-stone-900'
               }`}
@@ -148,9 +153,9 @@ export default function Navbar() {
               <div className="flex items-center space-x-1 rounded-lg bg-stone-150 p-0.5 border border-stone-200">
                 <button
                   id="lang-select-en-mobile"
-                  onClick={() => i18n.changeLanguage('en')}
+                  onClick={() => changeLocale('en')}
                   className={`rounded px-2.5 py-1 text-xs font-mono font-bold uppercase transition-all ${
-                    i18n.language === 'en'
+                    locale === 'en'
                       ? 'bg-amber-900 text-white shadow-sm'
                       : 'text-stone-500 hover:text-stone-950'
                   }`}
@@ -159,9 +164,9 @@ export default function Navbar() {
                 </button>
                 <button
                   id="lang-select-de-mobile"
-                  onClick={() => i18n.changeLanguage('de')}
+                  onClick={() => changeLocale('de')}
                   className={`rounded px-2.5 py-1 text-xs font-mono font-bold uppercase transition-all ${
-                    i18n.language === 'de'
+                    locale === 'de'
                       ? 'bg-amber-900 text-white shadow-sm'
                       : 'text-stone-500 hover:text-stone-950'
                   }`}

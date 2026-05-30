@@ -4,14 +4,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CalendarRange, Sparkles, Check, Building, Milestone, ShieldCheck, HeartPulse } from 'lucide-react';
 import { useNavigate } from '../../lib/navigation';
-import type { ServiceItem, Localized } from '../../types';
+import type { ServiceItem } from '../../types';
 
-export default function Services({ servicesByLang }: { servicesByLang: Localized<ServiceItem> }) {
+export default function Services({ services }: { services: ServiceItem[] }) {
   const setCurrentPage = useNavigate();
-  const { t, i18n } = useTranslation();
-  const lang = (i18n.language === 'de' ? 'de' : 'en') as 'en' | 'de';
-  const services = servicesByLang[lang];
-  
+  const { t } = useTranslation();
+
   const handleBook = () => {
     setCurrentPage('booking');
     window.scrollTo({ top: 0, behavior: 'smooth' });

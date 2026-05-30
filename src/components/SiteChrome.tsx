@@ -2,7 +2,6 @@
 
 import {useEffect} from 'react';
 import {usePathname} from 'next/navigation';
-import '../lib/i18n'; // Bootstrap i18n
 import Navbar from './navigation/Navbar';
 import Footer from './navigation/Footer';
 import WhatsAppCTA from './navigation/WhatsAppCTA';

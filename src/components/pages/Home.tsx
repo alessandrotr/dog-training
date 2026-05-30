@@ -5,24 +5,21 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'motion/react';
 import { Sparkles, ArrowRight, ShieldCheck, HeartHandshake, Award, Star, ArrowLeft, ArrowUpRight, MessageSquareQuote } from 'lucide-react';
 import { useNavigate, usePostNavigate } from '../../lib/navigation';
-import type { ServiceItem, TestimonialItem, BlogPost, Localized } from '../../types';
+import type { ServiceItem, TestimonialItem, BlogPost } from '../../types';
 
 interface HomeProps {
-  servicesByLang: Localized<ServiceItem>;
-  testimonialsByLang: Localized<TestimonialItem>;
-  postsByLang: Localized<BlogPost>;
+  services: ServiceItem[];
+  testimonials: TestimonialItem[];
+  posts: BlogPost[];
 }
 
-export default function Home({ servicesByLang, testimonialsByLang, postsByLang }: HomeProps) {
+export default function Home({ services, testimonials, posts }: HomeProps) {
   const setCurrentPage = useNavigate();
   const goToPost = usePostNavigate();
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
-  const { t, i18n } = useTranslation();
-  const lang = (i18n.language === 'de' ? 'de' : 'en') as 'en' | 'de';
+  const { t } = useTranslation();
 
-  const testimonials = testimonialsByLang[lang];
-  const services = servicesByLang[lang];
-  const blogPosts = postsByLang[lang];
+  const blogPosts = posts;
 
   const prevTestimonial = () => {
     setCurrentTestimonialIndex((prev) => 

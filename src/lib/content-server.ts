@@ -1,4 +1,5 @@
 import 'server-only';
+import {cache} from 'react';
 import {getStoryblokApi} from './storyblok';
 import {
   adaptService,
@@ -6,42 +7,38 @@ import {
   adaptFaq,
   adaptBlogPost,
 } from './storyblok-adapters';
-import type {Localized} from '../types';
+import type {Locale} from './locales';
 
-// Fetches every story under a folder for both languages and adapts them into
-// the app's existing TypeScript shapes. When `preview` is true (inside the
-// Storyblok Visual Editor) it fetches DRAFT content and bypasses caching.
-// Returns empty lists (never throws) so the build/render still succeeds before
-// content or tokens exist.
-async function bothLangs<T>(
+// Fetches every story under a folder for ONE locale and adapts them into the
+// app's TypeScript shapes. `preview` (inside the Visual Editor) fetches DRAFT
+// content and bypasses caching. Untranslated fields fall back to the default
+// language. Returns [] on failure so build/render never throws.
+async function fetchStories<T>(
   startsWith: string,
   adapt: (s: any) => T,
+  lang: Locale,
   preview = false,
-): Promise<Localized<T>> {
+): Promise<T[]> {
   try {
     const api = getStoryblokApi();
-    const params: Record<string, unknown> = {
+    const {data} = await api.get('cdn/stories', {
       starts_with: startsWith,
       version: preview ? 'draft' : 'published',
       per_page: 100,
-      // Cache-bust draft reads so the editor always sees the latest autosave.
+      language: lang === 'en' ? 'default' : lang,
+      fallback_lang: 'default',
       ...(preview ? {cv: Date.now()} : {}),
-    };
-    const [en, de] = await Promise.all([
-      api.get('cdn/stories', {...params, language: 'default'}),
-      api.get('cdn/stories', {...params, language: 'de'}),
-    ]);
-    return {
-      en: (en.data?.stories ?? []).map(adapt),
-      de: (de.data?.stories ?? []).map(adapt),
-    };
+    });
+    return (data?.stories ?? []).map(adapt);
   } catch (err) {
-    console.error(`[storyblok] failed to fetch "${startsWith}":`, err);
-    return {en: [], de: []};
+    console.error(`[storyblok] failed to fetch "${startsWith}" (${lang}):`, err);
+    return [];
   }
 }
 
-export const getServices = (preview = false) => bothLangs('services/', adaptService, preview);
-export const getTestimonials = (preview = false) => bothLangs('testimonials/', adaptTestimonial, preview);
-export const getFaqs = (preview = false) => bothLangs('faqs/', adaptFaq, preview);
-export const getBlogPosts = (preview = false) => bothLangs('blog/', adaptBlogPost, preview);
+// Wrapped in React cache() so multiple bloks on one page that need the same
+// list trigger a single request per render.
+export const getServices = cache((lang: Locale, preview = false) => fetchStories('services/', adaptService, lang, preview));
+export const getTestimonials = cache((lang: Locale, preview = false) => fetchStories('testimonials/', adaptTestimonial, lang, preview));
+export const getFaqs = cache((lang: Locale, preview = false) => fetchStories('faqs/', adaptFaq, lang, preview));
+export const getBlogPosts = cache((lang: Locale, preview = false) => fetchStories('blog/', adaptBlogPost, lang, preview));

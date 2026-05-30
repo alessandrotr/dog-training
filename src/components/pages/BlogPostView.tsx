@@ -1,22 +1,19 @@
 'use client';
 
-import {useTranslation} from 'react-i18next';
-import type {BlogPost, Localized} from '../../types';
+import type {BlogPost} from '../../types';
 import BlogPostTemplate from './BlogPostTemplate';
 import {useNavigate} from '../../lib/navigation';
 
-// Client wrapper: picks the post in the active language and renders it, or a
-// fallback while content loads / when the slug is unknown.
+// Client wrapper: finds the post by slug (already locale-correct from the
+// server fetch) and renders it, or a fallback when the slug is unknown.
 export default function BlogPostView({
-  postsByLang,
+  posts,
   slug,
 }: {
-  postsByLang: Localized<BlogPost>;
+  posts: BlogPost[];
   slug: string;
 }) {
-  const {i18n} = useTranslation();
-  const lang = (i18n.language === 'de' ? 'de' : 'en') as 'en' | 'de';
-  const post = postsByLang[lang].find((p) => p.slug === slug);
+  const post = posts.find((p) => p.slug === slug);
   const setCurrentPage = useNavigate();
 
   if (!post) {
@@ -38,5 +35,5 @@ export default function BlogPostView({
     );
   }
 
-  return <BlogPostTemplate post={post} postsByLang={postsByLang} />;
+  return <BlogPostTemplate post={post} posts={posts} />;
 }
