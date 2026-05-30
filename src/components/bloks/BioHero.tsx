@@ -16,7 +16,7 @@ export default function BioHero({blok}: {blok: BioHeroBlok}) {
   const bodyHtml = blok.body ? renderRichText(blok.body) : '';
 
   return (
-    <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 lg:pt-8">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-5 relative">
           <div className="relative max-w-[380px] mx-auto lg:max-w-none">
