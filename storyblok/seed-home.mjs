@@ -68,7 +68,7 @@ const body = [
       'Every canine is completely unique. Rather than uniform templates, we implement specialized science based habit coaching aligned with your dog’s age, emotional threshold, and goals.',
       'Jeder Hund ist einzigartig. Statt starrer Schemata setzen wir auf wissenschaftlich fundiertes Coaching, abgestimmt auf Alter, Reizschwelle und Ziele Ihres Hundes.',
     ),
-    limit: 3,
+    limit: '3',
     ...tr('footer_label', 'VIEW ALL COMPREHENSIVE PROGRAMS', 'ALLE PROGRAMME ANSEHEN'),
   },
   {
