@@ -19,9 +19,7 @@ export default function Footer() {
           {/* Logo & Bio Column */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-800 text-stone-100">
-                <Sparkles className="h-5 w-5 rotate-12" />
-              </div>
+             
               <div>
                 <span className="block font-sans text-lg font-bold tracking-tight text-white">SOPHIA BINDER</span>
                 <span className="block font-mono text-[9px] uppercase tracking-widest text-stone-400 -mt-1">Gentle Education</span>

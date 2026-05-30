@@ -35,9 +35,6 @@ export default function Navbar() {
           onClick={() => handleNavClick('home')}
           className="flex items-center space-x-2 text-stone-900 focus:outline-none cursor-pointer"
         >
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-950 text-stone-100 transition-colors hover:bg-stone-800">
-            <Sparkles className="h-5 w-5 rotate-12" />
-          </div>
           <div className="text-left">
             <span className="block font-sans text-lg font-bold tracking-tight text-amber-950">SOPHIA BINDER</span>
             <span className="block font-mono text-[9px] uppercase tracking-widest text-stone-500 -mt-1">Gentle Education</span>
