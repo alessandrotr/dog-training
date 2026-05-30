@@ -28,7 +28,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
   return (
     <section
       {...storyblokEditable(blok as any)}
-      className="relative overflow-hidden bg-gradient-to-b from-stone-500 to-stone-150 pt-8 md:pt-24"
+      className="relative overflow-hidden bg-gradient-to-b from-stone-100 to-stone-50 pt-8 md:pt-24"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex max-lg:flex-col-reverse gap-12  lg:items-center">
