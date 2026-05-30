@@ -1,7 +1,9 @@
 'use client';
 
+import {useCallback, useEffect, useState} from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
 import {storyblokEditable} from '@storyblok/react';
-import {ArrowUpRight} from 'lucide-react';
+import {ArrowUpRight, ArrowLeft, ArrowRight} from 'lucide-react';
 import {useNavigate, usePostNavigate} from '../../lib/navigation';
 import {usePageData} from '../PageDataProvider';
 
@@ -14,7 +16,8 @@ interface BlogListBlok {
   limit?: string | number;
 }
 
-// Data-bound: pulls blog_post stories from the page route.
+// Data-bound: pulls blog_post stories from the page route. Rendered as an
+// Embla carousel of article cards.
 export default function BlogList({blok}: {blok: BlogListBlok}) {
   const setCurrentPage = useNavigate();
   const goToPost = usePostNavigate();
@@ -22,9 +25,28 @@ export default function BlogList({blok}: {blok: BlogListBlok}) {
   const limit = Number(blok.limit) || posts.length;
   const items = posts.slice(0, limit);
 
+  const [emblaRef, emblaApi] = useEmblaCarousel({align: 'start', loop: false, dragFree: false});
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(false);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setCanPrev(emblaApi.canScrollPrev());
+    setCanNext(emblaApi.canScrollNext());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on('select', onSelect).on('reInit', onSelect);
+  }, [emblaApi, onSelect]);
+
+  const prev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const next = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+
   return (
     <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
         <div className="space-y-2 text-left">
           {blok.eyebrow && (
             <span className="font-mono text-xs uppercase tracking-widest text-amber-700">{blok.eyebrow}</span>
@@ -33,52 +55,74 @@ export default function BlogList({blok}: {blok: BlogListBlok}) {
             <h2 className="font-sans text-3xl font-extrabold tracking-tight text-amber-950">{blok.headline}</h2>
           )}
         </div>
-        {blok.footer_label && (
-          <button
-            onClick={() => setCurrentPage('blog')}
-            className="mt-4 md:mt-0 inline-flex items-center space-x-1.5 font-mono text-xs font-bold tracking-wider text-amber-900 hover:text-amber-950 transition-colors"
-          >
-            <span>{blok.footer_label}</span>
-            <ArrowUpRight className="h-4 w-4" />
-          </button>
-        )}
+        <div className="flex items-center gap-4">
+          {blok.footer_label && (
+            <button
+              onClick={() => setCurrentPage('blog')}
+              className="inline-flex items-center space-x-1.5 font-mono text-xs font-bold tracking-wider text-amber-900 hover:text-amber-950 transition-colors"
+            >
+              <span>{blok.footer_label}</span>
+              <ArrowUpRight className="h-4 w-4" />
+            </button>
+          )}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={prev}
+              disabled={!canPrev}
+              aria-label="Previous articles"
+              className="rounded-full border border-stone-300 bg-white p-2.5 text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </button>
+            <button
+              onClick={next}
+              disabled={!canNext}
+              aria-label="Next articles"
+              className="rounded-full border border-stone-300 bg-white p-2.5 text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {items.map((post) => (
-          <article
-            key={post.id}
-            className="group flex flex-col md:flex-row overflow-hidden rounded-2xl border border-stone-200 bg-white p-4 shadow-sm transition-all hover:shadow-md cursor-pointer"
-            onClick={() => goToPost(post.slug)}
-          >
-            <div className="md:w-1/3 relative h-48 md:h-full overflow-hidden rounded-xl bg-stone-150">
-              {post.imageUrl && (
-                <img
-                  src={post.imageUrl}
-                  alt={post.title}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  referrerPolicy="no-referrer"
-                />
-              )}
-            </div>
-            <div className="md:w-2/3 p-4 flex flex-col justify-between text-left space-y-4">
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-[10px] font-mono text-stone-400">
-                  <span className="uppercase text-amber-750 font-bold">{post.category}</span>
-                  <span>{post.publishDate}</span>
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex gap-6">
+          {items.map((post) => (
+            <article
+              key={post.id}
+              onClick={() => goToPost(post.slug)}
+              className="group flex flex-[0_0_85%] sm:flex-[0_0_48%] lg:flex-[0_0_32%] min-w-0 cursor-pointer flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-all hover:shadow-md"
+            >
+              <div className="relative h-48 overflow-hidden bg-stone-150">
+                {post.imageUrl && (
+                  <img
+                    src={post.imageUrl}
+                    alt={post.title}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    referrerPolicy="no-referrer"
+                  />
+                )}
+              </div>
+              <div className="flex flex-1 flex-col justify-between p-5 text-left space-y-4">
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between text-[10px] font-mono text-stone-400">
+                    <span className="uppercase text-amber-750 font-bold">{post.category}</span>
+                    <span>{post.publishDate}</span>
+                  </div>
+                  <h3 className="font-sans text-base font-bold text-stone-900 group-hover:text-amber-950 transition-colors leading-snug">
+                    {post.title}
+                  </h3>
+                  <p className="text-xs text-stone-500 line-clamp-3 leading-relaxed">{post.summary}</p>
                 </div>
-                <h3 className="font-sans text-base font-bold text-stone-900 group-hover:text-amber-950 transition-colors leading-snug">
-                  {post.title}
-                </h3>
-                <p className="text-xs text-stone-500 line-clamp-2 leading-relaxed">{post.summary}</p>
+                <div className="flex items-center justify-between border-t border-stone-100 pt-3 text-[11px] font-mono">
+                  <span className="text-amber-900 font-semibold group-hover:underline">Read Article →</span>
+                  <span className="text-stone-400">{post.readingTime}</span>
+                </div>
               </div>
-              <div className="flex items-center justify-between border-t border-stone-100 pt-3 text-[11px] font-mono">
-                <span className="text-amber-900 font-semibold group-hover:underline">Read Article →</span>
-                <span className="text-stone-400">{post.readingTime}</span>
-              </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
