@@ -320,7 +320,7 @@ export const BLOG_POSTS: { en: BlogPost[]; de: BlogPost[] } = {
       },
       tags: ['Reactivity', 'Leash Pulling', 'Positive Reinforcement'],
       seo: {
-        metaTitle: 'Guide to Canine Leash Reactivity | NordDog Training',
+        metaTitle: 'Guide to Canine Leash Reactivity | Sophia Binder Training',
         metaDescription: 'Learn why your dog lunges and barks on leash and how to use force-free desensitization to enjoy calm, happy walks. CCPDT-certified expert guide.',
       },
       tableOfContents: [
@@ -382,7 +382,7 @@ export const BLOG_POSTS: { en: BlogPost[]; de: BlogPost[] } = {
       },
       tags: ['Puppy', 'Socialization', 'Preventative Care'],
       seo: {
-        metaTitle: 'Puppy Socialization Checklist & Guide | NordDog Training',
+        metaTitle: 'Puppy Socialization Checklist & Guide | Sophia Binder Training',
         metaDescription: 'Discover the scientific modern approach to puppy socialization. Learn guidelines for exposure, habituation, and positive canine associations.',
       },
       tableOfContents: [
@@ -432,7 +432,7 @@ export const BLOG_POSTS: { en: BlogPost[]; de: BlogPost[] } = {
       },
       tags: ['Leinenaggression', 'Hundebegegnung', 'Positive Verstärkung'],
       seo: {
-        metaTitle: 'Hundereaktivität an der Leine | NordDog Training',
+        metaTitle: 'Hundereaktivität an der Leine | Sophia Binder Training',
         metaDescription: 'Warum Hunde an der Leine bellen und wie man mit Gegenkonditionierung entspannte Hundebegegnungen meistert. Fachlicher Leitfaden von Clara.',
       },
       tableOfContents: [
@@ -494,7 +494,7 @@ export const BLOG_POSTS: { en: BlogPost[]; de: BlogPost[] } = {
       },
       tags: ['Welpenerziehung', 'Sozialisierung', 'Prävention'],
       seo: {
-        metaTitle: 'Welpen richtig sozialisieren | NordDog Training',
+        metaTitle: 'Welpen richtig sozialisieren | Sophia Binder Training',
         metaDescription: 'Wissenschaftlicher Ansatz zur Welpen-Sozialisierung. Erfahren Sie die wichtigsten Leitlinien für positive Umwelterfahrungen ohne Überforderung.',
       },
       tableOfContents: [
@@ -534,7 +534,7 @@ export const STORYBLOK_DEMO_DATA: { en: { [slug: string]: StoryblokPage }; de: {
       name: 'Home Page Template',
       slug: 'home',
       seo: {
-        metaTitle: 'NordDog | Premium Gentle Canine Education & Training',
+        metaTitle: 'Sophia Binder | Premium Gentle Canine Education & Training',
         metaDescription: 'CCBDT & IAABC certified force-free dog training in beautiful Scandinavian-inspired spaces. Puppy foundations, reactivity rehabilitation, and private in-home obedience coaching.',
         ogImage: IMAGES.hero,
         ogType: 'website'
@@ -579,7 +579,7 @@ export const STORYBLOK_DEMO_DATA: { en: { [slug: string]: StoryblokPage }; de: {
       name: 'About Page Template',
       slug: 'about',
       seo: {
-        metaTitle: 'About Clara | NordDog Head Trainer',
+        metaTitle: 'About Clara | Sophia Binder Head Trainer',
         metaDescription: 'Meet Clara Sorensen, accredited canine behaviorist. Combining positive scientific frameworks with peaceful, dedicated family training.',
         ogImage: IMAGES.trainerAvatar,
         ogType: 'website'
@@ -588,7 +588,7 @@ export const STORYBLOK_DEMO_DATA: { en: { [slug: string]: StoryblokPage }; de: {
         {
           _uid: 'about-hero-1',
           component: 'hero',
-          headline: 'About Clara & The NordDog Philosophy',
+          headline: 'About Clara & The Sophia Binder Philosophy',
           subheadline: 'Canine behavioral science does not require force or intimidation. When we understand how dogs learn, we can teach with clarity, kindness, and deep precision.',
           cta_primary: 'Read Bio',
           cta_secondary: 'Contact Directly',
@@ -599,7 +599,7 @@ export const STORYBLOK_DEMO_DATA: { en: { [slug: string]: StoryblokPage }; de: {
           _uid: 'about-desc-1',
           component: 'rich_text',
           title: 'The Philosophy of Connected Leadership',
-          text: 'Clara Sorensen founded NordDog with a simple, powerful vision: bringing high-end, compassionate Scandinavian-inspired dog training directly to families. Trained in behavioral psychology, Clara holds credentials from top-tier canine organizations and focuses on teaching handlers how to communicate effectively without ever reverting to fear or pain.'
+          text: 'Clara Sorensen founded Sophia Binder with a simple, powerful vision: bringing high-end, compassionate Scandinavian-inspired dog training directly to families. Trained in behavioral psychology, Clara holds credentials from top-tier canine organizations and focuses on teaching handlers how to communicate effectively without ever reverting to fear or pain.'
         }
       ]
     }
@@ -609,7 +609,7 @@ export const STORYBLOK_DEMO_DATA: { en: { [slug: string]: StoryblokPage }; de: {
       name: 'Startseiten-Template (Home)',
       slug: 'home',
       seo: {
-        metaTitle: 'NordDog | Hochwertiges & Gewalterfreies Hundetraining',
+        metaTitle: 'Sophia Binder | Hochwertiges & Gewalterfreies Hundetraining',
         metaDescription: 'CCBDT & IAABC zertifiziertes gewaltfreies Hundetraining. Welpenerziehung, Leinenreaktivität-Rehabilitation und privates Einzeltraining vor Ort.',
         ogImage: IMAGES.hero,
         ogType: 'website'
@@ -654,7 +654,7 @@ export const STORYBLOK_DEMO_DATA: { en: { [slug: string]: StoryblokPage }; de: {
       name: 'Ueber-Uns-Template (About)',
       slug: 'about',
       seo: {
-        metaTitle: 'Über Clara | NordDog Hundeschule',
+        metaTitle: 'Über Clara | Sophia Binder Hundeschule',
         metaDescription: 'Lernen Sie Clara Sorensen kennen, qualifizierte Verhaltenstrainerin. Kombination aus wissenschaftlich positiver Erziehung und liebevollem Familientraining.',
         ogImage: IMAGES.trainerAvatar,
         ogType: 'website'
@@ -674,7 +674,7 @@ export const STORYBLOK_DEMO_DATA: { en: { [slug: string]: StoryblokPage }; de: {
           _uid: 'about-desc-1',
           component: 'rich_text',
           title: 'Das Prinzip des Vertrauenssports',
-          text: 'Clara Sorensen gründete NordDog mit dem Wunsch, wissenschaftliches, bedürfnisorientiertes Hundetraining verständlich in Familien zu etablieren. Als ausgebildete Kynologin besitzt sie anerkannte Lizenzen führender Hundeverbände und verzichtet konsequent auf jede Form von Druck oder Einschüchterung.'
+          text: 'Clara Sorensen gründete Sophia Binder mit dem Wunsch, wissenschaftliches, bedürfnisorientiertes Hundetraining verständlich in Familien zu etablieren. Als ausgebildete Kynologin besitzt sie anerkannte Lizenzen führender Hundeverbände und verzichtet konsequent auf jede Form von Druck oder Einschüchterung.'
         }
       ]
     }
@@ -685,10 +685,10 @@ export const STORYBLOK_DEMO_DATA: { en: { [slug: string]: StoryblokPage }; de: {
 export const LOCAL_BUSINESS_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "DogTrainingBusiness",
-  "name": "NordDog Canine Academy",
-  "image": "https://norddog-canine-academy.com" + IMAGES.hero,
-  "@id": "https://norddog-training-academy.com",
-  "url": "https://norddog-training-academy.com",
+  "name": "Sophia Binder Canine Academy",
+  "image": "https://sophiabinder-canine-academy.com" + IMAGES.hero,
+  "@id": "https://sophiabinder-training-academy.com",
+  "url": "https://sophiabinder-training-academy.com",
   "telephone": "+1-555-019-2819",
   "priceRange": "$$$",
   "address": {
@@ -725,7 +725,7 @@ export const LOCAL_BUSINESS_SCHEMA = {
     }
   ],
   "sameAs": [
-    "https://facebook.com/norddog.canine",
-    "https://instagram.com/norddog.canine"
+    "https://facebook.com/sophiabinder.canine",
+    "https://instagram.com/sophiabinder.canine"
   ]
 };

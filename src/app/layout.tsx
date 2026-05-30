@@ -4,7 +4,7 @@ import StoryblokProvider from '../components/StoryblokProvider';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'NordDog Canine Academy',
+  title: 'Sophia Binder Canine Academy',
   description:
     'Scandinavian-inspired force-free dog training. Professional private obedience coaching, puppy foundations, and complex reactive dog rehabilitation.',
 };

@@ -124,7 +124,7 @@ export default function Contact() {
                 <Mail className="h-5 w-5 text-amber-800 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-bold text-stone-850">General Administration Email</p>
-                  <p className="text-stone-450 text-[11px] mt-0.5">hello@norddogcanine.com</p>
+                  <p className="text-stone-450 text-[11px] mt-0.5">hello@sophiabindercanine.com</p>
                 </div>
               </div>
             </div>

@@ -23,7 +23,7 @@ export default function Footer() {
                 <Sparkles className="h-5 w-5 rotate-12" />
               </div>
               <div>
-                <span className="block font-sans text-lg font-bold tracking-tight text-white">NORDDOG</span>
+                <span className="block font-sans text-lg font-bold tracking-tight text-white">SOPHIA BINDER</span>
                 <span className="block font-mono text-[9px] uppercase tracking-widest text-stone-400 -mt-1">Gentle Education</span>
               </div>
             </div>
@@ -33,7 +33,7 @@ export default function Footer() {
             <div className="flex space-x-4 pt-2">
               <a
                 id="social-instagram"
-                href="https://instagram.com/norddog.canine"
+                href="https://instagram.com/sophiabinder.canine"
                 target="_blank"
                 rel="noreferrer"
                 className="rounded-lg p-2 bg-stone-800 hover:bg-amber-800 transition-colors text-stone-400 hover:text-white"
@@ -43,7 +43,7 @@ export default function Footer() {
               </a>
               <a
                 id="social-facebook"
-                href="https://facebook.com/norddog.canine"
+                href="https://facebook.com/sophiabinder.canine"
                 target="_blank"
                 rel="noreferrer"
                 className="rounded-lg p-2 bg-stone-800 hover:bg-amber-800 transition-colors text-stone-400 hover:text-white"
@@ -181,13 +181,13 @@ export default function Footer() {
           </div>
           <div className="flex items-center space-x-2.5">
             <Mail className="h-4 w-4 text-amber-700" />
-            <span>hello@norddogcanine.com</span>
+            <span>hello@sophiabindercanine.com</span>
           </div>
         </div>
 
         {/* Bottom credits */}
         <div className="flex flex-col md:flex-row items-center justify-between pt-8 text-xs text-stone-500 leading-normal">
-          <p>© 2026 NordDog Canine Academy LLC. All rights reserved.</p>
+          <p>© 2026 Sophia Binder Canine Academy LLC. All rights reserved.</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <span>Force-Free & Scientifically Aligned</span>
             <span>Scandinavian Philosophy</span>

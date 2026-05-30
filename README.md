@@ -1,4 +1,4 @@
-# NordDog Canine Academy
+# Sophia Binder Canine Academy
 
 A Next.js (App Router) application for Scandinavian-inspired, force-free dog training.
 

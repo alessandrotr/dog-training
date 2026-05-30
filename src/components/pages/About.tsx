@@ -177,7 +177,7 @@ export default function About() {
         <div className="text-center max-w-2xl mx-auto space-y-4 mb-16 animate-fade-in">
           <span className="font-mono text-xs uppercase tracking-widest text-amber-700">FOUNDATIONAL PILLARS</span>
           <h2 className="font-sans text-3xl font-extrabold tracking-tight text-amber-955">
-            The NordDog Framework
+            The Sophia Binder Framework
           </h2>
           <p className="font-sans text-sm text-stone-500">
             How we think, act, and coach every day. No exceptions.

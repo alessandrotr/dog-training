@@ -38,7 +38,7 @@ export default function Navbar() {
             <Sparkles className="h-5 w-5 rotate-12" />
           </div>
           <div className="text-left">
-            <span className="block font-sans text-lg font-bold tracking-tight text-amber-950">NORDDOG</span>
+            <span className="block font-sans text-lg font-bold tracking-tight text-amber-950">SOPHIA BINDER</span>
             <span className="block font-mono text-[9px] uppercase tracking-widest text-stone-500 -mt-1">Gentle Education</span>
           </div>
         </button>
