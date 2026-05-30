@@ -75,10 +75,9 @@
         "title": { "type": "text", "pos": 0, "required": true, "translatable": true },
         "summary": { "type": "textarea", "pos": 1, "translatable": true },
         "content": {
-          "type": "textarea",
+          "type": "richtext",
           "pos": 2,
-          "translatable": true,
-          "description": "HTML body, rendered as-is on the site"
+          "translatable": true
         },
         "category": { "type": "text", "pos": 3, "translatable": true },
         "reading_time": {
