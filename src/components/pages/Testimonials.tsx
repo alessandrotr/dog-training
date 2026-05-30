@@ -1,14 +1,16 @@
+'use client';
+
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { TESTIMONIALS } from '../../data';
 import { Star, ShieldCheck, Sparkles, MessageSquare, Award, ArrowUpRight } from 'lucide-react';
 import { useNavigate } from '../../lib/navigation';
+import type { TestimonialItem, Localized } from '../../types';
 
-export default function Testimonials() {
+export default function Testimonials({ testimonialsByLang }: { testimonialsByLang: Localized<TestimonialItem> }) {
   const setCurrentPage = useNavigate();
   const { t, i18n } = useTranslation();
   const lang = (i18n.language === 'de' ? 'de' : 'en') as 'en' | 'de';
-  const testimonials = TESTIMONIALS[lang];
+  const testimonials = testimonialsByLang[lang];
   
   const googlePlaceholderReviews = [
     {

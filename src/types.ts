@@ -1,3 +1,6 @@
+// Content provided in both supported languages (client picks via i18n).
+export type Localized<T> = {en: T[]; de: T[]};
+
 export interface SEOFields {
   metaTitle: string;
   metaDescription: string;

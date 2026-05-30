@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Menu, X, Sparkles, Phone, CalendarRange } from 'lucide-react';
+import { Menu, X, Sparkles, CalendarRange } from 'lucide-react';
 import { useNavigate, useCurrentPage } from '../../lib/navigation';
 
 export default function Navbar() {
@@ -66,15 +66,6 @@ export default function Navbar() {
 
         {/* Booking & Call CTA Buttons */}
         <div className="hidden lg:flex items-center space-x-4">
-          <button
-            id="nav-cta-call"
-            onClick={() => handleNavClick('contact')}
-            className="flex items-center space-x-1.5 text-xs font-mono font-medium tracking-wide text-stone-600 hover:text-amber-900 py-2 cursor-pointer"
-          >
-            <Phone className="h-3.5 w-3.5" />
-            <span>+1 555-019-2819</span>
-          </button>
-          
           <button
             id="nav-cta-booking"
             onClick={() => handleNavClick('booking')}

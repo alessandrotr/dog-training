@@ -1,19 +1,21 @@
+'use client';
+
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BlogPost } from '../../types';
-import { BLOG_POSTS } from '../../data';
+import { BlogPost, Localized } from '../../types';
 import { ArrowLeft, Clock, CalendarDays, Share2, Bookmark, Check, CalendarRange, Sparkles } from 'lucide-react';
 import { useNavigate, usePostNavigate } from '../../lib/navigation';
 
 interface BlogPostTemplateProps {
   post: BlogPost;
+  postsByLang: Localized<BlogPost>;
 }
 
-export default function BlogPostTemplate({ post }: BlogPostTemplateProps) {
+export default function BlogPostTemplate({ post, postsByLang }: BlogPostTemplateProps) {
   const [copiedLink, setCopiedLink] = useState(false);
   const { t, i18n } = useTranslation();
   const lang = (i18n.language === 'de' ? 'de' : 'en') as 'en' | 'de';
-  const blogPosts = BLOG_POSTS[lang];
+  const blogPosts = postsByLang[lang];
   const setCurrentPage = useNavigate();
   const goToPost = usePostNavigate();
 

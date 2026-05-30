@@ -1,22 +1,28 @@
+'use client';
+
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'motion/react';
-import { SERVICES, TESTIMONIALS, BLOG_POSTS } from '../../data';
 import { Sparkles, ArrowRight, ShieldCheck, HeartHandshake, Award, Star, ArrowLeft, ArrowUpRight, MessageSquareQuote } from 'lucide-react';
 import { useNavigate, usePostNavigate } from '../../lib/navigation';
-import { useDraftMode } from '../../lib/draft-mode';
+import type { ServiceItem, TestimonialItem, BlogPost, Localized } from '../../types';
 
-export default function Home() {
+interface HomeProps {
+  servicesByLang: Localized<ServiceItem>;
+  testimonialsByLang: Localized<TestimonialItem>;
+  postsByLang: Localized<BlogPost>;
+}
+
+export default function Home({ servicesByLang, testimonialsByLang, postsByLang }: HomeProps) {
   const setCurrentPage = useNavigate();
   const goToPost = usePostNavigate();
-  const { isDraftMode } = useDraftMode();
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = useState(0);
   const { t, i18n } = useTranslation();
   const lang = (i18n.language === 'de' ? 'de' : 'en') as 'en' | 'de';
 
-  const testimonials = TESTIMONIALS[lang];
-  const services = SERVICES[lang];
-  const blogPosts = BLOG_POSTS[lang];
+  const testimonials = testimonialsByLang[lang];
+  const services = servicesByLang[lang];
+  const blogPosts = postsByLang[lang];
 
   const prevTestimonial = () => {
     setCurrentTestimonialIndex((prev) => 
@@ -50,12 +56,6 @@ export default function Home() {
             
             {/* Left Content Column */}
             <div className="lg:col-span-7 space-y-6 text-left">
-              {isDraftMode && (
-                <div className="inline-flex items-center space-x-1 rounded-full bg-amber-100 px-3 py-1 text-xs font-mono font-bold tracking-wider text-amber-900 border border-amber-200">
-                  <Sparkles className="h-3.5 w-3.5 text-amber-700" />
-                  <span>EDITING COMPONENT: HERO_MODULE</span>
-                </div>
-              )}
               <div className="inline-flex items-center space-x-1.5 rounded-full bg-stone-200 px-3.5 py-1 text-xs font-mono text-stone-700">
                 <span>SCANDINAVIAN CANINE EDUCATION</span>
               </div>
@@ -105,7 +105,7 @@ export default function Home() {
                 {/* Primary Premium Image */}
                 <div className="relative overflow-hidden rounded-3xl border-8 border-white bg-stone-105 shadow-2xl aspectRatio-16/9">
                   <img
-                    src="/src/assets/images/hero_trainer_1780093921073.png"
+                    src="/assets/images/hero_trainer_1780093921073.png"
                     alt="Clara training a dynamic dog"
                     className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                     referrerPolicy="no-referrer"
@@ -270,11 +270,12 @@ export default function Home() {
           <span className="block font-mono text-xs uppercase tracking-widest text-amber-700 mb-2">Google Verified Client Reviews</span>
           
           {/* Active story visual module */}
+          {activeTestimonial && (
           <div className="min-h-[220px] flex flex-col justify-between max-w-2xl mx-auto space-y-6 pt-4">
             <blockquote className="font-serif text-xl sm:text-2xl font-normal text-amber-950 leading-relaxed italic">
               “{activeTestimonial.text}”
             </blockquote>
-            
+
             <div className="flex flex-col items-center space-y-2">
               <div className="flex items-center space-x-0.5">
                 {[...Array(activeTestimonial.rating)].map((_, rIdx) => (
@@ -295,6 +296,7 @@ export default function Home() {
               </div>
             </div>
           </div>
+          )}
 
           {/* Nav handlers */}
           <div className="flex items-center justify-center space-x-4 mt-8">

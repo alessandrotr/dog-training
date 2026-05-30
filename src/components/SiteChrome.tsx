@@ -7,8 +7,6 @@ import Navbar from './navigation/Navbar';
 import Footer from './navigation/Footer';
 import WhatsAppCTA from './navigation/WhatsAppCTA';
 import MobileStickyCTA from './navigation/MobileStickyCTA';
-import CMSVisualDebugger from './storyblok/CMSVisualDebugger';
-import {DraftModeProvider} from '../lib/draft-mode';
 import {LOCAL_BUSINESS_SCHEMA} from '../data';
 
 // Persistent app shell rendered around every route by the root layout.
@@ -31,26 +29,21 @@ export default function SiteChrome({children}: {children: React.ReactNode}) {
   }, []);
 
   return (
-    <DraftModeProvider>
-      <div className="relative min-h-screen flex flex-col bg-stone-50 font-sans text-stone-850 antialiased selection:bg-amber-900/10 selection:text-amber-900">
-        {/* Dynamic Visual Storyblok Connector Panel (visible on desktop) */}
-        <CMSVisualDebugger />
+    <div className="relative min-h-screen flex flex-col bg-stone-50 font-sans text-stone-850 antialiased selection:bg-amber-900/10 selection:text-amber-900">
+      {/* Primary Top Header Navigation */}
+      <Navbar />
 
-        {/* Primary Top Header Navigation */}
-        <Navbar />
+      {/* Main Display Body */}
+      <main className="flex-grow">
+        <div className="relative">{children}</div>
+      </main>
 
-        {/* Main Display Body */}
-        <main className="flex-grow">
-          <div className="relative">{children}</div>
-        </main>
+      {/* Primary Footer Coordinates */}
+      <Footer />
 
-        {/* Primary Footer Coordinates */}
-        <Footer />
-
-        {/* Floating high-priority actions */}
-        <WhatsAppCTA />
-        <MobileStickyCTA />
-      </div>
-    </DraftModeProvider>
+      {/* Floating high-priority actions */}
+      <WhatsAppCTA />
+      <MobileStickyCTA />
+    </div>
   );
 }

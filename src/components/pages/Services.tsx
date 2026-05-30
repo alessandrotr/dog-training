@@ -1,16 +1,16 @@
+'use client';
+
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { SERVICES } from '../../data';
 import { CalendarRange, Sparkles, Check, Building, Milestone, ShieldCheck, HeartPulse } from 'lucide-react';
 import { useNavigate } from '../../lib/navigation';
-import { useDraftMode } from '../../lib/draft-mode';
+import type { ServiceItem, Localized } from '../../types';
 
-export default function Services() {
+export default function Services({ servicesByLang }: { servicesByLang: Localized<ServiceItem> }) {
   const setCurrentPage = useNavigate();
-  const { isDraftMode } = useDraftMode();
   const { t, i18n } = useTranslation();
   const lang = (i18n.language === 'de' ? 'de' : 'en') as 'en' | 'de';
-  const services = SERVICES[lang];
+  const services = servicesByLang[lang];
   
   const handleBook = () => {
     setCurrentPage('booking');
@@ -23,12 +23,6 @@ export default function Services() {
       {/* Services Hero Header */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl space-y-4">
-          {isDraftMode && (
-            <div className="inline-flex items-center space-x-1.5 rounded-md bg-amber-100 px-2.5 py-1 text-xs font-mono font-bold tracking-wide text-amber-900 border border-amber-200 mb-2">
-              <Sparkles className="h-3.5 w-3.5 text-amber-700" />
-              <span>EDITING COMPONENT: SERVICES_GRID</span>
-            </div>
-          )}
           <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-750">FORCE-FREE STUDY CURRICULA</span>
           <h1 className="font-sans text-4xl font-extrabold tracking-tight text-amber-955 sm:text-5xl leading-tight">
             Comprehensive Behavioral <br />
