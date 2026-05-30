@@ -3,13 +3,16 @@ import {cache} from 'react';
 import {getStoryblokApi} from './storyblok';
 import type {Locale} from './locales';
 
-// Fetches a single `page` story (composed of bloks) by slug for one locale.
-// Returns null if it doesn't exist (route then 404s).
+// All builder `page` stories live under the `pages/` folder in Storyblok, so
+// URL slugs stay clean (e.g. URL `/en/about` -> story `pages/about`, home ->
+// `pages/home`). Returns null if the story doesn't exist (route then 404s).
+const PAGES_FOLDER = 'pages';
+
 export const getPageStory = cache(
   async (slug: string, lang: Locale, preview: boolean) => {
     try {
       const api = getStoryblokApi();
-      const {data} = await api.get(`cdn/stories/${slug}`, {
+      const {data} = await api.get(`cdn/stories/${PAGES_FOLDER}/${slug}`, {
         version: preview ? 'draft' : 'published',
         language: lang === 'en' ? 'default' : lang,
         fallback_lang: 'default',

@@ -132,10 +132,13 @@ const content = {
   ),
 };
 
+// Builder pages live under the `pages/` folder (full_slug `pages/home`).
 const list = await fetch(`${HOST}/v1/spaces/${SPACE}/stories?per_page=100`, {headers}).then((r) => r.json());
-const existing = (list.stories || []).find((s) => s.full_slug === 'home');
+const stories = list.stories || [];
+const existing = stories.find((s) => s.full_slug === 'pages/home');
+const pagesFolder = stories.find((s) => s.is_folder && s.full_slug === 'pages');
 
-const story = {name: 'Home', slug: 'home', content};
+const story = {name: 'Home', slug: 'home', content, parent_id: pagesFolder?.id};
 const res = existing
   ? await fetch(`${HOST}/v1/spaces/${SPACE}/stories/${existing.id}`, {
       method: 'PUT',
@@ -147,4 +150,4 @@ const res = existing
       headers,
       body: JSON.stringify({story, publish: 1}),
     });
-console.log(res.ok ? `✓ home page ${existing ? 'updated' : 'created'} + published` : `✗ ${res.status} ${await res.text()}`);
+console.log(res.ok ? `✓ pages/home ${existing ? 'updated' : 'created'} + published` : `✗ ${res.status} ${await res.text()}`);
