@@ -66,7 +66,7 @@ export default function FAQ({ faqsByLang }: { faqsByLang: Localized<FAQItem> }) 
           <div className="rounded-2xl border-2 border-dashed border-stone-250 py-16 text-center space-y-4">
             <HelpCircle className="h-10 w-10 text-stone-400 mx-auto" />
             <h3 className="font-sans text-base font-bold text-stone-800">No FAQs Resolved</h3>
-            <p className="text-xs text-stone-500 font-sans">We couldn't locate any matching responses for your query "<b>{searchQuery}</b>". Contact Clara directly for immediate support.</p>
+            <p className="text-xs text-stone-500 font-sans">We couldn't locate any matching responses for your query "<b>{searchQuery}</b>". Contact Sophia directly for immediate support.</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -116,7 +116,7 @@ export default function FAQ({ faqsByLang }: { faqsByLang: Localized<FAQItem> }) 
           <MessageCircle className="h-8 w-8 text-amber-800 mx-auto" />
           <h3 className="font-sans text-xl font-bold text-stone-900">Still have unanswered questions?</h3>
           <p className="text-sm text-stone-500 max-w-md mx-auto">
-            Canine learning vectors are profoundly individual. Clara is available to talk through your household dynamics directly and provide honest advice.
+            Canine learning vectors are profoundly individual. Sophia is available to talk through your household dynamics directly and provide honest advice.
           </p>
           <div className="pt-2 flex justify-center gap-4">
             <button
@@ -124,7 +124,7 @@ export default function FAQ({ faqsByLang }: { faqsByLang: Localized<FAQItem> }) 
               onClick={() => setCurrentPage('contact')}
               className="rounded-lg bg-stone-900 px-4 py-2.5 text-xs font-mono font-bold uppercase tracking-wider text-white hover:bg-black"
             >
-              Contact Clara Directly
+              Contact Sophia Directly
             </button>
             <button
               id="faq-booking"

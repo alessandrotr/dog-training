@@ -2,7 +2,7 @@ import React from 'react';
 import { MessageSquareCode } from 'lucide-react';
 
 export default function WhatsAppCTA() {
-  const whatsappUrl = "https://wa.me/15550192819?text=Hi%20Clara!%20I'm%20interested%20in%20arranging%20dog%20training%20for%20my%20pup.";
+  const whatsappUrl = "https://wa.me/15550192819?text=Hi%20Sophia!%20I'm%20interested%20in%20arranging%20dog%20training%20for%20my%20pup.";
 
   return (
     <a
@@ -11,7 +11,7 @@ export default function WhatsAppCTA() {
       target="_blank"
       rel="noreferrer"
       className="fixed bottom-20 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600 text-white shadow-lg transition-all hover:scale-110 hover:bg-emerald-700 active:scale-95 focus:outline-none focus:ring-4 focus:ring-emerald-500/30"
-      title="Chat with Clara on WhatsApp"
+      title="Chat with Sophia on WhatsApp"
     >
       {/* WhatsApp Custom Svg or MessageSquareCode icon */}
       <svg

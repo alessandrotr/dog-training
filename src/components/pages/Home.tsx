@@ -92,7 +92,7 @@ export default function Home({ servicesByLang, testimonialsByLang, postsByLang }
               {/* Direct line trust under key */}
               <div className="flex items-center space-x-1.5 text-xs text-stone-400 font-mono">
                 <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>Clara is available for in-person consults in Seattle & Bellevue</span>
+                <span>Sophia is available for in-person consults in Seattle & Bellevue</span>
               </div>
             </div>
 
@@ -106,7 +106,7 @@ export default function Home({ servicesByLang, testimonialsByLang, postsByLang }
                 <div className="relative overflow-hidden rounded-3xl border-8 border-white bg-stone-105 shadow-2xl aspectRatio-16/9">
                   <img
                     src="/assets/images/hero_trainer_1780093921073.png"
-                    alt="Clara training a dynamic dog"
+                    alt="Sophia training a dynamic dog"
                     className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                     referrerPolicy="no-referrer"
                   />

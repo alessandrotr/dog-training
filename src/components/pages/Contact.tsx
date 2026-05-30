@@ -83,7 +83,7 @@ export default function Contact() {
             Consultation Inquiry
           </h1>
           <p className="font-sans text-sm text-stone-500 max-w-2xl leading-relaxed">
-            Ready to design a custom behavioral plan for your dog? Submit your inquiry details below. We guarantee a thoughtful response from certified behaviorist Clara within 24 business hours.
+            Ready to design a custom behavioral plan for your dog? Submit your inquiry details below. We guarantee a thoughtful response from certified behaviorist Sophia within 24 business hours.
           </p>
         </div>
       </section>
@@ -98,7 +98,7 @@ export default function Contact() {
             <div className="space-y-4">
               <h3 className="font-sans text-lg font-bold text-stone-900">Direct Contact Coordinates</h3>
               <p className="text-xs text-stone-550 leading-relaxed font-sans">
-                Clara completes in-person assessments and multi-session training direct-to-home within the Seattle, Bellevue, and broader WA coordinates.
+                Sophia completes in-person assessments and multi-session training direct-to-home within the Seattle, Bellevue, and broader WA coordinates.
               </p>
             </div>
 
@@ -146,7 +146,7 @@ export default function Contact() {
                 </div>
                 <h3 className="font-sans text-xl font-extrabold text-stone-900">Message Dispatched Successfully!</h3>
                 <p className="text-sm text-stone-500 font-sans leading-relaxed">
-                  Thank you for sharing your dog’s coordinates. We have received your inquiry payload and prepared the Resend transmission hook. Clara will review and get back within 24 hours.
+                  Thank you for sharing your dog’s coordinates. We have received your inquiry payload and prepared the Resend transmission hook. Sophia will review and get back within 24 hours.
                 </p>
                 <button
                   id="send-another-btn"

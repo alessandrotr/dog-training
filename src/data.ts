@@ -186,7 +186,7 @@ export const TESTIMONIALS: { en: TestimonialItem[]; de: TestimonialItem[] } = {
       name: 'Sarah & Cooper',
       dogBreed: 'Golden Retriever (7 months)',
       rating: 5,
-      text: 'Enrolling in the Puppy Foundations program was the single best decision we made. Clara’s calm, positive approach clicked immediately with Cooper. Walks are absolutely joyful now and his recall is flawless!',
+      text: 'Enrolling in the Puppy Foundations program was the single best decision we made. Sophia’s calm, positive approach clicked immediately with Cooper. Walks are absolutely joyful now and his recall is flawless!',
       imageUrl: IMAGES.dog1,
       date: 'May 12, 2026',
       source: 'direct'
@@ -196,7 +196,7 @@ export const TESTIMONIALS: { en: TestimonialItem[]; de: TestimonialItem[] } = {
       name: 'Marcus & Baxter',
       dogBreed: 'German Shepherd mix (2 years)',
       rating: 5,
-      text: 'Baxter was extremely reactive to other dogs—barking, lunging, and pulling. Claras techniques didn’t crush Baxters spirit; they taught him how to trust us and settle down. We can finally walk comfortably in busy parks!',
+      text: 'Baxter was extremely reactive to other dogs—barking, lunging, and pulling. Sophias techniques didn’t crush Baxters spirit; they taught him how to trust us and settle down. We can finally walk comfortably in busy parks!',
       imageUrl: IMAGES.dog2,
       date: 'April 28, 2026',
       source: 'google'
@@ -218,7 +218,7 @@ export const TESTIMONIALS: { en: TestimonialItem[]; de: TestimonialItem[] } = {
       name: 'Sarah & Cooper',
       dogBreed: 'Golden Retriever (7 Monate)',
       rating: 5,
-      text: 'Die Teilnahme am Welpen-Grundlagen-Kurs war die beste Entscheidung überhaupt. Claras ruhiges, positives Vorgehen hat bei Cooper sofort Früchte getragen. Unsere Spaziergänge machen wieder richtig Spaß!',
+      text: 'Die Teilnahme am Welpen-Grundlagen-Kurs war die beste Entscheidung überhaupt. Sophias ruhiges, positives Vorgehen hat bei Cooper sofort Früchte getragen. Unsere Spaziergänge machen wieder richtig Spaß!',
       imageUrl: IMAGES.dog1,
       date: '12. Mai 2026',
       source: 'direct'
@@ -228,7 +228,7 @@ export const TESTIMONIALS: { en: TestimonialItem[]; de: TestimonialItem[] } = {
       name: 'Marcus & Baxter',
       dogBreed: 'Mischling (2 Jahre)',
       rating: 5,
-      text: 'Baxter war an der Leine extrem reaktiv. Claras Methoden haben seinen Charakter geachtet und ihm beigebracht, uns zu vertrauen und sich zu entspannen. Spaziergänge im Park sind nun wieder völlig entspannt.',
+      text: 'Baxter war an der Leine extrem reaktiv. Sophias Methoden haben seinen Charakter geachtet und ihm beigebracht, uns zu vertrauen und sich zu entspannen. Spaziergänge im Park sind nun wieder völlig entspannt.',
       imageUrl: IMAGES.dog2,
       date: '28. April 2026',
       source: 'google'
@@ -270,7 +270,7 @@ export const FAQS: { en: FAQItem[]; de: FAQItem[] } = {
       id: 'f-4',
       category: 'Behavior',
       question: 'My dog is extremely fearful and aggressive. Can you help?',
-      answer: 'Yes. Clara specializes in complex behavioral rehabilitation, including dog-to-dog reactivity, resource guarding, and separation anxiety. We complete a comprehensive stress and environment audit of your dog’s daily routine to design a holistic rehabilitation program.'
+      answer: 'Yes. Sophia specializes in complex behavioral rehabilitation, including dog-to-dog reactivity, resource guarding, and separation anxiety. We complete a comprehensive stress and environment audit of your dog’s daily routine to design a holistic rehabilitation program.'
     }
   ],
   de: [
@@ -296,7 +296,7 @@ export const FAQS: { en: FAQItem[]; de: FAQItem[] } = {
       id: 'f-4',
       category: 'Verhalten',
       question: 'Mein Hund zeigt ausgeprägte Angst oder Aggression. Können Sie helfen?',
-      answer: 'Ja, definitiv. Clara hat sich auf komplexe Hundeverhaltenstherapie spezialisiert: darunter Leinenaggressivität, Futterneid, Angstverhalten und Trennungsschmerz. Wir führen eine fundierte Stress- und Umweltanalyse durch, um ein individuelles Therapiekonzept zu erstellen.'
+      answer: 'Ja, definitiv. Sophia hat sich auf komplexe Hundeverhaltenstherapie spezialisiert: darunter Leinenaggressivität, Futterneid, Angstverhalten und Trennungsschmerz. Wir führen eine fundierte Stress- und Umweltanalyse durch, um ein individuelles Therapiekonzept zu erstellen.'
     }
   ]
 };
@@ -313,10 +313,10 @@ export const BLOG_POSTS: { en: BlogPost[]; de: BlogPost[] } = {
       readingTime: '6 min read',
       category: 'Behavior & Training',
       author: {
-        name: 'Clara Sorensen',
+        name: 'Sophia Binder',
         role: 'Certified Head Behaviorist',
         avatar: IMAGES.trainerAvatar,
-        bio: 'Clara is a canine behavior specialist certified by the CCPDT and IAABC, focusing on force-free rehabilitation with a calm Scandinavian design philosophy.'
+        bio: 'Sophia is a canine behavior specialist certified by the CCPDT and IAABC, focusing on force-free rehabilitation with a calm Scandinavian design philosophy.'
       },
       tags: ['Reactivity', 'Leash Pulling', 'Positive Reinforcement'],
       seo: {
@@ -376,7 +376,7 @@ export const BLOG_POSTS: { en: BlogPost[]; de: BlogPost[] } = {
       readingTime: '5 min read',
       category: 'Puppy Care',
       author: {
-        name: 'Clara Sorensen',
+        name: 'Sophia Binder',
         role: 'Certified Head Behaviorist',
         avatar: IMAGES.trainerAvatar,
       },
@@ -425,15 +425,15 @@ export const BLOG_POSTS: { en: BlogPost[]; de: BlogPost[] } = {
       readingTime: '6 Min. Lesezeit',
       category: 'Verhalten & Training',
       author: {
-        name: 'Clara Sorensen',
+        name: 'Sophia Binder',
         role: 'Zertifizierte Verhaltenstherapeutin',
         avatar: IMAGES.trainerAvatar,
-        bio: 'Clara ist eine nach CCPDT und IAABC zertifizierte Hunde-Spezialistin. Sie fokussiert sich auf gewaltfreie Rehabilitation mit einem klaren, von Geduld geprägten Leitbild.'
+        bio: 'Sophia ist eine nach CCPDT und IAABC zertifizierte Hunde-Spezialistin. Sie fokussiert sich auf gewaltfreie Rehabilitation mit einem klaren, von Geduld geprägten Leitbild.'
       },
       tags: ['Leinenaggression', 'Hundebegegnung', 'Positive Verstärkung'],
       seo: {
         metaTitle: 'Hundereaktivität an der Leine | Sophia Binder Training',
-        metaDescription: 'Warum Hunde an der Leine bellen und wie man mit Gegenkonditionierung entspannte Hundebegegnungen meistert. Fachlicher Leitfaden von Clara.',
+        metaDescription: 'Warum Hunde an der Leine bellen und wie man mit Gegenkonditionierung entspannte Hundebegegnungen meistert. Fachlicher Leitfaden von Sophia.',
       },
       tableOfContents: [
         { id: '1-what-is-reactivity', text: 'Was ist eigentlich Leinenreaktivität?', depth: 2 },
@@ -488,7 +488,7 @@ export const BLOG_POSTS: { en: BlogPost[]; de: BlogPost[] } = {
       readingTime: '5 Min. Lesezeit',
       category: 'Welpenerziehung',
       author: {
-        name: 'Clara Sorensen',
+        name: 'Sophia Binder',
         role: 'Zertifizierte Verhaltenstherapeutin',
         avatar: IMAGES.trainerAvatar,
       },
@@ -579,8 +579,8 @@ export const STORYBLOK_DEMO_DATA: { en: { [slug: string]: StoryblokPage }; de: {
       name: 'About Page Template',
       slug: 'about',
       seo: {
-        metaTitle: 'About Clara | Sophia Binder Head Trainer',
-        metaDescription: 'Meet Clara Sorensen, accredited canine behaviorist. Combining positive scientific frameworks with peaceful, dedicated family training.',
+        metaTitle: 'About Sophia | Sophia Binder Head Trainer',
+        metaDescription: 'Meet Sophia Binder, accredited canine behaviorist. Combining positive scientific frameworks with peaceful, dedicated family training.',
         ogImage: IMAGES.trainerAvatar,
         ogType: 'website'
       },
@@ -588,7 +588,7 @@ export const STORYBLOK_DEMO_DATA: { en: { [slug: string]: StoryblokPage }; de: {
         {
           _uid: 'about-hero-1',
           component: 'hero',
-          headline: 'About Clara & The Sophia Binder Philosophy',
+          headline: 'About Sophia & The Sophia Binder Philosophy',
           subheadline: 'Canine behavioral science does not require force or intimidation. When we understand how dogs learn, we can teach with clarity, kindness, and deep precision.',
           cta_primary: 'Read Bio',
           cta_secondary: 'Contact Directly',
@@ -599,7 +599,7 @@ export const STORYBLOK_DEMO_DATA: { en: { [slug: string]: StoryblokPage }; de: {
           _uid: 'about-desc-1',
           component: 'rich_text',
           title: 'The Philosophy of Connected Leadership',
-          text: 'Clara Sorensen founded Sophia Binder with a simple, powerful vision: bringing high-end, compassionate Scandinavian-inspired dog training directly to families. Trained in behavioral psychology, Clara holds credentials from top-tier canine organizations and focuses on teaching handlers how to communicate effectively without ever reverting to fear or pain.'
+          text: 'Sophia Binder founded Sophia Binder with a simple, powerful vision: bringing high-end, compassionate Scandinavian-inspired dog training directly to families. Trained in behavioral psychology, Sophia holds credentials from top-tier canine organizations and focuses on teaching handlers how to communicate effectively without ever reverting to fear or pain.'
         }
       ]
     }
@@ -654,8 +654,8 @@ export const STORYBLOK_DEMO_DATA: { en: { [slug: string]: StoryblokPage }; de: {
       name: 'Ueber-Uns-Template (About)',
       slug: 'about',
       seo: {
-        metaTitle: 'Über Clara | Sophia Binder Hundeschule',
-        metaDescription: 'Lernen Sie Clara Sorensen kennen, qualifizierte Verhaltenstrainerin. Kombination aus wissenschaftlich positiver Erziehung und liebevollem Familientraining.',
+        metaTitle: 'Über Sophia | Sophia Binder Hundeschule',
+        metaDescription: 'Lernen Sie Sophia Binder kennen, qualifizierte Verhaltenstrainerin. Kombination aus wissenschaftlich positiver Erziehung und liebevollem Familientraining.',
         ogImage: IMAGES.trainerAvatar,
         ogType: 'website'
       },
@@ -663,7 +663,7 @@ export const STORYBLOK_DEMO_DATA: { en: { [slug: string]: StoryblokPage }; de: {
         {
           _uid: 'about-hero-1',
           component: 'hero',
-          headline: 'Über Clara & die Philosophie dahinter',
+          headline: 'Über Sophia & die Philosophie dahinter',
           subheadline: 'Gewaltfreie Methoden respektieren den Geist Ihres Hundes. Wenn wir verstehen, wie Hunde lernen, lehren wir mit spielerischer Klarheit und tiefer Empathie.',
           cta_primary: 'Lebenslauf ansehen',
           cta_secondary: 'Direkter Kontakt',
@@ -674,7 +674,7 @@ export const STORYBLOK_DEMO_DATA: { en: { [slug: string]: StoryblokPage }; de: {
           _uid: 'about-desc-1',
           component: 'rich_text',
           title: 'Das Prinzip des Vertrauenssports',
-          text: 'Clara Sorensen gründete Sophia Binder mit dem Wunsch, wissenschaftliches, bedürfnisorientiertes Hundetraining verständlich in Familien zu etablieren. Als ausgebildete Kynologin besitzt sie anerkannte Lizenzen führender Hundeverbände und verzichtet konsequent auf jede Form von Druck oder Einschüchterung.'
+          text: 'Sophia Binder gründete Sophia Binder mit dem Wunsch, wissenschaftliches, bedürfnisorientiertes Hundetraining verständlich in Familien zu etablieren. Als ausgebildete Kynologin besitzt sie anerkannte Lizenzen führender Hundeverbände und verzichtet konsequent auf jede Form von Druck oder Einschüchterung.'
         }
       ]
     }
@@ -694,7 +694,7 @@ export const LOCAL_BUSINESS_SCHEMA = {
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "42 Moss Ridge Road",
-    "addressLocality": "Clara Hills",
+    "addressLocality": "Sophia Hills",
     "addressRegion": "WA",
     "postalCode": "98004",
     "addressCountry": "US"

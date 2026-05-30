@@ -112,7 +112,7 @@ export default function Services({ servicesByLang }: { servicesByLang: Localized
 
                     <a
                       id={`whatsapp-query-${svc.slug}`}
-                      href={`https://wa.me/15550192819?text=Hi%20Clara!%20I'd%20like%20to%20query%20the%20${svc.title}%20service.`}
+                      href={`https://wa.me/15550192819?text=Hi%20Sophia!%20I'd%20like%20to%20query%20the%20${svc.title}%20service.`}
                       target="_blank"
                       rel="noreferrer"
                       className="inline-flex items-center justify-center rounded-xl border border-stone-300 bg-white px-5 py-3 text-xs font-semibold text-stone-700 hover:bg-stone-50"
@@ -182,7 +182,7 @@ export default function Services({ servicesByLang }: { servicesByLang: Localized
               <div className="space-y-2 text-xs text-stone-300">
                 <p>✓ Includes initial 60-min intake assesment</p>
                 <p>✓ Save over $160 compared to individual consult rates</p>
-                <p>✓ Unlimited WhatsApp support logs with Clara</p>
+                <p>✓ Unlimited WhatsApp support logs with Sophia</p>
               </div>
 
               <button

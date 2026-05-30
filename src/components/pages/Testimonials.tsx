@@ -17,7 +17,7 @@ export default function Testimonials({ testimonialsByLang }: { testimonialsByLan
       id: 'g-1',
       name: 'Oliver G.',
       breed: 'Bernese Mountain Dog (5 months)',
-      text: 'Our Bernese pup Oliver is massive and used to knock guests down. Clara guided us patiently through target training. Outstanding behaviorist, very clear homework!',
+      text: 'Our Bernese pup Oliver is massive and used to knock guests down. Sophia guided us patiently through target training. Outstanding behaviorist, very clear homework!',
       rating: 5,
       date: 'April 3, 2026'
     },
@@ -25,7 +25,7 @@ export default function Testimonials({ testimonialsByLang }: { testimonialsByLan
       id: 'g-2',
       name: 'Julia & Koda',
       breed: 'Shiba Inu (3 years)',
-      text: 'Shibas are famously independent. We thought Kodas separation howling was permanent. Claras progressive enrichment routines and calming guides completely transformed our home life.',
+      text: 'Shibas are famously independent. We thought Kodas separation howling was permanent. Sophias progressive enrichment routines and calming guides completely transformed our home life.',
       rating: 5,
       date: 'March 24, 2026'
     },
@@ -33,7 +33,7 @@ export default function Testimonials({ testimonialsByLang }: { testimonialsByLan
       id: 'g-3',
       name: 'The Campbell Family',
       breed: 'Cocker Spaniel (1 year)',
-      text: 'Professional, calm, incredibly compassionate. Simply a world class local Bellevue business. Do not waste money on generic training groups—hire Clara immediately!',
+      text: 'Professional, calm, incredibly compassionate. Simply a world class local Bellevue business. Do not waste money on generic training groups—hire Sophia immediately!',
       rating: 5,
       date: 'May 10, 2026'
     }

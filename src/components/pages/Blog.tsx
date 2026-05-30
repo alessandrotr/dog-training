@@ -53,7 +53,7 @@ export default function Blog({ postsByLang }: { postsByLang: Localized<BlogPost>
             The Journal of Gentle Education
           </h1>
           <p className="font-sans text-base text-stone-500 max-w-2xl leading-relaxed">
-            Discover actionable, evidence-based guides and research studies written directly by certified consultant Clara. No myths, no corrections. Just science-backed compassion.
+            Discover actionable, evidence-based guides and research studies written directly by certified consultant Sophia. No myths, no corrections. Just science-backed compassion.
           </p>
         </div>
       </section>

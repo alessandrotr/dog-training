@@ -150,7 +150,7 @@ export default function BlogPostTemplate({ post, postsByLang }: BlogPostTemplate
               <Sparkles className="h-6 w-6 text-amber-500" />
               <h4 className="font-sans text-sm font-bold text-stone-50">Struggling with similar behaviors?</h4>
               <p className="text-xs text-stone-400 leading-normal">
-                Don’t rely on general templates. Speak directly with head behaviorist Clara to customize your training plan.
+                Don’t rely on general templates. Speak directly with head behaviorist Sophia to customize your training plan.
               </p>
               <button
                 id="in-article-booking-btn"

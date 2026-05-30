@@ -73,7 +73,7 @@ export default function Footer() {
                   onClick={() => handleNavClick('about')}
                   className="hover:text-white transition-colors cursor-pointer text-stone-400"
                 >
-                  About Clara
+                  About Sophia
                 </button>
               </li>
               <li>

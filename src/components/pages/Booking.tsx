@@ -69,11 +69,11 @@ export default function Booking() {
                 </div>
                 <h3 className="font-sans text-xl font-extrabold text-stone-900">Your Consult is Arranged!</h3>
                 <p className="text-sm text-stone-500 leading-relaxed font-sans">
-                  Success! We have provisioned {selectedDay} at <b>{selectedTime}</b> (15-min call duration). Clara will phone you directly at your specified coordinate.
+                  Success! We have provisioned {selectedDay} at <b>{selectedTime}</b> (15-min call duration). Sophia will phone you directly at your specified coordinate.
                 </p>
                 <div className="rounded-xl bg-stone-100 p-4 font-mono text-[11px] text-stone-605 max-w-sm mx-auto text-left leading-normal space-y-1.5">
                   <p>• Type: Behavioral Assessment Call</p>
-                  <p>• Host: Clara Sorensen (CCPDT-KA)</p>
+                  <p>• Host: Sophia Binder (CCPDT-KA)</p>
                   <p>• Date: {selectedDay}, June 2026</p>
                 </div>
                 <button
@@ -102,7 +102,7 @@ export default function Booking() {
                   </div>
                   <div className="flex items-center space-x-1.5">
                     <User className="h-4 w-4 text-amber-800" />
-                    <span>Host: Clara S.</span>
+                    <span>Host: Sophia B.</span>
                   </div>
                 </div>
 

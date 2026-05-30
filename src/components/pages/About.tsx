@@ -42,7 +42,7 @@ export default function About() {
               <div className="relative overflow-hidden rounded-3xl border-8 border-white shadow-2xl aspect-square bg-stone-100">
                 <img
                   src={IMAGES.trainerAvatar}
-                  alt="Clara Sorensen Head Trainer"
+                  alt="Sophia Binder Head Trainer"
                   className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                   referrerPolicy="no-referrer"
                 />
@@ -60,11 +60,11 @@ export default function About() {
           <div className="lg:col-span-7 text-left space-y-6">
             <span className="font-mono text-xs uppercase tracking-widest text-amber-700">FOUNDING BEHAVIORIST BIOGRAPHY</span>
             <h1 className="font-sans text-3xl font-extrabold tracking-tight text-amber-955 sm:text-4xl">
-              Meet Clara Sorensen
+              Meet Sophia Binder
             </h1>
             
             <p className="font-sans text-stone-600 leading-relaxed text-base">
-              Hi, I’m Clara. My journey into canine behavior started twelve years ago when I adopted standard reactive GSD mix Baxter. Walks were incredibly painful, stressful, and loaded with embarrassment. Despite following classic advice of using quick physical checks and loud corrections, Baxter’s reactivity only worsened.
+              Hi, I’m Sophia. My journey into canine behavior started twelve years ago when I adopted standard reactive GSD mix Baxter. Walks were incredibly painful, stressful, and loaded with embarrassment. Despite following classic advice of using quick physical checks and loud corrections, Baxter’s reactivity only worsened.
             </p>
 
             <blockquote className="border-l-4 border-amber-800 pl-4 font-serif text-lg text-amber-950 italic">
@@ -78,7 +78,7 @@ export default function About() {
             {/* Signature signoff */}
             <div className="pt-4 flex items-center space-x-4">
               <div className="text-left">
-                <p className="font-serif italic text-lg text-amber-950 leading-none">Clara Sorensen</p>
+                <p className="font-serif italic text-lg text-amber-950 leading-none">Sophia Binder</p>
                 <p className="text-[10px] uppercase font-mono tracking-widest text-stone-400 mt-1">Founder & Head Consultant • CCPDT-KA</p>
               </div>
             </div>
