@@ -3,7 +3,8 @@
 import {useState} from 'react';
 import {storyblokEditable} from '@storyblok/react';
 import {Star, ArrowLeft, ArrowRight, MessageSquareQuote} from 'lucide-react';
-import {useNavigate} from '../../lib/navigation';
+import Link from 'next/link';
+import {useHref} from '../../lib/navigation';
 import {usePageData} from '../PageDataProvider';
 
 interface TestimonialsBlok {
@@ -19,7 +20,7 @@ interface TestimonialsBlok {
 // Data-bound: pulls testimonial stories from the page route.
 // `carousel` = single rotating quote (home); `grid` = full card grid.
 export default function Testimonials({blok}: {blok: TestimonialsBlok}) {
-  const setCurrentPage = useNavigate();
+  const href = useHref();
   const {testimonials} = usePageData();
   const [index, setIndex] = useState(0);
 
@@ -137,12 +138,12 @@ export default function Testimonials({blok}: {blok: TestimonialsBlok}) {
 
         {blok.footer_label && (
           <div className="mt-8">
-            <button
-              onClick={() => setCurrentPage('testimonials')}
+            <Link
+              href={href.page('testimonials')}
               className="text-xs font-mono tracking-widest font-semibold text-stone-500 hover:text-amber-800 underline underline-offset-4 cursor-pointer"
             >
               {blok.footer_label}
-            </button>
+            </Link>
           </div>
         )}
       </div>

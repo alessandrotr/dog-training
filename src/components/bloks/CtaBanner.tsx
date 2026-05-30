@@ -1,8 +1,9 @@
 'use client';
 
+import Link from 'next/link';
 import {storyblokEditable} from '@storyblok/react';
 import {Award} from 'lucide-react';
-import {useNavigate} from '../../lib/navigation';
+import {useHref} from '../../lib/navigation';
 
 interface CtaBannerBlok {
   _uid: string;
@@ -18,7 +19,7 @@ interface CtaBannerBlok {
 }
 
 export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
-  const setCurrentPage = useNavigate();
+  const href = useHref();
 
   if (blok.variant === 'light') {
     return (
@@ -35,20 +36,20 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
           </div>
           <div className="flex flex-wrap gap-3 justify-center">
             {blok.primary_label && (
-              <button
-                onClick={() => setCurrentPage(blok.primary_target || 'booking')}
+              <Link
+                href={href.page(blok.primary_target || 'booking')}
                 className="rounded-xl bg-amber-900 px-5 py-3 text-xs font-mono font-bold uppercase tracking-wider text-white shadow-sm hover:bg-amber-950 hover:shadow transition"
               >
                 {blok.primary_label}
-              </button>
+              </Link>
             )}
             {blok.secondary_label && (
-              <button
-                onClick={() => setCurrentPage(blok.secondary_target || 'contact')}
+              <Link
+                href={href.page(blok.secondary_target || 'contact')}
                 className="rounded-xl border border-stone-300 bg-white px-5 py-3 text-xs font-mono font-bold uppercase tracking-wider text-stone-700 hover:bg-stone-50 transition"
               >
                 {blok.secondary_label}
-              </button>
+              </Link>
             )}
           </div>
         </div>
@@ -73,20 +74,20 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
           )}
           <div className="pt-4 flex flex-col sm:flex-row justify-center gap-4">
             {blok.primary_label && (
-              <button
-                onClick={() => setCurrentPage(blok.primary_target || 'booking')}
+              <Link
+                href={href.page(blok.primary_target || 'booking')}
                 className="rounded-xl bg-amber-800 px-6 py-4 text-xs font-mono font-bold uppercase tracking-wider text-white shadow-md hover:bg-amber-700 transition"
               >
                 {blok.primary_label}
-              </button>
+              </Link>
             )}
             {blok.secondary_label && (
-              <button
-                onClick={() => setCurrentPage(blok.secondary_target || 'contact')}
+              <Link
+                href={href.page(blok.secondary_target || 'contact')}
                 className="rounded-xl border border-stone-700 bg-stone-900 px-6 py-4 text-xs font-mono font-bold uppercase tracking-wider text-stone-200 hover:bg-stone-850 hover:text-white transition"
               >
                 {blok.secondary_label}
-              </button>
+              </Link>
             )}
           </div>
           {blok.note && <p className="text-[10px] text-stone-450 font-mono">{blok.note}</p>}

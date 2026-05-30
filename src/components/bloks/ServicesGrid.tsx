@@ -1,8 +1,9 @@
 'use client';
 
+import Link from 'next/link';
 import {storyblokEditable} from '@storyblok/react';
 import {ArrowRight, CalendarRange, Check} from 'lucide-react';
-import {useNavigate} from '../../lib/navigation';
+import {useHref} from '../../lib/navigation';
 import {usePageData} from '../PageDataProvider';
 
 interface ServicesGridBlok {
@@ -19,7 +20,7 @@ interface ServicesGridBlok {
 // Data-bound: pulls the service stories prefetched by the page route.
 // `grid` = compact preview cards (home); `list` = full alternating sections.
 export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
-  const setCurrentPage = useNavigate();
+  const href = useHref();
   const {services} = usePageData();
   const limit = Number(blok.limit) || services.length;
   const items = services.slice(0, limit);
@@ -100,21 +101,20 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
                   </div>
 
                   <div className="pt-4 flex flex-wrap gap-4">
-                    <button
-                      onClick={() => setCurrentPage('booking')}
-                      className="inline-flex items-center space-x-2 rounded-xl bg-amber-900 px-5 py-3 text-xs font-semibold tracking-wide text-white shadow-sm hover:bg-amber-950 hover:shadow"
+                    <Link
+                      href={href.slug(svc.slug)}
+                      className="group inline-flex items-center space-x-2 rounded-xl bg-amber-900 px-5 py-3 text-xs font-semibold tracking-wide text-white shadow-sm hover:bg-amber-950 hover:shadow"
+                    >
+                      <span>View Program</span>
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Link>
+                    <Link
+                      href={href.page('booking')}
+                      className="inline-flex items-center space-x-2 rounded-xl border border-stone-300 bg-white px-5 py-3 text-xs font-semibold text-stone-700 hover:bg-stone-50"
                     >
                       <CalendarRange className="h-4 w-4" />
                       <span>Book Free Assessment</span>
-                    </button>
-                    <a
-                      href={`https://wa.me/15550192819?text=Hi%20Sophia!%20I'd%20like%20to%20query%20the%20${encodeURIComponent(svc.title)}%20service.`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center justify-center rounded-xl border border-stone-300 bg-white px-5 py-3 text-xs font-semibold text-stone-700 hover:bg-stone-50"
-                    >
-                      Instant WhatsApp Query
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -165,26 +165,26 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
               ))}
             </ul>
 
-            <button
-              onClick={() => setCurrentPage('services')}
+            <Link
+              href={href.slug(svc.slug)}
               className="mt-2 flex w-full items-center justify-center space-x-1 rounded-xl bg-stone-50 py-2.5 text-xs font-semibold text-stone-700 transition-colors group-hover:bg-amber-900 group-hover:text-white"
             >
               <span>View Details</span>
               <ArrowRight className="h-3.5 w-3.5" />
-            </button>
+            </Link>
           </div>
         ))}
       </div>
 
       {blok.footer_label && (
         <div className="mt-12 text-center">
-          <button
-            onClick={() => setCurrentPage('services')}
+          <Link
+            href={href.page('services')}
             className="inline-flex items-center space-x-2 font-mono text-xs font-bold tracking-wider text-amber-900 hover:text-amber-950 transition-colors cursor-pointer group"
           >
             <span>{blok.footer_label}</span>
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </button>
+          </Link>
         </div>
       )}
     </section>

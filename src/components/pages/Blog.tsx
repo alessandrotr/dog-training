@@ -1,14 +1,14 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { Search, SlidersHorizontal, BookOpen, Clock, Heart, Award, ArrowRight } from 'lucide-react';
-import { useNavigate, usePostNavigate } from '../../lib/navigation';
+import { useHref } from '../../lib/navigation';
 import type { BlogPost } from '../../types';
 
 export default function Blog({ posts }: { posts: BlogPost[] }) {
-  const setCurrentPage = useNavigate();
-  const goToPost = usePostNavigate();
+  const href = useHref();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const { t } = useTranslation();
@@ -36,10 +36,6 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
       return matchesSearch && matchesCat;
     });
   }, [blogPosts, searchQuery, selectedCategory]);
-
-  const handleSelectPost = (slug: string) => {
-    goToPost(slug);
-  };
 
   return (
     <div className="space-y-16 py-12 pb-24 text-left">
@@ -120,10 +116,9 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
         ) : (
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2">
             {filteredPosts.map((post) => (
-              <article
+              <Link
                 key={post.id}
-                id={`main-blog-post-${post.id}`}
-                onClick={() => handleSelectPost(post.slug)}
+                href={href.post(post.slug)}
                 className="group cursor-pointer flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-all hover:shadow-md hover:border-amber-900/20"
               >
                 
@@ -165,7 +160,7 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
                   </div>
                 </div>
 
-              </article>
+              </Link>
             ))}
           </div>
         )}
@@ -183,13 +178,12 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
               <p className="text-xs text-stone-500">Every behavior has individual nuances. Our private consults help skip generic templates.</p>
             </div>
           </div>
-          <button
-            id="blog-direct-consult"
-            onClick={() => setCurrentPage('contact')}
+          <Link
+            href={href.page('contact')}
             className="rounded-xl bg-amber-900 text-white px-5 py-3 text-xs font-semibold hover:bg-amber-950 transition"
           >
             Inquire Directly
-          </button>
+          </Link>
         </div>
       </section>
 

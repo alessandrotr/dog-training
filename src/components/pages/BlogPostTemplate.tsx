@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { BlogPost } from '../../types';
 import { ArrowLeft, Clock, CalendarDays, Share2, Bookmark, Check, CalendarRange, Sparkles } from 'lucide-react';
-import { useNavigate, usePostNavigate } from '../../lib/navigation';
+import { useHref } from '../../lib/navigation';
 
 interface BlogPostTemplateProps {
   post: BlogPost;
@@ -14,12 +15,8 @@ interface BlogPostTemplateProps {
 export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps) {
   const [copiedLink, setCopiedLink] = useState(false);
   const { t } = useTranslation();
+  const href = useHref();
   const blogPosts = posts;
-  const setCurrentPage = useNavigate();
-  const goToPost = usePostNavigate();
-
-  const onBack = () => setCurrentPage('blog');
-  const onNavigate = (slug: string) => goToPost(slug);
 
   // Find other posts for Related Section
   const relatedPosts = blogPosts.filter((p) => p.slug !== post.slug);
@@ -30,25 +27,19 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
     setTimeout(() => setCopiedLink(false), 2000);
   };
 
-  const handleBook = () => {
-    setCurrentPage('booking');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
     <article className="py-12 pb-24 text-left">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Back Button Grid */}
         <div className="mb-8 flex items-center justify-between border-b border-stone-200 pb-4">
-          <button
-            id="blog-back-btn"
-            onClick={onBack}
+          <Link
+            href={href.page('blog')}
             className="flex items-center space-x-2 text-xs font-mono font-bold uppercase tracking-wider text-stone-500 hover:text-stone-900 transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Back to Journal</span>
-          </button>
+          </Link>
 
           {/* Core tools */}
           <div className="flex items-center space-x-3 text-stone-400">
@@ -151,13 +142,12 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
               <p className="text-xs text-stone-400 leading-normal">
                 Don’t rely on general templates. Speak directly with head behaviorist Sophia to customize your training plan.
               </p>
-              <button
-                id="in-article-booking-btn"
-                onClick={handleBook}
-                className="w-full text-center rounded-xl bg-amber-800 text-white font-mono text-[10px] font-bold uppercase tracking-wider py-3 hover:bg-amber-700 shadow"
+              <Link
+                href={href.page('booking')}
+                className="block w-full text-center rounded-xl bg-amber-800 text-white font-mono text-[10px] font-bold uppercase tracking-wider py-3 hover:bg-amber-700 shadow"
               >
                 Book 15-Min Assessment Call
-              </button>
+              </Link>
             </div>
 
           </aside>
@@ -195,10 +185,9 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
             <h3 className="font-sans text-2xl font-extrabold text-amber-955 mb-8">Related Behavioral Studies</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {relatedPosts.slice(0, 2).map((rel) => (
-                <div
+                <Link
                   key={rel.id}
-                  id={`related-card-${rel.id}`}
-                  onClick={() => onNavigate(rel.slug)}
+                  href={href.post(rel.slug)}
                   className="group cursor-pointer rounded-2xl border border-stone-200 bg-white p-4 shadow-sm hover:shadow transition-all flex flex-col md:flex-row gap-4"
                 >
                   <div className="md:w-1/3 relative h-32 rounded-xl bg-stone-105 overflow-hidden">
@@ -220,7 +209,7 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
                       View Study →
                     </span>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           </div>

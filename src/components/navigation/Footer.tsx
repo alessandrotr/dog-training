@@ -1,12 +1,13 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { Instagram, Facebook, Mail, Phone, MapPin, Award } from 'lucide-react';
-import { useNavigate } from '../../lib/navigation';
+import { useHref } from '../../lib/navigation';
 import type { SiteConfig } from '../../types';
 
 export default function Footer({ config }: { config: SiteConfig['footer'] }) {
-  const setCurrentPage = useNavigate();
+  const href = useHref();
 
   return (
     <footer className="bg-stone-900 text-stone-200 border-t border-stone-850 pt-16 pb-24 md:pb-16">
@@ -44,12 +45,12 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
               <ul className="space-y-2 text-sm">
                 {col.links.map((link, li) => (
                   <li key={li}>
-                    <button
-                      onClick={() => setCurrentPage(link.target)}
+                    <Link
+                      href={href.page(link.target)}
                       className="hover:text-white transition-colors cursor-pointer text-stone-400 text-left"
                     >
                       {link.label}
-                    </button>
+                    </Link>
                   </li>
                 ))}
               </ul>

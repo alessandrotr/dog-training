@@ -1,10 +1,11 @@
 'use client';
 
 import {useCallback, useEffect, useRef, useState} from 'react';
+import Link from 'next/link';
 import useEmblaCarousel from 'embla-carousel-react';
 import {storyblokEditable} from '@storyblok/react';
 import {ArrowUpRight, ArrowLeft, ArrowRight} from 'lucide-react';
-import {useNavigate, usePostNavigate} from '../../lib/navigation';
+import {useHref} from '../../lib/navigation';
 import {usePageData} from '../PageDataProvider';
 
 interface BlogListBlok {
@@ -19,8 +20,7 @@ interface BlogListBlok {
 // Data-bound: pulls blog_post stories from the page route. Rendered as an
 // Embla carousel of article cards.
 export default function BlogList({blok}: {blok: BlogListBlok}) {
-  const setCurrentPage = useNavigate();
-  const goToPost = usePostNavigate();
+  const href = useHref();
   const {posts} = usePageData();
   const limit = Number(blok.limit) || posts.length;
   const items = posts.slice(0, limit);
@@ -60,13 +60,13 @@ export default function BlogList({blok}: {blok: BlogListBlok}) {
         </div>
         <div className="flex items-center gap-4">
           {blok.footer_label && (
-            <button
-              onClick={() => setCurrentPage('blog')}
+            <Link
+              href={href.page('blog')}
               className="inline-flex items-center space-x-1.5 font-mono text-xs font-bold tracking-wider text-amber-900 hover:text-amber-950 transition-colors"
             >
               <span>{blok.footer_label}</span>
               <ArrowUpRight className="h-4 w-4" />
-            </button>
+            </Link>
           )}
           <div className="flex items-center gap-2">
             <button
@@ -92,14 +92,15 @@ export default function BlogList({blok}: {blok: BlogListBlok}) {
       <div className="overflow-hidden cursor-grab active:cursor-grabbing select-none" ref={emblaRef}>
         <div className="flex gap-6">
           {items.map((post) => (
-            <article
+            <Link
               key={post.id}
+              href={href.post(post.slug)}
               onPointerDown={(e) => {
                 downX.current = e.clientX;
               }}
               onClick={(e) => {
-                if (Math.abs(e.clientX - downX.current) > 8) return; // was a drag
-                goToPost(post.slug);
+                // Suppress navigation when the pointer was dragged (carousel swipe).
+                if (Math.abs(e.clientX - downX.current) > 8) e.preventDefault();
               }}
               className="group flex flex-[0_0_85%] sm:flex-[0_0_48%] lg:flex-[0_0_32%] min-w-0 cursor-pointer flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-all hover:shadow-md"
             >
@@ -129,7 +130,7 @@ export default function BlogList({blok}: {blok: BlogListBlok}) {
                   <span className="text-stone-400">{post.readingTime}</span>
                 </div>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </div>

@@ -1,51 +1,48 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { Menu, X, CalendarRange } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useNavigate, useCurrentPage, useLocale, useSwitchLocalePath } from '../../lib/navigation';
+import { useCurrentPage, useLocale, useSwitchLocalePath, useHref } from '../../lib/navigation';
 import type { SiteConfig } from '../../types';
 
 export default function Navbar({ config }: { config: SiteConfig }) {
   const [isOpen, setIsOpen] = useState(false);
   const { t } = useTranslation();
-  const setCurrentPage = useNavigate();
+  const href = useHref();
   const currentPage = useCurrentPage();
   const router = useRouter();
   const locale = useLocale();
   const switchLocale = useSwitchLocalePath();
   const changeLocale = (target: 'en' | 'de') => router.push(switchLocale(target));
-
-  const handleNavClick = (page: string) => {
-    setCurrentPage(page);
-    setIsOpen(false);
-  };
+  const close = () => setIsOpen(false);
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-stone-200/80 bg-stone-50/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
 
         {/* Logo */}
-        <button
-          id="logo-button"
-          onClick={() => handleNavClick('home')}
+        <Link
+          href={href.page('home')}
+          onClick={close}
           className="flex items-center space-x-2 text-stone-900 focus:outline-none cursor-pointer"
         >
           <div className="text-left">
             <span className="block font-sans text-lg font-bold tracking-tight text-amber-950">{config.footer.brandName}</span>
             <span className="block font-mono text-[9px] uppercase tracking-widest text-stone-500 -mt-1">{config.footer.brandSubtitle}</span>
           </div>
-        </button>
+        </Link>
 
         {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center space-x-8">
           {config.navItems.map((item) => {
             const isActive = currentPage === item.target;
             return (
-              <button
+              <Link
                 key={item.target}
-                onClick={() => handleNavClick(item.target)}
+                href={href.page(item.target)}
                 className={`text-sm font-medium transition-colors cursor-pointer relative py-2 ${
                   isActive
                     ? 'text-amber-900 border-b-2 border-amber-900'
@@ -53,21 +50,20 @@ export default function Navbar({ config }: { config: SiteConfig }) {
                 }`}
               >
                 {item.label}
-              </button>
+              </Link>
             );
           })}
         </nav>
 
         {/* Booking CTA + language */}
         <div className="hidden lg:flex items-center space-x-4">
-          <button
-            id="nav-cta-booking"
-            onClick={() => handleNavClick(config.ctaTarget)}
+          <Link
+            href={href.page(config.ctaTarget)}
             className="flex items-center space-x-2 rounded-xl bg-amber-900 px-4 py-2.5 text-xs font-medium tracking-wide text-white shadow-sm transition-all hover:bg-amber-950 focus:outline-none focus:ring-2 focus:ring-amber-500/50 cursor-pointer"
           >
             <CalendarRange className="h-4 w-4" />
             <span>{config.ctaLabel}</span>
-          </button>
+          </Link>
 
           <div className="flex items-center space-x-1 rounded-lg bg-stone-150 p-0.5 border border-stone-200">
             <button
@@ -91,12 +87,13 @@ export default function Navbar({ config }: { config: SiteConfig }) {
 
         {/* Mobile toggle */}
         <div className="flex md:hidden items-center space-x-2">
-          <button
-            onClick={() => handleNavClick(config.ctaTarget)}
+          <Link
+            href={href.page(config.ctaTarget)}
+            onClick={close}
             className="rounded-lg bg-amber-900 px-3 py-1.5 text-xs font-medium text-white hover:bg-amber-950"
           >
             {config.ctaLabel}
-          </button>
+          </Link>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="rounded-lg p-2 text-stone-600 hover:bg-stone-100 hover:text-stone-900 focus:outline-none"
@@ -114,15 +111,16 @@ export default function Navbar({ config }: { config: SiteConfig }) {
             {config.navItems.map((item) => {
               const isActive = currentPage === item.target;
               return (
-                <button
+                <Link
                   key={item.target}
-                  onClick={() => handleNavClick(item.target)}
+                  href={href.page(item.target)}
+                  onClick={close}
                   className={`block w-full text-left rounded-lg px-4 py-2.5 text-base font-medium transition-colors ${
                     isActive ? 'bg-stone-150 text-amber-950' : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
                   }`}
                 >
                   {item.label}
-                </button>
+                </Link>
               );
             })}
 
@@ -149,13 +147,14 @@ export default function Navbar({ config }: { config: SiteConfig }) {
             </div>
 
             <div className="border-t border-stone-200/80 my-2 pt-2">
-              <button
-                onClick={() => handleNavClick(config.ctaTarget)}
+              <Link
+                href={href.page(config.ctaTarget)}
+                onClick={close}
                 className="flex w-full items-center justify-center space-x-2 rounded-xl bg-amber-900 py-3 text-sm font-semibold text-white shadow-sm hover:bg-amber-950"
               >
                 <CalendarRange className="h-4 w-4" />
                 <span>{config.ctaLabel}</span>
-              </button>
+              </Link>
               <div className="text-center mt-3 text-xs font-mono text-stone-500">
                 {t('nav.directLine')}: {config.footer.phone}
               </div>

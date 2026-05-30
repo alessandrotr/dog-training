@@ -49,6 +49,24 @@ export function usePostNavigate(): (slug: string) => void {
   return (slug: string) => router.push(`/${lang}/blog/${slug}`);
 }
 
+// Navigate to a top-level builder page by slug (e.g. a service detail page).
+export function usePageNavigate(): (slug: string) => void {
+  const router = useRouter();
+  const lang = useLocale();
+  return (slug: string) => router.push(`/${lang}/${slug}`);
+}
+
+// Locale-aware href builders for <Link> (preferred over programmatic nav:
+// crawlable, prefetched, cmd/ctrl-clickable).
+export function useHref() {
+  const lang = useLocale();
+  return {
+    page: (page: string) => pageToPath(page, lang),
+    slug: (slug: string) => `/${lang}/${slug}`,
+    post: (slug: string) => `/${lang}/blog/${slug}`,
+  };
+}
+
 export function useCurrentPage(): string {
   return pathToPage(usePathname());
 }

@@ -1,13 +1,10 @@
 import React from 'react';
+import Link from 'next/link';
 import { CalendarRange, Sparkles } from 'lucide-react';
-import { useNavigate } from '../../lib/navigation';
+import { useHref } from '../../lib/navigation';
 
 export default function MobileStickyCTA() {
-  const setCurrentPage = useNavigate();
-
-  const handleAction = () => {
-    setCurrentPage('booking');
-  };
+  const href = useHref();
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 bg-stone-50/95 backdrop-blur-md border-t border-stone-200 px-4 py-3.5 shadow-[0_-4px_16px_rgba(0,0,0,0.08)] md:hidden flex items-center justify-between">
@@ -19,14 +16,13 @@ export default function MobileStickyCTA() {
         </div>
       </div>
       
-      <button
-        id="mobile-sticky-book-btn"
-        onClick={handleAction}
-        className="flex items-center space-x-1.5 rounded-lg bg-amber-900 px-4 py-2 text-xs font-semibold tracking-wide text-white transition-all active:scale-95 bg-amber-900"
+      <Link
+        href={href.page('booking')}
+        className="flex items-center space-x-1.5 rounded-lg bg-amber-900 px-4 py-2 text-xs font-semibold tracking-wide text-white transition-all active:scale-95"
       >
         <CalendarRange className="h-3.5 w-3.5" />
         <span>Book Slot</span>
-      </button>
+      </Link>
     </div>
   );
 }

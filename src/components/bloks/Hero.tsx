@@ -1,8 +1,9 @@
 'use client';
 
+import Link from 'next/link';
 import {storyblokEditable} from '@storyblok/react';
 import {Award, ArrowRight} from 'lucide-react';
-import {useNavigate} from '../../lib/navigation';
+import {useHref} from '../../lib/navigation';
 
 interface HeroBlok {
   _uid: string;
@@ -23,7 +24,7 @@ interface HeroBlok {
 }
 
 export default function Hero({blok}: {blok: HeroBlok}) {
-  const setCurrentPage = useNavigate();
+  const href = useHref();
 
   return (
     <section
@@ -60,21 +61,21 @@ export default function Hero({blok}: {blok: HeroBlok}) {
 
             <div className="flex flex-col sm:flex-row gap-4 pt-3">
               {blok.primary_label && (
-                <button
-                  onClick={() => setCurrentPage(blok.primary_target || 'booking')}
+                <Link
+                  href={href.page(blok.primary_target || 'booking')}
                   className="rounded-xl bg-amber-900 px-6 py-4 text-sm font-semibold text-white shadow-md hover:bg-amber-950 hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-amber-500/50 cursor-pointer flex items-center justify-center space-x-2"
                 >
                   <span>{blok.primary_label}</span>
                   <ArrowRight className="h-4.5 w-4.5" />
-                </button>
+                </Link>
               )}
               {blok.secondary_label && (
-                <button
-                  onClick={() => setCurrentPage(blok.secondary_target || 'services')}
+                <Link
+                  href={href.page(blok.secondary_target || 'services')}
                   className="rounded-xl border border-stone-300 bg-white px-6 py-4 text-sm font-semibold text-stone-700 hover:bg-stone-50 hover:text-stone-900 transition-all cursor-pointer flex items-center justify-center"
                 >
                   {blok.secondary_label}
-                </button>
+                </Link>
               )}
             </div>
 

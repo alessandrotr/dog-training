@@ -2,7 +2,8 @@
 
 import {storyblokEditable} from '@storyblok/react';
 import {ShieldCheck} from 'lucide-react';
-import {useNavigate} from '../../lib/navigation';
+import Link from 'next/link';
+import {useHref} from '../../lib/navigation';
 
 interface PricingBlok {
   _uid: string;
@@ -24,7 +25,7 @@ interface PricingBlok {
 const lines = (s?: string) => (s ? s.split('\n').map((l) => l.trim()).filter(Boolean) : []);
 
 export default function Pricing({blok}: {blok: PricingBlok}) {
-  const setCurrentPage = useNavigate();
+  const href = useHref();
 
   return (
     <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -73,12 +74,12 @@ export default function Pricing({blok}: {blok: PricingBlok}) {
               ))}
             </div>
             {blok.cta_label && (
-              <button
-                onClick={() => setCurrentPage(blok.cta_target || 'booking')}
-                className="w-full text-center rounded-xl bg-amber-800 py-3.5 text-xs font-mono font-bold uppercase tracking-wider text-white shadow-sm hover:bg-amber-700 hover:shadow"
+              <Link
+                href={href.page(blok.cta_target || 'booking')}
+                className="block w-full text-center rounded-xl bg-amber-800 py-3.5 text-xs font-mono font-bold uppercase tracking-wider text-white shadow-sm hover:bg-amber-700 hover:shadow"
               >
                 {blok.cta_label}
-              </button>
+              </Link>
             )}
           </div>
         </div>
