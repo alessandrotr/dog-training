@@ -1,6 +1,6 @@
 'use client';
 
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import {storyblokEditable} from '@storyblok/react';
 import {ArrowUpRight, ArrowLeft, ArrowRight} from 'lucide-react';
@@ -43,6 +43,9 @@ export default function BlogList({blok}: {blok: BlogListBlok}) {
 
   const prev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const next = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+
+  // Distinguish a click from a drag: only navigate if the pointer barely moved.
+  const downX = useRef(0);
 
   return (
     <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -91,8 +94,11 @@ export default function BlogList({blok}: {blok: BlogListBlok}) {
           {items.map((post) => (
             <article
               key={post.id}
-              onClick={() => {
-                if (emblaApi && !(emblaApi as any).clickAllowed?.()) return;
+              onPointerDown={(e) => {
+                downX.current = e.clientX;
+              }}
+              onClick={(e) => {
+                if (Math.abs(e.clientX - downX.current) > 8) return; // was a drag
                 goToPost(post.slug);
               }}
               className="group flex flex-[0_0_85%] sm:flex-[0_0_48%] lg:flex-[0_0_32%] min-w-0 flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-all hover:shadow-md"
