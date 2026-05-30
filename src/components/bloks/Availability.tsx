@@ -38,8 +38,8 @@ export default function Availability({blok}: {blok: AvailabilityBlok}) {
   const spotsLeft = Math.max(0, Math.min(spotsTotal, Number(blok.spots_left) || 0));
 
   return (
-    <section {...storyblokEditable(blok as any)} className="mx-auto max-w-md px-4 sm:px-6">
-      <div className="relative overflow-hidden rounded-3xl border border-stone-200 bg-white p-6 shadow-lg">
+    <section {...storyblokEditable(blok as any)} className="mx-auto max-w-md">
+      <div className="relative overflow-hidden rounded-3xl border border-stone-200 bg-white p-5 shadow-lg">
         <div className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-amber-200/40 blur-3xl" />
 
         {/* Profile row */}
