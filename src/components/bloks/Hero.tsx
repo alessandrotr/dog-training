@@ -28,11 +28,11 @@ export default function Hero({blok}: {blok: HeroBlok}) {
   return (
     <section
       {...storyblokEditable(blok as any)}
-      className="relative overflow-hidden bg-gradient-to-b from-stone-100 to-stone-50 pt-16 md:pt-24 pb-12"
+      className="relative overflow-hidden bg-gradient-to-b from-stone-100 to-stone-50 pt-8 md:pt-24 pb-12"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
-          <div className="lg:col-span-7 space-y-6 text-left">
+        <div className="flex max-lg:flex-col-reverse gap-12  lg:items-center">
+          <div className="lg:w-2/3 space-y-6 text-left">
             {blok.eyebrow && (
               <div className="inline-flex items-center space-x-1.5 rounded-full bg-stone-200 px-3.5 py-1 text-xs font-mono text-stone-700">
                 <span>{blok.eyebrow}</span>
@@ -86,7 +86,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
             )}
           </div>
 
-          <div className="lg:col-span-5 relative">
+          <div className="lg:max-w-lg relative">
             <div className="relative mx-auto max-w-[420px] lg:max-w-none">
               <div className="absolute -inset-1 rounded-3xl bg-amber-900/10 blur-xl"></div>
 
@@ -102,7 +102,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
               </div>
 
               {(blok.badge_title || blok.badge_subtitle) && (
-                <div className="absolute -bottom-6 -left-6 rounded-2xl bg-stone-900 p-4 text-stone-100 shadow-xl border border-stone-800 flex items-center space-x-3.5 max-w-[240px]">
+                <div className="absolute -bottom-6 lg:-left-6 rounded-2xl bg-stone-900 p-4 text-stone-100 shadow-xl border border-stone-800 flex items-center space-x-3.5 max-w-[240px]">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-800 text-amber-100">
                     <Award className="h-5.5 w-5.5" />
                   </div>
