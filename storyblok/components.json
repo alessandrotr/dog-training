@@ -122,7 +122,8 @@
             "faq_section",
             "bio_hero",
             "value_cards",
-            "pricing"
+            "pricing",
+            "availability"
           ]
         },
         "seo_title": { "type": "text", "pos": 1, "translatable": true },
@@ -338,6 +339,29 @@
         "footer_email": { "type": "text", "pos": 13 },
         "footer_copyright": { "type": "text", "pos": 14, "translatable": true },
         "footer_bottom_tags": { "type": "textarea", "pos": 15, "translatable": true, "description": "One tag per line" }
+      }
+    },
+    {
+      "name": "availability",
+      "display_name": "Availability Status",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "available": { "type": "boolean", "pos": 0, "default_value": true, "description": "Toggle ON when taking new clients" },
+        "name": { "type": "text", "pos": 1 },
+        "handle": { "type": "text", "pos": 2, "description": "e.g. @sophiabinder" },
+        "avatar": { "type": "asset", "filetypes": ["images"], "pos": 3 },
+        "verified": { "type": "boolean", "pos": 4, "default_value": true },
+        "available_status": { "type": "text", "pos": 5, "translatable": true, "description": "Shown when available, e.g. Available for new clients" },
+        "unavailable_status": { "type": "text", "pos": 6, "translatable": true, "description": "Shown when toggled off, e.g. Fully booked right now" },
+        "location": { "type": "text", "pos": 7, "translatable": true },
+        "response_time": { "type": "text", "pos": 8, "translatable": true, "description": "e.g. Usually replies in 24h" },
+        "spots_total": { "type": "number", "pos": 9, "default_value": "5", "description": "Total weekly slots (for the meter)" },
+        "spots_left": { "type": "number", "pos": 10, "description": "Open slots left (shown when available)" },
+        "available_cta_label": { "type": "text", "pos": 11, "translatable": true },
+        "available_cta_target": { "type": "option", "pos": 12, "use_uuid": false, "default_value": "booking", "options": [{"name": "Booking", "value": "booking"}, {"name": "Contact", "value": "contact"}, {"name": "Services", "value": "services"}, {"name": "About", "value": "about"}, {"name": "Blog", "value": "blog"}, {"name": "Testimonials", "value": "testimonials"}, {"name": "FAQ", "value": "faq"}, {"name": "Home", "value": "home"}] },
+        "unavailable_cta_label": { "type": "text", "pos": 13, "translatable": true },
+        "unavailable_cta_target": { "type": "option", "pos": 14, "use_uuid": false, "default_value": "contact", "options": [{"name": "Booking", "value": "booking"}, {"name": "Contact", "value": "contact"}, {"name": "Services", "value": "services"}, {"name": "About", "value": "about"}, {"name": "Blog", "value": "blog"}, {"name": "Testimonials", "value": "testimonials"}, {"name": "FAQ", "value": "faq"}, {"name": "Home", "value": "home"}] }
       }
     },
     {

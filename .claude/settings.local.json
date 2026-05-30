@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git commit -q -m ' *)"
+      "Bash(git commit -q -m ' *)",
+      "Bash(STORYBLOK_PAT=sb_pat_TYFgMpGQHSlfZHeMg04dtndIrQS8mmbat5DhjefoH1s STORYBLOK_SPACE_ID=292843694566503 node storyblok/seed-availability.mjs)",
+      "Bash(/usr/bin/curl -s http://localhost:3000/en)"
     ]
   }
 }

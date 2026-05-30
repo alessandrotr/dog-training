@@ -12,6 +12,7 @@ import BioHero from '../components/bloks/BioHero';
 import ValueCards from '../components/bloks/ValueCards';
 import ValueCard from '../components/bloks/ValueCard';
 import Pricing from '../components/bloks/Pricing';
+import Availability from '../components/bloks/Availability';
 
 // Registry mapping Storyblok blok names -> React components, so StoryblokStory
 // / StoryblokServerComponent can render composed pages.
@@ -29,6 +30,7 @@ const components = {
   value_cards: ValueCards,
   value_card: ValueCard,
   pricing: Pricing,
+  availability: Availability,
 };
 
 // Server-side Storyblok client. The token stays server-only (no NEXT_PUBLIC_
