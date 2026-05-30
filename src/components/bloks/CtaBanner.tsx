@@ -1,6 +1,7 @@
 'use client';
 
 import {storyblokEditable} from '@storyblok/react';
+import {Award} from 'lucide-react';
 import {useNavigate} from '../../lib/navigation';
 
 interface CtaBannerBlok {
@@ -13,10 +14,47 @@ interface CtaBannerBlok {
   secondary_label?: string;
   secondary_target?: string;
   note?: string;
+  variant?: 'dark' | 'light';
 }
 
 export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
   const setCurrentPage = useNavigate();
+
+  if (blok.variant === 'light') {
+    return (
+      <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="rounded-2xl border border-stone-200 bg-gradient-to-r from-stone-50 to-stone-100 p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex items-start space-x-4">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-900 border border-amber-200/50">
+              <Award className="h-5.5 w-5.5" />
+            </div>
+            <div className="text-left font-sans space-y-1">
+              {blok.headline && <h3 className="text-base font-bold text-stone-900">{blok.headline}</h3>}
+              {blok.description && <p className="text-xs text-stone-500">{blok.description}</p>}
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-3 justify-center">
+            {blok.primary_label && (
+              <button
+                onClick={() => setCurrentPage(blok.primary_target || 'booking')}
+                className="rounded-xl bg-amber-900 px-5 py-3 text-xs font-mono font-bold uppercase tracking-wider text-white shadow-sm hover:bg-amber-950 hover:shadow transition"
+              >
+                {blok.primary_label}
+              </button>
+            )}
+            {blok.secondary_label && (
+              <button
+                onClick={() => setCurrentPage(blok.secondary_target || 'contact')}
+                className="rounded-xl border border-stone-300 bg-white px-5 py-3 text-xs font-mono font-bold uppercase tracking-wider text-stone-700 hover:bg-stone-50 transition"
+              >
+                {blok.secondary_label}
+              </button>
+            )}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

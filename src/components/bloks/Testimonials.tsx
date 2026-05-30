@@ -10,16 +10,74 @@ interface TestimonialsBlok {
   _uid: string;
   component: string;
   eyebrow?: string;
+  headline?: string;
+  subheadline?: string;
   footer_label?: string;
+  layout?: 'carousel' | 'grid';
 }
 
-// Data-bound carousel: pulls testimonial stories from the page route.
+// Data-bound: pulls testimonial stories from the page route.
+// `carousel` = single rotating quote (home); `grid` = full card grid.
 export default function Testimonials({blok}: {blok: TestimonialsBlok}) {
   const setCurrentPage = useNavigate();
   const {testimonials} = usePageData();
   const [index, setIndex] = useState(0);
-  const active = testimonials[index];
 
+  if (blok.layout === 'grid') {
+    return (
+      <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12 text-left">
+        <div className="max-w-3xl space-y-4">
+          {blok.eyebrow && (
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-700">{blok.eyebrow}</span>
+          )}
+          {blok.headline && (
+            <h2 className="font-sans text-4xl font-extrabold tracking-tight text-amber-955 sm:text-5xl leading-tight">
+              {blok.headline}
+            </h2>
+          )}
+          {blok.subheadline && (
+            <p className="font-sans text-sm text-stone-500 max-w-2xl leading-relaxed">{blok.subheadline}</p>
+          )}
+        </div>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          {testimonials.map((tItem) => (
+            <div
+              key={tItem.id}
+              className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm flex flex-col justify-between space-y-6"
+            >
+              <div className="space-y-4">
+                <div className="flex items-center space-x-0.5">
+                  {[...Array(tItem.rating)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-amber-500 stroke-none" />
+                  ))}
+                </div>
+                <blockquote className="font-serif text-base text-amber-955 leading-relaxed italic">
+                  “{tItem.text}”
+                </blockquote>
+              </div>
+              <div className="flex items-center space-x-3.5 border-t border-stone-100 pt-4">
+                {tItem.imageUrl && (
+                  <img
+                    src={tItem.imageUrl}
+                    alt={tItem.name}
+                    className="h-10 w-10 rounded-full object-cover border"
+                    referrerPolicy="no-referrer"
+                  />
+                )}
+                <div>
+                  <p className="text-sm font-bold text-stone-900 leading-none">{tItem.name}</p>
+                  <p className="text-[11px] text-stone-500 font-mono -mt-0.5">{tItem.dogBreed}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  // carousel
+  const active = testimonials[index];
   const prev = () => setIndex((i) => (i === 0 ? testimonials.length - 1 : i - 1));
   const next = () => setIndex((i) => (i === testimonials.length - 1 ? 0 : i + 1));
 
@@ -33,9 +91,7 @@ export default function Testimonials({blok}: {blok: TestimonialsBlok}) {
           <MessageSquareQuote className="h-6 w-6" />
         </div>
         {blok.eyebrow && (
-          <span className="block font-mono text-xs uppercase tracking-widest text-amber-700 mb-2">
-            {blok.eyebrow}
-          </span>
+          <span className="block font-mono text-xs uppercase tracking-widest text-amber-700 mb-2">{blok.eyebrow}</span>
         )}
 
         {active && (
@@ -69,21 +125,11 @@ export default function Testimonials({blok}: {blok: TestimonialsBlok}) {
 
         {testimonials.length > 1 && (
           <div className="flex items-center justify-center space-x-4 mt-8">
-            <button
-              onClick={prev}
-              className="rounded-full border border-stone-300 bg-white p-2.5 text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors focus:outline-none"
-              aria-label="Previous testimonial"
-            >
+            <button onClick={prev} className="rounded-full border border-stone-300 bg-white p-2.5 text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors focus:outline-none" aria-label="Previous testimonial">
               <ArrowLeft className="h-4 w-4" />
             </button>
-            <span className="text-xs font-mono text-stone-400">
-              {index + 1} of {testimonials.length}
-            </span>
-            <button
-              onClick={next}
-              className="rounded-full border border-stone-300 bg-white p-2.5 text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors focus:outline-none"
-              aria-label="Next testimonial"
-            >
+            <span className="text-xs font-mono text-stone-400">{index + 1} of {testimonials.length}</span>
+            <button onClick={next} className="rounded-full border border-stone-300 bg-white p-2.5 text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors focus:outline-none" aria-label="Next testimonial">
               <ArrowRight className="h-4 w-4" />
             </button>
           </div>

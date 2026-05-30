@@ -118,7 +118,11 @@
             "cta_banner",
             "services_grid",
             "testimonials",
-            "blog_list"
+            "blog_list",
+            "faq_section",
+            "bio_hero",
+            "value_cards",
+            "pricing"
           ]
         },
         "seo_title": { "type": "text", "pos": 1, "translatable": true },
@@ -196,7 +200,8 @@
         "primary_target": { "type": "option", "pos": 3, "use_uuid": false, "default_value": "booking", "options": [{"name": "Booking", "value": "booking"}, {"name": "Services", "value": "services"}, {"name": "Contact", "value": "contact"}, {"name": "About", "value": "about"}, {"name": "Blog", "value": "blog"}, {"name": "Testimonials", "value": "testimonials"}, {"name": "FAQ", "value": "faq"}, {"name": "Home", "value": "home"}] },
         "secondary_label": { "type": "text", "pos": 4, "translatable": true },
         "secondary_target": { "type": "option", "pos": 5, "use_uuid": false, "default_value": "contact", "options": [{"name": "Booking", "value": "booking"}, {"name": "Services", "value": "services"}, {"name": "Contact", "value": "contact"}, {"name": "About", "value": "about"}, {"name": "Blog", "value": "blog"}, {"name": "Testimonials", "value": "testimonials"}, {"name": "FAQ", "value": "faq"}, {"name": "Home", "value": "home"}] },
-        "note": { "type": "text", "pos": 6, "translatable": true }
+        "note": { "type": "text", "pos": 6, "translatable": true },
+        "variant": { "type": "option", "pos": 7, "use_uuid": false, "default_value": "dark", "options": [{"name": "Dark banner", "value": "dark"}, {"name": "Light inline", "value": "light"}] }
       }
     },
     {
@@ -209,7 +214,8 @@
         "headline": { "type": "text", "pos": 1, "translatable": true },
         "subheadline": { "type": "textarea", "pos": 2, "translatable": true },
         "limit": { "type": "number", "pos": 3, "description": "Max services to show (blank = all). Items come from the Services folder." },
-        "footer_label": { "type": "text", "pos": 4, "translatable": true }
+        "footer_label": { "type": "text", "pos": 4, "translatable": true },
+        "layout": { "type": "option", "pos": 5, "use_uuid": false, "default_value": "grid", "options": [{"name": "Grid (compact cards)", "value": "grid"}, {"name": "List (full alternating)", "value": "list"}] }
       }
     },
     {
@@ -219,7 +225,10 @@
       "is_nestable": true,
       "schema": {
         "eyebrow": { "type": "text", "pos": 0, "translatable": true },
-        "footer_label": { "type": "text", "pos": 1, "translatable": true, "description": "Items come from the Testimonials folder." }
+        "headline": { "type": "text", "pos": 1, "translatable": true },
+        "subheadline": { "type": "textarea", "pos": 2, "translatable": true },
+        "footer_label": { "type": "text", "pos": 3, "translatable": true, "description": "Items come from the Testimonials folder." },
+        "layout": { "type": "option", "pos": 4, "use_uuid": false, "default_value": "carousel", "options": [{"name": "Carousel", "value": "carousel"}, {"name": "Grid", "value": "grid"}] }
       }
     },
     {
@@ -232,6 +241,79 @@
         "headline": { "type": "text", "pos": 1, "translatable": true },
         "footer_label": { "type": "text", "pos": 2, "translatable": true },
         "limit": { "type": "number", "pos": 3, "description": "Max posts to show (blank = all). Items come from the Blog folder." }
+      }
+    },
+    {
+      "name": "faq_section",
+      "display_name": "FAQ Section (auto)",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "eyebrow": { "type": "text", "pos": 0, "translatable": true },
+        "headline": { "type": "text", "pos": 1, "translatable": true },
+        "subheadline": { "type": "textarea", "pos": 2, "translatable": true },
+        "search_placeholder": { "type": "text", "pos": 3, "translatable": true },
+        "enable_search": { "type": "boolean", "pos": 4, "default_value": true },
+        "_note": { "type": "text", "pos": 5, "description": "Items come from the FAQs folder." }
+      }
+    },
+    {
+      "name": "bio_hero",
+      "display_name": "Bio Hero",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "eyebrow": { "type": "text", "pos": 0, "translatable": true },
+        "headline": { "type": "text", "pos": 1, "translatable": true },
+        "image": { "type": "asset", "filetypes": ["images"], "pos": 2 },
+        "body": { "type": "richtext", "pos": 3, "translatable": true },
+        "signature_name": { "type": "text", "pos": 4, "translatable": true },
+        "signature_role": { "type": "text", "pos": 5, "translatable": true },
+        "badge_text": { "type": "text", "pos": 6, "translatable": true }
+      }
+    },
+    {
+      "name": "value_cards",
+      "display_name": "Value Cards",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "eyebrow": { "type": "text", "pos": 0, "translatable": true },
+        "headline": { "type": "text", "pos": 1, "translatable": true },
+        "subheadline": { "type": "textarea", "pos": 2, "translatable": true },
+        "columns": { "type": "option", "pos": 3, "use_uuid": false, "default_value": "3", "options": [{"name": "2", "value": "2"}, {"name": "3", "value": "3"}] },
+        "cards": { "type": "bloks", "pos": 4, "restrict_components": true, "component_whitelist": ["value_card"] }
+      }
+    },
+    {
+      "name": "value_card",
+      "display_name": "Value Card",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "icon": { "type": "text", "pos": 0, "description": "Lucide icon: Award / BrainCircuit / HeartHandshake / Milestone / CheckCircle / ShieldCheck / Sparkles / Building" },
+        "title": { "type": "text", "pos": 1, "translatable": true },
+        "description": { "type": "textarea", "pos": 2, "translatable": true }
+      }
+    },
+    {
+      "name": "pricing",
+      "display_name": "Pricing",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "eyebrow": { "type": "text", "pos": 0, "translatable": true },
+        "headline": { "type": "text", "pos": 1, "translatable": true },
+        "description": { "type": "textarea", "pos": 2, "translatable": true },
+        "trust_items": { "type": "textarea", "pos": 3, "translatable": true, "description": "One per line" },
+        "tier_badge": { "type": "text", "pos": 4, "translatable": true },
+        "tier_name": { "type": "text", "pos": 5, "translatable": true },
+        "tier_description": { "type": "textarea", "pos": 6, "translatable": true },
+        "tier_price": { "type": "text", "pos": 7 },
+        "tier_price_note": { "type": "text", "pos": 8, "translatable": true },
+        "tier_features": { "type": "textarea", "pos": 9, "translatable": true, "description": "One per line" },
+        "cta_label": { "type": "text", "pos": 10, "translatable": true },
+        "cta_target": { "type": "option", "pos": 11, "use_uuid": false, "default_value": "booking", "options": [{"name": "Booking", "value": "booking"}, {"name": "Services", "value": "services"}, {"name": "Contact", "value": "contact"}, {"name": "About", "value": "about"}, {"name": "Blog", "value": "blog"}, {"name": "Testimonials", "value": "testimonials"}, {"name": "FAQ", "value": "faq"}, {"name": "Home", "value": "home"}] }
       }
     }
   ]

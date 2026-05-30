@@ -1,5 +1,4 @@
-import Testimonials from '../../../components/pages/Testimonials';
-import {getTestimonials} from '../../../lib/content-server';
+import RenderStoryblokPage from '../../../components/RenderStoryblokPage';
 import type {Locale} from '../../../lib/locales';
 
 type SP = Promise<Record<string, string | string[] | undefined>>;
@@ -13,6 +12,5 @@ export default async function Page({
 }) {
   const {lang} = await params;
   const preview = '_storyblok' in (await searchParams);
-  const testimonials = await getTestimonials(lang as Locale, preview);
-  return <Testimonials testimonials={testimonials} />;
+  return <RenderStoryblokPage slug="testimonials" lang={lang as Locale} preview={preview} />;
 }

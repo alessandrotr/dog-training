@@ -1,5 +1,4 @@
-import Services from '../../../components/pages/Services';
-import {getServices} from '../../../lib/content-server';
+import RenderStoryblokPage from '../../../components/RenderStoryblokPage';
 import type {Locale} from '../../../lib/locales';
 
 type SP = Promise<Record<string, string | string[] | undefined>>;
@@ -13,6 +12,5 @@ export default async function Page({
 }) {
   const {lang} = await params;
   const preview = '_storyblok' in (await searchParams);
-  const services = await getServices(lang as Locale, preview);
-  return <Services services={services} />;
+  return <RenderStoryblokPage slug="services" lang={lang as Locale} preview={preview} />;
 }
