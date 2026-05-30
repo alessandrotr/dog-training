@@ -4,7 +4,6 @@ import {useEffect} from 'react';
 import {usePathname} from 'next/navigation';
 import Navbar from './navigation/Navbar';
 import Footer from './navigation/Footer';
-import WhatsAppCTA from './navigation/WhatsAppCTA';
 import MobileStickyCTA from './navigation/MobileStickyCTA';
 import type {SiteConfig} from '../types';
 
@@ -37,7 +36,6 @@ export default function SiteChrome({
       <Footer config={config.footer} />
 
       {/* Floating high-priority actions */}
-      <WhatsAppCTA />
       <MobileStickyCTA />
     </div>
   );
