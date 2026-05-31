@@ -28,7 +28,7 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
   };
 
   return (
-    <article className="py-12 pb-24 text-left">
+    <article className="py-8 text-left">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         {/* Heading Container */}
@@ -40,7 +40,7 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
             {post.title}
           </h1>
           
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-xs font-mono text-stone-450 pt-2 border-t border-stone-100">
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-xs font-mono text-stone-450 pt-4 border-t border-stone-100">
             <div className="flex items-center space-x-1">
               <CalendarDays className="h-3.5 w-3.5 text-amber-700" />
               <span>Published: {post.publishDate}</span>
