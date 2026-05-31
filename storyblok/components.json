@@ -87,7 +87,7 @@
           "pos": 2,
           "translatable": true
         },
-        "category": { "type": "text", "pos": 3, "translatable": true },
+        "category": { "type": "option", "pos": 3, "source": "internal", "datasource_slug": "categories", "description": "Pick a category. Add new ones under Datasources → Categories." },
         "reading_time": {
           "type": "text",
           "pos": 4,
@@ -96,10 +96,11 @@
         },
         "publish_date": { "type": "text", "pos": 5, "translatable": true },
         "tags": {
-          "type": "textarea",
+          "type": "options",
           "pos": 6,
-          "translatable": true,
-          "description": "One tag per line"
+          "source": "internal",
+          "datasource_slug": "tags",
+          "description": "Pick topics. Add new ones under Datasources → Tags."
         },
         "image": { "type": "asset", "filetypes": ["images"], "pos": 7 },
         "meta_title": { "type": "text", "pos": 8, "translatable": true },

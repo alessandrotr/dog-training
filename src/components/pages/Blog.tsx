@@ -4,7 +4,8 @@ import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
-import { Search, SlidersHorizontal, BookOpen, Clock, Heart, Award, ArrowRight } from 'lucide-react';
+import { Search, BookOpen, ArrowRight, Award, Tag, X } from 'lucide-react';
+import { useQueryState } from 'nuqs';
 import { useHref } from '../../lib/navigation';
 import type { BlogPost } from '../../types';
 
@@ -12,31 +13,42 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
   const href = useHref();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  // Active tag lives in the URL (?tag=…) so article tag chips can deep-link here.
+  const [activeTag, setActiveTag] = useQueryState('tag');
   const { t } = useTranslation();
   const blogPosts = posts;
 
-  // Categories extraction
+  // Controlled vocabularies, derived from the posts that actually exist.
   const categories = useMemo(() => {
     const list = ['All'];
     blogPosts.forEach((post) => {
-      if (!list.includes(post.category)) list.push(post.category);
+      if (post.category && !list.includes(post.category)) list.push(post.category);
     });
     return list;
   }, [blogPosts]);
 
+  const tags = useMemo(() => {
+    const set = new Set<string>();
+    blogPosts.forEach((post) => post.tags?.forEach((tag) => set.add(tag)));
+    return [...set];
+  }, [blogPosts]);
+
   // Filtered list
   const filteredPosts = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
     return blogPosts.filter((post) => {
       const matchesSearch =
-        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.summary.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.tags?.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
+        !q ||
+        post.title.toLowerCase().includes(q) ||
+        post.summary.toLowerCase().includes(q) ||
+        post.tags?.some((tag) => tag.toLowerCase().includes(q));
 
       const matchesCat = selectedCategory === 'All' || post.category === selectedCategory;
+      const matchesTag = !activeTag || post.tags?.includes(activeTag);
 
-      return matchesSearch && matchesCat;
+      return matchesSearch && matchesCat && matchesTag;
     });
-  }, [blogPosts, searchQuery, selectedCategory]);
+  }, [blogPosts, searchQuery, selectedCategory, activeTag]);
 
   return (
     <div className="space-y-16 py-12 pb-24 text-left">
@@ -92,6 +104,39 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
           </div>
 
         </div>
+
+        {/* Topic (tag) filters */}
+        {tags.length > 0 && (
+          <div className="mt-5 flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-stone-400">
+              <Tag className="h-3.5 w-3.5" /> Topics
+            </span>
+            {tags.map((tag) => {
+              const active = activeTag === tag;
+              return (
+                <button
+                  key={tag}
+                  onClick={() => setActiveTag(active ? null : tag)}
+                  className={`rounded-full border px-3 py-1 font-mono text-[11px] font-medium transition-colors ${
+                    active
+                      ? 'border-amber-700 bg-amber-700 text-white'
+                      : 'border-amber-200/60 bg-amber-50 text-amber-800 hover:border-amber-300 hover:bg-amber-100'
+                  }`}
+                >
+                  {tag}
+                </button>
+              );
+            })}
+            {activeTag && (
+              <button
+                onClick={() => setActiveTag(null)}
+                className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 font-mono text-[11px] text-stone-500 transition-colors hover:text-stone-900"
+              >
+                <X className="h-3.5 w-3.5" /> Clear
+              </button>
+            )}
+          </div>
+        )}
       </section>
 
       {/* Blog Grid Content */}
@@ -108,6 +153,7 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
               onClick={() => {
                 setSearchQuery('');
                 setSelectedCategory('All');
+                setActiveTag(null);
               }}
               className="rounded-lg bg-stone-900 px-4 py-2 text-xs font-semibold text-white tracking-wide"
             >

@@ -4,8 +4,9 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BlogPost } from '../../types';
-import { ArrowLeft, Clock, CalendarDays, Share2, Bookmark, Check, CalendarRange, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Clock, CalendarDays, Share2, Bookmark, Check, CalendarRange, Sparkles, Tag } from 'lucide-react';
 import { useHref } from '../../lib/navigation';
+import { useCarousel } from '../../lib/use-carousel';
 import Availability from '../bloks/Availability';
 
 interface BlogPostTemplateProps {
@@ -17,9 +18,14 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
   const [copiedLink, setCopiedLink] = useState(false);
   const href = useHref();
   const blogPosts = posts;
+  const {emblaRef, prev, next, canPrev, canNext, slideProps} = useCarousel();
 
-  // Find other posts for Related Section
-  const relatedPosts = blogPosts.filter((p) => p.slug !== post.slug);
+  // Related posts: prefer same category, then fill with the rest.
+  const others = blogPosts.filter((p) => p.slug !== post.slug);
+  const relatedPosts = [
+    ...others.filter((p) => p.category && p.category === post.category),
+    ...others.filter((p) => !p.category || p.category !== post.category),
+  ];
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -105,15 +111,18 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
             {/* Article tags */}
             {post.tags && post.tags.length > 0 && (
               <div className="mt-12 border-t border-stone-200 pt-8">
-                <h4 className="font-mono text-xs uppercase tracking-widest text-stone-400 mb-3 font-semibold">Article Tags</h4>
-                <div className="flex flex-wrap gap-2 text-[10px] font-mono">
+                <h4 className="mb-3 flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-widest text-stone-400">
+                  <Tag className="h-3.5 w-3.5 text-amber-700" /> Topics
+                </h4>
+                <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
-                    <span
+                    <Link
                       key={tag}
-                      className="rounded-md bg-stone-100 border border-stone-200 text-stone-600 px-2.5 py-1"
+                      href={`${href.page('blog')}?tag=${encodeURIComponent(tag)}`}
+                      className="inline-flex items-center rounded-full border border-amber-200/60 bg-amber-50 px-3 py-1 font-mono text-[11px] font-medium text-amber-800 transition-colors hover:border-amber-300 hover:bg-amber-100"
                     >
-                      #{tag}
-                    </span>
+                      {tag}
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -122,40 +131,55 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
 
         </div>
 
-        {/* RELATED ARTICLES FOOTER */}
+        {/* RELATED ARTICLES — carousel (mirrors the home articles carousel) */}
         {relatedPosts.length > 0 && (
           <div className="mt-24 border-t border-stone-200 pt-16">
-            <h3 className="font-sans text-2xl font-extrabold text-amber-955 mb-8">Related Behavioral Studies</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {relatedPosts.slice(0, 2).map((rel) => (
-                <Link
-                  key={rel.id}
-                  href={href.post(rel.slug)}
-                  className="group cursor-pointer rounded-2xl border border-stone-200 bg-white p-4 shadow-sm hover:shadow transition-all flex flex-col md:flex-row gap-4"
-                >
-                  <div className="md:w-1/3 relative h-32 rounded-xl bg-stone-105 overflow-hidden">
-                    <Image
-                      src={rel.imageUrl}
-                      alt={rel.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover transition-transform group-hover:scale-105"
-                      referrerPolicy="no-referrer"
-                    />
-                  </div>
-                  <div className="md:w-2/3 text-left flex flex-col justify-between">
-                    <div>
-                      <span className="text-[9px] font-mono uppercase text-amber-800 font-bold">{rel.category}</span>
-                      <h4 className="font-sans text-sm font-bold text-stone-900 group-hover:text-amber-950 transition-colors leading-snug mt-1">
+            <div className="mb-8 flex items-end justify-between gap-4">
+              <h3 className="font-sans text-2xl font-extrabold text-amber-955">Related Behavioral Studies</h3>
+              <div className="flex items-center gap-2 shrink-0">
+                <button onClick={prev} disabled={!canPrev} aria-label="Previous articles" className="rounded-full border border-stone-300 bg-white p-2 text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 disabled:opacity-40 disabled:cursor-not-allowed">
+                  <ArrowLeft className="h-3.5 w-3.5" />
+                </button>
+                <button onClick={next} disabled={!canNext} aria-label="Next articles" className="rounded-full border border-stone-300 bg-white p-2 text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 disabled:opacity-40 disabled:cursor-not-allowed">
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            </div>
+
+            <div className="overflow-hidden cursor-grab active:cursor-grabbing select-none" ref={emblaRef}>
+              <div className="flex gap-6 py-1">
+                {relatedPosts.map((rel) => (
+                  <Link
+                    key={rel.id}
+                    href={href.post(rel.slug)}
+                    {...slideProps}
+                    className="group flex flex-[0_0_80%] sm:flex-[0_0_46%] lg:flex-[0_0_31%] min-w-0 cursor-pointer flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition-colors hover:border-stone-300"
+                  >
+                    <div className="relative aspect-video overflow-hidden bg-stone-100">
+                      <Image
+                        src={rel.imageUrl}
+                        alt={rel.title}
+                        fill
+                        sizes="(max-width: 640px) 80vw, (max-width: 1024px) 46vw, 31vw"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                    <div className="flex flex-1 flex-col p-5 text-left">
+                      {rel.category && (
+                        <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-amber-800">{rel.category}</span>
+                      )}
+                      <h4 className="mt-1.5 font-sans text-base font-bold leading-snug text-stone-900 group-hover:text-amber-950 transition-colors line-clamp-2">
                         {rel.title}
                       </h4>
+                      <span className="mt-auto inline-flex items-center gap-1.5 pt-4 font-mono text-[11px] font-bold uppercase tracking-wider text-amber-900">
+                        Read Study
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                      </span>
                     </div>
-                    <span className="text-[10px] font-mono text-amber-900 font-bold pt-2 mt-2 border-t border-stone-50">
-                      View Study →
-                    </span>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         )}

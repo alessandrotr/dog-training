@@ -70,7 +70,8 @@ export const adaptBlogPost = (s: any): BlogPost => {
     publishDate: c.publish_date ?? '',
     readingTime: c.reading_time ?? '',
     category: c.category ?? '',
-    tags: lines(c.tags),
+    // tags is now a multi-option (datasource) array; tolerate the old textarea.
+    tags: Array.isArray(c.tags) ? c.tags.filter(Boolean) : lines(c.tags),
     seo: {
       metaTitle: c.meta_title ?? '',
       metaDescription: c.meta_description ?? '',
