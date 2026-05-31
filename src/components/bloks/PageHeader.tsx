@@ -14,7 +14,7 @@ interface PageHeaderBlok {
 // get a consistent eyebrow + large headline + intro paragraph.
 export default function PageHeader({blok}: {blok: PageHeaderBlok}) {
   return (
-    <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
       <div className="max-w-3xl space-y-4 text-left">
         {blok.eyebrow && (
           <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-700">
