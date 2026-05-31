@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import {storyblokEditable} from '@storyblok/react';
-import {ArrowRight, ArrowLeft, CalendarRange, Check, Star, ShoppingBag} from 'lucide-react';
+import {ArrowRight, ArrowLeft, ArrowUpRight, CalendarRange, Check, Star, ShoppingBag} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import {useCarousel} from '../../lib/use-carousel';
 import {usePageData} from '../PageDataProvider';
@@ -147,13 +147,24 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
             <p className="font-sans text-stone-500 text-base leading-relaxed">{blok.subheadline}</p>
           )}
         </div>
-        <div className="flex items-center gap-2 shrink-0">
-          <button onClick={prev} disabled={!canPrev} aria-label="Previous services" className="rounded-full border border-stone-300 bg-white p-2.5 text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 disabled:opacity-40 disabled:cursor-not-allowed">
-            <ArrowLeft className="h-4 w-4" />
-          </button>
-          <button onClick={next} disabled={!canNext} aria-label="Next services" className="rounded-full border border-stone-300 bg-white p-2.5 text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 disabled:opacity-40 disabled:cursor-not-allowed">
-            <ArrowRight className="h-4 w-4" />
-          </button>
+        <div className="flex items-center gap-3 shrink-0">
+          {blok.footer_label && (
+            <Link
+              href={href.page('services')}
+              className="inline-flex items-center space-x-1.5 font-mono text-xs font-bold tracking-wider text-amber-900 hover:text-amber-950 transition-colors"
+            >
+              <span>{blok.footer_label}</span>
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          )}
+          <div className="flex items-center gap-2">
+            <button onClick={prev} disabled={!canPrev} aria-label="Previous services" className="rounded-full border border-stone-300 bg-white p-2.5 text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 disabled:opacity-40 disabled:cursor-not-allowed">
+              <ArrowLeft className="h-4 w-4" />
+            </button>
+            <button onClick={next} disabled={!canNext} aria-label="Next services" className="rounded-full border border-stone-300 bg-white p-2.5 text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 disabled:opacity-40 disabled:cursor-not-allowed">
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -232,17 +243,6 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
         </div>
       </div>
 
-      {blok.footer_label && (
-        <div className="mt-10 text-center">
-          <Link
-            href={href.page('services')}
-            className="group inline-flex items-center space-x-2 font-mono text-xs font-bold tracking-wider text-amber-900 hover:text-amber-950 transition-colors"
-          >
-            <span>{blok.footer_label}</span>
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
-        </div>
-      )}
     </section>
   );
 }

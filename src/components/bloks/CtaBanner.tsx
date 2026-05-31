@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import {storyblokEditable} from '@storyblok/react';
-import {Award} from 'lucide-react';
+import {Award, PawPrint, ArrowRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 
 interface CtaBannerBlok {
@@ -59,38 +59,57 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
 
   return (
     <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="relative overflow-hidden rounded-3xl bg-amber-950 px-6 py-16 text-center text-stone-100 shadow-xl md:px-12 md:py-20">
-        <div className="absolute top-0 right-0 h-64 w-64 bg-amber-900/20 blur-3xl rounded-full"></div>
-        <div className="relative z-10 max-w-3xl mx-auto space-y-6">
+      <div className="relative overflow-hidden rounded-4xl bg-linear-to-br from-amber-700 via-amber-800 to-amber-900 px-6 py-16 text-center text-amber-50 shadow-xl ring-1 ring-amber-600/30 md:px-12 md:py-20">
+        {/* Soft glows */}
+        <div className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-amber-400/20 blur-3xl"></div>
+        <div className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-amber-500/15 blur-3xl"></div>
+
+        {/* Scattered paw prints */}
+        <PawPrint className="pointer-events-none absolute left-6 top-10 h-12 w-12 rotate-[-18deg] text-amber-100/15" />
+        <PawPrint className="pointer-events-none absolute left-1/4 bottom-8 h-8 w-8 rotate-12 text-amber-100/12" />
+        <PawPrint className="pointer-events-none absolute right-10 top-1/3 h-16 w-16 rotate-24 text-amber-100/10" />
+        <PawPrint className="pointer-events-none absolute right-1/4 bottom-12 h-9 w-9 -rotate-6 text-amber-100/15" />
+        <PawPrint className="pointer-events-none absolute left-12 top-1/2 h-6 w-6 rotate-40 text-amber-100/10" />
+
+        <div className="relative z-10 mx-auto max-w-3xl space-y-6">
+
           {blok.headline && (
-            <h2 className="font-sans text-3xl font-extrabold tracking-tight sm:text-4xl text-stone-50">
+            <h2 className="font-sans text-3xl font-extrabold tracking-tight sm:text-4xl text-white">
               {blok.headline}
             </h2>
           )}
           {blok.description && (
-            <p className="font-sans text-base text-stone-300 max-w-xl mx-auto leading-relaxed">
+            <p className="mx-auto max-w-xl font-sans text-base text-amber-100/90 leading-relaxed">
               {blok.description}
             </p>
           )}
-          <div className="pt-4 flex flex-col sm:flex-row justify-center gap-4">
+
+          <div className="flex flex-col justify-center gap-3 pt-4 sm:flex-row">
             {blok.primary_label && (
               <Link
                 href={href.page(blok.primary_target || 'booking')}
-                className="rounded-xl bg-amber-800 px-6 py-4 text-xs font-mono font-bold uppercase tracking-wider text-white shadow-md hover:bg-amber-700 transition"
+                className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-amber-50 px-7 py-4 text-xs font-mono font-bold uppercase tracking-wider text-amber-900 shadow-lg shadow-amber-950/20 transition hover:bg-white"
               >
                 {blok.primary_label}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             )}
             {blok.secondary_label && (
               <Link
                 href={href.page(blok.secondary_target || 'contact')}
-                className="rounded-xl border border-stone-700 bg-stone-900 px-6 py-4 text-xs font-mono font-bold uppercase tracking-wider text-stone-200 hover:bg-stone-850 hover:text-white transition"
+                className="inline-flex items-center justify-center rounded-2xl border border-amber-100/30 bg-white/10 px-7 py-4 text-xs font-mono font-bold uppercase tracking-wider text-white backdrop-blur transition hover:border-amber-100/50 hover:bg-white/20"
               >
                 {blok.secondary_label}
               </Link>
             )}
           </div>
-          {blok.note && <p className="text-[10px] text-stone-450 font-mono">{blok.note}</p>}
+
+          {blok.note && (
+            <p className="inline-flex items-center justify-center gap-1.5 font-mono text-[10px] text-amber-100/70">
+              <PawPrint className="h-3 w-3 text-amber-100/80" />
+              {blok.note}
+            </p>
+          )}
         </div>
       </div>
     </section>
