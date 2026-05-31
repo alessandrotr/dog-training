@@ -35,7 +35,8 @@
       "Bash(node -e \"const c=require\\('./storyblok/components.json'\\);const a=Array.isArray\\(c\\)?c:c.components;for\\(const n of ['faq_section','testimonials']\\){const p=a.find\\(x=>x.name===n\\);console.log\\(n, JSON.stringify\\(p.schema\\)\\);}\")",
       "Bash(node -e \"const c=require\\('./storyblok/components.json'\\);const a=Array.isArray\\(c\\)?c:c.components;const p=a.find\\(x=>x.name==='service'\\);console.log\\(JSON.stringify\\(p.schema,null,1\\)\\)\")",
       "Bash(node -e \"JSON.parse\\(require\\('fs'\\).readFileSync\\('storyblok/components.json','utf8'\\)\\);console.log\\('JSON valid'\\)\")",
-      "Bash(pkill -f \"next\")"
+      "Bash(pkill -f \"next\")",
+      "Bash(git rev-list *)"
     ],
     "additionalDirectories": [
       "/tmp"

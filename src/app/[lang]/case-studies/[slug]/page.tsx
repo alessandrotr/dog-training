@@ -2,10 +2,16 @@ import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import {getServices, getTestimonials} from '../../../../lib/content-server';
 import CaseStudyDetail from '../../../../components/pages/CaseStudyDetail';
-import {isLocale, DEFAULT_LOCALE, type Locale} from '../../../../lib/locales';
+import {isLocale, DEFAULT_LOCALE, LOCALES, type Locale} from '../../../../lib/locales';
 import {buildMetadata} from '../../../../lib/seo';
 
 type SP = Promise<Record<string, string | string[] | undefined>>;
+
+// Prebuild every case study in every locale.
+export async function generateStaticParams() {
+  const studies = await getTestimonials(DEFAULT_LOCALE, false);
+  return LOCALES.flatMap((lang) => studies.map((t) => ({lang, slug: t.slug})));
+}
 
 export async function generateMetadata({
   params,

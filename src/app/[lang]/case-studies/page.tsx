@@ -7,8 +7,7 @@ type SP = Promise<Record<string, string | string[] | undefined>>;
 
 export async function generateMetadata({params}: {params: Promise<{lang: string}>}): Promise<Metadata> {
   const {lang} = await params;
-  // Storyblok story slug stays "testimonials"; the public path is /case-studies.
-  return pageMetadata('testimonials', isLocale(lang) ? lang : DEFAULT_LOCALE, 'case-studies');
+  return pageMetadata('case-studies', isLocale(lang) ? lang : DEFAULT_LOCALE, 'case-studies');
 }
 
 export default async function Page({
@@ -20,5 +19,5 @@ export default async function Page({
 }) {
   const {lang} = await params;
   const preview = '_storyblok' in (await searchParams);
-  return <RenderStoryblokPage slug="testimonials" lang={lang as Locale} preview={preview} />;
+  return <RenderStoryblokPage slug="case-studies" lang={lang as Locale} preview={preview} />;
 }

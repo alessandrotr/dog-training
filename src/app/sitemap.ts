@@ -22,14 +22,20 @@ function entriesFor(path: string): MetadataRoute.Sitemap {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let pageSlugs: string[] = [];
   let blogSlugs: string[] = [];
+  let serviceSlugs: string[] = [];
+  let caseStudySlugs: string[] = [];
   try {
     const api = getStoryblokApi();
-    const [pages, blog] = await Promise.all([
+    const [pages, blog, services, caseStudies] = await Promise.all([
       api.get('cdn/stories', {starts_with: 'pages/', version: 'published', per_page: 100}),
       api.get('cdn/stories', {starts_with: 'blog/', version: 'published', per_page: 100}),
+      api.get('cdn/stories', {starts_with: 'services/', version: 'published', per_page: 100}),
+      api.get('cdn/stories', {starts_with: 'testimonials/', version: 'published', per_page: 100}),
     ]);
     pageSlugs = (pages.data?.stories ?? []).map((s: any) => s.slug);
     blogSlugs = (blog.data?.stories ?? []).map((s: any) => s.slug);
+    serviceSlugs = (services.data?.stories ?? []).map((s: any) => s.slug);
+    caseStudySlugs = (caseStudies.data?.stories ?? []).map((s: any) => s.slug);
   } catch {
     // Fall back to static routes only if Storyblok is unreachable.
   }
@@ -38,6 +44,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const slug of pageSlugs) paths.add(slug === 'home' ? '' : slug);
   for (const route of STATIC_ROUTES) paths.add(route);
   for (const slug of blogSlugs) paths.add(`blog/${slug}`);
+  for (const slug of serviceSlugs) paths.add(`services/${slug}`);
+  for (const slug of caseStudySlugs) paths.add(`case-studies/${slug}`);
 
   return [...paths].flatMap(entriesFor);
 }
