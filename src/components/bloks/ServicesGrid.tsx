@@ -3,7 +3,9 @@
 import {storyblokEditable} from '@storyblok/react';
 import {useHref} from '../../lib/navigation';
 import {usePageData} from '../PageDataProvider';
+import {caseStudyCountByService, guideCountByService} from '../../lib/relations';
 import Carousel from '../Carousel';
+import Section from '../ui/section';
 import ServiceCard from './ServiceCard';
 
 interface ServicesGridBlok {
@@ -28,35 +30,25 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
   const items = services.slice(0, limit);
   const isList = blok.layout === 'list';
 
-  // Aggregate real review stats per service from testimonials tagged to it.
-  const reviews = new Map<string, {avg: number; count: number}>();
-  for (const svc of services) {
-    const tagged = testimonials.filter((t) => t.serviceId === svc.id && t.rating > 0);
-    if (tagged.length) {
-      const avg = tagged.reduce((sum, t) => sum + t.rating, 0) / tagged.length;
-      reviews.set(svc.id, {avg, count: tagged.length});
-    }
-  }
-
-  // Related-article counts per service (for the "N guides" card hint).
-  const guides = new Map<string, number>();
-  for (const p of posts) for (const id of p.serviceIds ?? []) guides.set(id, (guides.get(id) ?? 0) + 1);
+  // Per-service social-proof counts (case studies + related guides).
+  const caseStudies = caseStudyCountByService(testimonials);
+  const guides = guideCountByService(posts);
 
   if (isList) {
     return (
-      <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-left">
+      <Section {...storyblokEditable(blok as any)} className="text-left">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((svc) => (
-            <ServiceCard key={svc.id} svc={svc} caseStudies={reviews.get(svc.id)?.count ?? 0} guides={guides.get(svc.id) ?? 0} />
+            <ServiceCard key={svc.id} svc={svc} caseStudies={caseStudies.get(svc.id) ?? 0} guides={guides.get(svc.id) ?? 0} />
           ))}
         </div>
-      </section>
+      </Section>
     );
   }
 
   // Highlighted carousel (home)
   return (
-    <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <Section {...storyblokEditable(blok as any)}>
       <Carousel
         items={items}
         getKey={(s) => s.id}
@@ -67,8 +59,8 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
         subheadline={blok.subheadline}
         footerLabel={blok.footer_label}
         footerHref={href.page('services')}
-        renderItem={(svc, slideProps) => <ServiceCard svc={svc} caseStudies={reviews.get(svc.id)?.count ?? 0} guides={guides.get(svc.id) ?? 0} slideProps={slideProps} />}
+        renderItem={(svc, slideProps) => <ServiceCard svc={svc} caseStudies={caseStudies.get(svc.id) ?? 0} guides={guides.get(svc.id) ?? 0} slideProps={slideProps} />}
       />
-    </section>
+    </Section>
   );
 }

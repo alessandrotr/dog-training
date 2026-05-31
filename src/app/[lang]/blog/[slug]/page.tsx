@@ -40,10 +40,5 @@ export default async function Page({
     getServices(lang as Locale, preview),
     getTestimonials(lang as Locale, preview),
   ]);
-  const serviceReviews: Record<string, {avg: number; count: number}> = {};
-  for (const s of services) {
-    const tagged = testimonials.filter((t) => t.serviceId === s.id && t.rating > 0);
-    if (tagged.length) serviceReviews[s.id] = {avg: tagged.reduce((a, t) => a + t.rating, 0) / tagged.length, count: tagged.length};
-  }
-  return <BlogPostView posts={posts} slug={slug} taxonomies={taxonomies} services={services} serviceReviews={serviceReviews} />;
+  return <BlogPostView posts={posts} slug={slug} taxonomies={taxonomies} services={services} testimonials={testimonials} />;
 }

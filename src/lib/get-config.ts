@@ -1,6 +1,7 @@
 import 'server-only';
 import {cache} from 'react';
 import {getStoryblokApi} from './storyblok';
+import {assetUrl} from './storyblok-adapters';
 import type {Locale} from './locales';
 import type {SiteConfig} from '../types';
 
@@ -72,7 +73,7 @@ function adaptConfig(content: any): SiteConfig {
   const accreditations = (content.accreditations ?? []).map((a: any) => ({
     title: a.title ?? '',
     subtitle: a.subtitle ?? '',
-    logoUrl: a.logo?.filename || undefined,
+    logoUrl: assetUrl(a.logo),
     logoAlt: a.logo?.alt || a.title || '',
   }));
   return {

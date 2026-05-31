@@ -6,6 +6,7 @@ import {storyblokEditable} from '@storyblok/react';
 import {Award, ArrowRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import Availability from './Availability';
+import {Button} from '../ui/button';
 
 interface HeroBlok {
   _uid: string;
@@ -89,21 +90,15 @@ export default function Hero({blok}: {blok: HeroBlok}) {
               {/* When an availability card is shown, it carries the booking CTA — so
                   hide the hero's primary button to avoid duplication. */}
               {!showAvailability && blok.primary_label && (
-                <Link
-                  href={href.page(blok.primary_target || 'booking')}
-                  className="rounded-xl bg-amber-700 px-6 py-4 text-sm font-semibold text-white shadow-md hover:bg-amber-950 hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-amber-500/50 cursor-pointer flex items-center justify-center space-x-2"
-                >
-                  <span>{blok.primary_label}</span>
+                <Button render={<Link href={href.page(blok.primary_target || 'booking')} />} variant="cta" size="xl">
+                  {blok.primary_label}
                   <ArrowRight className="h-4.5 w-4.5" />
-                </Link>
+                </Button>
               )}
               {blok.secondary_label && (
-                <Link
-                  href={href.page(blok.secondary_target || 'services')}
-                  className="rounded-xl border border-stone-300 bg-white px-6 py-4 text-sm font-semibold text-stone-700 hover:bg-stone-50 hover:text-stone-900 transition-all cursor-pointer flex items-center justify-center"
-                >
+                <Button render={<Link href={href.page(blok.secondary_target || 'services')} />} variant="ctaOutline" size="xl">
                   {blok.secondary_label}
-                </Link>
+                </Button>
               )}
             </div>
 

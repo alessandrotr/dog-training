@@ -6,6 +6,7 @@ import {storyblokEditable} from '@storyblok/react';
 import {MapPin, Zap, ArrowRight, Languages} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import {useAvailability} from '../AvailabilityProvider';
+import {Button} from '../ui/button';
 
 // Languages Sophia speaks (hardcoded for now; could become a Storyblok field).
 const SPOKEN_LANGUAGES = [
@@ -102,17 +103,15 @@ export default function Availability({blok}: {blok?: {_uid?: string; component?:
 
         {/* CTA */}
         {ctaLabel && (
-          <Link
-            href={href.page(ctaTarget)}
-            className={`group relative mt-5 flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-xs font-mono font-bold uppercase tracking-wider transition ${
-              available
-                ? 'bg-amber-700 text-white shadow-sm hover:bg-amber-950'
-                : 'border border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
-            }`}
+          <Button
+            render={<Link href={href.page(ctaTarget)} />}
+            variant={available ? 'cta' : 'ctaOutline'}
+            size="xl"
+            className="mt-5 w-full px-5 py-3"
           >
             {ctaLabel}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
+            <ArrowRight className="h-4 w-4 transition-transform group-hover/button:translate-x-1" />
+          </Button>
         )}
       </div>
     </section>

@@ -8,6 +8,10 @@ import Carousel from '../Carousel';
 import ServiceCard from '../bloks/ServiceCard';
 import ArticleCard from '../bloks/ArticleCard';
 import CaseStudyCard from '../bloks/CaseStudyCard';
+import {caseStudyCountByService, guideCountByService, caseStudiesForService} from '../../lib/relations';
+import Section from '../ui/section';
+import Eyebrow from '../ui/eyebrow';
+import {Button} from '../ui/button';
 import type {ServiceItem, TestimonialItem, BlogPost} from '../../types';
 
 // One shared, data-driven template for every service (mirrors the blog article
@@ -28,25 +32,15 @@ export default function ServiceDetail({
 
   const added = cart.has(service.slug);
 
-  // Per-service review stats (avg + count) from all tagged testimonials, so the
-  // related-services carousel shows real ratings too — same as ServicesGrid.
-  const reviewStats = new Map<string, {avg: number; count: number}>();
-  for (const id of new Set(testimonials.map((t) => t.serviceId).filter(Boolean) as string[])) {
-    const tagged = testimonials.filter((t) => t.serviceId === id && t.rating > 0);
-    if (tagged.length) reviewStats.set(id, {avg: tagged.reduce((s, t) => s + t.rating, 0) / tagged.length, count: tagged.length});
-  }
-
-  // Case studies tagged to this service.
-  const caseStudiesForSvc = testimonials.filter((t) => t.serviceId === service.id);
-
-  // Article ↔ service relations.
+  // Per-service social-proof counts + this service's case studies / guides.
+  const caseStudyCounts = caseStudyCountByService(testimonials);
+  const guidesByService = guideCountByService(posts);
+  const caseStudiesForSvc = caseStudiesForService(testimonials, service.id);
   const relatedArticles = posts.filter((p) => p.serviceIds?.includes(service.id));
-  const guidesByService = new Map<string, number>();
-  for (const p of posts) for (const id of p.serviceIds ?? []) guidesByService.set(id, (guidesByService.get(id) ?? 0) + 1);
 
   return (
     <article className="lg:py-8 text-left">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Section as="div">
 
         {/* Hero */}
         <div className="mt-6 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center">
@@ -78,8 +72,10 @@ export default function ServiceDetail({
             )}
 
             <div className="flex flex-col gap-3 pt-2 sm:flex-row">
-              <button
+              <Button
                 type="button"
+                variant="cta"
+                size="xl"
                 onClick={() =>
                   cart.toggle({
                     slug: service.slug,
@@ -90,19 +86,13 @@ export default function ServiceDetail({
                     audience: service.audience,
                   })
                 }
-                className={`inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-xs font-mono font-bold uppercase tracking-wider shadow-sm transition ${
-                  added ? 'bg-emerald-600 text-white hover:bg-emerald-700' : 'bg-amber-900 text-white hover:bg-amber-950'
-                }`}
+                className={added ? 'bg-emerald-600 hover:bg-emerald-700' : ''}
               >
                 {added ? <><Check className="h-4 w-4" /> Added to inquiry</> : <><Plus className="h-4 w-4" /> Add to inquiry</>}
-              </button>
-              <button
-                type="button"
-                onClick={() => open('book')}
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-stone-300 bg-white px-6 py-4 text-xs font-mono font-bold uppercase tracking-wider text-stone-700 transition hover:bg-stone-50"
-              >
+              </Button>
+              <Button type="button" variant="ctaOutline" size="xl" onClick={() => open('book')}>
                 <CalendarClock className="h-4 w-4" /> Book a consult
-              </button>
+              </Button>
             </div>
           </div>
 
@@ -121,7 +111,7 @@ export default function ServiceDetail({
           {service.features.length > 0 && (
             <aside className="lg:col-span-5">
               <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6">
-                <h2 className="mb-4 font-mono text-xs font-bold uppercase tracking-widest text-stone-450">What&apos;s included</h2>
+                <Eyebrow className="mb-4 block">What&apos;s included</Eyebrow>
                 <ul className="space-y-3">
                   {service.features.map((f, i) => (
                     <li key={i} className="flex items-start gap-2.5 text-sm leading-relaxed text-stone-600">
@@ -175,11 +165,11 @@ export default function ServiceDetail({
               size="lg"
               label="programs"
               headline="Other services"
-              renderItem={(svc, slideProps) => <ServiceCard svc={svc} caseStudies={reviewStats.get(svc.id)?.count ?? 0} guides={guidesByService.get(svc.id) ?? 0} slideProps={slideProps} />}
+              renderItem={(svc, slideProps) => <ServiceCard svc={svc} caseStudies={caseStudyCounts.get(svc.id) ?? 0} guides={guidesByService.get(svc.id) ?? 0} slideProps={slideProps} />}
             />
           </div>
         )}
-      </div>
+      </Section>
     </article>
   );
 }

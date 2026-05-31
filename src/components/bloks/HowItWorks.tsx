@@ -1,4 +1,5 @@
 import {storyblokEditable} from '@storyblok/react/rsc';
+import Section from '../ui/section';
 
 interface HowItWorksBlok {
   _uid: string;
@@ -25,7 +26,7 @@ export default function HowItWorks({blok}: {blok: HowItWorksBlok}) {
   ].filter((s) => s.title || s.desc);
 
   return (
-    <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <Section {...storyblokEditable(blok as any)}>
       <div className="text-center max-w-3xl mx-auto space-y-4 mb-20">
         {blok.eyebrow && (
           <span className="font-mono text-xs uppercase tracking-widest text-amber-700">{blok.eyebrow}</span>
@@ -52,6 +53,6 @@ export default function HowItWorks({blok}: {blok: HowItWorksBlok}) {
           </div>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }

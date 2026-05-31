@@ -36,6 +36,10 @@ const buildToc = (html: string): {html: string; toc: BlogPost['tableOfContents']
   return {html: out, toc};
 };
 
+// Storyblok asset → URL (or undefined when unset). Callers append `?? ''` for
+// fields typed as a required string.
+export const assetUrl = (asset: any): string | undefined => asset?.filename || undefined;
+
 // Period label from a structured value+unit, e.g. (2,'hour') -> "2 hours".
 const periodLabel = (value: any, unit?: string): string => {
   if (!unit) return '';
@@ -60,7 +64,7 @@ export const adaptService = (s: any): ServiceItem => {
     price,
     duration,
     features: lines(c.features),
-    imageUrl: c.image?.filename ?? '',
+    imageUrl: assetUrl(c.image) ?? '',
     audience: c.audience ?? '',
     icon: c.icon ?? '',
   };
@@ -77,7 +81,7 @@ export const adaptTestimonial = (s: any): TestimonialItem => {
     text: c.text ?? '',
     outcome: c.outcome || undefined,
     rating: Number(c.rating) || 5,
-    imageUrl: c.image?.filename || undefined,
+    imageUrl: assetUrl(c.image),
     date: c.date ?? '',
     source: c.source ?? 'direct',
     serviceId: c.service || undefined,
@@ -104,7 +108,7 @@ export const adaptBlogPost = (s: any): BlogPost => {
     summary: c.summary ?? '',
     content: html,
     tableOfContents: toc,
-    imageUrl: c.image?.filename ?? '',
+    imageUrl: assetUrl(c.image) ?? '',
     publishDate: c.publish_date ?? '',
     readingTime: c.reading_time ?? '',
     category: c.category ?? '',

@@ -1,6 +1,8 @@
 'use client';
 
 import {storyblokEditable} from '@storyblok/react';
+import Section from '../ui/section';
+import Eyebrow from '../ui/eyebrow';
 
 interface PageHeaderBlok {
   _uid: string;
@@ -18,15 +20,13 @@ export default function PageHeader({blok}: {blok: PageHeaderBlok}) {
   const Heading = isSection ? 'h2' : 'h1';
 
   return (
-    <section
+    <Section
       {...storyblokEditable(blok as any)}
-      className={`mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ${isSection ? '' : 'pt-4 lg:py-12'}`}
+      className={isSection ? '' : 'pt-4 lg:py-12'}
     >
       <div className="max-w-3xl space-y-4 text-left">
         {blok.eyebrow && (
-          <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-700">
-            {blok.eyebrow}
-          </span>
+          <Eyebrow tone="brand">{blok.eyebrow}</Eyebrow>
         )}
         {blok.headline && (
           <Heading
@@ -45,6 +45,6 @@ export default function PageHeader({blok}: {blok: PageHeaderBlok}) {
           </p>
         )}
       </div>
-    </section>
+    </Section>
   );
 }

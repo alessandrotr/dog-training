@@ -1,4 +1,6 @@
 import {StoryblokServerComponent, storyblokEditable} from '@storyblok/react/rsc';
+import Section from '../ui/section';
+import Eyebrow from '../ui/eyebrow';
 
 interface ValueCardsBlok {
   _uid: string;
@@ -14,11 +16,11 @@ export default function ValueCards({blok}: {blok: ValueCardsBlok}) {
   const cols = Number(blok.columns) === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3';
 
   return (
-    <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <Section {...storyblokEditable(blok as any)}>
       {(blok.eyebrow || blok.headline || blok.subheadline) && (
         <div className="text-center max-w-2xl mx-auto space-y-4 mb-16">
           {blok.eyebrow && (
-            <span className="font-mono text-xs uppercase tracking-widest text-amber-700">{blok.eyebrow}</span>
+            <Eyebrow tone="brand">{blok.eyebrow}</Eyebrow>
           )}
           {blok.headline && (
             <h2 className="font-sans text-3xl font-extrabold tracking-tight text-amber-955">{blok.headline}</h2>
@@ -31,6 +33,6 @@ export default function ValueCards({blok}: {blok: ValueCardsBlok}) {
           <StoryblokServerComponent blok={card} key={card._uid} />
         ))}
       </div>
-    </section>
+    </Section>
   );
 }

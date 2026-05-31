@@ -4,6 +4,7 @@ import {getServices, getTestimonials} from '../../../../lib/content-server';
 import CaseStudyDetail from '../../../../components/pages/CaseStudyDetail';
 import {isLocale, DEFAULT_LOCALE, LOCALES, type Locale} from '../../../../lib/locales';
 import {buildMetadata} from '../../../../lib/seo';
+import {mapById} from '../../../../lib/relations';
 
 type SP = Promise<Record<string, string | string[] | undefined>>;
 
@@ -47,7 +48,7 @@ export default async function Page({
   const story = testimonials.find((t) => t.slug === slug);
   if (!story) notFound();
 
-  const serviceById = new Map(services.map((s) => [s.id, s]));
+  const serviceById = mapById(services);
   const service = story.serviceId ? serviceById.get(story.serviceId) : undefined;
   // Related: same service first, then the rest.
   const others = testimonials.filter((t) => t.slug !== slug);

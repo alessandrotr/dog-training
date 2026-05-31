@@ -4,10 +4,15 @@ import {useState} from 'react';
 import {storyblokEditable} from '@storyblok/react';
 import {ArrowLeft, ArrowRight, MessageSquareQuote, Sparkles, ArrowUpRight} from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import {useHref} from '../../lib/navigation';
 import {usePageData} from '../PageDataProvider';
+import {mapById} from '../../lib/relations';
 import Carousel from '../Carousel';
+import Section from '../ui/section';
+import Eyebrow from '../ui/eyebrow';
+import Pill from '../ui/pill';
+import Avatar from '../ui/avatar';
+import {Button} from '../ui/button';
 import CaseStudyCard from './CaseStudyCard';
 
 interface TestimonialsBlok {
@@ -28,23 +33,23 @@ export default function Testimonials({blok}: {blok: TestimonialsBlok}) {
   const [index, setIndex] = useState(0);
 
   // Resolve the service each case study is tagged to, so it can link back.
-  const serviceById = new Map(services.map((s) => [s.id, s]));
+  const serviceById = mapById(services);
 
   if (blok.layout === 'grid') {
     return (
-      <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-left">
+      <Section {...storyblokEditable(blok as any)} className="text-left">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {testimonials.map((tItem) => (
             <CaseStudyCard key={tItem.id} story={tItem} service={serviceById.get(tItem.serviceId ?? '')} />
           ))}
         </div>
-      </section>
+      </Section>
     );
   }
 
   if (blok.layout === 'cards') {
     return (
-      <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Section {...storyblokEditable(blok as any)}>
         <Carousel
           items={testimonials}
           getKey={(t) => t.id}
@@ -59,7 +64,7 @@ export default function Testimonials({blok}: {blok: TestimonialsBlok}) {
             <CaseStudyCard story={t} service={serviceById.get(t.serviceId ?? '')} slideProps={slideProps} />
           )}
         />
-      </section>
+      </Section>
     );
   }
 
@@ -82,9 +87,7 @@ export default function Testimonials({blok}: {blok: TestimonialsBlok}) {
         {active && (
           <div className="min-h-[220px] flex flex-col justify-between max-w-2xl mx-auto space-y-6 pt-4">
             {active.challenge && (
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-stone-400">
-                {active.challenge}
-              </p>
+              <Eyebrow>{active.challenge}</Eyebrow>
             )}
             <blockquote className="font-serif text-xl sm:text-2xl font-normal text-amber-950 leading-relaxed italic">
               {active.text}
@@ -99,16 +102,7 @@ export default function Testimonials({blok}: {blok: TestimonialsBlok}) {
 
             <div className="flex flex-col items-center space-y-2">
               <div className="flex items-center space-x-3.5">
-                {active.imageUrl && (
-                  <Image
-                    src={active.imageUrl}
-                    alt={active.name}
-                    width={40}
-                    height={40}
-                    className="h-10 w-10 rounded-full object-cover border border-stone-200"
-                    referrerPolicy="no-referrer"
-                  />
-                )}
+                <Avatar src={active.imageUrl} name={active.name} size="sm" />
                 <div className="text-left font-sans">
                   <Link href={href.caseStudy(active.slug)} className="text-sm font-bold text-stone-900 leading-none transition-colors hover:text-amber-800">
                     {active.name}
@@ -117,13 +111,10 @@ export default function Testimonials({blok}: {blok: TestimonialsBlok}) {
                 </div>
               </div>
               {activeService && (
-                <Link
-                  href={href.service(activeService.slug)}
-                  className="group/chip mt-1 inline-flex items-center gap-1.5 rounded-full bg-stone-100 px-3 py-1.5 font-sans text-xs font-semibold text-stone-700 ring-1 ring-stone-200 transition-colors hover:bg-stone-200/70 hover:text-stone-900"
-                >
+                <Pill tone="stone" href={href.service(activeService.slug)} className="group/chip mt-1">
                   {activeService.title}
                   <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover/chip:translate-x-0.5 group-hover/chip:-translate-y-0.5" />
-                </Link>
+                </Pill>
               )}
             </div>
           </div>
@@ -131,13 +122,13 @@ export default function Testimonials({blok}: {blok: TestimonialsBlok}) {
 
         {testimonials.length > 1 && (
           <div className="flex items-center justify-center space-x-4 mt-8">
-            <button onClick={prev} className="rounded-full border border-stone-300 bg-white p-2.5 text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors focus:outline-none" aria-label="Previous case study">
+            <Button onClick={prev} variant="outline" size="icon" className="rounded-full" aria-label="Previous case study">
               <ArrowLeft className="h-4 w-4" />
-            </button>
+            </Button>
             <span className="text-xs font-mono text-stone-400">{index + 1} of {testimonials.length}</span>
-            <button onClick={next} className="rounded-full border border-stone-300 bg-white p-2.5 text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-colors focus:outline-none" aria-label="Next case study">
+            <Button onClick={next} variant="outline" size="icon" className="rounded-full" aria-label="Next case study">
               <ArrowRight className="h-4 w-4" />
-            </button>
+            </Button>
           </div>
         )}
 

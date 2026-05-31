@@ -4,6 +4,7 @@ import {storyblokEditable} from '@storyblok/react';
 import {useHref} from '../../lib/navigation';
 import {usePageData} from '../PageDataProvider';
 import Carousel from '../Carousel';
+import Section from '../ui/section';
 import ArticleCard from './ArticleCard';
 
 interface BlogListBlok {
@@ -28,7 +29,7 @@ export default function BlogList({blok}: {blok: BlogListBlok}) {
   };
 
   return (
-    <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <Section {...storyblokEditable(blok as any)}>
       <Carousel
         items={items}
         getKey={(p) => p.id}
@@ -40,6 +41,6 @@ export default function BlogList({blok}: {blok: BlogListBlok}) {
         footerHref={href.page('blog')}
         renderItem={(post, slideProps) => <ArticleCard post={post} slideProps={slideProps} serviceTitle={serviceTitle(post.serviceIds)} />}
       />
-    </section>
+    </Section>
   );
 }

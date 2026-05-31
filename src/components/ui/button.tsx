@@ -18,6 +18,11 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
+        // Brand marketing CTAs (heather palette). Pair with size="xl".
+        cta: "bg-amber-700 text-white shadow-sm hover:bg-amber-950",
+        ctaSoft: "bg-amber-50 text-amber-900 shadow-lg shadow-amber-950/20 hover:bg-white",
+        ctaOutline: "border-stone-300 bg-white text-stone-700 hover:bg-stone-50",
+        ctaGlass: "border-amber-100/30 bg-white/10 text-white backdrop-blur hover:border-amber-100/50 hover:bg-white/20",
       },
       size: {
         default:
@@ -31,6 +36,8 @@ const buttonVariants = cva(
         "icon-sm":
           "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
         "icon-lg": "size-9",
+        // Large marketing CTA: tall hit area, mono-uppercase label, pill-ish radius.
+        xl: "h-auto gap-2 rounded-xl px-6 py-4 text-xs font-mono font-bold uppercase tracking-wider",
       },
     },
     defaultVariants: {

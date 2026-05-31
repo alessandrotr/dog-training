@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import {storyblokEditable, renderRichText} from '@storyblok/react/rsc';
 import AvailabilityBadge from '../AvailabilityBadge';
+import Section from '../ui/section';
 
 interface BioHeroBlok {
   _uid: string;
@@ -17,7 +18,7 @@ export default function BioHero({blok}: {blok: BioHeroBlok}) {
   const bodyHtml = blok.body ? renderRichText(blok.body) : '';
 
   return (
-    <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 lg:pt-8">
+    <Section {...storyblokEditable(blok as any)} className="pt-4 sm:pt-6 lg:pt-8">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-7 text-left space-y-6">
           {blok.eyebrow && (
@@ -68,6 +69,6 @@ export default function BioHero({blok}: {blok: BioHeroBlok}) {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

@@ -1,5 +1,6 @@
 import {storyblokEditable} from '@storyblok/react/rsc';
 import {ShieldCheck, Star} from 'lucide-react';
+import Section from '../ui/section';
 
 interface TrustStatsBlok {
   _uid: string;
@@ -28,7 +29,7 @@ export default function TrustStats({blok}: {blok: TrustStatsBlok}) {
   ];
 
   return (
-    <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <Section {...storyblokEditable(blok as any)}>
       <div className="rounded-3xl bg-stone-100 p-8 md:p-12 border border-stone-200/60 shadow-sm">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:divide-x md:divide-stone-200">
           {stats.map((s, i) => (
@@ -61,6 +62,6 @@ export default function TrustStats({blok}: {blok: TrustStatsBlok}) {
           </div>
         )}
       </div>
-    </section>
+    </Section>
   );
 }

@@ -5,6 +5,9 @@ import Image from 'next/image';
 import {ArrowLeft, Sparkles, ArrowUpRight, ArrowRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import CaseStudyCard from '../bloks/CaseStudyCard';
+import Eyebrow from '../ui/eyebrow';
+import Avatar from '../ui/avatar';
+import {Button} from '../ui/button';
 import type {TestimonialItem, ServiceItem} from '../../types';
 
 // Full case-study page: the dog, the challenge, what was done, the outcome,
@@ -36,20 +39,7 @@ export default function CaseStudyDetail({
         {/* Header */}
         <header className="mt-8 space-y-5">
           <div className="flex items-center gap-3">
-            {story.imageUrl ? (
-              <Image
-                src={story.imageUrl}
-                alt={story.name}
-                width={56}
-                height={56}
-                className="h-14 w-14 rounded-full border border-stone-200 object-cover"
-                referrerPolicy="no-referrer"
-              />
-            ) : (
-              <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-amber-100 font-sans text-lg font-bold text-amber-800">
-                {story.name?.charAt(0) || '🐾'}
-              </span>
-            )}
+            <Avatar src={story.imageUrl} name={story.name} size="lg" />
             <div className="min-w-0">
               <p className="text-base font-bold leading-tight text-stone-900">{story.name}</p>
               {story.dogBreed && <p className="font-mono text-xs text-stone-500">{story.dogBreed}</p>}
@@ -79,7 +69,7 @@ export default function CaseStudyDetail({
 
         {/* The story */}
         <div className="mt-10 space-y-4">
-          <h2 className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-stone-400">What we did</h2>
+          <Eyebrow>What we did</Eyebrow>
           <div className="prose prose-stone max-w-none prose-p:leading-relaxed prose-p:text-stone-600">
             {paragraphs.length ? paragraphs.map((p, i) => <p key={i}>{p}</p>) : <p>{story.text}</p>}
           </div>
@@ -88,9 +78,9 @@ export default function CaseStudyDetail({
         {/* The outcome */}
         {story.outcome && (
           <div className="mt-10 rounded-2xl bg-amber-50 p-6 ring-1 ring-amber-200/60">
-            <span className="flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-amber-700">
+            <Eyebrow tone="brand" className="flex items-center gap-2">
               <Sparkles className="h-4 w-4" /> The outcome
-            </span>
+            </Eyebrow>
             <p className="mt-2 font-serif text-xl italic leading-relaxed text-amber-955">{story.outcome}</p>
           </div>
         )}
@@ -99,16 +89,13 @@ export default function CaseStudyDetail({
         {service && (
           <div className="mt-10 flex flex-col gap-3 rounded-2xl border border-stone-200 bg-white p-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-stone-400">This was part of</span>
+              <Eyebrow>This was part of</Eyebrow>
               <p className="mt-1 font-sans text-lg font-bold text-stone-900">{service.title}</p>
             </div>
-            <Link
-              href={href.service(service.slug)}
-              className="group inline-flex w-fit items-center gap-1.5 rounded-full bg-amber-700 px-4 py-2.5 font-sans text-sm font-semibold text-white transition-colors hover:bg-amber-800"
-            >
+            <Button render={<Link href={href.service(service.slug)} />} variant="cta" size="lg" className="w-fit rounded-full px-4">
               Explore the service
-              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
+              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/button:translate-x-0.5 group-hover/button:-translate-y-0.5" />
+            </Button>
           </div>
         )}
 
@@ -118,12 +105,9 @@ export default function CaseStudyDetail({
           <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-stone-400">
             Every dog is different — let&apos;s talk about what yours needs.
           </p>
-          <Link
-            href={href.page('contact')}
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-amber-700 px-6 py-3 font-sans text-sm font-semibold text-white transition-colors hover:bg-amber-600"
-          >
+          <Button render={<Link href={href.page('contact')} />} variant="cta" size="lg" className="mt-6 rounded-full px-6">
             Get in touch <ArrowRight className="h-4 w-4" />
-          </Link>
+          </Button>
         </div>
       </div>
 

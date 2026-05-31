@@ -8,6 +8,7 @@ import { Menu, X, CalendarRange, PawPrint } from 'lucide-react';
 import { useCurrentPage, useHref } from '../../lib/navigation';
 import LocaleToggle from './LocaleToggle';
 import Logo from './Logo';
+import {Button} from '../ui/button';
 import type { SiteConfig } from '../../types';
 
 export default function Navbar({ config }: { config: SiteConfig }) {
@@ -119,14 +120,15 @@ export default function Navbar({ config }: { config: SiteConfig }) {
             </div>
 
             <div className="border-t border-stone-200/80 my-2 pt-2">
-              <Link
-                href={href.page(config.ctaTarget)}
-                onClick={close}
-                className="flex w-full items-center justify-center space-x-2 rounded-xl bg-amber-700 py-3 text-sm font-semibold text-white shadow-sm hover:bg-amber-950"
+              <Button
+                render={<Link href={href.page(config.ctaTarget)} onClick={close} />}
+                variant="cta"
+                size="xl"
+                className="w-full py-3"
               >
                 <CalendarRange className="h-4 w-4" />
-                <span>{config.ctaLabel}</span>
-              </Link>
+                {config.ctaLabel}
+              </Button>
               <div className="text-center mt-3 text-xs font-mono text-stone-500">
                 {t('nav.directLine')}: {config.footer.phone}
               </div>

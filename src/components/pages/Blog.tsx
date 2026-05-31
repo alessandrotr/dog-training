@@ -8,6 +8,7 @@ import { Search, BookOpen, ArrowRight, Award, Tag, X } from 'lucide-react';
 import { useQueryState } from 'nuqs';
 import { useHref } from '../../lib/navigation';
 import FilterLayout from '../FilterLayout';
+import Section from '../ui/section';
 import type { BlogPost, BlogTaxonomies } from '../../types';
 
 export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonomies: BlogTaxonomies }) {
@@ -57,7 +58,7 @@ export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonom
     <div className="space-y-16 pt-4 lg:py-12 pb-8 text-left">
       
       {/* Blog Headers */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Section>
         <div className="max-w-3xl space-y-4">
           <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-700">CANINE BEHAVIOR ARTICLES</span>
           <h1 className="font-sans text-4xl font-extrabold tracking-tight text-amber-955 sm:text-5xl leading-tight">
@@ -67,10 +68,10 @@ export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonom
             Discover actionable, evidence-based guides and research studies written directly by certified consultant Sophia. No myths, no corrections. Just science-backed compassion.
           </p>
         </div>
-      </section>
+      </Section>
 
       {/* Filters (left rail) + results */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Section>
         <FilterLayout
           activeCount={(selectedCategory !== 'All' ? 1 : 0) + (activeTag ? 1 : 0) + (searchQuery ? 1 : 0)}
           sidebar={
@@ -221,7 +222,7 @@ export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonom
           </div>
         )}
         </FilterLayout>
-      </section>
+      </Section>
 
     </div>
   );

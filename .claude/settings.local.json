@@ -38,7 +38,10 @@
       "Bash(pkill -f \"next\")",
       "Bash(git rev-list *)",
       "Bash(sed -n '/\"name\": \"testimonials\"/,/^    }/p' storyblok/components.json)",
-      "Bash(sed -n '1,60p' src/components/Carousel.tsx)"
+      "Bash(sed -n '1,60p' src/components/Carousel.tsx)",
+      "Bash(echo \"build exit: $?\")",
+      "Bash(grep -nE '^import|storyblokEditable\\\\\\(blok|</section>' src/components/bloks/__TRACKED_VAR__.tsx)",
+      "Bash(grep -nE '^import \\(Section|.*from\\)|max-w-7xl px-4 sm:px-6 lg:px-8|^export default|return \\\\\\(' src/components/__TRACKED_VAR__.tsx)"
     ],
     "additionalDirectories": [
       "/tmp"

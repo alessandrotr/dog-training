@@ -4,6 +4,8 @@ import Link from 'next/link';
 import {storyblokEditable} from '@storyblok/react';
 import {PawPrint, ArrowRight, Heart, Bone} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
+import Section from '../ui/section';
+import {Button} from '../ui/button';
 
 interface CtaBannerBlok {
   _uid: string;
@@ -23,7 +25,7 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
 
   if (blok.variant === 'light') {
     return (
-      <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Section {...storyblokEditable(blok as any)}>
         <div className="rounded-2xl border border-stone-200 bg-gradient-to-r from-stone-50 to-stone-100 p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-start space-x-4">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-900 border border-amber-200/50">
@@ -36,29 +38,23 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
           </div>
           <div className="flex flex-wrap gap-3 justify-center">
             {blok.primary_label && (
-              <Link
-                href={href.page(blok.primary_target || 'booking')}
-                className="rounded-xl bg-amber-700 px-5 py-3 text-xs font-mono font-bold uppercase tracking-wider text-white shadow-sm hover:bg-amber-950 hover:shadow transition"
-              >
+              <Button render={<Link href={href.page(blok.primary_target || 'booking')} />} variant="cta" size="xl" className="px-5 py-3">
                 {blok.primary_label}
-              </Link>
+              </Button>
             )}
             {blok.secondary_label && (
-              <Link
-                href={href.page(blok.secondary_target || 'contact')}
-                className="rounded-xl border border-stone-300 bg-white px-5 py-3 text-xs font-mono font-bold uppercase tracking-wider text-stone-700 hover:bg-stone-50 transition"
-              >
+              <Button render={<Link href={href.page(blok.secondary_target || 'contact')} />} variant="ctaOutline" size="xl" className="px-5 py-3">
                 {blok.secondary_label}
-              </Link>
+              </Button>
             )}
           </div>
         </div>
-      </section>
+      </Section>
     );
   }
 
   return (
-    <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <Section {...storyblokEditable(blok as any)}>
       <div className="relative overflow-hidden rounded-4xl bg-linear-to-br from-amber-500 via-amber-600 to-amber-800 px-6 py-16 text-center text-amber-50 shadow-xl ring-1 ring-amber-400/30 md:px-12 md:py-20">
         {/* Soft glows */}
         <div className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-amber-300/30 blur-3xl"></div>
@@ -96,21 +92,15 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
 
           <div className="flex flex-col justify-center gap-3 pt-4 sm:flex-row">
             {blok.primary_label && (
-              <Link
-                href={href.page(blok.primary_target || 'booking')}
-                className="group inline-flex items-center justify-center gap-2 rounded-2xl bg-amber-50 px-7 py-4 text-xs font-mono font-bold uppercase tracking-wider text-amber-900 shadow-lg shadow-amber-950/20 transition hover:bg-white"
-              >
+              <Button render={<Link href={href.page(blok.primary_target || 'booking')} />} variant="ctaSoft" size="xl" className="rounded-2xl px-7">
                 {blok.primary_label}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
+                <ArrowRight className="h-4 w-4 transition-transform group-hover/button:translate-x-1" />
+              </Button>
             )}
             {blok.secondary_label && (
-              <Link
-                href={href.page(blok.secondary_target || 'contact')}
-                className="inline-flex items-center justify-center rounded-2xl border border-amber-100/30 bg-white/10 px-7 py-4 text-xs font-mono font-bold uppercase tracking-wider text-white backdrop-blur transition hover:border-amber-100/50 hover:bg-white/20"
-              >
+              <Button render={<Link href={href.page(blok.secondary_target || 'contact')} />} variant="ctaGlass" size="xl" className="rounded-2xl px-7">
                 {blok.secondary_label}
-              </Link>
+              </Button>
             )}
           </div>
 
@@ -122,6 +112,6 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
           )}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

@@ -3,9 +3,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { BlogPost, BlogTaxonomies, ServiceItem } from '../../types';
+import { BlogPost, BlogTaxonomies, ServiceItem, TestimonialItem } from '../../types';
 import { Clock, CalendarDays, Share2, Bookmark, Check, CalendarRange, Sparkles, Tag } from 'lucide-react';
 import { useHref } from '../../lib/navigation';
+import { caseStudyCountByService, guideCountByService } from '../../lib/relations';
+import Section from '../ui/section';
+import Eyebrow from '../ui/eyebrow';
 import Carousel from '../Carousel';
 import ArticleCard from '../bloks/ArticleCard';
 import ServiceCard from '../bloks/ServiceCard';
@@ -16,10 +19,10 @@ interface BlogPostTemplateProps {
   posts: BlogPost[];
   taxonomies: BlogTaxonomies;
   services: ServiceItem[];
-  serviceReviews: Record<string, {avg: number; count: number}>;
+  testimonials: TestimonialItem[];
 }
 
-export default function BlogPostTemplate({ post, posts, taxonomies, services, serviceReviews }: BlogPostTemplateProps) {
+export default function BlogPostTemplate({ post, posts, taxonomies, services, testimonials }: BlogPostTemplateProps) {
   const [copiedLink, setCopiedLink] = useState(false);
   const href = useHref();
   const blogPosts = posts;
@@ -36,10 +39,10 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, se
     ...others.filter((p) => !p.category || p.category !== post.category),
   ];
 
-  // Programs this article relates to + how many guides each program has.
+  // Programs this article relates to + per-service social-proof counts.
   const relatedServices = services.filter((s) => post.serviceIds?.includes(s.id));
-  const guidesByService = new Map<string, number>();
-  for (const p of blogPosts) for (const id of p.serviceIds ?? []) guidesByService.set(id, (guidesByService.get(id) ?? 0) + 1);
+  const guidesByService = guideCountByService(blogPosts);
+  const caseStudyCounts = caseStudyCountByService(testimonials);
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -49,7 +52,7 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, se
 
   return (
     <article className="py-8 text-left">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <Section as="div">
 
         {/* Heading Container */}
         <div className="max-w-3xl mx-auto space-y-4 mb-10 text-center md:text-left">
@@ -93,7 +96,7 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, se
             {/* Table of Contents (auto-generated from the article headings) */}
             {toc.length > 1 && (
               <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6 text-left">
-                <h3 className="font-mono text-xs uppercase tracking-widest text-stone-450 mb-4 font-bold">Table of Contents</h3>
+                <Eyebrow className="mb-4 block">Table of Contents</Eyebrow>
                 <nav className="space-y-1 text-xs font-sans">
                   {toc.map((item) => (
                     <a
@@ -134,9 +137,9 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, se
             {/* Article tags */}
             {post.tags && post.tags.length > 0 && (
               <div className="mt-12 border-t border-stone-200 pt-8">
-                <h4 className="mb-3 flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-widest text-stone-400">
+                <Eyebrow className="mb-3 flex items-center gap-1.5">
                   <Tag className="h-3.5 w-3.5 text-amber-700" /> Topics
-                </h4>
+                </Eyebrow>
                 <div className="flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
                     <Link
@@ -163,7 +166,7 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, se
               size="lg"
               label="programs"
               headline="Related programs"
-              renderItem={(svc, slideProps) => <ServiceCard svc={svc} caseStudies={serviceReviews[svc.id]?.count ?? 0} guides={guidesByService.get(svc.id) ?? 0} slideProps={slideProps} />}
+              renderItem={(svc, slideProps) => <ServiceCard svc={svc} caseStudies={caseStudyCounts.get(svc.id) ?? 0} guides={guidesByService.get(svc.id) ?? 0} slideProps={slideProps} />}
             />
           </div>
         )}
@@ -182,7 +185,7 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, se
           </div>
         )}
 
-      </div>
+      </Section>
     </article>
   );
 }

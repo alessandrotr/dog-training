@@ -4,6 +4,8 @@ import {storyblokEditable} from '@storyblok/react';
 import {ShieldCheck} from 'lucide-react';
 import Link from 'next/link';
 import {useHref} from '../../lib/navigation';
+import Section from '../ui/section';
+import {Button} from '../ui/button';
 
 interface PricingBlok {
   _uid: string;
@@ -28,7 +30,7 @@ export default function Pricing({blok}: {blok: PricingBlok}) {
   const href = useHref();
 
   return (
-    <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <Section {...storyblokEditable(blok as any)}>
       <div className="rounded-3xl bg-amber-950 p-8 md:p-12 text-stone-100 shadow-xl relative overflow-hidden">
         <div className="absolute top-0 right-0 h-64 w-64 bg-amber-700/10 blur-3xl rounded-full"></div>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center relative z-10">
@@ -74,16 +76,13 @@ export default function Pricing({blok}: {blok: PricingBlok}) {
               ))}
             </div>
             {blok.cta_label && (
-              <Link
-                href={href.page(blok.cta_target || 'booking')}
-                className="block w-full text-center rounded-xl bg-amber-700 py-3.5 text-xs font-mono font-bold uppercase tracking-wider text-white shadow-sm hover:bg-amber-700 hover:shadow"
-              >
+              <Button render={<Link href={href.page(blok.cta_target || 'booking')} />} variant="cta" size="xl" className="w-full py-3.5">
                 {blok.cta_label}
-              </Link>
+              </Button>
             )}
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

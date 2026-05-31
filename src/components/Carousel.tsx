@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import {ArrowLeft, ArrowRight, ArrowUpRight} from 'lucide-react';
 import {useCarousel} from '../lib/use-carousel';
+import Eyebrow from './ui/eyebrow';
+import {Button} from './ui/button';
 
 // Slide-width variants: `lg` = prominent (home services), `sm` = compact (articles).
 const SIZES = {
@@ -44,7 +46,7 @@ export default function Carousel<T>({
       {hasHeader && (
         <div className="mb-4 lg:mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl space-y-2 text-left">
-            {eyebrow && <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-700">{eyebrow}</span>}
+            {eyebrow && <Eyebrow tone="brand">{eyebrow}</Eyebrow>}
             {headline && (
               <h2 className={`font-sans font-extrabold tracking-tight text-amber-950 ${size === 'lg' ? 'text-3xl sm:text-4xl' : 'text-2xl'}`}>
                 {headline}
@@ -63,12 +65,12 @@ export default function Carousel<T>({
               </Link>
             )}
             <div className="flex items-center gap-2">
-              <button onClick={prev} disabled={!canPrev} aria-label={`Previous ${label}`} className="rounded-full border border-stone-300 bg-white p-2 text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 disabled:cursor-not-allowed disabled:opacity-40">
+              <Button onClick={prev} disabled={!canPrev} aria-label={`Previous ${label}`} variant="outline" size="icon" className="rounded-full">
                 <ArrowLeft className="h-4 w-4" />
-              </button>
-              <button onClick={next} disabled={!canNext} aria-label={`Next ${label}`} className="rounded-full border border-stone-300 bg-white p-2 text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 disabled:cursor-not-allowed disabled:opacity-40">
+              </Button>
+              <Button onClick={next} disabled={!canNext} aria-label={`Next ${label}`} variant="outline" size="icon" className="rounded-full">
                 <ArrowRight className="h-4 w-4" />
-              </button>
+              </Button>
             </div>
           </div>
         </div>
