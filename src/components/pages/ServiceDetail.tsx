@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import {Check, Plus, Star, ArrowLeft, CalendarRange, CalendarClock, MessageSquareQuote} from 'lucide-react';
+import {Check, Plus, Star, ArrowLeft, CalendarClock, MessageSquareQuote} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import {useInquiryCart} from '../InquiryCartProvider';
 import {useLeadDialog} from '../../stores/lead-dialog';
@@ -39,7 +39,7 @@ export default function ServiceDetail({
   const avg = reviewsForSvc.length ? reviewsForSvc.reduce((s, r) => s + r.rating, 0) / reviewsForSvc.length : 0;
 
   return (
-    <article className="py-8 text-left">
+    <article className="lg:py-8 text-left">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         {/* Hero */}
@@ -55,17 +55,14 @@ export default function ServiceDetail({
             </h1>
             <p className="max-w-xl text-lg leading-relaxed text-stone-600">{service.shortDescription}</p>
 
-            <div className="flex flex-wrap items-center gap-4 font-mono text-xs text-stone-500">
-              {service.duration && (
-                <span className="inline-flex items-center gap-1.5"><CalendarRange className="h-4 w-4 text-amber-700" />{service.duration}</span>
-              )}
-              {reviewsForSvc.length > 0 && (
+            {reviewsForSvc.length > 0 && (
+              <div className="flex flex-wrap items-center gap-4 font-mono text-xs text-stone-500">
                 <span className="inline-flex items-center gap-1.5">
                   <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
                   {avg.toFixed(1)} ({reviewsForSvc.length})
                 </span>
-              )}
-            </div>
+              </div>
+            )}
 
             {service.price && (
               <div className="leading-none">
@@ -160,7 +157,8 @@ export default function ServiceDetail({
               getKey={(s) => s.id}
               size="lg"
               label="programs"
-              headline="Other programs"
+              headline="Other services"
+              
               renderItem={(svc, slideProps) => <ServiceCard svc={svc} review={reviewStats.get(svc.id)} slideProps={slideProps} />}
             />
           </div>

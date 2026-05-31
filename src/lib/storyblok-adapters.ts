@@ -36,16 +36,29 @@ const buildToc = (html: string): {html: string; toc: BlogPost['tableOfContents']
   return {html: out, toc};
 };
 
+// Period label from a structured value+unit, e.g. (2,'hour') -> "2 hours".
+const periodLabel = (value: any, unit?: string): string => {
+  if (!unit) return '';
+  const n = Number(value) || 1;
+  return n > 1 ? `${n} ${unit}s` : unit;
+};
+
 export const adaptService = (s: any): ServiceItem => {
   const c = s?.content ?? {};
+  // Duration is structured (value + unit) and also drives the price unit, so
+  // the price reads e.g. "€100 / 2 hours". Falls back to any legacy text.
+  const duration = periodLabel(c.duration_value, c.duration_unit) || (typeof c.duration === 'string' ? c.duration : '');
+  const amount = c.price_amount;
+  const hasAmount = amount !== undefined && amount !== null && String(amount).trim() !== '';
+  const price = hasAmount ? `€${amount}${duration ? ` / ${duration}` : ''}` : (c.price ?? '');
   return {
     id: s?.uuid ?? s?.slug ?? '',
     slug: s?.slug ?? '',
     title: c.title ?? '',
     shortDescription: c.short_description ?? '',
     longDescription: c.long_description ?? '',
-    price: c.price ?? '',
-    duration: c.duration ?? '',
+    price,
+    duration,
     features: lines(c.features),
     imageUrl: c.image?.filename ?? '',
     audience: c.audience ?? '',

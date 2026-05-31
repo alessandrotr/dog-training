@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import {Star, CalendarRange, Plus, Check} from 'lucide-react';
+import {Star, Plus, Check} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import {useInquiryCart} from '../InquiryCartProvider';
 import type {ServiceItem} from '../../types';
@@ -79,12 +79,6 @@ export default function ServiceCard({
           <span className="font-mono text-[11px] text-stone-400">
             {review ? `${review.avg.toFixed(1)} (${review.count})` : '(0)'}
           </span>
-          {svc.duration && (
-            <span className="ml-auto inline-flex items-center gap-1 font-mono text-[11px] text-stone-400">
-              <CalendarRange className="h-3.5 w-3.5" />
-              {svc.duration}
-            </span>
-          )}
         </div>
 
         <h3 className="mt-2.5 font-sans text-lg font-bold leading-snug text-stone-900 group-hover:text-amber-900 transition-colors">
