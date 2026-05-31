@@ -1,11 +1,13 @@
 'use client';
 
+import {useMemo, useState} from 'react';
 import Link from 'next/link';
 import {storyblokEditable} from '@storyblok/react';
-import {ArrowRight, ArrowLeft, ArrowUpRight, CalendarRange, Star, ShoppingBag} from 'lucide-react';
+import {ArrowLeft, ArrowRight, ArrowUpRight, Search, PawPrint} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import {useCarousel} from '../../lib/use-carousel';
 import {usePageData} from '../PageDataProvider';
+import ServiceCard from './ServiceCard';
 
 interface ServicesGridBlok {
   _uid: string;
@@ -16,12 +18,13 @@ interface ServicesGridBlok {
 }
 
 // Data-bound: pulls the service stories prefetched by the page route.
-// `grid` = highlighted carousel of program cards (home); `list` = full
-// alternating sections (services page).
+// `grid` = highlighted carousel of program cards (home); `list` = searchable,
+// filterable grid (services page). Both share <ServiceCard>.
 export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
   const href = useHref();
   const {services, testimonials} = usePageData();
   const {emblaRef, prev, next, canPrev, canNext, slideProps} = useCarousel();
+  const [query, setQuery] = useState('');
   const limit = Number(blok.limit) || services.length;
   const items = services.slice(0, limit);
   const isList = blok.layout === 'list';
@@ -36,83 +39,57 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
     }
   }
 
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return items;
+    return items.filter(
+      (s) =>
+        s.title.toLowerCase().includes(q) ||
+        s.shortDescription.toLowerCase().includes(q) ||
+        s.audience.toLowerCase().includes(q),
+    );
+  }, [items, query]);
+
   if (isList) {
     return (
       <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-left">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          {items.map((svc) => {
-            const review = reviews.get(svc.id);
-            return (
-              <Link
-                key={svc.id}
-                href={href.slug(svc.slug)}
-                className="group cursor-pointer flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-all hover:shadow-md hover:border-amber-900/20"
-              >
-                {/* Thumbnail banner */}
-                <div className="relative overflow-hidden bg-stone-100 max-h-64 aspect-video">
-                  {svc.imageUrl && (
-                    <img
-                      src={svc.imageUrl}
-                      alt={svc.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      referrerPolicy="no-referrer"
-                    />
-                  )}
-                  {svc.audience && (
-                    <div className="absolute top-4 left-4 rounded-md bg-stone-900/90 text-[10px] font-mono px-2.5 py-1 uppercase tracking-wider text-stone-100">
-                      {svc.audience}
-                    </div>
-                  )}
-                  {svc.price && (
-                    <div className="absolute top-4 right-4 rounded-md bg-amber-50/95 text-[11px] font-mono font-bold px-2.5 py-1 text-amber-900 shadow-sm backdrop-blur">
-                      {svc.price}
-                    </div>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="flex-1 p-6 flex flex-col justify-between text-left space-y-4">
-                  <div className="space-y-2">
-                    {/* Rating row (0 stars if no reviews) */}
-                    <div className="flex items-center gap-1.5">
-                      <div className="flex">
-                        {Array.from({length: 5}).map((_, i) => (
-                          <Star
-                            key={i}
-                            className={`h-3.5 w-3.5 ${i < Math.round(review?.avg ?? 0) ? 'fill-amber-400 text-amber-400' : 'fill-stone-200 text-stone-200'}`}
-                          />
-                        ))}
-                      </div>
-                      <span className="font-mono text-[11px] text-stone-400">
-                        {review ? `${review.avg.toFixed(1)} (${review.count})` : '(0)'}
-                      </span>
-                    </div>
-
-                    <h3 className="font-sans text-lg font-bold text-stone-900 group-hover:text-amber-950 transition-colors leading-snug">
-                      {svc.title}
-                    </h3>
-                    <p className="text-xs text-stone-550 leading-relaxed line-clamp-3">
-                      {svc.shortDescription}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center justify-between border-t border-stone-100 pt-4 text-xs font-mono">
-                    <span className="text-amber-905 font-bold flex items-center space-x-1">
-                      <span>View Program</span>
-                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                    </span>
-                    {svc.duration && (
-                      <span className="inline-flex items-center gap-1 text-stone-400">
-                        <CalendarRange className="h-3.5 w-3.5" />
-                        {svc.duration}
-                      </span>
-                    )}
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
+        {/* Search (blog-style) */}
+        <div className="mb-12 -mt-12 border-b border-stone-200 pb-8">
+          <div className="relative w-full max-w-md">
+            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <Search className="h-4 w-4 text-stone-400" />
+            </div>
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search programs, puppies, reactivity..."
+              className="block w-full rounded-xl border border-stone-300 bg-white py-3 pl-10 pr-4 text-sm text-stone-900 placeholder-stone-400 focus:border-amber-900 focus:outline-none focus:ring-1 focus:ring-amber-900"
+            />
+          </div>
         </div>
+
+        {filtered.length === 0 ? (
+          <div className="mx-auto max-w-md space-y-4 rounded-2xl border-2 border-dashed border-stone-200 py-16 text-center">
+            <PawPrint className="mx-auto h-10 w-10 text-stone-300" aria-hidden="true" />
+            <h3 className="font-sans text-base font-bold text-stone-800">No programs found</h3>
+            <p className="px-4 font-sans text-xs text-stone-500">
+              Nothing matches your search. Try a different term.
+            </p>
+            <button
+              onClick={() => setQuery('')}
+              className="rounded-lg bg-stone-900 px-4 py-2 text-xs font-semibold tracking-wide text-white"
+            >
+              Clear search
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+            {filtered.map((svc) => (
+              <ServiceCard key={svc.id} svc={svc} review={reviews.get(svc.id)} />
+            ))}
+          </div>
+        )}
       </section>
     );
   }
@@ -144,76 +121,15 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
 
       <div className="overflow-hidden cursor-grab active:cursor-grabbing select-none" ref={emblaRef}>
         <div className="flex gap-6 py-2">
-          {items.map((svc) => {
-            const review = reviews.get(svc.id);
-            return (
-            <Link
+          {items.map((svc) => (
+            <ServiceCard
               key={svc.id}
-              href={href.slug(svc.slug)}
-              {...slideProps}
-              className="group flex flex-[0_0_85%] sm:flex-[0_0_56%] lg:flex-[0_0_40%] min-w-0 cursor-pointer flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition-colors hover:border-stone-300"
-            >
-              {/* Product image */}
-              <div className="relative aspect-4/3 overflow-hidden bg-stone-100">
-                {svc.imageUrl && (
-                  <img
-                    src={svc.imageUrl}
-                    alt={svc.title}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    referrerPolicy="no-referrer"
-                  />
-                )}
-                {/* Category tag */}
-                {svc.audience && (
-                  <span className="absolute top-3 left-3 rounded-full bg-white/95 px-3 py-1 text-[10px] font-mono font-semibold uppercase tracking-wide text-stone-700 shadow-sm backdrop-blur">
-                    {svc.audience}
-                  </span>
-                )}
-              </div>
-
-              {/* Product body */}
-              <div className="flex flex-1 flex-col p-5 text-left">
-                {/* Rating row — real reviews tagged to this service (0 stars if none) */}
-                <div className="flex items-center gap-1.5">
-                  <div className="flex">
-                    {Array.from({length: 5}).map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`h-3.5 w-3.5 ${i < Math.round(review?.avg ?? 0) ? 'fill-amber-400 text-amber-400' : 'fill-stone-200 text-stone-200'}`}
-                      />
-                    ))}
-                  </div>
-                  <span className="font-mono text-[11px] text-stone-400">
-                    {review ? `${review.avg.toFixed(1)} (${review.count})` : '(0)'}
-                  </span>
-                  {svc.duration && (
-                    <span className="ml-auto inline-flex items-center gap-1 font-mono text-[11px] text-stone-400">
-                      <CalendarRange className="h-3.5 w-3.5" />
-                      {svc.duration}
-                    </span>
-                  )}
-                </div>
-
-                <h3 className="mt-2.5 font-sans text-lg font-bold leading-snug text-stone-900 group-hover:text-amber-900 transition-colors">
-                  {svc.title}
-                </h3>
-                <p className="mt-1.5 text-sm text-stone-500 leading-relaxed line-clamp-2">{svc.shortDescription}</p>
-
-                {/* Price + add-to-cart footer */}
-                <div className="mt-auto flex items-end justify-between pt-5">
-                  <div className="leading-none">
-                    <span className="block font-mono text-[10px] uppercase tracking-wider text-stone-400">Starting at</span>
-                    <span className="mt-1 block font-sans text-xl font-extrabold text-amber-950">{svc.price}</span>
-                  </div>
-                  <span className="inline-flex items-center gap-1.5 rounded-xl bg-amber-900 px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition-all group-hover:bg-amber-950 group-hover:shadow">
-                    <ShoppingBag className="h-4 w-4" />
-                    View
-                  </span>
-                </div>
-              </div>
-            </Link>
-            );
-          })}
+              svc={svc}
+              review={reviews.get(svc.id)}
+              slideProps={slideProps}
+              className="flex-[0_0_85%] sm:flex-[0_0_56%] lg:flex-[0_0_40%]"
+            />
+          ))}
         </div>
       </div>
 
