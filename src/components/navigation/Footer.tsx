@@ -18,7 +18,7 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
   ].filter((c) => c.label);
 
   return (
-    <footer className="relative overflow-hidden bg-amber-950 text-stone-300 pt-20 pb-24 md:pb-16">
+    <footer className="relative overflow-hidden bg-amber-950 text-stone-300 pt-6 pb-4 lg:py-12">
       {/* Soft heather glow + paw watermark for a warm, branded backdrop */}
       <div
         aria-hidden
@@ -136,7 +136,7 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
         )}
 
         {/* Bottom credits */}
-        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-4 pt-8 text-xs text-stone-500">
+        <div className="flex flex-col-reverse md:flex-row lg:items-center justify-between gap-4 pt-8 text-xs text-stone-500">
           <p className="inline-flex items-center gap-1.5">
             <PawPrint className="h-3.5 w-3.5 text-amber-500" />
             {config.copyright}

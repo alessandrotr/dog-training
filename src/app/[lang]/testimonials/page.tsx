@@ -1,23 +1,8 @@
-import type {Metadata} from 'next';
-import RenderStoryblokPage from '../../../components/RenderStoryblokPage';
-import {isLocale, DEFAULT_LOCALE, type Locale} from '../../../lib/locales';
-import {pageMetadata} from '../../../lib/seo';
+import {redirect} from 'next/navigation';
+import {isLocale, DEFAULT_LOCALE} from '../../../lib/locales';
 
-type SP = Promise<Record<string, string | string[] | undefined>>;
-
-export async function generateMetadata({params}: {params: Promise<{lang: string}>}): Promise<Metadata> {
+// Section renamed to "Case Studies" — permanently redirect the old path.
+export default async function Page({params}: {params: Promise<{lang: string}>}) {
   const {lang} = await params;
-  return pageMetadata('testimonials', isLocale(lang) ? lang : DEFAULT_LOCALE, 'testimonials');
-}
-
-export default async function Page({
-  params,
-  searchParams,
-}: {
-  params: Promise<{lang: string}>;
-  searchParams: SP;
-}) {
-  const {lang} = await params;
-  const preview = '_storyblok' in (await searchParams);
-  return <RenderStoryblokPage slug="testimonials" lang={lang as Locale} preview={preview} />;
+  redirect(`/${isLocale(lang) ? lang : DEFAULT_LOCALE}/case-studies`);
 }

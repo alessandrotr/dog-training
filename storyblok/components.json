@@ -33,34 +33,31 @@
       "is_root": true,
       "is_nestable": false,
       "schema": {
-        "name": { "type": "text", "pos": 0, "required": true },
-        "dog_breed": { "type": "text", "pos": 1, "translatable": true },
-        "rating": {
-          "type": "number",
-          "pos": 2,
-          "default_value": "5",
-          "description": "1 to 5"
+        "name": { "type": "text", "pos": 0, "required": true, "description": "Dog (and/or owner) name, e.g. \"Max\" or \"Max & Anna\"." },
+        "dog_breed": { "type": "text", "pos": 1, "translatable": true, "description": "Breed, e.g. \"German Shepherd\"." },
+        "challenge": { "type": "text", "pos": 2, "translatable": true, "description": "The challenge in one line, e.g. \"Severe leash reactivity toward other dogs\"." },
+        "text": { "type": "textarea", "pos": 3, "translatable": true, "description": "The story — what you did and how it went." },
+        "outcome": { "type": "textarea", "pos": 4, "translatable": true, "description": "The result in a line or two, e.g. \"Calm, focused walks within 6 weeks\"." },
+        "image": { "type": "asset", "filetypes": ["images"], "pos": 5, "description": "Photo of the dog (optional)." },
+        "service": {
+          "type": "option",
+          "pos": 6,
+          "source": "internal_stories",
+          "folder_slug": "services/",
+          "use_uuid": true,
+          "description": "Which service this case study is for."
         },
-        "text": { "type": "textarea", "pos": 3, "translatable": true },
-        "date": { "type": "text", "pos": 4, "translatable": true },
+        "date": { "type": "text", "pos": 7, "translatable": true },
+        "rating": { "type": "number", "pos": 8, "default_value": "5", "description": "Legacy — no longer shown." },
         "source": {
           "type": "option",
-          "pos": 5,
+          "pos": 9,
           "use_uuid": false,
           "default_value": "direct",
           "options": [
             { "name": "Google", "value": "google" },
             { "name": "Direct", "value": "direct" }
           ]
-        },
-        "image": { "type": "asset", "filetypes": ["images"], "pos": 6 },
-        "service": {
-          "type": "option",
-          "pos": 7,
-          "source": "internal_stories",
-          "folder_slug": "services/",
-          "use_uuid": true,
-          "description": "Which program this review is for (drives the star rating on that service's card)"
         }
       }
     },

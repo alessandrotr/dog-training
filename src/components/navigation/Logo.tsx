@@ -32,8 +32,8 @@ export default function Logo({
       className={`group flex items-center gap-2.5 text-left focus:outline-none cursor-pointer ${className}`}
     >
       {icon}
-      <span className="flex flex-col gap-0.5">
-        <span className={`block font-sans text-sm lg:text-lg font-bold tracking-tight ${title}`}>{brandName}</span>
+      <span className="flex flex-col gap-1">
+        <span className={`block font-sans text-sm font-bold tracking-tight ${title}`}>{brandName}</span>
         <span className={`block font-mono text-[9px] uppercase tracking-widest -mt-1 ${subtitle}`}>{brandSubtitle}</span>
       </span>
     </Link>

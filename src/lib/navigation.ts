@@ -10,7 +10,7 @@ export const PAGE_ROUTES: Record<string, string> = {
   about: '/about',
   services: '/services',
   blog: '/blog',
-  testimonials: '/testimonials',
+  testimonials: '/case-studies',
   faq: '/faq',
   contact: '/contact',
   booking: '/booking',
@@ -26,6 +26,7 @@ export function pathToPage(pathname: string | null): string {
   const page = pathname.split('/').filter(Boolean)[1];
   if (!page) return 'home';
   if (page === 'blog') return 'blog';
+  if (page === 'case-studies') return 'testimonials'; // logical page id is still "testimonials"
   return page;
 }
 
@@ -65,6 +66,7 @@ export function useHref() {
     slug: (slug: string) => `/${lang}/${slug}`,
     post: (slug: string) => `/${lang}/blog/${slug}`,
     service: (slug: string) => `/${lang}/services/${slug}`,
+    caseStudy: (slug: string) => `/${lang}/case-studies/${slug}`,
   };
 }
 

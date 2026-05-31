@@ -47,7 +47,7 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
       <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-left">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((svc) => (
-            <ServiceCard key={svc.id} svc={svc} review={reviews.get(svc.id)} guides={guides.get(svc.id) ?? 0} />
+            <ServiceCard key={svc.id} svc={svc} caseStudies={reviews.get(svc.id)?.count ?? 0} guides={guides.get(svc.id) ?? 0} />
           ))}
         </div>
       </section>
@@ -67,7 +67,7 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
         subheadline={blok.subheadline}
         footerLabel={blok.footer_label}
         footerHref={href.page('services')}
-        renderItem={(svc, slideProps) => <ServiceCard svc={svc} review={reviews.get(svc.id)} guides={guides.get(svc.id) ?? 0} slideProps={slideProps} />}
+        renderItem={(svc, slideProps) => <ServiceCard svc={svc} caseStudies={reviews.get(svc.id)?.count ?? 0} guides={guides.get(svc.id) ?? 0} slideProps={slideProps} />}
       />
     </section>
   );

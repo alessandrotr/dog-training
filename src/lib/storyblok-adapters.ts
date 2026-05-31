@@ -70,10 +70,13 @@ export const adaptTestimonial = (s: any): TestimonialItem => {
   const c = s?.content ?? {};
   return {
     id: s?.uuid ?? '',
+    slug: s?.slug ?? '',
     name: c.name ?? '',
     dogBreed: c.dog_breed ?? '',
-    rating: Number(c.rating) || 5,
+    challenge: c.challenge || undefined,
     text: c.text ?? '',
+    outcome: c.outcome || undefined,
+    rating: Number(c.rating) || 5,
     imageUrl: c.image?.filename || undefined,
     date: c.date ?? '',
     source: c.source ?? 'direct',

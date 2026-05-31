@@ -163,7 +163,7 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, se
               size="lg"
               label="programs"
               headline="Related programs"
-              renderItem={(svc, slideProps) => <ServiceCard svc={svc} review={serviceReviews[svc.id]} guides={guidesByService.get(svc.id) ?? 0} slideProps={slideProps} />}
+              renderItem={(svc, slideProps) => <ServiceCard svc={svc} caseStudies={serviceReviews[svc.id]?.count ?? 0} guides={guidesByService.get(svc.id) ?? 0} slideProps={slideProps} />}
             />
           </div>
         )}

@@ -94,16 +94,21 @@ export interface ServiceItem {
   icon: string; // Lucide icon name
 }
 
+// A client case study: the dog, the challenge, what was done (text), the outcome,
+// and the service it relates to. (Underlying Storyblok type is still `testimonial`.)
 export interface TestimonialItem {
   id: string;
+  slug: string;
   name: string;
   dogBreed: string;
-  rating: number; // 1-5
-  text: string;
+  challenge?: string; // the problem in one line
+  text: string; // the story — what the trainer did
+  outcome?: string; // the result
+  rating: number; // legacy, no longer displayed
   imageUrl?: string;
   date: string;
   source: 'google' | 'direct';
-  serviceId?: string; // uuid of the service this review is for, if tagged
+  serviceId?: string; // uuid of the service this case study is for, if tagged
 }
 
 export interface FAQItem {

@@ -1,14 +1,13 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
-import {Check, Plus, Star, ArrowLeft, CalendarClock, MessageSquareQuote} from 'lucide-react';
-import {useHref} from '../../lib/navigation';
+import {Check, Plus, Sparkles, CalendarClock} from 'lucide-react';
 import {useInquiryCart} from '../InquiryCartProvider';
 import {useLeadDialog} from '../../stores/lead-dialog';
 import Carousel from '../Carousel';
 import ServiceCard from '../bloks/ServiceCard';
 import ArticleCard from '../bloks/ArticleCard';
+import CaseStudyCard from '../bloks/CaseStudyCard';
 import type {ServiceItem, TestimonialItem, BlogPost} from '../../types';
 
 // One shared, data-driven template for every service (mirrors the blog article
@@ -24,7 +23,6 @@ export default function ServiceDetail({
   related: ServiceItem[];
   posts: BlogPost[];
 }) {
-  const href = useHref();
   const cart = useInquiryCart();
   const {open} = useLeadDialog();
 
@@ -38,8 +36,8 @@ export default function ServiceDetail({
     if (tagged.length) reviewStats.set(id, {avg: tagged.reduce((s, t) => s + t.rating, 0) / tagged.length, count: tagged.length});
   }
 
-  const reviewsForSvc = testimonials.filter((t) => t.serviceId === service.id && t.rating > 0);
-  const avg = reviewsForSvc.length ? reviewsForSvc.reduce((s, r) => s + r.rating, 0) / reviewsForSvc.length : 0;
+  // Case studies tagged to this service.
+  const caseStudiesForSvc = testimonials.filter((t) => t.serviceId === service.id);
 
   // Article ↔ service relations.
   const relatedArticles = posts.filter((p) => p.serviceIds?.includes(service.id));
@@ -63,11 +61,11 @@ export default function ServiceDetail({
             </h1>
             <p className="max-w-xl text-lg leading-relaxed text-stone-600">{service.shortDescription}</p>
 
-            {reviewsForSvc.length > 0 && (
-              <div className="flex flex-wrap items-center gap-4 font-mono text-xs text-stone-500">
+            {caseStudiesForSvc.length > 0 && (
+              <div className="flex flex-wrap items-center gap-4 font-mono text-xs text-amber-800">
                 <span className="inline-flex items-center gap-1.5">
-                  <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-                  {avg.toFixed(1)} ({reviewsForSvc.length})
+                  <Sparkles className="h-4 w-4" />
+                  {caseStudiesForSvc.length} case stud{caseStudiesForSvc.length > 1 ? 'ies' : 'y'}
                 </span>
               </div>
             )}
@@ -133,25 +131,13 @@ export default function ServiceDetail({
           )}
         </div>
 
-        {/* Reviews for this service */}
-        {reviewsForSvc.length > 0 && (
+        {/* Case studies for this service */}
+        {caseStudiesForSvc.length > 0 && (
           <div className="mt-20 border-t border-stone-200 pt-12">
-            <h2 className="mb-8 font-sans text-2xl font-extrabold text-amber-955">What clients say about this service</h2>
+            <h2 className="mb-8 font-sans text-2xl font-extrabold text-amber-955">Case studies from this service</h2>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {reviewsForSvc.slice(0, 6).map((r) => (
-                <figure key={r.id} className="rounded-2xl border border-stone-200 bg-white p-6">
-                  <MessageSquareQuote className="h-5 w-5 text-amber-700" />
-                  <div className="mt-3 flex">
-                    {Array.from({length: 5}).map((_, i) => (
-                      <Star key={i} className={`h-3.5 w-3.5 ${i < Math.round(r.rating) ? 'fill-amber-400 text-amber-400' : 'fill-stone-200 text-stone-200'}`} />
-                    ))}
-                  </div>
-                  <blockquote className="mt-3 font-serif text-base italic leading-relaxed text-amber-955">“{r.text}”</blockquote>
-                  <figcaption className="mt-4 text-sm font-bold text-stone-900">
-                    {r.name}
-                    {r.dogBreed && <span className="block font-mono text-[11px] font-normal text-stone-400">{r.dogBreed}</span>}
-                  </figcaption>
-                </figure>
+              {caseStudiesForSvc.slice(0, 6).map((r) => (
+                <CaseStudyCard key={r.id} story={r} />
               ))}
             </div>
           </div>
@@ -180,7 +166,7 @@ export default function ServiceDetail({
               size="lg"
               label="programs"
               headline="Other services"
-              renderItem={(svc, slideProps) => <ServiceCard svc={svc} review={reviewStats.get(svc.id)} guides={guidesByService.get(svc.id) ?? 0} slideProps={slideProps} />}
+              renderItem={(svc, slideProps) => <ServiceCard svc={svc} caseStudies={reviewStats.get(svc.id)?.count ?? 0} guides={guidesByService.get(svc.id) ?? 0} slideProps={slideProps} />}
             />
           </div>
         )}
