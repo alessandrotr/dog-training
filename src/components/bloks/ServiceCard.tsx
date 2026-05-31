@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import {Star, CalendarRange, ShoppingBag, Plus, Check} from 'lucide-react';
+import {Star, CalendarRange, Plus, Check} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import {useInquiryCart} from '../InquiryCartProvider';
 import type {ServiceItem} from '../../types';
@@ -92,16 +92,10 @@ export default function ServiceCard({
         </h3>
         <p className="mt-1.5 text-sm text-stone-500 leading-relaxed line-clamp-2">{svc.shortDescription}</p>
 
-        {/* Price + add-to-cart footer */}
-        <div className="mt-auto flex items-end justify-between pt-5">
-          <div className="leading-none">
-            <span className="block font-mono text-[10px] uppercase tracking-wider text-stone-400">Starting at</span>
-            <span className="mt-1 block font-sans text-xl font-extrabold text-amber-950">{svc.price}</span>
-          </div>
-          <span className="inline-flex items-center gap-1.5 rounded-xl bg-amber-700 px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition-all group-hover:bg-amber-950 group-hover:shadow">
-            <ShoppingBag className="h-4 w-4" />
-            View
-          </span>
+        {/* Price footer */}
+        <div className="mt-auto pt-5 leading-none">
+          <span className="block font-mono text-[10px] uppercase tracking-wider text-stone-400">Starting at</span>
+          <span className="mt-1 block font-sans text-xl font-extrabold text-amber-950">{svc.price}</span>
         </div>
       </div>
     </Link>

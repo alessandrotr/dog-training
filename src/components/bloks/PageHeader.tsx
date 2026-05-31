@@ -20,7 +20,7 @@ export default function PageHeader({blok}: {blok: PageHeaderBlok}) {
   return (
     <section
       {...storyblokEditable(blok as any)}
-      className={`mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ${isSection ? '' : 'py-12'}`}
+      className={`mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ${isSection ? '' : 'pt-4 lg:py-12'}`}
     >
       <div className="max-w-3xl space-y-4 text-left">
         {blok.eyebrow && (

@@ -54,7 +54,7 @@ export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonom
   }, [blogPosts, searchQuery, selectedCategory, activeTag]);
 
   return (
-    <div className="space-y-16 py-12 pb-24 text-left">
+    <div className="space-y-16 pt-4 lg:py-12 pb-8 text-left">
       
       {/* Blog Headers */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

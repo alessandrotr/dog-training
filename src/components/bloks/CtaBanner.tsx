@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import {storyblokEditable} from '@storyblok/react';
-import {Award, PawPrint, ArrowRight} from 'lucide-react';
+import {PawPrint, ArrowRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 
 interface CtaBannerBlok {
@@ -27,7 +27,7 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
         <div className="rounded-2xl border border-stone-200 bg-gradient-to-r from-stone-50 to-stone-100 p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-start space-x-4">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-900 border border-amber-200/50">
-              <Award className="h-5.5 w-5.5" />
+              <PawPrint className="h-5.5 w-5.5" />
             </div>
             <div className="text-left font-sans space-y-1">
               {blok.headline && <h3 className="text-base font-bold text-stone-900">{blok.headline}</h3>}
