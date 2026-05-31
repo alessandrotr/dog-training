@@ -39,7 +39,6 @@ export interface SiteConfig {
   navItems: NavLink[];
   ctaLabel: string;
   ctaTarget: string;
-  availability: AvailabilityData;
   footer: {
     brandName: string;
     brandSubtitle: string;

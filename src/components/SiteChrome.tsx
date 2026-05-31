@@ -7,14 +7,16 @@ import Footer from './navigation/Footer';
 import ConnectFab from './navigation/ConnectFab';
 import LeadDialogMount from './lead/LeadDialogMount';
 import {AvailabilityProvider} from './AvailabilityProvider';
-import type {SiteConfig} from '../types';
+import type {SiteConfig, AvailabilityData} from '../types';
 
 // Persistent app shell rendered around every route by the root layout.
 export default function SiteChrome({
   config,
+  availability,
   children,
 }: {
   config: SiteConfig;
+  availability: AvailabilityData;
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
@@ -25,7 +27,7 @@ export default function SiteChrome({
   }, [pathname]);
 
   return (
-    <AvailabilityProvider value={config.availability}>
+    <AvailabilityProvider value={availability}>
       <div className="relative min-h-screen flex flex-col bg-stone-50 font-sans text-stone-850 antialiased selection:bg-amber-900/10 selection:text-amber-900">
         {/* Primary Top Header Navigation */}
         <Navbar config={config} />

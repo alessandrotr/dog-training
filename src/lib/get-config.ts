@@ -18,20 +18,6 @@ export const DEFAULT_CONFIG: SiteConfig = {
   ],
   ctaLabel: 'Book Consult',
   ctaTarget: 'booking',
-  availability: {
-    available: true,
-    name: 'Sophia Binder',
-    handle: '@sophiabinder',
-    avatar: '',
-    availableStatus: 'Available for new clients',
-    unavailableStatus: 'Fully booked right now',
-    location: 'Berlin & Brandenburg',
-    responseTime: 'Usually replies in 24h',
-    availableCtaLabel: 'Book a free consult',
-    availableCtaTarget: 'booking',
-    unavailableCtaLabel: 'Join the waitlist',
-    unavailableCtaTarget: 'contact',
-  },
   footer: {
     brandName: 'SOPHIA BINDER',
     brandSubtitle: 'Gentle Education',
@@ -76,26 +62,6 @@ const lines = (s?: string) => (s ? s.split('\n').map((l) => l.trim()).filter(Boo
 const links = (arr?: any[]): {label: string; target: string}[] =>
   (arr ?? []).map((l) => ({label: l.label ?? '', target: l.target ?? 'home'}));
 
-function adaptAvailability(content: any): SiteConfig['availability'] {
-  const a = content.availability?.[0]; // single nested `availability` blok
-  const d = DEFAULT_CONFIG.availability;
-  if (!a) return d;
-  return {
-    available: a.available !== false,
-    name: a.name || d.name,
-    handle: a.handle || d.handle,
-    avatar: a.avatar?.filename || '',
-    availableStatus: a.available_status || d.availableStatus,
-    unavailableStatus: a.unavailable_status || d.unavailableStatus,
-    location: a.location || '',
-    responseTime: a.response_time || '',
-    availableCtaLabel: a.available_cta_label || d.availableCtaLabel,
-    availableCtaTarget: a.available_cta_target || d.availableCtaTarget,
-    unavailableCtaLabel: a.unavailable_cta_label || d.unavailableCtaLabel,
-    unavailableCtaTarget: a.unavailable_cta_target || d.unavailableCtaTarget,
-  };
-}
-
 function adaptConfig(content: any): SiteConfig {
   const d = DEFAULT_CONFIG;
   const navItems = links(content.nav_items);
@@ -111,7 +77,6 @@ function adaptConfig(content: any): SiteConfig {
     navItems: navItems.length ? navItems : d.navItems,
     ctaLabel: content.cta_label || d.ctaLabel,
     ctaTarget: content.cta_target || d.ctaTarget,
-    availability: adaptAvailability(content),
     footer: {
       brandName: content.footer_brand_name || d.footer.brandName,
       brandSubtitle: content.footer_brand_subtitle || d.footer.brandSubtitle,

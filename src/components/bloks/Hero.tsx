@@ -23,13 +23,13 @@ interface HeroBlok {
   badge_title?: string;
   badge_subtitle?: string;
   availability?: string;
-  aside?: Array<{_uid: string; component: string; [key: string]: unknown}>;
+  show_availability?: boolean;
 }
 
 export default function Hero({blok}: {blok: HeroBlok}) {
   const href = useHref();
-  // Optional availability card shown in the right column instead of the image.
-  const asideAvailability = (blok.aside || []).find((b) => b.component === 'availability');
+  // When ON, the right column shows the global Availability card instead of the image.
+  const showAvailability = blok.show_availability === true;
 
   return (
     <section
@@ -67,7 +67,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
             <div className="flex flex-col sm:flex-row gap-4 pt-3">
               {/* When an availability card is shown, it carries the booking CTA — so
                   hide the hero's primary button to avoid duplication. */}
-              {!asideAvailability && blok.primary_label && (
+              {!showAvailability && blok.primary_label && (
                 <Link
                   href={href.page(blok.primary_target || 'booking')}
                   className="rounded-xl bg-amber-900 px-6 py-4 text-sm font-semibold text-white shadow-md hover:bg-amber-950 hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-amber-500/50 cursor-pointer flex items-center justify-center space-x-2"
@@ -86,7 +86,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
               )}
             </div>
 
-            {!asideAvailability && blok.availability && (
+            {!showAvailability && blok.availability && (
               <div className="flex items-center space-x-1.5 text-xs text-stone-400 font-mono">
                 <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span>{blok.availability}</span>
@@ -95,8 +95,8 @@ export default function Hero({blok}: {blok: HeroBlok}) {
           </div>
 
           <div className="lg:max-w-lg w-full relative">
-            {asideAvailability ? (
-              <Availability blok={asideAvailability as any} />
+            {showAvailability ? (
+              <Availability />
             ) : (
               <div className="relative mx-auto max-w-[420px] lg:max-w-none">
                 <div className="absolute -inset-1 rounded-3xl bg-amber-900/10 blur-xl"></div>
