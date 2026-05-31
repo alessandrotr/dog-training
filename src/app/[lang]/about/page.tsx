@@ -1,7 +1,14 @@
+import type {Metadata} from 'next';
 import RenderStoryblokPage from '../../../components/RenderStoryblokPage';
-import type {Locale} from '../../../lib/locales';
+import {isLocale, DEFAULT_LOCALE, type Locale} from '../../../lib/locales';
+import {pageMetadata} from '../../../lib/seo';
 
 type SP = Promise<Record<string, string | string[] | undefined>>;
+
+export async function generateMetadata({params}: {params: Promise<{lang: string}>}): Promise<Metadata> {
+  const {lang} = await params;
+  return pageMetadata('about', isLocale(lang) ? lang : DEFAULT_LOCALE, 'about');
+}
 
 export default async function Page({
   params,

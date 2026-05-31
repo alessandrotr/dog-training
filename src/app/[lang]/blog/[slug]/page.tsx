@@ -1,8 +1,28 @@
+import type {Metadata} from 'next';
 import {getBlogPosts} from '../../../../lib/content-server';
 import BlogPostView from '../../../../components/pages/BlogPostView';
-import type {Locale} from '../../../../lib/locales';
+import {isLocale, DEFAULT_LOCALE, type Locale} from '../../../../lib/locales';
+import {buildMetadata} from '../../../../lib/seo';
 
 type SP = Promise<Record<string, string | string[] | undefined>>;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{lang: string; slug: string}>;
+}): Promise<Metadata> {
+  const {lang, slug} = await params;
+  const l = isLocale(lang) ? lang : DEFAULT_LOCALE;
+  const post = (await getBlogPosts(l, false)).find((p) => p.slug === slug);
+  return buildMetadata({
+    title: post?.seo.metaTitle || post?.title,
+    description: post?.seo.metaDescription || post?.summary,
+    image: post?.imageUrl,
+    path: `blog/${slug}`,
+    lang: l,
+    type: 'article',
+  });
+}
 
 export default async function Page({
   params,

@@ -20,7 +20,13 @@ function detectLocale(req: NextRequest): string {
 export function middleware(req: NextRequest) {
   const {pathname} = req.nextUrl;
   const first = pathname.split('/').filter(Boolean)[0];
-  if (first && isSupported(first)) return NextResponse.next();
+  if (first && isSupported(first)) {
+    // Expose the active locale to the root layout (which sits above the [lang]
+    // segment and can't read the route param) so <html lang> is correct.
+    const headers = new Headers(req.headers);
+    headers.set('x-locale', first);
+    return NextResponse.next({request: {headers}});
+  }
 
   const url = req.nextUrl.clone(); // clone keeps the search params
   url.pathname = `/${detectLocale(req)}${pathname === '/' ? '' : pathname}`;

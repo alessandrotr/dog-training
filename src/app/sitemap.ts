@@ -1,12 +1,22 @@
 import type {MetadataRoute} from 'next';
 import {LOCALES} from '../lib/locales';
 import {getStoryblokApi} from '../lib/storyblok';
-
-// Public site origin. Update if you move to a custom domain.
-const BASE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://dog-training-indol.vercel.app';
+import {SITE_URL} from '../lib/seo';
 
 // Explicit, code-owned routes (not builder pages).
 const STATIC_ROUTES = ['contact', 'booking', 'blog'];
+
+// One sitemap entry per locale, each carrying hreflang `alternates` pointing at
+// its sibling-locale URLs (path is identical across locales except the prefix).
+function entriesFor(path: string): MetadataRoute.Sitemap {
+  const clean = path ? `/${path}` : '';
+  const languages: Record<string, string> = {};
+  for (const l of LOCALES) languages[l] = `${SITE_URL}/${l}${clean}`;
+  return LOCALES.map((lang) => ({
+    url: `${SITE_URL}/${lang}${clean}`,
+    alternates: {languages},
+  }));
+}
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let pageSlugs: string[] = [];
@@ -23,14 +33,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Fall back to static routes only if Storyblok is unreachable.
   }
 
-  const entries: MetadataRoute.Sitemap = [];
-  for (const lang of LOCALES) {
-    for (const slug of pageSlugs) {
-      const path = slug === 'home' ? '' : `/${slug}`;
-      entries.push({url: `${BASE}/${lang}${path}`});
-    }
-    for (const route of STATIC_ROUTES) entries.push({url: `${BASE}/${lang}/${route}`});
-    for (const slug of blogSlugs) entries.push({url: `${BASE}/${lang}/blog/${slug}`});
-  }
-  return entries;
+  const paths = new Set<string>();
+  for (const slug of pageSlugs) paths.add(slug === 'home' ? '' : slug);
+  for (const route of STATIC_ROUTES) paths.add(route);
+  for (const slug of blogSlugs) paths.add(`blog/${slug}`);
+
+  return [...paths].flatMap(entriesFor);
 }

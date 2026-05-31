@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { CalendarRange, Sparkles, CheckCircle, Clock, Video, User, AlertCircle, Copy, Check } from 'lucide-react';
 

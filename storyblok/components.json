@@ -135,7 +135,8 @@
           ]
         },
         "seo_title": { "type": "text", "pos": 1, "translatable": true },
-        "seo_description": { "type": "textarea", "pos": 2, "translatable": true }
+        "seo_description": { "type": "textarea", "pos": 2, "translatable": true },
+        "seo_image": { "type": "asset", "filetypes": ["images"], "pos": 3, "description": "Social-share preview image (Open Graph). ~1200x630." }
       }
     },
     {
