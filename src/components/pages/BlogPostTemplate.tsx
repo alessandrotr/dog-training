@@ -136,7 +136,7 @@ export default function BlogPostTemplate({ post, posts, taxonomies }: BlogPostTe
 
         {/* RELATED ARTICLES — carousel (mirrors the home articles carousel) */}
         {relatedPosts.length > 0 && (
-          <div className="pt-16">
+          <div className="pt-12 lg:pt-8">
             <div className="mb-8 flex items-end justify-between gap-4">
               <h3 className="font-sans text-2xl font-extrabold text-amber-955">Related Articles</h3>
               <div className="flex items-center gap-2 shrink-0">
