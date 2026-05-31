@@ -4,9 +4,10 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BlogPost, BlogTaxonomies } from '../../types';
-import { ArrowLeft, ArrowRight, Clock, CalendarDays, Share2, Bookmark, Check, CalendarRange, Sparkles, Tag } from 'lucide-react';
+import { Clock, CalendarDays, Share2, Bookmark, Check, CalendarRange, Sparkles, Tag } from 'lucide-react';
 import { useHref } from '../../lib/navigation';
-import { useCarousel } from '../../lib/use-carousel';
+import Carousel from '../Carousel';
+import ArticleCard from '../bloks/ArticleCard';
 import Availability from '../bloks/Availability';
 
 interface BlogPostTemplateProps {
@@ -21,7 +22,6 @@ export default function BlogPostTemplate({ post, posts, taxonomies }: BlogPostTe
   const blogPosts = posts;
   const catLabel = (c: string) => taxonomies.categories[c] ?? c;
   const tagLabel = (t: string) => taxonomies.tags[t] ?? t;
-  const {emblaRef, prev, next, canPrev, canNext, slideProps} = useCarousel();
 
   // Table of contents is built server-side (ids injected into the article HTML).
   const toc = post.tableOfContents ?? [];
@@ -146,56 +146,17 @@ export default function BlogPostTemplate({ post, posts, taxonomies }: BlogPostTe
 
         </div>
 
-        {/* RELATED ARTICLES — carousel (mirrors the home articles carousel) */}
+        {/* Related articles — shared Carousel */}
         {relatedPosts.length > 0 && (
           <div className="pt-12 lg:pt-8">
-            <div className="mb-8 flex items-end justify-between gap-4">
-              <h3 className="font-sans text-2xl font-extrabold text-amber-955">Related Articles</h3>
-              <div className="flex items-center gap-2 shrink-0">
-                <button onClick={prev} disabled={!canPrev} aria-label="Previous articles" className="rounded-full border border-stone-300 bg-white p-2 text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 disabled:opacity-40 disabled:cursor-not-allowed">
-                  <ArrowLeft className="h-3.5 w-3.5" />
-                </button>
-                <button onClick={next} disabled={!canNext} aria-label="Next articles" className="rounded-full border border-stone-300 bg-white p-2 text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 disabled:opacity-40 disabled:cursor-not-allowed">
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </button>
-              </div>
-            </div>
-
-            <div className="overflow-hidden cursor-grab active:cursor-grabbing select-none" ref={emblaRef}>
-              <div className="flex gap-6 py-1">
-                {relatedPosts.map((rel) => (
-                  <Link
-                    key={rel.id}
-                    href={href.post(rel.slug)}
-                    {...slideProps}
-                    className="group flex flex-[0_0_80%] sm:flex-[0_0_46%] lg:flex-[0_0_31%] min-w-0 cursor-pointer flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition-colors hover:border-stone-300"
-                  >
-                    <div className="relative aspect-video overflow-hidden bg-stone-100">
-                      <Image
-                        src={rel.imageUrl}
-                        alt={rel.title}
-                        fill
-                        sizes="(max-width: 640px) 80vw, (max-width: 1024px) 46vw, 31vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        referrerPolicy="no-referrer"
-                      />
-                    </div>
-                    <div className="flex flex-1 flex-col p-5 text-left">
-                      {rel.category && (
-                        <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-amber-800">{catLabel(rel.category)}</span>
-                      )}
-                      <h4 className="mt-1.5 font-sans text-base font-bold leading-snug text-stone-900 group-hover:text-amber-950 transition-colors line-clamp-2">
-                        {rel.title}
-                      </h4>
-                      <span className="mt-auto inline-flex items-center gap-1.5 pt-4 font-mono text-[11px] font-bold uppercase tracking-wider text-amber-900">
-                        Read Study
-                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                      </span>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
+            <Carousel
+              items={relatedPosts}
+              getKey={(p) => p.id}
+              size="sm"
+              label="articles"
+              headline="Related Articles"
+              renderItem={(rel, slideProps) => <ArticleCard post={rel} slideProps={slideProps} categoryLabel={catLabel} />}
+            />
           </div>
         )}
 

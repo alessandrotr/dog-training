@@ -2,11 +2,11 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import {Check, Plus, Star, ArrowLeft, ArrowRight, CalendarRange, CalendarClock, MessageSquareQuote} from 'lucide-react';
+import {Check, Plus, Star, ArrowLeft, CalendarRange, CalendarClock, MessageSquareQuote} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
-import {useCarousel} from '../../lib/use-carousel';
 import {useInquiryCart} from '../InquiryCartProvider';
 import {useLeadDialog} from '../../stores/lead-dialog';
+import Carousel from '../Carousel';
 import ServiceCard from '../bloks/ServiceCard';
 import type {ServiceItem, TestimonialItem} from '../../types';
 
@@ -24,7 +24,6 @@ export default function ServiceDetail({
   const href = useHref();
   const cart = useInquiryCart();
   const {open} = useLeadDialog();
-  const {emblaRef, prev, next, canPrev, canNext, slideProps} = useCarousel();
 
   const added = cart.has(service.slug);
 
@@ -153,27 +152,17 @@ export default function ServiceDetail({
           </div>
         )}
 
-        {/* Related programs carousel */}
+        {/* Related programs — shared Carousel */}
         {related.length > 0 && (
           <div className="mt-20 border-t border-stone-200 pt-12">
-            <div className="mb-8 flex items-end justify-between gap-4">
-              <h2 className="font-sans text-2xl font-extrabold text-amber-955">Other programs</h2>
-              <div className="flex items-center gap-2 shrink-0">
-                <button onClick={prev} disabled={!canPrev} aria-label="Previous" className="rounded-full border border-stone-300 bg-white p-2 text-stone-600 transition-colors hover:bg-stone-50 disabled:opacity-40 disabled:cursor-not-allowed">
-                  <ArrowLeft className="h-3.5 w-3.5" />
-                </button>
-                <button onClick={next} disabled={!canNext} aria-label="Next" className="rounded-full border border-stone-300 bg-white p-2 text-stone-600 transition-colors hover:bg-stone-50 disabled:opacity-40 disabled:cursor-not-allowed">
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </button>
-              </div>
-            </div>
-            <div className="overflow-hidden cursor-grab active:cursor-grabbing select-none" ref={emblaRef}>
-              <div className="flex gap-6 py-1">
-                {related.map((svc) => (
-                  <ServiceCard key={svc.id} svc={svc} review={reviewStats.get(svc.id)} slideProps={slideProps} className="flex-[0_0_80%] sm:flex-[0_0_46%] lg:flex-[0_0_31%]" />
-                ))}
-              </div>
-            </div>
+            <Carousel
+              items={related}
+              getKey={(s) => s.id}
+              size="lg"
+              label="programs"
+              headline="Other programs"
+              renderItem={(svc, slideProps) => <ServiceCard svc={svc} review={reviewStats.get(svc.id)} slideProps={slideProps} />}
+            />
           </div>
         )}
       </div>
