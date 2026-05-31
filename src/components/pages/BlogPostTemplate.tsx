@@ -3,10 +3,10 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useTranslation } from 'react-i18next';
 import { BlogPost } from '../../types';
 import { ArrowLeft, Clock, CalendarDays, Share2, Bookmark, Check, CalendarRange, Sparkles } from 'lucide-react';
 import { useHref } from '../../lib/navigation';
+import Availability from '../bloks/Availability';
 
 interface BlogPostTemplateProps {
   post: BlogPost;
@@ -15,7 +15,6 @@ interface BlogPostTemplateProps {
 
 export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps) {
   const [copiedLink, setCopiedLink] = useState(false);
-  const { t } = useTranslation();
   const href = useHref();
   const blogPosts = posts;
 
@@ -31,30 +30,6 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
   return (
     <article className="py-12 pb-24 text-left">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        
-        {/* Back Button Grid */}
-        <div className="mb-8 flex items-center justify-between border-b border-stone-200 pb-4">
-          <Link
-            href={href.page('blog')}
-            className="flex items-center space-x-2 text-xs font-mono font-bold uppercase tracking-wider text-stone-500 hover:text-stone-900 transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            <span>Back to Journal</span>
-          </Link>
-
-          {/* Core tools */}
-          <div className="flex items-center space-x-3 text-stone-400">
-            <button
-              id="copy-blog-link"
-              onClick={handleCopyLink}
-              className="p-2 hover:bg-stone-100 rounded-lg text-stone-600 transition-colors flex items-center space-x-1.5 text-xs font-mono"
-              aria-label="Copy article link"
-            >
-              <Share2 className="h-3.5 w-3.5" />
-              <span>{copiedLink ? 'Copied' : 'Share'}</span>
-            </button>
-          </div>
-        </div>
 
         {/* Heading Container */}
         <div className="max-w-3xl mx-auto space-y-4 mb-10 text-center md:text-left">
@@ -73,9 +48,6 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
             <div className="flex items-center space-x-1">
               <Clock className="h-3.5 w-3.5 text-amber-700" />
               <span>{post.readingTime}</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <span>Author: <b>{post.author.name}</b></span>
             </div>
           </div>
         </div>
@@ -117,28 +89,8 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
               </div>
             )}
 
-            {/* Author Profile */}
-            <div className="rounded-2xl border border-stone-200 bg-white p-6 text-left space-y-4 shadow-sm">
-              <div className="flex items-center space-x-3.5">
-                <Image
-                  src={post.author.avatar}
-                  alt={post.author.name}
-                  width={48}
-                  height={48}
-                  className="h-12 w-12 rounded-full object-cover border"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="font-sans">
-                  <p className="text-sm font-bold text-stone-900">{post.author.name}</p>
-                  <p className="text-[10px] font-mono text-amber-800 -mt-0.5">{post.author.role}</p>
-                </div>
-              </div>
-              {post.author.bio && (
-                <p className="text-xs text-stone-500 font-sans leading-relaxed">
-                  {post.author.bio}
-                </p>
-              )}
-            </div>
+            {/* Trainer availability (global, synced from Site Config) */}
+            <Availability />
 
             {/* In-article CTA widget */}
             <div className="rounded-2xl bg-amber-955 p-6 text-stone-100 shadow-md space-y-4 text-left">

@@ -24,7 +24,10 @@
       "Bash(lsof -ti:3000)",
       "Bash(pkill -9 -f \"next\")",
       "Bash(echo \"listeners: $\\(lsof -ti:3000)",
-      "Bash(echo \"BUILD_EXIT=$?\")"
+      "Bash(echo \"BUILD_EXIT=$?\")",
+      "Bash(node -e \"const c=require\\('./storyblok/components.json'\\);const a=Array.isArray\\(c\\)?c:c.components;const p=a.find\\(x=>x.name==='config'\\);console.log\\(Object.keys\\(p.schema\\).join\\(', '\\)\\)\")",
+      "Bash(node -e \"const c=require\\('./storyblok/components.json'\\);const a=Array.isArray\\(c\\)?c:c.components;const p=a.find\\(x=>x.name==='blog_post'\\);console.log\\(Object.keys\\(p.schema\\).join\\(', '\\)\\)\")",
+      "Bash(sed -n '1,20p' src/components/SiteChrome.tsx)"
     ],
     "additionalDirectories": [
       "/tmp"

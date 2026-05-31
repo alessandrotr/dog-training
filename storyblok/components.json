@@ -102,11 +102,8 @@
           "description": "One tag per line"
         },
         "image": { "type": "asset", "filetypes": ["images"], "pos": 7 },
-        "author_name": { "type": "text", "pos": 8 },
-        "author_role": { "type": "text", "pos": 9, "translatable": true },
-        "author_avatar": { "type": "asset", "filetypes": ["images"], "pos": 10 },
-        "meta_title": { "type": "text", "pos": 11, "translatable": true },
-        "meta_description": { "type": "textarea", "pos": 12, "translatable": true }
+        "meta_title": { "type": "text", "pos": 8, "translatable": true },
+        "meta_description": { "type": "textarea", "pos": 9, "translatable": true }
       }
     },
     {
@@ -346,10 +343,11 @@
       "is_root": true,
       "is_nestable": false,
       "schema": {
-        "header_group": { "type": "section", "pos": 0, "keys": ["nav_items", "cta_label", "cta_target"] },
+        "header_group": { "type": "section", "pos": 0, "keys": ["nav_items", "cta_label", "cta_target", "availability"] },
         "nav_items": { "type": "bloks", "pos": 1, "restrict_components": true, "component_whitelist": ["nav_link"] },
         "cta_label": { "type": "text", "pos": 2, "translatable": true },
         "cta_target": { "type": "option", "pos": 3, "use_uuid": false, "default_value": "booking", "options": [{"name": "Booking", "value": "booking"}, {"name": "Services", "value": "services"}, {"name": "Contact", "value": "contact"}, {"name": "About", "value": "about"}, {"name": "Blog", "value": "blog"}, {"name": "Testimonials", "value": "testimonials"}, {"name": "FAQ", "value": "faq"}, {"name": "Home", "value": "home"}] },
+        "availability": { "type": "bloks", "pos": 4, "restrict_components": true, "component_whitelist": ["availability"], "maximum": 1, "description": "Trainer availability shown site-wide (hero card, blog sidebar). Edit once here." },
         "footer_brand_name": { "type": "text", "pos": 4 },
         "footer_brand_subtitle": { "type": "text", "pos": 5, "translatable": true },
         "footer_tagline": { "type": "textarea", "pos": 6, "translatable": true },

@@ -18,10 +18,28 @@ export interface Accreditation {
   title: string;
   subtitle: string;
 }
+// Single global availability record (edited once in the Site Config, surfaced
+// everywhere via useAvailability()).
+export interface AvailabilityData {
+  available: boolean;
+  name: string;
+  handle: string;
+  avatar: string;
+  availableStatus: string;
+  unavailableStatus: string;
+  location: string;
+  responseTime: string;
+  availableCtaLabel: string;
+  availableCtaTarget: string;
+  unavailableCtaLabel: string;
+  unavailableCtaTarget: string;
+}
+
 export interface SiteConfig {
   navItems: NavLink[];
   ctaLabel: string;
   ctaTarget: string;
+  availability: AvailabilityData;
   footer: {
     brandName: string;
     brandSubtitle: string;
@@ -38,13 +56,6 @@ export interface SiteConfig {
   };
 }
 
-export interface Author {
-  name: string;
-  role: string;
-  avatar: string;
-  bio?: string;
-}
-
 export interface BlogPost {
   id: string;
   slug: string;
@@ -55,7 +66,6 @@ export interface BlogPost {
   publishDate: string;
   readingTime: string;
   category: string;
-  author: Author;
   tags?: string[];
   seo: SEOFields;
   tableOfContents?: { id: string; text: string; depth: number }[];

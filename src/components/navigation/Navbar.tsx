@@ -39,9 +39,9 @@ export default function Navbar({ config }: { config: SiteConfig }) {
               <Link
                 key={item.target}
                 href={href.page(item.target)}
-                className={`text-sm font-medium transition-colors cursor-pointer relative py-2 ${
+                className={`text-xs font-medium font-mono uppercase transition-colors cursor-pointer relative py-1 px-2 rounded-full ${
                   isActive
-                    ? 'text-amber-900 border-b-2 border-amber-900'
+                    ? 'text-amber-200 bg-amber-700'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >

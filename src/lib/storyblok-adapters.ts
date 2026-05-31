@@ -71,11 +71,6 @@ export const adaptBlogPost = (s: any): BlogPost => {
     readingTime: c.reading_time ?? '',
     category: c.category ?? '',
     tags: lines(c.tags),
-    author: {
-      name: c.author_name ?? '',
-      role: c.author_role ?? '',
-      avatar: c.author_avatar?.filename ?? '',
-    },
     seo: {
       metaTitle: c.meta_title ?? '',
       metaDescription: c.meta_description ?? '',
