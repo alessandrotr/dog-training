@@ -80,7 +80,16 @@ export default function ServiceDetail({
             <div className="flex flex-col gap-3 pt-2 sm:flex-row">
               <button
                 type="button"
-                onClick={() => cart.toggle({slug: service.slug, title: service.title})}
+                onClick={() =>
+                  cart.toggle({
+                    slug: service.slug,
+                    title: service.title,
+                    imageUrl: service.imageUrl,
+                    shortDescription: service.shortDescription,
+                    price: service.price,
+                    audience: service.audience,
+                  })
+                }
                 className={`inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-xs font-mono font-bold uppercase tracking-wider shadow-sm transition ${
                   added ? 'bg-emerald-600 text-white hover:bg-emerald-700' : 'bg-amber-900 text-white hover:bg-amber-950'
                 }`}

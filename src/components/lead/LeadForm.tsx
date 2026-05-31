@@ -1,8 +1,9 @@
 'use client';
 
 import {useState} from 'react';
+import Image from 'next/image';
 import {useTranslation} from 'react-i18next';
-import {Send, CheckCircle2, AlertCircle, X} from 'lucide-react';
+import {Send, CheckCircle2, AlertCircle, X, Sparkles, PawPrint} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Label} from '@/components/ui/label';
@@ -87,25 +88,60 @@ export default function LeadForm({onSuccess}: {onSuccess?: () => void}) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 text-left">
       {cart.items.length > 0 && (
-        <div className="rounded-xl border border-amber-200/60 bg-amber-50 p-3">
-          <p className="mb-2 font-mono text-[10px] font-bold uppercase tracking-wider text-amber-800">
-            {i18n.language === 'de' ? 'Anfrage zu' : 'Inquiring about'}
-          </p>
-          <div className="flex flex-wrap gap-1.5">
+        <div className="rounded-2xl border border-amber-200/60 bg-linear-to-br from-amber-50 to-white p-3.5 shadow-sm">
+          <div className="mb-2.5 flex items-center justify-between">
+            <p className="inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-amber-800">
+              <Sparkles className="h-3.5 w-3.5" />
+              {i18n.language === 'de' ? 'Anfrage zu' : 'Inquiring about'}
+            </p>
+            <span className="rounded-full bg-amber-100 px-2 py-0.5 font-mono text-[10px] font-bold text-amber-800">
+              {cart.items.length}
+            </span>
+          </div>
+          <ul className="space-y-2">
             {cart.items.map((item) => (
-              <span key={item.slug} className="inline-flex items-center gap-1 rounded-full border border-amber-300/60 bg-white px-2.5 py-1 text-xs font-medium text-amber-900">
-                {item.title}
+              <li
+                key={item.slug}
+                className="group flex items-center gap-3 rounded-xl border border-amber-200/50 bg-white p-2 shadow-xs transition-colors hover:border-amber-300/70"
+              >
+                <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-amber-100">
+                  {item.imageUrl ? (
+                    <Image
+                      src={item.imageUrl}
+                      alt={item.title}
+                      fill
+                      sizes="48px"
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <span className="flex h-full w-full items-center justify-center text-amber-700">
+                      <PawPrint className="h-5 w-5" />
+                    </span>
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <p className="truncate font-sans text-sm font-bold text-stone-900">{item.title}</p>
+                    {item.price && (
+                      <span className="shrink-0 font-sans text-sm font-extrabold text-amber-950">{item.price}</span>
+                    )}
+                  </div>
+                  {item.shortDescription && (
+                    <p className="mt-0.5 truncate text-xs leading-relaxed text-stone-500">{item.shortDescription}</p>
+                  )}
+                </div>
                 <button
                   type="button"
                   aria-label={`Remove ${item.title}`}
                   onClick={() => cart.remove(item.slug)}
-                  className="text-amber-700/60 transition-colors hover:text-amber-900"
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-amber-700/50 transition-colors hover:bg-amber-100 hover:text-amber-900"
                 >
-                  <X className="h-3.5 w-3.5" />
+                  <X className="h-4 w-4" />
                 </button>
-              </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       )}
 

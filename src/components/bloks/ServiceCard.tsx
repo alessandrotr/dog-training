@@ -56,7 +56,14 @@ export default function ServiceCard({
           onClick={(e) => {
             e.preventDefault();
             e.stopPropagation();
-            cart.toggle({slug: svc.slug, title: svc.title});
+            cart.toggle({
+              slug: svc.slug,
+              title: svc.title,
+              imageUrl: svc.imageUrl,
+              shortDescription: svc.shortDescription,
+              price: svc.price,
+              audience: svc.audience,
+            });
           }}
           className={`absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full shadow-sm backdrop-blur transition-colors ${
             added ? 'bg-amber-700 text-white' : 'bg-white/95 text-stone-600 hover:bg-white hover:text-amber-800'

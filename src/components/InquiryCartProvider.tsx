@@ -5,6 +5,13 @@ import {createContext, useCallback, useContext, useEffect, useState} from 'react
 export interface InquiryItem {
   slug: string;
   title: string;
+  // Optional rich detail captured at add-time so the inquiry form can show a
+  // proper preview (image, blurb, price) without a re-fetch. Older carts
+  // persisted before these fields existed simply omit them.
+  imageUrl?: string;
+  shortDescription?: string;
+  price?: string;
+  audience?: string;
 }
 
 interface InquiryCart {
