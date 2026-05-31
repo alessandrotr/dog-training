@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import {storyblokEditable} from '@storyblok/react';
-import {PawPrint, ArrowRight} from 'lucide-react';
+import {PawPrint, ArrowRight, Heart, Bone} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 
 interface CtaBannerBlok {
@@ -59,19 +59,29 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
 
   return (
     <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="relative overflow-hidden rounded-4xl bg-linear-to-br from-amber-700 via-amber-800 to-amber-900 px-6 py-16 text-center text-amber-50 shadow-xl ring-1 ring-amber-600/30 md:px-12 md:py-20">
+      <div className="relative overflow-hidden rounded-4xl bg-linear-to-br from-amber-500 via-amber-600 to-amber-800 px-6 py-16 text-center text-amber-50 shadow-xl ring-1 ring-amber-400/30 md:px-12 md:py-20">
         {/* Soft glows */}
-        <div className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-amber-400/20 blur-3xl"></div>
-        <div className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-amber-500/15 blur-3xl"></div>
+        <div className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-amber-300/30 blur-3xl"></div>
+        <div className="pointer-events-none absolute -bottom-24 -left-16 h-80 w-80 rounded-full bg-amber-400/25 blur-3xl"></div>
+        <div className="pointer-events-none absolute left-1/2 top-0 h-56 w-56 -translate-x-1/2 rounded-full bg-white/10 blur-3xl"></div>
 
-        {/* Scattered paw prints */}
-        <PawPrint className="pointer-events-none absolute left-6 top-10 h-12 w-12 rotate-[-18deg] text-amber-100/15" />
-        <PawPrint className="pointer-events-none absolute left-1/4 bottom-8 h-8 w-8 rotate-12 text-amber-100/12" />
-        <PawPrint className="pointer-events-none absolute right-10 top-1/3 h-16 w-16 rotate-24 text-amber-100/10" />
-        <PawPrint className="pointer-events-none absolute right-1/4 bottom-12 h-9 w-9 -rotate-6 text-amber-100/15" />
-        <PawPrint className="pointer-events-none absolute left-12 top-1/2 h-6 w-6 rotate-40 text-amber-100/10" />
+        {/* Cute polka-dot texture */}
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle,_rgba(255,255,255,0.10)_1.5px,_transparent_1.5px)] [background-size:22px_22px] opacity-60"></div>
+
+        {/* Scattered, playful critters */}
+        <PawPrint className="pointer-events-none absolute left-6 top-10 h-12 w-12 rotate-[-18deg] text-white/20" />
+        <Heart className="pointer-events-none absolute left-1/4 bottom-8 h-7 w-7 rotate-12 fill-white/15 text-transparent" />
+        <PawPrint className="pointer-events-none absolute right-10 top-1/3 h-16 w-16 rotate-[24deg] text-white/15" />
+        <Bone className="pointer-events-none absolute right-1/4 bottom-12 h-9 w-9 -rotate-12 text-white/20" />
+        <PawPrint className="pointer-events-none absolute left-14 top-1/2 h-6 w-6 rotate-[40deg] text-white/15" />
+        <Heart className="pointer-events-none absolute right-12 top-12 h-5 w-5 -rotate-12 fill-white/15 text-transparent" />
 
         <div className="relative z-10 mx-auto max-w-3xl space-y-6">
+
+          {/* Friendly paw badge */}
+          <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 text-white ring-1 ring-white/25 backdrop-blur-sm">
+            <PawPrint className="h-7 w-7" />
+          </span>
 
           {blok.headline && (
             <h2 className="font-sans text-3xl font-extrabold tracking-tight sm:text-4xl text-white">
