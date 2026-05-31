@@ -24,12 +24,17 @@ export default function Logo({
   const href = useHref();
   const title = tone === 'light' ? 'text-white' : 'text-amber-950';
   const subtitle = tone === 'light' ? 'text-stone-400' : 'text-stone-500';
+  // Match the Button/Card press + focus affordance, tuned per background.
+  const focusRing =
+    tone === 'light'
+      ? 'focus-visible:ring-white/50 focus-visible:ring-offset-amber-950'
+      : 'focus-visible:ring-amber-700/40 focus-visible:ring-offset-stone-50';
 
   return (
     <Link
       href={href.page('home')}
       onClick={onClick}
-      className={`group flex items-center gap-2.5 text-left focus:outline-none cursor-pointer ${className}`}
+      className={`group flex items-center gap-2.5 rounded-xl text-left cursor-pointer transition-transform active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 ${focusRing} ${className}`}
     >
       {icon}
       <span className="flex flex-col gap-1">
