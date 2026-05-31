@@ -56,8 +56,7 @@ export default function Navbar({ config }: { config: SiteConfig }) {
         </nav>
 
         {/* Booking CTA + language */}
-        
-
+        <div className="hidden lg:flex items-center space-x-4">
           <div className="flex items-center space-x-1 rounded-lg bg-stone-150 p-0.5 border border-stone-200">
             <button
               onClick={() => changeLocale('en')}
@@ -75,17 +74,11 @@ export default function Navbar({ config }: { config: SiteConfig }) {
             >
               DE
             </button>
+          </div>
         </div>
 
         {/* Mobile toggle */}
         <div className="flex md:hidden items-center space-x-2">
-          <Link
-            href={href.page(config.ctaTarget)}
-            onClick={close}
-            className="rounded-lg bg-amber-900 px-3 py-1.5 text-xs font-medium text-white hover:bg-amber-950"
-          >
-            {config.ctaLabel}
-          </Link>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="rounded-lg p-2 text-stone-600 hover:bg-stone-100 hover:text-stone-900 focus:outline-none"
