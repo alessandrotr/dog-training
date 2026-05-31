@@ -232,9 +232,13 @@
       "is_root": false,
       "is_nestable": true,
       "schema": {
-        "limit": { "type": "number", "pos": 0, "description": "Max services to show (blank = all). Items come from the Services folder." },
-        "footer_label": { "type": "text", "pos": 1, "translatable": true, "description": "Carousel \"view all\" link label." },
-        "layout": { "type": "option", "pos": 2, "use_uuid": false, "default_value": "grid", "options": [{"name": "Grid (compact cards)", "value": "grid"}, {"name": "List (full alternating)", "value": "list"}] }
+        "layout": { "type": "option", "pos": 0, "use_uuid": false, "default_value": "grid", "options": [{"name": "Carousel (home)", "value": "grid"}, {"name": "Grid list (services page)", "value": "list"}] },
+        "eyebrow": { "type": "text", "pos": 1, "translatable": true, "description": "Carousel only — the list/page layout uses a Page Header blok." },
+        "headline": { "type": "text", "pos": 2, "translatable": true, "description": "Carousel only." },
+        "subheadline": { "type": "textarea", "pos": 3, "translatable": true, "description": "Carousel only." },
+        "card_size": { "type": "option", "pos": 4, "use_uuid": false, "default_value": "lg", "description": "Carousel card size.", "options": [{"name": "Large (highlighted)", "value": "lg"}, {"name": "Compact", "value": "sm"}] },
+        "footer_label": { "type": "text", "pos": 5, "translatable": true, "description": "Carousel \"view all\" link label." },
+        "limit": { "type": "number", "pos": 6, "description": "Max services to show (blank = all). Items come from the Services folder." }
       }
     },
     {

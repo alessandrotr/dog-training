@@ -9,6 +9,10 @@ import ServiceCard from './ServiceCard';
 interface ServicesGridBlok {
   _uid: string;
   component: string;
+  eyebrow?: string;
+  headline?: string;
+  subheadline?: string;
+  card_size?: 'lg' | 'sm';
   limit?: string | number;
   footer_label?: string;
   layout?: 'grid' | 'list';
@@ -52,8 +56,11 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
       <Carousel
         items={items}
         getKey={(s) => s.id}
-        size="lg"
+        size={blok.card_size === 'sm' ? 'sm' : 'lg'}
         label="programs"
+        eyebrow={blok.eyebrow}
+        headline={blok.headline}
+        subheadline={blok.subheadline}
         footerLabel={blok.footer_label}
         footerHref={href.page('services')}
         renderItem={(svc, slideProps) => <ServiceCard svc={svc} review={reviews.get(svc.id)} slideProps={slideProps} />}
