@@ -119,7 +119,7 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
                     <Link
                       key={tag}
                       href={`${href.page('blog')}?tag=${encodeURIComponent(tag)}`}
-                      className="inline-flex items-center rounded-full border border-amber-200/60 bg-amber-50 px-3 py-1 font-mono text-[11px] font-medium text-amber-800 transition-colors hover:border-amber-300 hover:bg-amber-100"
+                      className="inline-flex items-center rounded-full border border-amber-200/60 bg-amber-50 px-3 py-1 font-mono text-xs font-bold uppercase tracking-wide text-amber-800 transition-colors hover:border-amber-300 hover:bg-amber-100"
                     >
                       {tag}
                     </Link>
@@ -133,9 +133,9 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
 
         {/* RELATED ARTICLES — carousel (mirrors the home articles carousel) */}
         {relatedPosts.length > 0 && (
-          <div className="mt-24 border-t border-stone-200 pt-16">
+          <div className="pt-16">
             <div className="mb-8 flex items-end justify-between gap-4">
-              <h3 className="font-sans text-2xl font-extrabold text-amber-955">Related Behavioral Studies</h3>
+              <h3 className="font-sans text-2xl font-extrabold text-amber-955">Related Articles</h3>
               <div className="flex items-center gap-2 shrink-0">
                 <button onClick={prev} disabled={!canPrev} aria-label="Previous articles" className="rounded-full border border-stone-300 bg-white p-2 text-stone-600 transition-colors hover:bg-stone-50 hover:text-stone-900 disabled:opacity-40 disabled:cursor-not-allowed">
                   <ArrowLeft className="h-3.5 w-3.5" />

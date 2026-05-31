@@ -117,7 +117,7 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
                 <button
                   key={tag}
                   onClick={() => setActiveTag(active ? null : tag)}
-                  className={`rounded-full border px-3 py-1 font-mono text-[11px] font-medium transition-colors ${
+                  className={`rounded-full border px-3 py-1 font-mono text-xs font-bold uppercase tracking-wide transition-colors ${
                     active
                       ? 'border-amber-700 bg-amber-700 text-white'
                       : 'border-amber-200/60 bg-amber-50 text-amber-800 hover:border-amber-300 hover:bg-amber-100'
