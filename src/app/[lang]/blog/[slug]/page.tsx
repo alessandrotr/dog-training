@@ -1,5 +1,6 @@
 import type {Metadata} from 'next';
 import {getBlogPosts} from '../../../../lib/content-server';
+import {getBlogTaxonomies} from '../../../../lib/get-datasource';
 import BlogPostView from '../../../../components/pages/BlogPostView';
 import {isLocale, DEFAULT_LOCALE, type Locale} from '../../../../lib/locales';
 import {buildMetadata} from '../../../../lib/seo';
@@ -33,6 +34,9 @@ export default async function Page({
 }) {
   const {lang, slug} = await params;
   const preview = '_storyblok' in (await searchParams);
-  const posts = await getBlogPosts(lang as Locale, preview);
-  return <BlogPostView posts={posts} slug={slug} />;
+  const [posts, taxonomies] = await Promise.all([
+    getBlogPosts(lang as Locale, preview),
+    getBlogTaxonomies(lang as Locale),
+  ]);
+  return <BlogPostView posts={posts} slug={slug} taxonomies={taxonomies} />;
 }

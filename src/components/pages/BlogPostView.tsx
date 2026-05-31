@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import type {BlogPost} from '../../types';
+import type {BlogPost, BlogTaxonomies} from '../../types';
 import BlogPostTemplate from './BlogPostTemplate';
 import {useHref} from '../../lib/navigation';
 
@@ -10,9 +10,11 @@ import {useHref} from '../../lib/navigation';
 export default function BlogPostView({
   posts,
   slug,
+  taxonomies,
 }: {
   posts: BlogPost[];
   slug: string;
+  taxonomies: BlogTaxonomies;
 }) {
   const post = posts.find((p) => p.slug === slug);
   const href = useHref();
@@ -36,5 +38,5 @@ export default function BlogPostView({
     );
   }
 
-  return <BlogPostTemplate post={post} posts={posts} />;
+  return <BlogPostTemplate post={post} posts={posts} taxonomies={taxonomies} />;
 }

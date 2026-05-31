@@ -7,10 +7,12 @@ import { useTranslation } from 'react-i18next';
 import { Search, BookOpen, ArrowRight, Award, Tag, X } from 'lucide-react';
 import { useQueryState } from 'nuqs';
 import { useHref } from '../../lib/navigation';
-import type { BlogPost } from '../../types';
+import type { BlogPost, BlogTaxonomies } from '../../types';
 
-export default function Blog({ posts }: { posts: BlogPost[] }) {
+export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonomies: BlogTaxonomies }) {
   const href = useHref();
+  const catLabel = (c: string) => taxonomies.categories[c] ?? c;
+  const tagLabel = (t: string) => taxonomies.tags[t] ?? t;
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   // Active tag lives in the URL (?tag=…) so article tag chips can deep-link here.
@@ -98,7 +100,7 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
                     : 'bg-white text-stone-600 border-stone-200 hover:bg-stone-50'
                 }`}
               >
-                {cat}
+                {cat === 'All' ? cat : catLabel(cat)}
               </button>
             ))}
           </div>
@@ -123,7 +125,7 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
                       : 'border-amber-200/60 bg-amber-50 text-amber-800 hover:border-amber-300 hover:bg-amber-100'
                   }`}
                 >
-                  {tag}
+                  {tagLabel(tag)}
                 </button>
               );
             })}
@@ -182,7 +184,7 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
                   
                   {/* Category marker */}
                   <div className="absolute top-4 left-4 rounded-md bg-stone-900/90 text-[10px] font-mono px-2.5 py-1 uppercase tracking-wider text-stone-100">
-                    {post.category}
+                    {catLabel(post.category)}
                   </div>
                 </div>
 

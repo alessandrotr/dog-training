@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { BlogPost } from '../../types';
+import { BlogPost, BlogTaxonomies } from '../../types';
 import { ArrowLeft, ArrowRight, Clock, CalendarDays, Share2, Bookmark, Check, CalendarRange, Sparkles, Tag } from 'lucide-react';
 import { useHref } from '../../lib/navigation';
 import { useCarousel } from '../../lib/use-carousel';
@@ -12,12 +12,15 @@ import Availability from '../bloks/Availability';
 interface BlogPostTemplateProps {
   post: BlogPost;
   posts: BlogPost[];
+  taxonomies: BlogTaxonomies;
 }
 
-export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps) {
+export default function BlogPostTemplate({ post, posts, taxonomies }: BlogPostTemplateProps) {
   const [copiedLink, setCopiedLink] = useState(false);
   const href = useHref();
   const blogPosts = posts;
+  const catLabel = (c: string) => taxonomies.categories[c] ?? c;
+  const tagLabel = (t: string) => taxonomies.tags[t] ?? t;
   const {emblaRef, prev, next, canPrev, canNext, slideProps} = useCarousel();
 
   // Related posts: prefer same category, then fill with the rest.
@@ -40,7 +43,7 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
         {/* Heading Container */}
         <div className="max-w-3xl mx-auto space-y-4 mb-10 text-center md:text-left">
           <span className="inline-flex items-center rounded-full font-mono uppercase bg-amber-700 px-3 py-1 text-xs font-bold text-white border border-amber-200/45">
-            {post.category}
+            {catLabel(post.category)}
           </span>
           <h1 className="font-sans text-3xl font-extrabold tracking-tight text-amber-955 sm:text-4xl md:text-5xl leading-tight">
             {post.title}
@@ -121,7 +124,7 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
                       href={`${href.page('blog')}?tag=${encodeURIComponent(tag)}`}
                       className="inline-flex items-center rounded-full border border-amber-200/60 bg-amber-50 px-3 py-1 font-mono text-xs font-bold uppercase tracking-wide text-amber-800 transition-colors hover:border-amber-300 hover:bg-amber-100"
                     >
-                      {tag}
+                      {tagLabel(tag)}
                     </Link>
                   ))}
                 </div>
@@ -167,7 +170,7 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
                     </div>
                     <div className="flex flex-1 flex-col p-5 text-left">
                       {rel.category && (
-                        <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-amber-800">{rel.category}</span>
+                        <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-amber-800">{catLabel(rel.category)}</span>
                       )}
                       <h4 className="mt-1.5 font-sans text-base font-bold leading-snug text-stone-900 group-hover:text-amber-950 transition-colors line-clamp-2">
                         {rel.title}

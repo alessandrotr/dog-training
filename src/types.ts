@@ -55,6 +55,13 @@ export interface SiteConfig {
   };
 }
 
+// Canonical category/tag value → localized label (from Storyblok datasource
+// dimensions). Display-only; posts still store/filter by canonical values.
+export interface BlogTaxonomies {
+  categories: Record<string, string>;
+  tags: Record<string, string>;
+}
+
 export interface BlogPost {
   id: string;
   slug: string;
