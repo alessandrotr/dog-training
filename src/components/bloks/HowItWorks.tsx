@@ -1,9 +1,9 @@
 import {storyblokEditable} from '@storyblok/react/rsc';
 import Section from '../ui/section';
 
-interface HowItWorksBlok {
-  _uid: string;
-  component: string;
+import type {BlokBase} from '../../types';
+
+interface HowItWorksBlok extends BlokBase {
   eyebrow?: string;
   headline?: string;
   subheadline?: string;

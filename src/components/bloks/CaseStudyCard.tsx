@@ -6,6 +6,8 @@ import {useHref} from '../../lib/navigation';
 import Eyebrow from '../ui/eyebrow';
 import Pill from '../ui/pill';
 import Avatar from '../ui/avatar';
+import Card from '../ui/card';
+import {cn} from '../../lib/utils';
 import type {TestimonialItem, ServiceItem} from '../../types';
 
 // The single case-study card used everywhere a client story is shown.
@@ -24,7 +26,7 @@ export default function CaseStudyCard({
   const href = useHref();
 
   return (
-    <figure className={`group relative flex h-full flex-col rounded-2xl border border-stone-200 bg-white p-6 shadow-sm transition-colors hover:border-stone-300 ${className}`}>
+    <Card as="figure" padding="md" interactive className={cn('group relative flex h-full flex-col shadow-sm', className)}>
       {/* 1. The dog / owner — the name is the stretched link to the full case study */}
       <figcaption className="flex items-center gap-3">
         <Avatar src={story.imageUrl} name={story.name} size="sm" />
@@ -86,6 +88,6 @@ export default function CaseStudyCard({
           Read story <ArrowUpRight className="h-3.5 w-3.5" />
         </span>
       </div>
-    </figure>
+    </Card>
   );
 }

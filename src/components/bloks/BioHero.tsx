@@ -3,9 +3,9 @@ import {storyblokEditable, renderRichText} from '@storyblok/react/rsc';
 import AvailabilityBadge from '../AvailabilityBadge';
 import Section from '../ui/section';
 
-interface BioHeroBlok {
-  _uid: string;
-  component: string;
+import type {BlokBase} from '../../types';
+
+interface BioHeroBlok extends BlokBase {
   eyebrow?: string;
   headline?: string;
   image?: {filename?: string; alt?: string};

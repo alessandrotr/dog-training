@@ -14,10 +14,9 @@ import Pill from '../ui/pill';
 import Avatar from '../ui/avatar';
 import {Button} from '../ui/button';
 import CaseStudyCard from './CaseStudyCard';
+import type {BlokBase} from '../../types';
 
-interface TestimonialsBlok {
-  _uid: string;
-  component: string;
+interface TestimonialsBlok extends BlokBase {
   eyebrow?: string;
   headline?: string;
   subheadline?: string;

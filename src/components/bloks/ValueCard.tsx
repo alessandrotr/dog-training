@@ -9,6 +9,8 @@ import {
   Sparkles,
   Building,
 } from 'lucide-react';
+import Card from '../ui/card';
+import type {BlokBase} from '../../types';
 
 const ICONS: Record<string, any> = {
   Award,
@@ -21,9 +23,7 @@ const ICONS: Record<string, any> = {
   Building,
 };
 
-interface ValueCardBlok {
-  _uid: string;
-  component: string;
+interface ValueCardBlok extends BlokBase {
   icon?: string;
   title?: string;
   description?: string;
@@ -32,9 +32,10 @@ interface ValueCardBlok {
 export default function ValueCard({blok}: {blok: ValueCardBlok}) {
   const Icon = ICONS[blok.icon || 'Sparkles'] || Sparkles;
   return (
-    <div
+    <Card
       {...storyblokEditable(blok as any)}
-      className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm flex flex-col justify-start"
+      padding="md"
+      className="flex flex-col justify-start shadow-sm"
     >
       <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-stone-100 border border-stone-250">
         <Icon className="h-6 w-6 text-amber-800" />
@@ -43,6 +44,6 @@ export default function ValueCard({blok}: {blok: ValueCardBlok}) {
       {blok.description && (
         <p className="font-sans text-sm text-stone-500 leading-relaxed">{blok.description}</p>
       )}
-    </div>
+    </Card>
   );
 }

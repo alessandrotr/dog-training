@@ -2,9 +2,9 @@ import {StoryblokServerComponent, storyblokEditable} from '@storyblok/react/rsc'
 import Section from '../ui/section';
 import Eyebrow from '../ui/eyebrow';
 
-interface ValueCardsBlok {
-  _uid: string;
-  component: string;
+import type {BlokBase} from '../../types';
+
+interface ValueCardsBlok extends BlokBase {
   eyebrow?: string;
   headline?: string;
   subheadline?: string;

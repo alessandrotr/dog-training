@@ -5,6 +5,8 @@ import Image from 'next/image';
 import {Sparkles, Plus, Check, BookOpen} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import {useInquiryCart} from '../InquiryCartProvider';
+import Card from '../ui/card';
+import {cn} from '../../lib/utils';
 import type {ServiceItem} from '../../types';
 
 // Shared ecommerce-style program card used by both the home carousel and the
@@ -27,10 +29,12 @@ export default function ServiceCard({
   const cart = useInquiryCart();
   const added = cart.has(svc.slug);
   return (
-    <Link
+    <Card
+      as={Link}
       href={href.service(svc.slug)}
       {...slideProps}
-      className={`group min-w-0 cursor-pointer flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition-colors hover:border-stone-300 ${className}`}
+      interactive
+      className={cn('group min-w-0 cursor-pointer flex flex-col overflow-hidden', className)}
     >
       {/* Product image */}
       <div className="relative aspect-4/3 overflow-hidden bg-stone-100">
@@ -104,6 +108,6 @@ export default function ServiceCard({
           <span className="mt-1 block font-sans text-xl font-extrabold text-amber-950">{svc.price}</span>
         </div>
       </div>
-    </Link>
+    </Card>
   );
 }

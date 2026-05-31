@@ -7,9 +7,9 @@ import Carousel from '../Carousel';
 import Section from '../ui/section';
 import ArticleCard from './ArticleCard';
 
-interface BlogListBlok {
-  _uid: string;
-  component: string;
+import type {BlokBase} from '../../types';
+
+interface BlogListBlok extends BlokBase {
   eyebrow?: string;
   headline?: string;
   footer_label?: string;

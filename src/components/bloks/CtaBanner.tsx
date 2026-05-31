@@ -7,9 +7,9 @@ import {useHref} from '../../lib/navigation';
 import Section from '../ui/section';
 import {Button} from '../ui/button';
 
-interface CtaBannerBlok {
-  _uid: string;
-  component: string;
+import type {BlokBase} from '../../types';
+
+interface CtaBannerBlok extends BlokBase {
   headline?: string;
   description?: string;
   primary_label?: string;

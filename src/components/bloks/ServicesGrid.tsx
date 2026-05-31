@@ -8,9 +8,9 @@ import Carousel from '../Carousel';
 import Section from '../ui/section';
 import ServiceCard from './ServiceCard';
 
-interface ServicesGridBlok {
-  _uid: string;
-  component: string;
+import type {BlokBase} from '../../types';
+
+interface ServicesGridBlok extends BlokBase {
   eyebrow?: string;
   headline?: string;
   subheadline?: string;

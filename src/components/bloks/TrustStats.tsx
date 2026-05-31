@@ -2,9 +2,9 @@ import {storyblokEditable} from '@storyblok/react/rsc';
 import {ShieldCheck, Star} from 'lucide-react';
 import Section from '../ui/section';
 
-interface TrustStatsBlok {
-  _uid: string;
-  component: string;
+import type {BlokBase} from '../../types';
+
+interface TrustStatsBlok extends BlokBase {
   stat1_value?: string;
   stat1_label?: string;
   stat1_note?: string;

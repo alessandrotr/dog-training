@@ -1,8 +1,7 @@
 import {StoryblokServerComponent, storyblokEditable} from '@storyblok/react/rsc';
+import type {BlokBase} from '../../types';
 
-interface PageBlok {
-  _uid: string;
-  component: string;
+interface PageBlok extends BlokBase {
   body?: Array<{_uid: string; component: string; [key: string]: unknown}>;
 }
 

@@ -9,6 +9,7 @@ import { useQueryState } from 'nuqs';
 import { useHref } from '../../lib/navigation';
 import FilterLayout from '../FilterLayout';
 import Section from '../ui/section';
+import Card from '../ui/card';
 import type { BlogPost, BlogTaxonomies } from '../../types';
 
 export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonomies: BlogTaxonomies }) {
@@ -75,7 +76,7 @@ export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonom
         <FilterLayout
           activeCount={(selectedCategory !== 'All' ? 1 : 0) + (activeTag ? 1 : 0) + (searchQuery ? 1 : 0)}
           sidebar={
-            <div className="space-y-6 rounded-2xl border border-stone-200 bg-white p-5">
+            <Card padding="sm" className="space-y-6">
               {/* Search */}
               <div className="relative">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -147,7 +148,7 @@ export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonom
                   <X className="h-3.5 w-3.5" /> Clear all
                 </button>
               )}
-            </div>
+            </Card>
           }
         >
         {filteredPosts.length === 0 ? (
@@ -171,12 +172,14 @@ export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonom
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {filteredPosts.map((post) => (
-              <Link
+              <Card
+                as={Link}
                 key={post.id}
                 href={href.post(post.slug)}
-                className="group cursor-pointer flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-all hover:shadow-md hover:border-amber-900/20"
+                interactive
+                className="group flex flex-col overflow-hidden shadow-sm"
               >
-                
+
                 {/* Upper Thumbnail banner */}
                 <div className="relative overflow-hidden bg-stone-100 max-h-64 aspect-video">
                   <Image
@@ -217,7 +220,7 @@ export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonom
                   </div>
                 </div>
 
-              </Link>
+              </Card>
             ))}
           </div>
         )}

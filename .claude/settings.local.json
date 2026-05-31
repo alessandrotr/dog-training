@@ -41,7 +41,9 @@
       "Bash(sed -n '1,60p' src/components/Carousel.tsx)",
       "Bash(echo \"build exit: $?\")",
       "Bash(grep -nE '^import|storyblokEditable\\\\\\(blok|</section>' src/components/bloks/__TRACKED_VAR__.tsx)",
-      "Bash(grep -nE '^import \\(Section|.*from\\)|max-w-7xl px-4 sm:px-6 lg:px-8|^export default|return \\\\\\(' src/components/__TRACKED_VAR__.tsx)"
+      "Bash(grep -nE '^import \\(Section|.*from\\)|max-w-7xl px-4 sm:px-6 lg:px-8|^export default|return \\\\\\(' src/components/__TRACKED_VAR__.tsx)",
+      "Bash(grep -nE 'interface .*Blok|_uid: string;|component: string;|from '\\\\''../../types'\\\\''' src/components/bloks/__TRACKED_VAR__.tsx)",
+      "Bash(grep -nE \"^          \\\\}$|sidebar=\\\\{|results=\\\\{|^            </div>$\" src/components/pages/Blog.tsx)"
     ],
     "additionalDirectories": [
       "/tmp"

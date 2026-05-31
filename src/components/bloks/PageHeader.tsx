@@ -4,9 +4,9 @@ import {storyblokEditable} from '@storyblok/react';
 import Section from '../ui/section';
 import Eyebrow from '../ui/eyebrow';
 
-interface PageHeaderBlok {
-  _uid: string;
-  component: string;
+import type {BlokBase} from '../../types';
+
+interface PageHeaderBlok extends BlokBase {
   eyebrow?: string;
   headline?: string;
   subheadline?: string;

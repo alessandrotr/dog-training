@@ -4,10 +4,11 @@ import {useState} from 'react';
 import {storyblokEditable} from '@storyblok/react';
 import {ChevronDown, ChevronUp, Search, HelpCircle} from 'lucide-react';
 import {usePageData} from '../PageDataProvider';
+import Card from '../ui/card';
 
-interface FaqBlok {
-  _uid: string;
-  component: string;
+import type {BlokBase} from '../../types';
+
+interface FaqBlok extends BlokBase {
   search_placeholder?: string;
   enable_search?: boolean;
 }
@@ -60,7 +61,7 @@ export default function Faq({blok}: {blok: FaqBlok}) {
             {filtered.map((faq) => {
               const isOpen = activeId === faq.id;
               return (
-                <div key={faq.id} className="rounded-2xl border border-stone-200 bg-white overflow-hidden transition-all shadow-sm">
+                <Card key={faq.id} className="overflow-hidden transition-all shadow-sm">
                   <button
                     onClick={() => setActiveId(isOpen ? null : faq.id)}
                     className="flex w-full items-center justify-between p-5 text-left font-sans text-base font-bold text-stone-850 hover:text-amber-950 focus:outline-none cursor-pointer"
@@ -79,7 +80,7 @@ export default function Faq({blok}: {blok: FaqBlok}) {
                       </div>
                     </div>
                   )}
-                </div>
+                </Card>
               );
             })}
           </div>

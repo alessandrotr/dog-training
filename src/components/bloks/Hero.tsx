@@ -8,9 +8,9 @@ import {useHref} from '../../lib/navigation';
 import Availability from './Availability';
 import {Button} from '../ui/button';
 
-interface HeroBlok {
-  _uid: string;
-  component: string;
+import type {BlokBase} from '../../types';
+
+interface HeroBlok extends BlokBase {
   eyebrow?: string;
   headline?: string;
   headline_highlight?: string;

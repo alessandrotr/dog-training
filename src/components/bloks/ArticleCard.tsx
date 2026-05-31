@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {ArrowRight, GraduationCap} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
+import Card from '../ui/card';
 import type {BlogPost} from '../../types';
 
 // Shared article card used by every article carousel (home blog list + related
@@ -22,10 +23,12 @@ export default function ArticleCard({
   const href = useHref();
   const cat = categoryLabel ? categoryLabel(post.category) : post.category;
   return (
-    <Link
+    <Card
+      as={Link}
       href={href.post(post.slug)}
       {...slideProps}
-      className="group flex h-full min-w-0 cursor-pointer flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition-colors hover:border-stone-300"
+      interactive
+      className="group flex h-full min-w-0 cursor-pointer flex-col overflow-hidden"
     >
       <div className="relative aspect-video overflow-hidden bg-stone-100">
         {post.imageUrl && (
@@ -57,6 +60,6 @@ export default function ArticleCard({
           {post.readingTime && <span className="text-stone-400">{post.readingTime}</span>}
         </div>
       </div>
-    </Link>
+    </Card>
   );
 }

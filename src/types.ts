@@ -5,6 +5,13 @@ export interface SEOFields {
   ogType?: 'website' | 'article';
 }
 
+// Every Storyblok blok carries `_uid` + `component`. Bloks extend this so the
+// shared contract lives in one place: `interface HeroBlok extends BlokBase {...}`.
+export interface BlokBase {
+  _uid: string;
+  component: string;
+}
+
 // Site-wide header/footer config (a single Storyblok `config` story).
 export interface NavLink {
   label: string;

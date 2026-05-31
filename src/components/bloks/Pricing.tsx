@@ -7,9 +7,9 @@ import {useHref} from '../../lib/navigation';
 import Section from '../ui/section';
 import {Button} from '../ui/button';
 
-interface PricingBlok {
-  _uid: string;
-  component: string;
+import type {BlokBase} from '../../types';
+
+interface PricingBlok extends BlokBase {
   eyebrow?: string;
   headline?: string;
   description?: string;
