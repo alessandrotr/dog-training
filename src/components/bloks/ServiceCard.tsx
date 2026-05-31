@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import {Star, CalendarRange, ShoppingBag} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import type {ServiceItem} from '../../types';
@@ -29,10 +30,12 @@ export default function ServiceCard({
       {/* Product image */}
       <div className="relative aspect-4/3 overflow-hidden bg-stone-100">
         {svc.imageUrl && (
-          <img
+          <Image
             src={svc.imageUrl}
             alt={svc.title}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            fill
+            sizes="(max-width: 640px) 85vw, (max-width: 1024px) 56vw, 40vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
             referrerPolicy="no-referrer"
           />
         )}

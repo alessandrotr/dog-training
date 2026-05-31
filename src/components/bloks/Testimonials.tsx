@@ -4,6 +4,7 @@ import {useState} from 'react';
 import {storyblokEditable} from '@storyblok/react';
 import {Star, ArrowLeft, ArrowRight, MessageSquareQuote} from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {useHref} from '../../lib/navigation';
 import {usePageData} from '../PageDataProvider';
 
@@ -58,9 +59,11 @@ export default function Testimonials({blok}: {blok: TestimonialsBlok}) {
               </div>
               <div className="flex items-center space-x-3.5 border-t border-stone-100 pt-4">
                 {tItem.imageUrl && (
-                  <img
+                  <Image
                     src={tItem.imageUrl}
                     alt={tItem.name}
+                    width={40}
+                    height={40}
                     className="h-10 w-10 rounded-full object-cover border"
                     referrerPolicy="no-referrer"
                   />
@@ -108,9 +111,11 @@ export default function Testimonials({blok}: {blok: TestimonialsBlok}) {
               </div>
               <div className="flex items-center space-x-3.5 pt-1.5">
                 {active.imageUrl && (
-                  <img
+                  <Image
                     src={active.imageUrl}
                     alt={active.name}
+                    width={40}
+                    height={40}
                     className="h-10 w-10 rounded-full object-cover border border-stone-200"
                     referrerPolicy="no-referrer"
                   />

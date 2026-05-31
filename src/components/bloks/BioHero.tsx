@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import {storyblokEditable, renderRichText} from '@storyblok/react/rsc';
 
 interface BioHeroBlok {
@@ -23,10 +24,12 @@ export default function BioHero({blok}: {blok: BioHeroBlok}) {
             <div className="absolute -inset-1 rounded-3xl bg-amber-905/10 blur-xl"></div>
             <div className="relative overflow-hidden rounded-3xl border-8 border-white shadow-2xl aspect-square bg-stone-100">
               {blok.image?.filename && (
-                <img
+                <Image
                   src={blok.image.filename}
                   alt={blok.image.alt || blok.headline || ''}
-                  className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="object-cover transition-transform duration-500 hover:scale-105"
                   referrerPolicy="no-referrer"
                 />
               )}

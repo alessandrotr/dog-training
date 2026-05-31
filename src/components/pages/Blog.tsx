@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { Search, SlidersHorizontal, BookOpen, Clock, Heart, Award, ArrowRight } from 'lucide-react';
 import { useHref } from '../../lib/navigation';
@@ -124,10 +125,12 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
                 
                 {/* Upper Thumbnail banner */}
                 <div className="relative overflow-hidden bg-stone-100 max-h-64 aspect-video">
-                  <img
+                  <Image
                     src={post.imageUrl}
                     alt={post.title}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                     referrerPolicy="no-referrer"
                   />
                   

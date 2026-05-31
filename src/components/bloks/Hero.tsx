@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import {storyblokEditable} from '@storyblok/react';
 import {Award, ArrowRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
@@ -102,10 +103,12 @@ export default function Hero({blok}: {blok: HeroBlok}) {
 
                 <div className="relative overflow-hidden rounded-3xl border-8 border-white bg-stone-105 shadow-2xl aspect-video">
                   {blok.image?.filename && (
-                    <img
+                    <Image
                       src={blok.image.filename}
                       alt={blok.image.alt || ''}
-                      className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 40vw"
+                      className="object-cover transition-transform duration-700 hover:scale-105"
                       referrerPolicy="no-referrer"
                     />
                   )}

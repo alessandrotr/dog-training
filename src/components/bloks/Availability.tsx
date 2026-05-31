@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import {storyblokEditable} from '@storyblok/react';
 import {BadgeCheck, MapPin, Zap, ArrowRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
@@ -48,7 +49,7 @@ export default function Availability({blok}: {blok: AvailabilityBlok}) {
             <div className={`rounded-full p-[2.5px] ${available ? 'bg-[conic-gradient(at_top_right,#d97706,#10b981,#f59e0b,#d97706)]' : 'bg-stone-300'}`}>
               <div className="h-16 w-16 overflow-hidden rounded-full border-2 border-white bg-stone-100">
                 {blok.avatar?.filename ? (
-                  <img src={blok.avatar.filename} alt={blok.avatar.alt || blok.name || ''} className="h-full w-full object-cover" referrerPolicy="no-referrer" />
+                  <Image src={blok.avatar.filename} alt={blok.avatar.alt || blok.name || ''} width={64} height={64} className="h-full w-full object-cover" referrerPolicy="no-referrer" />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center font-serif text-xl text-amber-900">
                     {(blok.name || 'S').charAt(0)}

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { BlogPost } from '../../types';
 import { ArrowLeft, Clock, CalendarDays, Share2, Bookmark, Check, CalendarRange, Sparkles } from 'lucide-react';
@@ -81,10 +82,12 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
 
         {/* Big visual header */}
         <div className="relative overflow-hidden rounded-3xl bg-stone-100 shadow-lg mb-12 max-h-[420px] aspect-[16/9] w-full">
-          <img
+          <Image
             src={post.imageUrl}
             alt={post.title}
-            className="h-full w-full object-cover"
+            fill
+            sizes="(max-width: 1024px) 100vw, 80vw"
+            className="object-cover"
             referrerPolicy="no-referrer"
           />
         </div>
@@ -117,9 +120,11 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
             {/* Author Profile */}
             <div className="rounded-2xl border border-stone-200 bg-white p-6 text-left space-y-4 shadow-sm">
               <div className="flex items-center space-x-3.5">
-                <img
+                <Image
                   src={post.author.avatar}
                   alt={post.author.name}
+                  width={48}
+                  height={48}
                   className="h-12 w-12 rounded-full object-cover border"
                   referrerPolicy="no-referrer"
                 />
@@ -191,10 +196,12 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
                   className="group cursor-pointer rounded-2xl border border-stone-200 bg-white p-4 shadow-sm hover:shadow transition-all flex flex-col md:flex-row gap-4"
                 >
                   <div className="md:w-1/3 relative h-32 rounded-xl bg-stone-105 overflow-hidden">
-                    <img
+                    <Image
                       src={rel.imageUrl}
                       alt={rel.title}
-                      className="h-full w-full object-cover transition-transform group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover transition-transform group-hover:scale-105"
                       referrerPolicy="no-referrer"
                     />
                   </div>

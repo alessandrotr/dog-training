@@ -23,7 +23,8 @@
       "Bash(curl -s \"http://localhost:3000/en\")",
       "Bash(lsof -ti:3000)",
       "Bash(pkill -9 -f \"next\")",
-      "Bash(echo \"listeners: $\\(lsof -ti:3000)"
+      "Bash(echo \"listeners: $\\(lsof -ti:3000)",
+      "Bash(echo \"BUILD_EXIT=$?\")"
     ],
     "additionalDirectories": [
       "/tmp"

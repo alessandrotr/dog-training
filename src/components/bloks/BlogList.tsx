@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import {storyblokEditable} from '@storyblok/react';
 import {ArrowUpRight, ArrowLeft, ArrowRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
@@ -68,10 +69,12 @@ export default function BlogList({blok}: {blok: BlogListBlok}) {
             >
               <div className="relative h-32 overflow-hidden bg-stone-150">
                 {post.imageUrl && (
-                  <img
+                  <Image
                     src={post.imageUrl}
                     alt={post.title}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 640px) 72vw, (max-width: 1024px) 40vw, 28vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                     referrerPolicy="no-referrer"
                   />
                 )}
