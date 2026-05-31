@@ -84,6 +84,7 @@ export interface TestimonialItem {
   imageUrl?: string;
   date: string;
   source: 'google' | 'direct';
+  serviceId?: string; // uuid of the service this review is for, if tagged
 }
 
 export interface FAQItem {

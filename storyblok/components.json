@@ -52,7 +52,15 @@
             { "name": "Direct", "value": "direct" }
           ]
         },
-        "image": { "type": "asset", "filetypes": ["images"], "pos": 6 }
+        "image": { "type": "asset", "filetypes": ["images"], "pos": 6 },
+        "service": {
+          "type": "option",
+          "pos": 7,
+          "source": "internal_stories",
+          "folder_slug": "services/",
+          "use_uuid": true,
+          "description": "Which program this review is for (drives the star rating on that service's card)"
+        }
       }
     },
     {

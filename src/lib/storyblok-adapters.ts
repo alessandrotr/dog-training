@@ -44,6 +44,7 @@ export const adaptTestimonial = (s: any): TestimonialItem => {
     imageUrl: c.image?.filename || undefined,
     date: c.date ?? '',
     source: c.source ?? 'direct',
+    serviceId: c.service || undefined,
   };
 };
 
