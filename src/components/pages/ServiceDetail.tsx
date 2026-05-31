@@ -136,7 +136,7 @@ export default function ServiceDetail({
         {/* Reviews for this service */}
         {reviewsForSvc.length > 0 && (
           <div className="mt-20 border-t border-stone-200 pt-12">
-            <h2 className="mb-8 font-sans text-2xl font-extrabold text-amber-955">What clients say</h2>
+            <h2 className="mb-8 font-sans text-2xl font-extrabold text-amber-955">What clients say about this service</h2>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {reviewsForSvc.slice(0, 6).map((r) => (
                 <figure key={r.id} className="rounded-2xl border border-stone-200 bg-white p-6">
