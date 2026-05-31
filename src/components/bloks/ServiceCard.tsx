@@ -2,8 +2,9 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import {Star, CalendarRange, ShoppingBag} from 'lucide-react';
+import {Star, CalendarRange, ShoppingBag, Plus, Check} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
+import {useInquiryCart} from '../InquiryCartProvider';
 import type {ServiceItem} from '../../types';
 
 // Shared ecommerce-style program card used by both the home carousel and the
@@ -21,9 +22,11 @@ export default function ServiceCard({
   slideProps?: Record<string, unknown>;
 }) {
   const href = useHref();
+  const cart = useInquiryCart();
+  const added = cart.has(svc.slug);
   return (
     <Link
-      href={href.slug(svc.slug)}
+      href={href.service(svc.slug)}
       {...slideProps}
       className={`group min-w-0 cursor-pointer flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition-colors hover:border-stone-300 ${className}`}
     >
@@ -44,6 +47,21 @@ export default function ServiceCard({
             {svc.audience}
           </span>
         )}
+        {/* Add to inquiry (doesn't navigate) */}
+        <button
+          type="button"
+          aria-label={added ? 'Remove from inquiry' : 'Add to inquiry'}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            cart.toggle({slug: svc.slug, title: svc.title});
+          }}
+          className={`absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full shadow-sm backdrop-blur transition-colors ${
+            added ? 'bg-amber-700 text-white' : 'bg-white/95 text-stone-600 hover:bg-white hover:text-amber-800'
+          }`}
+        >
+          {added ? <Check className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
+        </button>
       </div>
 
       {/* Product body */}

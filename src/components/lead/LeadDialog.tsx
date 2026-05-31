@@ -46,9 +46,7 @@ export default function LeadDialog() {
           <div className="relative shrink-0 overflow-hidden bg-linear-to-br from-amber-100 via-stone-50 to-stone-50 px-6 pb-5 pt-5 sm:px-7 sm:pt-7">
             <PawPrint className="pointer-events-none absolute -right-3 -top-4 h-20 w-20 rotate-12 text-amber-300/40" />
             <div className="relative flex items-start gap-3.5 pr-8">
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-amber-700 text-amber-50 shadow-sm ring-1 ring-amber-500/20">
-                <PawPrint className="h-5.5 w-5.5" />
-              </div>
+              
               <div className="min-w-0 space-y-1">
                 <DialogPrimitive.Title className="font-sans text-lg font-extrabold leading-tight tracking-tight text-amber-950">
                   {title}

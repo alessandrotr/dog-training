@@ -64,6 +64,7 @@ export function useHref() {
     page: (page: string) => pageToPath(page, lang),
     slug: (slug: string) => `/${lang}/${slug}`,
     post: (slug: string) => `/${lang}/blog/${slug}`,
+    service: (slug: string) => `/${lang}/services/${slug}`,
   };
 }
 

@@ -2,11 +2,12 @@
 
 import {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Send, CheckCircle2, AlertCircle} from 'lucide-react';
+import {Send, CheckCircle2, AlertCircle, X} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Label} from '@/components/ui/label';
 import {Textarea} from '@/components/ui/textarea';
+import {useInquiryCart} from '@/components/InquiryCartProvider';
 import {submitLead, type LeadPayload} from '@/lib/lead';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
@@ -17,7 +18,8 @@ const EMAIL_RE = /\S+@\S+\.\S+/;
 // Unified contact intake form. Rendered both on the /contact page and inside
 // the lead dialog. Submits through submitLead() (currently a stub).
 export default function LeadForm({onSuccess}: {onSuccess?: () => void}) {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
+  const cart = useInquiryCart();
   const [data, setData] = useState<LeadPayload>({
     name: '',
     email: '',
@@ -38,7 +40,8 @@ export default function LeadForm({onSuccess}: {onSuccess?: () => void}) {
     const next: Errors = {};
     if (!data.name.trim()) next.name = t('contact.fields.fullName');
     if (!EMAIL_RE.test(data.email)) next.email = t('contact.fields.emailAddress');
-    if (!data.message.trim()) next.message = t('contact.fields.detailBehaviors');
+    // A message is required unless services were added to the inquiry.
+    if (!data.message.trim() && cart.items.length === 0) next.message = t('contact.fields.detailBehaviors');
     setErrors(next);
     return Object.keys(next).length === 0;
   }
@@ -48,7 +51,11 @@ export default function LeadForm({onSuccess}: {onSuccess?: () => void}) {
     if (!validate()) return;
     setStatus('loading');
     try {
-      await submitLead(data);
+      const prefix = i18n.language === 'de' ? 'Interessiert an: ' : 'Interested in: ';
+      const services = cart.items.map((i) => i.title);
+      const message = [services.length ? `${prefix}${services.join(', ')}` : '', data.message.trim()].filter(Boolean).join('\n\n');
+      await submitLead({...data, message});
+      cart.clear();
       setStatus('success');
       onSuccess?.();
     } catch {
@@ -79,6 +86,29 @@ export default function LeadForm({onSuccess}: {onSuccess?: () => void}) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 text-left">
+      {cart.items.length > 0 && (
+        <div className="rounded-xl border border-amber-200/60 bg-amber-50 p-3">
+          <p className="mb-2 font-mono text-[10px] font-bold uppercase tracking-wider text-amber-800">
+            {i18n.language === 'de' ? 'Anfrage zu' : 'Inquiring about'}
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {cart.items.map((item) => (
+              <span key={item.slug} className="inline-flex items-center gap-1 rounded-full border border-amber-300/60 bg-white px-2.5 py-1 text-xs font-medium text-amber-900">
+                {item.title}
+                <button
+                  type="button"
+                  aria-label={`Remove ${item.title}`}
+                  onClick={() => cart.remove(item.slug)}
+                  className="text-amber-700/60 transition-colors hover:text-amber-900"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-1.5">
           <Label htmlFor="lead-name">{t('contact.fields.fullName')}</Label>
