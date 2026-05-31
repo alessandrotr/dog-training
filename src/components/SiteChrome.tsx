@@ -4,7 +4,7 @@ import {useEffect} from 'react';
 import {usePathname} from 'next/navigation';
 import Navbar from './navigation/Navbar';
 import Footer from './navigation/Footer';
-import MobileStickyCTA from './navigation/MobileStickyCTA';
+import ConnectFab from './navigation/ConnectFab';
 import LeadDialogMount from './lead/LeadDialogMount';
 import type {SiteConfig} from '../types';
 
@@ -36,8 +36,8 @@ export default function SiteChrome({
       {/* Primary Footer Coordinates */}
       <Footer config={config.footer} />
 
-      {/* Floating high-priority actions */}
-      <MobileStickyCTA />
+      {/* Floating high-priority action */}
+      <ConnectFab />
 
       {/* Unified Book/Contact dialog + global CTA interceptor */}
       <LeadDialogMount />

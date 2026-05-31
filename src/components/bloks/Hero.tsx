@@ -40,7 +40,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
         <div className="flex max-md:flex-col gap-12 md:items-center">
           <div className="lg:w-2/3 space-y-6 text-left">
             {blok.eyebrow && (
-              <div className="inline-flex items-center space-x-1.5 rounded-full bg-stone-200 px-3.5 py-1 text-xs font-mono text-stone-700">
+              <div className="inline-flex items-center space-x-1.5 rounded-full bg-amber-700 px-3.5 py-1 text-xs font-mono text-white">
                 <span>{blok.eyebrow}</span>
               </div>
             )}
