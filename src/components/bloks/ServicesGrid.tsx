@@ -12,6 +12,9 @@ import ServiceCard from './ServiceCard';
 interface ServicesGridBlok {
   _uid: string;
   component: string;
+  eyebrow?: string;
+  headline?: string;
+  subheadline?: string;
   limit?: string | number;
   footer_label?: string;
   layout?: 'grid' | 'list';
@@ -97,7 +100,18 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
   // Highlighted carousel (home)
   return (
     <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="flex items-center justify-end mb-10 gap-3">
+      <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+        <div className="max-w-2xl space-y-3 text-left">
+          {blok.eyebrow && (
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-700">{blok.eyebrow}</span>
+          )}
+          {blok.headline && (
+            <h2 className="font-sans text-3xl font-extrabold tracking-tight text-amber-950 sm:text-4xl">{blok.headline}</h2>
+          )}
+          {blok.subheadline && (
+            <p className="font-sans text-stone-500 text-base leading-relaxed">{blok.subheadline}</p>
+          )}
+        </div>
         <div className="flex items-center gap-3 shrink-0">
           {blok.footer_label && (
             <Link
