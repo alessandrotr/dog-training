@@ -31,7 +31,8 @@
       "Bash(node -e \"const c=require\\('./storyblok/components.json'\\);const a=Array.isArray\\(c\\)?c:c.components;const h=a.find\\(x=>x.name==='hero'\\);console.log\\(JSON.stringify\\(h.schema.aside\\)\\);console.log\\('hero keys:',Object.keys\\(h.schema\\).join\\(', '\\)\\)\")",
       "Bash(node -e \"const c=require\\('./storyblok/components.json'\\);const a=Array.isArray\\(c\\)?c:c.components;const x=a.find\\(y=>y.name==='availability'\\);console.log\\('is_root:',x.is_root,'is_nestable:',x.is_nestable\\)\")",
       "Bash(grep -vE \"^#|^$\" .env.local)",
-      "Bash(grep -E \"\\\\.\\(ts|tsx|mjs\\)$\")"
+      "Bash(grep -E \"\\\\.\\(ts|tsx|mjs\\)$\")",
+      "Bash(node -e \"const c=require\\('./storyblok/components.json'\\);const a=Array.isArray\\(c\\)?c:c.components;for\\(const n of ['faq_section','testimonials']\\){const p=a.find\\(x=>x.name===n\\);console.log\\(n, JSON.stringify\\(p.schema\\)\\);}\")"
     ],
     "additionalDirectories": [
       "/tmp"

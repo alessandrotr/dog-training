@@ -232,12 +232,9 @@
       "is_root": false,
       "is_nestable": true,
       "schema": {
-        "eyebrow": { "type": "text", "pos": 0, "translatable": true, "description": "Carousel (grid) layout only — the list layout uses a Page Header blok instead." },
-        "headline": { "type": "text", "pos": 1, "translatable": true, "description": "Carousel (grid) layout only." },
-        "subheadline": { "type": "textarea", "pos": 2, "translatable": true, "description": "Carousel (grid) layout only." },
-        "limit": { "type": "number", "pos": 3, "description": "Max services to show (blank = all). Items come from the Services folder." },
-        "footer_label": { "type": "text", "pos": 4, "translatable": true },
-        "layout": { "type": "option", "pos": 5, "use_uuid": false, "default_value": "grid", "options": [{"name": "Grid (compact cards)", "value": "grid"}, {"name": "List (full alternating)", "value": "list"}] }
+        "limit": { "type": "number", "pos": 0, "description": "Max services to show (blank = all). Items come from the Services folder." },
+        "footer_label": { "type": "text", "pos": 1, "translatable": true, "description": "Carousel \"view all\" link label." },
+        "layout": { "type": "option", "pos": 2, "use_uuid": false, "default_value": "grid", "options": [{"name": "Grid (compact cards)", "value": "grid"}, {"name": "List (full alternating)", "value": "list"}] }
       }
     },
     {
@@ -246,11 +243,8 @@
       "is_root": false,
       "is_nestable": true,
       "schema": {
-        "eyebrow": { "type": "text", "pos": 0, "translatable": true },
-        "headline": { "type": "text", "pos": 1, "translatable": true },
-        "subheadline": { "type": "textarea", "pos": 2, "translatable": true },
-        "footer_label": { "type": "text", "pos": 3, "translatable": true, "description": "Items come from the Testimonials folder." },
-        "layout": { "type": "option", "pos": 4, "use_uuid": false, "default_value": "carousel", "options": [{"name": "Carousel", "value": "carousel"}, {"name": "Grid", "value": "grid"}] }
+        "footer_label": { "type": "text", "pos": 0, "translatable": true, "description": "Items come from the Testimonials folder." },
+        "layout": { "type": "option", "pos": 1, "use_uuid": false, "default_value": "carousel", "options": [{"name": "Carousel", "value": "carousel"}, {"name": "Grid", "value": "grid"}] }
       }
     },
     {
@@ -271,12 +265,9 @@
       "is_root": false,
       "is_nestable": true,
       "schema": {
-        "eyebrow": { "type": "text", "pos": 0, "translatable": true },
-        "headline": { "type": "text", "pos": 1, "translatable": true },
-        "subheadline": { "type": "textarea", "pos": 2, "translatable": true },
-        "search_placeholder": { "type": "text", "pos": 3, "translatable": true },
-        "enable_search": { "type": "boolean", "pos": 4, "default_value": true },
-        "_note": { "type": "text", "pos": 5, "description": "Items come from the FAQs folder." }
+        "search_placeholder": { "type": "text", "pos": 0, "translatable": true },
+        "enable_search": { "type": "boolean", "pos": 1, "default_value": true },
+        "_note": { "type": "text", "pos": 2, "description": "Items come from the FAQs folder." }
       }
     },
     {

@@ -11,9 +11,6 @@ import {usePageData} from '../PageDataProvider';
 interface TestimonialsBlok {
   _uid: string;
   component: string;
-  eyebrow?: string;
-  headline?: string;
-  subheadline?: string;
   footer_label?: string;
   layout?: 'carousel' | 'grid';
 }
@@ -27,20 +24,7 @@ export default function Testimonials({blok}: {blok: TestimonialsBlok}) {
 
   if (blok.layout === 'grid') {
     return (
-      <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12 text-left">
-        <div className="max-w-3xl space-y-4">
-          {blok.eyebrow && (
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-700">{blok.eyebrow}</span>
-          )}
-          {blok.headline && (
-            <h2 className="font-sans text-4xl font-extrabold tracking-tight text-amber-955 sm:text-5xl leading-tight">
-              {blok.headline}
-            </h2>
-          )}
-          {blok.subheadline && (
-            <p className="font-sans text-sm text-stone-500 max-w-2xl leading-relaxed">{blok.subheadline}</p>
-          )}
-        </div>
+      <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-left">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {testimonials.map((tItem) => (
             <div
@@ -94,9 +78,6 @@ export default function Testimonials({blok}: {blok: TestimonialsBlok}) {
         <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-amber-150 mb-4 text-amber-900">
           <MessageSquareQuote className="h-6 w-6" />
         </div>
-        {blok.eyebrow && (
-          <span className="block font-mono text-xs uppercase tracking-widest text-amber-700 mb-2">{blok.eyebrow}</span>
-        )}
 
         {active && (
           <div className="min-h-[220px] flex flex-col justify-between max-w-2xl mx-auto space-y-6 pt-4">

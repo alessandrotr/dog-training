@@ -8,9 +8,6 @@ import {usePageData} from '../PageDataProvider';
 interface FaqBlok {
   _uid: string;
   component: string;
-  eyebrow?: string;
-  headline?: string;
-  subheadline?: string;
   search_placeholder?: string;
   enable_search?: boolean;
 }
@@ -32,22 +29,6 @@ export default function Faq({blok}: {blok: FaqBlok}) {
 
   return (
     <section {...storyblokEditable(blok as any)} className="space-y-16 text-left">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl space-y-4">
-          {blok.eyebrow && (
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-700">{blok.eyebrow}</span>
-          )}
-          {blok.headline && (
-            <h2 className="font-sans text-4xl font-extrabold tracking-tight text-amber-955 sm:text-5xl leading-tight">
-              {blok.headline}
-            </h2>
-          )}
-          {blok.subheadline && (
-            <p className="font-sans text-sm text-stone-500 max-w-2xl leading-relaxed">{blok.subheadline}</p>
-          )}
-        </div>
-      </div>
-
       {blok.enable_search !== false && (
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative max-w-md w-full border-b border-stone-200 pb-8">
