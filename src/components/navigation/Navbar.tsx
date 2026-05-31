@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { motion, useScroll, useMotionValueEvent } from 'motion/react';
 import { useTranslation } from 'react-i18next';
 import { Menu, X, CalendarRange } from 'lucide-react';
 import { useCurrentPage, useHref } from '../../lib/navigation';
@@ -10,13 +11,30 @@ import type { SiteConfig } from '../../types';
 
 export default function Navbar({ config }: { config: SiteConfig }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [atTop, setAtTop] = useState(true);
   const { t } = useTranslation();
   const href = useHref();
   const currentPage = useCurrentPage();
   const close = () => setIsOpen(false);
 
+  // Hide on scroll down, reveal on scroll up; transparent while at the very top.
+  const {scrollY} = useScroll();
+  useMotionValueEvent(scrollY, 'change', (y) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    setAtTop(y < 8);
+    if (y > prev && y > 100) setHidden(true);
+    else if (y < prev) setHidden(false);
+  });
+
+  const solid = !atTop || isOpen; // frosted bar once scrolled or when the mobile menu is open
+
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-stone-200/80 bg-stone-50/90 backdrop-blur-md">
+    <motion.header
+      animate={{y: hidden && !isOpen ? '-100%' : '0%'}}
+      transition={{duration: 0.35, ease: [0.22, 1, 0.36, 1]}}
+      className={`sticky top-0 z-40 w-full transition-colors duration-500 border-b border-stone-200/80 bg-stone-50/90 backdrop-blur-md`}
+    >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
 
         {/* Logo */}
@@ -109,6 +127,6 @@ export default function Navbar({ config }: { config: SiteConfig }) {
           </div>
         </nav>
       )}
-    </header>
+    </motion.header>
   );
 }
