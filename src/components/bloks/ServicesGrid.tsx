@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import {storyblokEditable} from '@storyblok/react';
-import {ArrowRight, ArrowLeft, ArrowUpRight, CalendarRange, Check, Star, ShoppingBag} from 'lucide-react';
+import {ArrowRight, ArrowLeft, ArrowUpRight, CalendarRange, Star, ShoppingBag} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import {useCarousel} from '../../lib/use-carousel';
 import {usePageData} from '../PageDataProvider';
@@ -10,9 +10,6 @@ import {usePageData} from '../PageDataProvider';
 interface ServicesGridBlok {
   _uid: string;
   component: string;
-  eyebrow?: string;
-  headline?: string;
-  subheadline?: string;
   limit?: string | number;
   footer_label?: string;
   layout?: 'grid' | 'list';
@@ -41,90 +38,78 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
 
   if (isList) {
     return (
-      <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-16 text-left">
-        <div className="max-w-3xl space-y-4">
-          {blok.eyebrow && (
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-700">{blok.eyebrow}</span>
-          )}
-          {blok.headline && (
-            <h2 className="font-sans text-3xl font-extrabold tracking-tight text-amber-950 sm:text-4xl">{blok.headline}</h2>
-          )}
-          {blok.subheadline && (
-            <p className="font-sans text-stone-500 text-base leading-relaxed">{blok.subheadline}</p>
-          )}
-        </div>
-        <div className="space-y-20">
-          {items.map((svc, sIdx) => {
-            const isEven = sIdx % 2 === 0;
+      <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-left">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+          {items.map((svc) => {
+            const review = reviews.get(svc.id);
             return (
-              <div
+              <Link
                 key={svc.id}
-                className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center border-b border-stone-200/60 pb-16 last:border-b-0"
+                href={href.slug(svc.slug)}
+                className="group cursor-pointer flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-all hover:shadow-md hover:border-amber-900/20"
               >
-                <div className={`lg:col-span-5 ${isEven ? 'lg:order-1' : 'lg:order-2'} relative`}>
-                  <div className="relative mx-auto max-w-[400px] lg:max-w-none">
-                    <div className="absolute -inset-1 rounded-3xl bg-amber-900/10 blur-xl"></div>
-                    <div className="relative overflow-hidden rounded-3xl border-4 border-white bg-stone-100 shadow-xl aspect-video max-h-72">
-                      {svc.imageUrl && (
-                        <img
-                          src={svc.imageUrl}
-                          alt={svc.title}
-                          className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                          referrerPolicy="no-referrer"
-                        />
-                      )}
+                {/* Thumbnail banner */}
+                <div className="relative overflow-hidden bg-stone-100 max-h-64 aspect-video">
+                  {svc.imageUrl && (
+                    <img
+                      src={svc.imageUrl}
+                      alt={svc.title}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      referrerPolicy="no-referrer"
+                    />
+                  )}
+                  {svc.audience && (
+                    <div className="absolute top-4 left-4 rounded-md bg-stone-900/90 text-[10px] font-mono px-2.5 py-1 uppercase tracking-wider text-stone-100">
+                      {svc.audience}
                     </div>
-                  </div>
+                  )}
+                  {svc.price && (
+                    <div className="absolute top-4 right-4 rounded-md bg-amber-50/95 text-[11px] font-mono font-bold px-2.5 py-1 text-amber-900 shadow-sm backdrop-blur">
+                      {svc.price}
+                    </div>
+                  )}
                 </div>
 
-                <div className={`lg:col-span-7 ${isEven ? 'lg:order-2' : 'lg:order-1'} space-y-6 text-left`}>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="inline-flex items-center rounded-md bg-stone-150 px-2.5 py-1 text-xs font-mono font-medium text-stone-800">
-                      Target Audience: {svc.audience}
-                    </span>
-                    <span className="inline-flex items-center rounded-md bg-amber-50 px-2.5 py-1 text-xs font-mono font-bold text-amber-900 border border-amber-200/40">
-                      Est. {svc.duration}
-                    </span>
-                  </div>
-
-                  <h3 className="font-sans text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">{svc.title}</h3>
-
-                  <p className="font-mono text-sm font-semibold text-amber-900 leading-none">
-                    Hourly / Retainer Fee: {svc.price}
-                  </p>
-
-                  <p className="font-sans text-sm text-stone-500 leading-relaxed">{svc.longDescription}</p>
-
-                  <div className="space-y-3 pt-2">
-                    <h4 className="font-sans text-xs font-extrabold uppercase tracking-widest text-stone-400">Included in Program</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {svc.features.map((feat, fIdx) => (
-                        <div key={fIdx} className="flex items-start space-x-2 text-xs text-stone-600 leading-relaxed">
-                          <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                          <span>{feat}</span>
-                        </div>
-                      ))}
+                {/* Content */}
+                <div className="flex-1 p-6 flex flex-col justify-between text-left space-y-4">
+                  <div className="space-y-2">
+                    {/* Rating row (0 stars if no reviews) */}
+                    <div className="flex items-center gap-1.5">
+                      <div className="flex">
+                        {Array.from({length: 5}).map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`h-3.5 w-3.5 ${i < Math.round(review?.avg ?? 0) ? 'fill-amber-400 text-amber-400' : 'fill-stone-200 text-stone-200'}`}
+                          />
+                        ))}
+                      </div>
+                      <span className="font-mono text-[11px] text-stone-400">
+                        {review ? `${review.avg.toFixed(1)} (${review.count})` : '(0)'}
+                      </span>
                     </div>
+
+                    <h3 className="font-sans text-lg font-bold text-stone-900 group-hover:text-amber-950 transition-colors leading-snug">
+                      {svc.title}
+                    </h3>
+                    <p className="text-xs text-stone-550 leading-relaxed line-clamp-3">
+                      {svc.shortDescription}
+                    </p>
                   </div>
 
-                  <div className="pt-4 flex flex-wrap gap-4">
-                    <Link
-                      href={href.slug(svc.slug)}
-                      className="group inline-flex items-center space-x-2 rounded-xl bg-amber-900 px-5 py-3 text-xs font-semibold tracking-wide text-white shadow-sm hover:bg-amber-950 hover:shadow"
-                    >
+                  <div className="flex items-center justify-between border-t border-stone-100 pt-4 text-xs font-mono">
+                    <span className="text-amber-905 font-bold flex items-center space-x-1">
                       <span>View Program</span>
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                    <Link
-                      href={href.page('booking')}
-                      className="inline-flex items-center space-x-2 rounded-xl border border-stone-300 bg-white px-5 py-3 text-xs font-semibold text-stone-700 hover:bg-stone-50"
-                    >
-                      <CalendarRange className="h-4 w-4" />
-                      <span>Book Free Assessment</span>
-                    </Link>
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                    </span>
+                    {svc.duration && (
+                      <span className="inline-flex items-center gap-1 text-stone-400">
+                        <CalendarRange className="h-3.5 w-3.5" />
+                        {svc.duration}
+                      </span>
+                    )}
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
@@ -135,18 +120,7 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
   // Highlighted carousel (home)
   return (
     <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-        <div className="max-w-2xl space-y-3 text-left">
-          {blok.eyebrow && (
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-700">{blok.eyebrow}</span>
-          )}
-          {blok.headline && (
-            <h2 className="font-sans text-3xl font-extrabold tracking-tight text-amber-950 sm:text-4xl">{blok.headline}</h2>
-          )}
-          {blok.subheadline && (
-            <p className="font-sans text-stone-500 text-base leading-relaxed">{blok.subheadline}</p>
-          )}
-        </div>
+      <div className="flex items-center justify-end mb-10 gap-3">
         <div className="flex items-center gap-3 shrink-0">
           {blok.footer_label && (
             <Link

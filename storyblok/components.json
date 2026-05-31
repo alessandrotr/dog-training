@@ -120,6 +120,7 @@
           "pos": 0,
           "restrict_components": true,
           "component_whitelist": [
+            "page_header",
             "hero",
             "trust_stats",
             "how_it_works",
@@ -216,17 +217,25 @@
       }
     },
     {
-      "name": "services_grid",
-      "display_name": "Services Grid (auto)",
+      "name": "page_header",
+      "display_name": "Page Header",
       "is_root": false,
       "is_nestable": true,
       "schema": {
         "eyebrow": { "type": "text", "pos": 0, "translatable": true },
         "headline": { "type": "text", "pos": 1, "translatable": true },
-        "subheadline": { "type": "textarea", "pos": 2, "translatable": true },
-        "limit": { "type": "number", "pos": 3, "description": "Max services to show (blank = all). Items come from the Services folder." },
-        "footer_label": { "type": "text", "pos": 4, "translatable": true },
-        "layout": { "type": "option", "pos": 5, "use_uuid": false, "default_value": "grid", "options": [{"name": "Grid (compact cards)", "value": "grid"}, {"name": "List (full alternating)", "value": "list"}] }
+        "subheadline": { "type": "textarea", "pos": 2, "translatable": true }
+      }
+    },
+    {
+      "name": "services_grid",
+      "display_name": "Services Grid (auto)",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "limit": { "type": "number", "pos": 0, "description": "Max services to show (blank = all). Items come from the Services folder." },
+        "footer_label": { "type": "text", "pos": 1, "translatable": true },
+        "layout": { "type": "option", "pos": 2, "use_uuid": false, "default_value": "grid", "options": [{"name": "Grid (compact cards)", "value": "grid"}, {"name": "List (full alternating)", "value": "list"}] }
       }
     },
     {
