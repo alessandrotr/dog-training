@@ -163,7 +163,7 @@ export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonom
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredPosts.map((post) => (
               <Link
                 key={post.id}
