@@ -36,7 +36,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
   return (
     <section
       {...storyblokEditable(blok as any)}
-      className="relative overflow-hidden bg-linear-to-b from-amber-200 to-amber-50 pt-8 md:pt-24"
+      className="relative overflow-hidden bg-linear-to-b from-amber-200 to-amber-50 py-8 md:pt-20"
     >
       {/* Optional Storyblok-managed background image + readability scrim */}
       {bgImage && (
@@ -47,12 +47,15 @@ export default function Hero({blok}: {blok: HeroBlok}) {
             fill
             priority
             sizes="100vw"
-            className="object-cover"
+            className="object-cover opacity-85"
             referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-linear-to-r from-stone-50/95 via-stone-50/75 to-stone-50/35" />
         </>
       )}
+
+      {/* Seamless fade into the next section (body stone-50) */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-b from-transparent to-stone-50 md:h-32" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex max-md:flex-col gap-12 md:items-center">
@@ -77,7 +80,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
             </h1>
 
             {blok.subheadline && (
-              <p className="font-sans text-lg text-stone-600 max-w-2xl leading-relaxed">
+              <p className="font-sans text-lg text-stone-900 lg:text-stone-700 max-w-2xl leading-relaxed">
                 {blok.subheadline}
               </p>
             )}
