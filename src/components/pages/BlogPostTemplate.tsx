@@ -3,20 +3,23 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { BlogPost, BlogTaxonomies } from '../../types';
+import { BlogPost, BlogTaxonomies, ServiceItem } from '../../types';
 import { Clock, CalendarDays, Share2, Bookmark, Check, CalendarRange, Sparkles, Tag } from 'lucide-react';
 import { useHref } from '../../lib/navigation';
 import Carousel from '../Carousel';
 import ArticleCard from '../bloks/ArticleCard';
+import ServiceCard from '../bloks/ServiceCard';
 import Availability from '../bloks/Availability';
 
 interface BlogPostTemplateProps {
   post: BlogPost;
   posts: BlogPost[];
   taxonomies: BlogTaxonomies;
+  services: ServiceItem[];
+  serviceReviews: Record<string, {avg: number; count: number}>;
 }
 
-export default function BlogPostTemplate({ post, posts, taxonomies }: BlogPostTemplateProps) {
+export default function BlogPostTemplate({ post, posts, taxonomies, services, serviceReviews }: BlogPostTemplateProps) {
   const [copiedLink, setCopiedLink] = useState(false);
   const href = useHref();
   const blogPosts = posts;
@@ -32,6 +35,11 @@ export default function BlogPostTemplate({ post, posts, taxonomies }: BlogPostTe
     ...others.filter((p) => p.category && p.category === post.category),
     ...others.filter((p) => !p.category || p.category !== post.category),
   ];
+
+  // Programs this article relates to + how many guides each program has.
+  const relatedServices = services.filter((s) => post.serviceIds?.includes(s.id));
+  const guidesByService = new Map<string, number>();
+  for (const p of blogPosts) for (const id of p.serviceIds ?? []) guidesByService.set(id, (guidesByService.get(id) ?? 0) + 1);
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -145,6 +153,20 @@ export default function BlogPostTemplate({ post, posts, taxonomies }: BlogPostTe
           </main>
 
         </div>
+
+        {/* Related programs (cross-sell) */}
+        {relatedServices.length > 0 && (
+          <div className="pt-12 lg:pt-8">
+            <Carousel
+              items={relatedServices}
+              getKey={(s) => s.id}
+              size="lg"
+              label="programs"
+              headline="Related programs"
+              renderItem={(svc, slideProps) => <ServiceCard svc={svc} review={serviceReviews[svc.id]} guides={guidesByService.get(svc.id) ?? 0} slideProps={slideProps} />}
+            />
+          </div>
+        )}
 
         {/* Related articles — shared Carousel */}
         {relatedPosts.length > 0 && (

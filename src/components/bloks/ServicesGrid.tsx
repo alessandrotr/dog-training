@@ -23,7 +23,7 @@ interface ServicesGridBlok {
 // responsive grid of all programs (services page). Both share <ServiceCard>.
 export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
   const href = useHref();
-  const {services, testimonials} = usePageData();
+  const {services, testimonials, posts} = usePageData();
   const limit = Number(blok.limit) || services.length;
   const items = services.slice(0, limit);
   const isList = blok.layout === 'list';
@@ -38,12 +38,16 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
     }
   }
 
+  // Related-article counts per service (for the "N guides" card hint).
+  const guides = new Map<string, number>();
+  for (const p of posts) for (const id of p.serviceIds ?? []) guides.set(id, (guides.get(id) ?? 0) + 1);
+
   if (isList) {
     return (
       <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-left">
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((svc) => (
-            <ServiceCard key={svc.id} svc={svc} review={reviews.get(svc.id)} />
+            <ServiceCard key={svc.id} svc={svc} review={reviews.get(svc.id)} guides={guides.get(svc.id) ?? 0} />
           ))}
         </div>
       </section>
@@ -63,7 +67,7 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
         subheadline={blok.subheadline}
         footerLabel={blok.footer_label}
         footerHref={href.page('services')}
-        renderItem={(svc, slideProps) => <ServiceCard svc={svc} review={reviews.get(svc.id)} slideProps={slideProps} />}
+        renderItem={(svc, slideProps) => <ServiceCard svc={svc} review={reviews.get(svc.id)} guides={guides.get(svc.id) ?? 0} slideProps={slideProps} />}
       />
     </section>
   );

@@ -8,7 +8,8 @@ import {useInquiryCart} from '../InquiryCartProvider';
 import {useLeadDialog} from '../../stores/lead-dialog';
 import Carousel from '../Carousel';
 import ServiceCard from '../bloks/ServiceCard';
-import type {ServiceItem, TestimonialItem} from '../../types';
+import ArticleCard from '../bloks/ArticleCard';
+import type {ServiceItem, TestimonialItem, BlogPost} from '../../types';
 
 // One shared, data-driven template for every service (mirrors the blog article
 // pattern). Renders from the `service` entry — no bespoke per-service pages.
@@ -16,10 +17,12 @@ export default function ServiceDetail({
   service,
   testimonials,
   related,
+  posts,
 }: {
   service: ServiceItem;
   testimonials: TestimonialItem[];
   related: ServiceItem[];
+  posts: BlogPost[];
 }) {
   const href = useHref();
   const cart = useInquiryCart();
@@ -37,6 +40,11 @@ export default function ServiceDetail({
 
   const reviewsForSvc = testimonials.filter((t) => t.serviceId === service.id && t.rating > 0);
   const avg = reviewsForSvc.length ? reviewsForSvc.reduce((s, r) => s + r.rating, 0) / reviewsForSvc.length : 0;
+
+  // Article ↔ service relations.
+  const relatedArticles = posts.filter((p) => p.serviceIds?.includes(service.id));
+  const guidesByService = new Map<string, number>();
+  for (const p of posts) for (const id of p.serviceIds ?? []) guidesByService.set(id, (guidesByService.get(id) ?? 0) + 1);
 
   return (
     <article className="lg:py-8 text-left">
@@ -149,6 +157,20 @@ export default function ServiceDetail({
           </div>
         )}
 
+        {/* Related articles for this program */}
+        {relatedArticles.length > 0 && (
+          <div className="mt-20 border-t border-stone-200 pt-12">
+            <Carousel
+              items={relatedArticles}
+              getKey={(p) => p.id}
+              size="sm"
+              label="articles"
+              headline="Guides for this program"
+              renderItem={(post, slideProps) => <ArticleCard post={post} slideProps={slideProps} />}
+            />
+          </div>
+        )}
+
         {/* Related programs — shared Carousel */}
         {related.length > 0 && (
           <div className="mt-20 border-t border-stone-200 pt-12">
@@ -158,8 +180,7 @@ export default function ServiceDetail({
               size="lg"
               label="programs"
               headline="Other services"
-              
-              renderItem={(svc, slideProps) => <ServiceCard svc={svc} review={reviewStats.get(svc.id)} slideProps={slideProps} />}
+              renderItem={(svc, slideProps) => <ServiceCard svc={svc} review={reviewStats.get(svc.id)} guides={guidesByService.get(svc.id) ?? 0} slideProps={slideProps} />}
             />
           </div>
         )}

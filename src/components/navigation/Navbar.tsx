@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, useScroll, useMotionValueEvent } from 'motion/react';
 import { useTranslation } from 'react-i18next';
 import { Menu, X, CalendarRange } from 'lucide-react';
@@ -47,10 +48,18 @@ export default function Navbar({ config }: { config: SiteConfig }) {
         <Link
           href={href.page('home')}
           onClick={close}
-          className="flex items-center space-x-2 text-stone-900 focus:outline-none cursor-pointer"
+          className="flex items-center gap-2.5 text-stone-900 focus:outline-none cursor-pointer"
         >
-          <div className="text-left">
-            <span className="block font-sans text-lg font-bold tracking-tight text-amber-950">{config.footer.brandName}</span>
+          <Image
+            src="/assets/images/logo.png"
+            alt={config.footer.brandName}
+            width={40}
+            height={40}
+            className="h-10 w-auto"
+            priority
+          />
+          <div className="text-left flex flex-col gap-0.5">
+            <span className="block font-sans text-sm lg:text-lg font-bold tracking-tight text-amber-950">{config.footer.brandName}</span>
             <span className="block font-mono text-[9px] uppercase tracking-widest text-stone-500 -mt-1">{config.footer.brandSubtitle}</span>
           </div>
         </Link>

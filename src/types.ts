@@ -73,6 +73,7 @@ export interface BlogPost {
   readingTime: string;
   category: string;
   tags?: string[];
+  serviceIds?: string[]; // uuids of related services
   seo: SEOFields;
   tableOfContents?: { id: string; text: string; depth: number }[];
 }

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import {ArrowRight} from 'lucide-react';
+import {ArrowRight, GraduationCap} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import type {BlogPost} from '../../types';
 
@@ -12,10 +12,12 @@ export default function ArticleCard({
   post,
   slideProps,
   categoryLabel,
+  serviceTitle,
 }: {
   post: BlogPost;
   slideProps?: Record<string, unknown>;
   categoryLabel?: (c: string) => string;
+  serviceTitle?: string; // a related program → cross-sell pill
 }) {
   const href = useHref();
   const cat = categoryLabel ? categoryLabel(post.category) : post.category;
@@ -43,6 +45,11 @@ export default function ArticleCard({
           {post.title}
         </h3>
         {post.summary && <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-stone-500">{post.summary}</p>}
+        {serviceTitle && (
+          <span className="mt-3 inline-flex w-fit items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 font-mono text-[10px] font-semibold text-amber-800">
+            <GraduationCap className="h-3.5 w-3.5" /> {serviceTitle}
+          </span>
+        )}
         <div className="mt-auto flex items-center justify-between pt-4 font-mono text-[11px]">
           <span className="inline-flex items-center gap-1 font-bold uppercase tracking-wider text-amber-900">
             Read <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />

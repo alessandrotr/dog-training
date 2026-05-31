@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import {Star, Plus, Check} from 'lucide-react';
+import {Star, Plus, Check, BookOpen} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import {useInquiryCart} from '../InquiryCartProvider';
 import type {ServiceItem} from '../../types';
@@ -13,11 +13,13 @@ import type {ServiceItem} from '../../types';
 export default function ServiceCard({
   svc,
   review,
+  guides = 0,
   className = '',
   slideProps,
 }: {
   svc: ServiceItem;
   review?: {avg: number; count: number};
+  guides?: number; // related-article count → "N guides" hint
   className?: string;
   slideProps?: Record<string, unknown>;
 }) {
@@ -79,6 +81,12 @@ export default function ServiceCard({
           <span className="font-mono text-[11px] text-stone-400">
             {review ? `${review.avg.toFixed(1)} (${review.count})` : '(0)'}
           </span>
+          {guides > 0 && (
+            <span className="ml-auto inline-flex items-center gap-1 font-mono text-[11px] text-amber-800">
+              <BookOpen className="h-3.5 w-3.5" />
+              {guides} guide{guides > 1 ? 's' : ''}
+            </span>
+          )}
         </div>
 
         <h3 className="mt-2.5 font-sans text-lg font-bold leading-snug text-stone-900 group-hover:text-amber-900 transition-colors">

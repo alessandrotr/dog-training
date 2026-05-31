@@ -104,8 +104,9 @@
           "description": "Pick topics. Add new ones under Datasources → Tags."
         },
         "image": { "type": "asset", "filetypes": ["images"], "pos": 7 },
-        "meta_title": { "type": "text", "pos": 8, "translatable": true },
-        "meta_description": { "type": "textarea", "pos": 9, "translatable": true }
+        "services": { "type": "options", "pos": 8, "source": "internal_stories", "folder_slug": "services/", "use_uuid": true, "description": "Programs this article relates to (shown on both the article and those service pages)." },
+        "meta_title": { "type": "text", "pos": 9, "translatable": true },
+        "meta_description": { "type": "textarea", "pos": 10, "translatable": true }
       }
     },
     {

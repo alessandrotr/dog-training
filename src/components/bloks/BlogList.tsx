@@ -19,9 +19,13 @@ interface BlogListBlok {
 // the shared Carousel (compact article cards).
 export default function BlogList({blok}: {blok: BlogListBlok}) {
   const href = useHref();
-  const {posts} = usePageData();
+  const {posts, services} = usePageData();
   const limit = Number(blok.limit) || posts.length;
   const items = posts.slice(0, limit);
+  const serviceTitle = (ids?: string[]) => {
+    const id = ids?.[0];
+    return id ? services.find((s) => s.id === id)?.title : undefined;
+  };
 
   return (
     <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -34,7 +38,7 @@ export default function BlogList({blok}: {blok: BlogListBlok}) {
         headline={blok.headline}
         footerLabel={blok.footer_label}
         footerHref={href.page('blog')}
-        renderItem={(post, slideProps) => <ArticleCard post={post} slideProps={slideProps} />}
+        renderItem={(post, slideProps) => <ArticleCard post={post} slideProps={slideProps} serviceTitle={serviceTitle(post.serviceIds)} />}
       />
     </section>
   );
