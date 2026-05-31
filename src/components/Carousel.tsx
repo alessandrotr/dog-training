@@ -42,7 +42,7 @@ export default function Carousel<T>({
   return (
     <div>
       {hasHeader && (
-        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div className="mb-4 lg:mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="max-w-2xl space-y-2 text-left">
             {eyebrow && <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-700">{eyebrow}</span>}
             {headline && (
@@ -52,7 +52,7 @@ export default function Carousel<T>({
             )}
             {subheadline && <p className="font-sans text-base leading-relaxed text-stone-500">{subheadline}</p>}
           </div>
-          <div className="flex shrink-0 items-center gap-3">
+          <div className="flex shrink-0 justify-between items-center gap-3">
             {footerLabel && footerHref && (
               <Link
                 href={footerHref}
