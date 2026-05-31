@@ -285,8 +285,7 @@
         "image": { "type": "asset", "filetypes": ["images"], "pos": 2 },
         "body": { "type": "richtext", "pos": 3, "translatable": true },
         "signature_name": { "type": "text", "pos": 4, "translatable": true },
-        "signature_role": { "type": "text", "pos": 5, "translatable": true },
-        "badge_text": { "type": "text", "pos": 6, "translatable": true }
+        "signature_role": { "type": "text", "pos": 5, "translatable": true }
       }
     },
     {

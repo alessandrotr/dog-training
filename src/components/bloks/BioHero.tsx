@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import {storyblokEditable, renderRichText} from '@storyblok/react/rsc';
+import AvailabilityBadge from '../AvailabilityBadge';
 
 interface BioHeroBlok {
   _uid: string;
@@ -10,7 +11,6 @@ interface BioHeroBlok {
   body?: any; // richtext
   signature_name?: string;
   signature_role?: string;
-  badge_text?: string;
 }
 
 export default function BioHero({blok}: {blok: BioHeroBlok}) {
@@ -19,36 +19,12 @@ export default function BioHero({blok}: {blok: BioHeroBlok}) {
   return (
     <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6 lg:pt-8">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
-        <div className="lg:col-span-5 relative">
-          <div className="relative max-w-[380px] mx-auto lg:max-w-none">
-            <div className="absolute -inset-1 rounded-3xl bg-amber-905/10 blur-xl"></div>
-            <div className="relative overflow-hidden rounded-3xl border-8 border-white shadow-2xl aspect-square bg-stone-100">
-              {blok.image?.filename && (
-                <Image
-                  src={blok.image.filename}
-                  alt={blok.image.alt || blok.headline || ''}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  className="object-cover transition-transform duration-500 hover:scale-105"
-                  referrerPolicy="no-referrer"
-                />
-              )}
-            </div>
-            {blok.badge_text && (
-              <div className="absolute -bottom-6 -right-4 bg-emerald-50 text-emerald-950 border border-emerald-250 p-4 rounded-2xl shadow-lg flex items-center space-x-2">
-                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping"></span>
-                <span className="font-mono text-xs font-semibold">{blok.badge_text}</span>
-              </div>
-            )}
-          </div>
-        </div>
-
         <div className="lg:col-span-7 text-left space-y-6">
           {blok.eyebrow && (
             <span className="font-mono text-xs uppercase tracking-widest text-amber-700">{blok.eyebrow}</span>
           )}
           {blok.headline && (
-            <h1 className="font-sans text-3xl font-extrabold tracking-tight text-amber-955 sm:text-4xl">
+            <h1 className="font-sans text-4xl font-extrabold tracking-tight text-amber-955 sm:text-5xl leading-tight">
               {blok.headline}
             </h1>
           )}
@@ -70,6 +46,26 @@ export default function BioHero({blok}: {blok: BioHeroBlok}) {
               </div>
             </div>
           )}
+        </div>
+
+        {/* Image (right) */}
+        <div className="lg:col-span-5 relative">
+          <div className="relative max-w-[380px] mx-auto lg:max-w-none">
+            <div className="absolute -inset-1 rounded-3xl bg-amber-905/10 blur-xl"></div>
+            <div className="relative overflow-hidden rounded-3xl border-8 border-white shadow-2xl aspect-square bg-stone-100">
+              {blok.image?.filename && (
+                <Image
+                  src={blok.image.filename}
+                  alt={blok.image.alt || blok.headline || ''}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="object-cover transition-transform duration-500 hover:scale-105"
+                  referrerPolicy="no-referrer"
+                />
+              )}
+            </div>
+            <AvailabilityBadge className="absolute -bottom-6 -right-4" />
+          </div>
         </div>
       </div>
     </section>
