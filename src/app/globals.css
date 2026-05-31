@@ -44,6 +44,12 @@ body {
   color: #2d2a26;
 }
 
+/* Sticky offset for in-page rails (filters, TOC, availability). Updated live by
+   the Navbar so they ride up/down as it hides/shows. */
+:root {
+  --nav-offset: 6rem;
+}
+
 @theme inline {
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);

@@ -1,9 +1,8 @@
 'use client';
 
-import {useMemo, useState} from 'react';
 import Link from 'next/link';
 import {storyblokEditable} from '@storyblok/react';
-import {ArrowLeft, ArrowRight, ArrowUpRight, Search, PawPrint} from 'lucide-react';
+import {ArrowLeft, ArrowRight, ArrowUpRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import {useCarousel} from '../../lib/use-carousel';
 import {usePageData} from '../PageDataProvider';
@@ -21,13 +20,12 @@ interface ServicesGridBlok {
 }
 
 // Data-bound: pulls the service stories prefetched by the page route.
-// `grid` = highlighted carousel of program cards (home); `list` = searchable,
-// filterable grid (services page). Both share <ServiceCard>.
+// `grid` = highlighted carousel of program cards (home); `list` = a plain
+// responsive grid of all programs (services page). Both share <ServiceCard>.
 export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
   const href = useHref();
   const {services, testimonials} = usePageData();
   const {emblaRef, prev, next, canPrev, canNext, slideProps} = useCarousel();
-  const [query, setQuery] = useState('');
   const limit = Number(blok.limit) || services.length;
   const items = services.slice(0, limit);
   const isList = blok.layout === 'list';
@@ -42,57 +40,14 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
     }
   }
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return items;
-    return items.filter(
-      (s) =>
-        s.title.toLowerCase().includes(q) ||
-        s.shortDescription.toLowerCase().includes(q) ||
-        s.audience.toLowerCase().includes(q),
-    );
-  }, [items, query]);
-
   if (isList) {
     return (
       <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-left">
-        {/* Search (blog-style) */}
-        <div className="mb-12 -mt-12 border-b border-stone-200 pb-8">
-          <div className="relative w-full max-w-md">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-              <Search className="h-4 w-4 text-stone-400" />
-            </div>
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search programs, puppies, reactivity..."
-              className="block w-full rounded-xl border border-stone-300 bg-white py-3 pl-10 pr-4 text-sm text-stone-900 placeholder-stone-400 focus:border-amber-900 focus:outline-none focus:ring-1 focus:ring-amber-900"
-            />
-          </div>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((svc) => (
+            <ServiceCard key={svc.id} svc={svc} review={reviews.get(svc.id)} />
+          ))}
         </div>
-
-        {filtered.length === 0 ? (
-          <div className="mx-auto max-w-md space-y-4 rounded-2xl border-2 border-dashed border-stone-200 py-16 text-center">
-            <PawPrint className="mx-auto h-10 w-10 text-stone-300" aria-hidden="true" />
-            <h3 className="font-sans text-base font-bold text-stone-800">No programs found</h3>
-            <p className="px-4 font-sans text-xs text-stone-500">
-              Nothing matches your search. Try a different term.
-            </p>
-            <button
-              onClick={() => setQuery('')}
-              className="rounded-lg bg-stone-900 px-4 py-2 text-xs font-semibold tracking-wide text-white"
-            >
-              Clear search
-            </button>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            {filtered.map((svc) => (
-              <ServiceCard key={svc.id} svc={svc} review={reviews.get(svc.id)} />
-            ))}
-          </div>
-        )}
       </section>
     );
   }

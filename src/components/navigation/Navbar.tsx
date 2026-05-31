@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useMotionValueEvent } from 'motion/react';
 import { useTranslation } from 'react-i18next';
@@ -26,6 +26,12 @@ export default function Navbar({ config }: { config: SiteConfig }) {
     if (y > prev && y > 100) setHidden(true);
     else if (y < prev) setHidden(false);
   });
+
+  // Publish the navbar offset so sticky elements (filters, TOC, availability)
+  // can ride up/down with the navbar via `top: var(--nav-offset)`.
+  useEffect(() => {
+    document.documentElement.style.setProperty('--nav-offset', hidden ? '1.5rem' : '6rem');
+  }, [hidden]);
 
   const solid = !atTop || isOpen; // frosted bar once scrolled or when the mobile menu is open
 

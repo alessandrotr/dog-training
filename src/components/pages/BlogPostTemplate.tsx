@@ -80,7 +80,7 @@ export default function BlogPostTemplate({ post, posts, taxonomies }: BlogPostTe
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           
           {/* LEFT: Sidebar with Author & TOC */}
-          <aside className="lg:col-span-4 space-y-8 lg:sticky lg:top-24 h-fit">
+          <aside className="lg:col-span-4 space-y-8 lg:sticky lg:top-(--nav-offset) h-fit lg:transition-[top] lg:duration-300 lg:ease-out">
             
             {/* Table of Contents (auto-generated from the article headings) */}
             {toc.length > 1 && (
