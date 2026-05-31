@@ -5,6 +5,7 @@ import {usePathname} from 'next/navigation';
 import Navbar from './navigation/Navbar';
 import Footer from './navigation/Footer';
 import MobileStickyCTA from './navigation/MobileStickyCTA';
+import LeadDialogMount from './lead/LeadDialogMount';
 import type {SiteConfig} from '../types';
 
 // Persistent app shell rendered around every route by the root layout.
@@ -37,6 +38,9 @@ export default function SiteChrome({
 
       {/* Floating high-priority actions */}
       <MobileStickyCTA />
+
+      {/* Unified Book/Contact dialog + global CTA interceptor */}
+      <LeadDialogMount />
     </div>
   );
 }

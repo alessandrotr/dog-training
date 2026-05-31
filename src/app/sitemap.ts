@@ -3,8 +3,9 @@ import {LOCALES} from '../lib/locales';
 import {getStoryblokApi} from '../lib/storyblok';
 import {SITE_URL} from '../lib/seo';
 
-// Explicit, code-owned routes (not builder pages).
-const STATIC_ROUTES = ['contact', 'booking', 'blog'];
+// Explicit, code-owned routes (not builder pages). Contact/booking are dialogs,
+// not indexable pages, so they're intentionally excluded.
+const STATIC_ROUTES = ['blog'];
 
 // One sitemap entry per locale, each carrying hreflang `alternates` pointing at
 // its sibling-locale URLs (path is identical across locales except the prefix).

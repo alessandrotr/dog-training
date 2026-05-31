@@ -10,7 +10,23 @@
       "Bash(curl -s http://localhost:3000/sitemap.xml)",
       "Bash(pkill -f \"next start\")",
       "Bash(pkill -f \"next-server\")",
-      "Bash(node -e \"const c=require\\('./storyblok/components.json'\\);const arr=Array.isArray\\(c\\)?c:c.components;const p=arr.find\\(x=>x.name==='services_grid'\\);console.log\\(JSON.stringify\\(p.schema,null,1\\)\\)\")"
+      "Bash(node -e \"const c=require\\('./storyblok/components.json'\\);const arr=Array.isArray\\(c\\)?c:c.components;const p=arr.find\\(x=>x.name==='services_grid'\\);console.log\\(JSON.stringify\\(p.schema,null,1\\)\\)\")",
+      "Bash(node -e \"const p=require\\('./package.json'\\);console.log\\(Object.keys\\({...p.dependencies,...p.devDependencies}\\).join\\('\\\\n'\\)\\)\")",
+      "Bash(cat > *)",
+      "Bash(node -e \"const t=require\\('./tsconfig.json'\\);console.log\\(JSON.stringify\\(t.compilerOptions.paths||'NONE'\\),'| baseUrl:',t.compilerOptions.baseUrl||'NONE'\\)\")",
+      "Bash(npx shadcn@latest init -d --base-color neutral)",
+      "Bash(npx shadcn@latest init -d)",
+      "Bash(node -e \"const p=require\\('./package.json'\\);console.log\\(JSON.stringify\\(p.dependencies,null,1\\)\\)\")",
+      "Bash(npx shadcn@latest add dialog tabs input label textarea --yes)",
+      "Bash(npm uninstall *)",
+      "Bash(echo \"EXIT=$?\")",
+      "Bash(curl -s \"http://localhost:3000/en\")",
+      "Bash(lsof -ti:3000)",
+      "Bash(pkill -9 -f \"next\")",
+      "Bash(echo \"listeners: $\\(lsof -ti:3000)"
+    ],
+    "additionalDirectories": [
+      "/tmp"
     ]
   }
 }

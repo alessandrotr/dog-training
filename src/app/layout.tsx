@@ -1,5 +1,6 @@
 import type {Metadata} from 'next';
 import {headers} from 'next/headers';
+import {NuqsAdapter} from 'nuqs/adapters/next/app';
 import StoryblokProvider from '../components/StoryblokProvider';
 import StoryblokBridge from '../components/StoryblokBridge';
 import {SITE_URL, SITE_NAME} from '../lib/seo';
@@ -24,10 +25,12 @@ export default async function RootLayout({
   return (
     <html lang={lang}>
       <body>
-        <StoryblokProvider>
-          {children}
-          <StoryblokBridge />
-        </StoryblokProvider>
+        <NuqsAdapter>
+          <StoryblokProvider>
+            {children}
+            <StoryblokBridge />
+          </StoryblokProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );

@@ -75,6 +75,7 @@ const resources = {
       },
       contact: {
         badge: 'LET\'S START CONVERSATION',
+        tab: 'Message',
         headline: 'Consultation Inquiry',
         subheadline: 'Ready to design a custom behavioral plan for your dog? Submit your inquiry details below. We guarantee a thoughtful response from certified behaviorist Sophia within 24 business hours.',
         coordinatesTitle: 'Direct Contact Coordinates',
@@ -100,7 +101,7 @@ const resources = {
           detailBehaviors: 'Detail Your Dog\'s Behaviors',
           detailPlaceholder: 'Tell us about Baxter\'s typical day, what patterns trigger them, and what your ultimate household goals are...',
           sendButton: 'Send Intake Packet',
-          transmitting: 'TRANSMITTING VIA RESEND API...',
+          transmitting: 'Sending…',
           resendNotice: '* Note: In production, this form triggers a background Node post lambda using @resend/node SDK to forward clinical intake data directly to the head trainer\'s mailbox.',
         },
         successTitle: 'Message Dispatched Successfully!',
@@ -109,6 +110,7 @@ const resources = {
       },
       booking: {
         badge: 'ONLINE SCHEDULING PORTAL',
+        tab: 'Book a call',
         headline: 'Schedule Free Consult',
         subheadline: 'Select an active coordinate slot below for your initial, zero-obligation, 15-minute alignment phone call. We\'ll chat about your dog, their physical environment, and check matching timelines.',
         successTitle: 'Your Consult is Arranged!',
@@ -203,6 +205,7 @@ const resources = {
       },
       contact: {
         badge: 'LASSEN UNS INS GESPRÄCH KOMMEN',
+        tab: 'Nachricht',
         headline: 'Erstgespräch & Anfrage',
         subheadline: 'Bereit für einen maßgeschneiderten Verhaltensplan? Senden Sie uns Ihre Details. Wir garantieren eine fundierte Rückmeldung von der zertifizierten Verhaltenstherapeutin Sophia innerhalb von 24 Werktagen.',
         coordinatesTitle: 'Direkte Kontaktdaten',
@@ -228,7 +231,7 @@ const resources = {
           detailBehaviors: 'Beschreiben Sie das Verhalten Ihres Hundes',
           detailPlaceholder: 'Erzählen Sie uns von Baxters typischem Tag, was die Auslöser sind und was Ihre Ziele für das Zusammenleben sind...',
           sendButton: 'Anfrage absenden',
-          transmitting: 'ÜBERTRAGE ÜBER DIE RESEND API...',
+          transmitting: 'Senden…',
           resendNotice: '* Hinweis: In der Live-Version triggert dieses Formular ein Node Background Lambda mit @resend/node SDK, um die Daten direkt an die Trainerin zu senden.',
         },
         successTitle: 'Nachricht erfolgreich übermittelt!',
@@ -237,6 +240,7 @@ const resources = {
       },
       booking: {
         badge: 'ONLINE-TERMINBUCHUNG',
+        tab: 'Termin',
         headline: 'Erstgespräch vereinbaren',
         subheadline: 'Wählen Sie unten einen freien Termin für Ihr kostenloses, unverbindliches 15-minütiges Gespräch per Telefon oder Zoom aus. Wir sprechen über Ihren Hund und die zeitlichen Optionen.',
         successTitle: 'Ihr Termin wurde reserviert!',
