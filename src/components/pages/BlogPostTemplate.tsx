@@ -23,6 +23,9 @@ export default function BlogPostTemplate({ post, posts, taxonomies }: BlogPostTe
   const tagLabel = (t: string) => taxonomies.tags[t] ?? t;
   const {emblaRef, prev, next, canPrev, canNext, slideProps} = useCarousel();
 
+  // Table of contents is built server-side (ids injected into the article HTML).
+  const toc = post.tableOfContents ?? [];
+
   // Related posts: prefer same category, then fill with the rest.
   const others = blogPosts.filter((p) => p.slug !== post.slug);
   const relatedPosts = [
@@ -79,19 +82,28 @@ export default function BlogPostTemplate({ post, posts, taxonomies }: BlogPostTe
           {/* LEFT: Sidebar with Author & TOC */}
           <aside className="lg:col-span-4 space-y-8 lg:sticky lg:top-24 h-fit">
             
-            {/* Table of Contents */}
-            {post.tableOfContents && post.tableOfContents.length > 0 && (
+            {/* Table of Contents (auto-generated from the article headings) */}
+            {toc.length > 1 && (
               <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6 text-left">
                 <h3 className="font-mono text-xs uppercase tracking-widest text-stone-450 mb-4 font-bold">Table of Contents</h3>
-                <nav className="space-y-2 text-xs font-sans">
-                  {post.tableOfContents.map((toc, tIdx) => (
+                <nav className="space-y-1 text-xs font-sans">
+                  {toc.map((item) => (
                     <a
-                      key={tIdx}
-                      id={`toc-link-${toc.id}`}
-                      href={`#${toc.id}`}
-                      className="block text-stone-600 hover:text-amber-900 transition-colors py-1 leading-normal"
+                      key={item.id}
+                      href={`#${item.id}`}
+                      onClick={(e) => {
+                        const el = document.getElementById(item.id);
+                        if (el) {
+                          e.preventDefault();
+                          el.scrollIntoView({behavior: 'smooth', block: 'start'});
+                          history.replaceState(null, '', `#${item.id}`);
+                        }
+                      }}
+                      className={`block border-l-2 py-1 leading-normal text-stone-600 transition-colors hover:border-amber-700 hover:text-amber-900 ${
+                        item.depth === 3 ? 'border-stone-200 pl-5' : 'border-stone-300 pl-3 font-medium'
+                      }`}
                     >
-                      {toc.text}
+                      {item.text}
                     </a>
                   ))}
                 </nav>
@@ -107,7 +119,7 @@ export default function BlogPostTemplate({ post, posts, taxonomies }: BlogPostTe
           {/* RIGHT: Document Text markdown-body typography */}
           <main className="lg:col-span-8">
             <div
-              className="prose prose-stone max-w-none prose-headings:font-sans prose-headings:font-extrabold prose-headings:text-amber-955 prose-p:leading-relaxed prose-li:my-1.5 prose-p:my-4 prose-p:text-stone-600 prose-li:text-stone-605"
+              className="prose prose-stone max-w-none prose-headings:font-sans prose-headings:font-extrabold prose-headings:text-amber-955 prose-headings:scroll-mt-24 prose-p:leading-relaxed prose-li:my-1.5 prose-p:my-4 prose-p:text-stone-600 prose-li:text-stone-605"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 

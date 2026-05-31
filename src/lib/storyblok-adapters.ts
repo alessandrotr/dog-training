@@ -16,6 +16,26 @@ const richText = (val: any): string => {
   }
 };
 
+// Injects stable `id`s into the article's h2/h3 headings and extracts a table
+// of contents, server-side, so anchors exist in the SSR HTML (reliable scroll).
+const buildToc = (html: string): {html: string; toc: BlogPost['tableOfContents']} => {
+  const toc: NonNullable<BlogPost['tableOfContents']> = [];
+  const seen = new Set<string>();
+  const decode = (s: string) =>
+    s.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ');
+  const out = html.replace(/<(h[23])((?:\s[^>]*)?)>([\s\S]*?)<\/\1>/g, (m, tag, attrs, inner) => {
+    const text = decode(String(inner).replace(/<[^>]+>/g, '')).trim();
+    if (!text) return m;
+    const base = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'section';
+    let id = base;
+    for (let i = 2; seen.has(id); i++) id = `${base}-${i}`;
+    seen.add(id);
+    toc.push({id, text, depth: tag === 'h3' ? 3 : 2});
+    return /\bid=/.test(attrs) ? m : `<${tag}${attrs} id="${id}">${inner}</${tag}>`;
+  });
+  return {html: out, toc};
+};
+
 export const adaptService = (s: any): ServiceItem => {
   const c = s?.content ?? {};
   return {
@@ -60,12 +80,14 @@ export const adaptFaq = (s: any): FAQItem => {
 
 export const adaptBlogPost = (s: any): BlogPost => {
   const c = s?.content ?? {};
+  const {html, toc} = buildToc(richText(c.content));
   return {
     id: s?.uuid ?? s?.slug ?? '',
     slug: s?.slug ?? '',
     title: c.title ?? '',
     summary: c.summary ?? '',
-    content: richText(c.content),
+    content: html,
+    tableOfContents: toc,
     imageUrl: c.image?.filename ?? '',
     publishDate: c.publish_date ?? '',
     readingTime: c.reading_time ?? '',
