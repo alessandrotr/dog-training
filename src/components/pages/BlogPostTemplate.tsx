@@ -33,7 +33,7 @@ export default function BlogPostTemplate({ post, posts }: BlogPostTemplateProps)
 
         {/* Heading Container */}
         <div className="max-w-3xl mx-auto space-y-4 mb-10 text-center md:text-left">
-          <span className="inline-flex items-center rounded-full bg-amber-50 px-3 py-1 text-xs font-mono font-bold text-amber-700 border border-amber-200/45">
+          <span className="inline-flex items-center rounded-full font-mono uppercase bg-amber-700 px-3 py-1 text-xs font-bold text-white border border-amber-200/45">
             {post.category}
           </span>
           <h1 className="font-sans text-3xl font-extrabold tracking-tight text-amber-955 sm:text-4xl md:text-5xl leading-tight">

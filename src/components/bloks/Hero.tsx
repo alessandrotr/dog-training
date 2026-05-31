@@ -47,7 +47,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
             fill
             priority
             sizes="100vw"
-            className="object-cover opacity-85"
+            className="object-cover object-left opacity-85"
             referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-linear-to-r from-stone-50/95 via-stone-50/75 to-stone-50/35" />
