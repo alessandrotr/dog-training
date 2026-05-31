@@ -12,10 +12,12 @@ export default function CaseStudyCard({
   story,
   service,
   className = '',
+  slideProps,
 }: {
   story: TestimonialItem;
   service?: ServiceItem; // the service this case study is about; omit to hide the link
   className?: string;
+  slideProps?: Record<string, unknown>; // drag-guard from useCarousel (card carousel)
 }) {
   const href = useHref();
 
@@ -40,6 +42,7 @@ export default function CaseStudyCard({
         <div className="min-w-0">
           <Link
             href={href.caseStudy(story.slug)}
+            {...slideProps}
             className="truncate text-sm font-bold leading-tight text-stone-900 transition-colors before:absolute before:inset-0 before:content-[''] group-hover:text-amber-900"
           >
             {story.name}

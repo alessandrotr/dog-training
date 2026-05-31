@@ -7,13 +7,17 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {useHref} from '../../lib/navigation';
 import {usePageData} from '../PageDataProvider';
+import Carousel from '../Carousel';
 import CaseStudyCard from './CaseStudyCard';
 
 interface TestimonialsBlok {
   _uid: string;
   component: string;
+  eyebrow?: string;
+  headline?: string;
+  subheadline?: string;
   footer_label?: string;
-  layout?: 'carousel' | 'grid';
+  layout?: 'carousel' | 'cards' | 'grid';
 }
 
 // Data-bound: pulls case-study stories from the page route.
@@ -34,6 +38,27 @@ export default function Testimonials({blok}: {blok: TestimonialsBlok}) {
             <CaseStudyCard key={tItem.id} story={tItem} service={serviceById.get(tItem.serviceId ?? '')} />
           ))}
         </div>
+      </section>
+    );
+  }
+
+  if (blok.layout === 'cards') {
+    return (
+      <section {...storyblokEditable(blok as any)} className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Carousel
+          items={testimonials}
+          getKey={(t) => t.id}
+          size="sm"
+          label="case studies"
+          eyebrow={blok.eyebrow}
+          headline={blok.headline}
+          subheadline={blok.subheadline}
+          footerLabel={blok.footer_label}
+          footerHref={href.page('testimonials')}
+          renderItem={(t, slideProps) => (
+            <CaseStudyCard story={t} service={serviceById.get(t.serviceId ?? '')} slideProps={slideProps} />
+          )}
+        />
       </section>
     );
   }
