@@ -2,7 +2,8 @@ import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import {getServices, getTestimonials} from '../../../../lib/content-server';
 import CaseStudyDetail from '../../../../components/pages/CaseStudyDetail';
-import {isLocale, DEFAULT_LOCALE, LOCALES, type Locale} from '../../../../lib/locales';
+import {isLocale, DEFAULT_LOCALE, LOCALES} from '../../../../lib/locales';
+import {isPreview, resolveLocale} from '../../../../lib/route-context';
 import {buildMetadata} from '../../../../lib/seo';
 import {mapById} from '../../../../lib/relations';
 
@@ -40,10 +41,12 @@ export default async function Page({
   searchParams: SP;
 }) {
   const {lang, slug} = await params;
-  const preview = '_storyblok' in (await searchParams);
+  const sp = await searchParams;
+  const preview = isPreview(sp);
+  const locale = resolveLocale(lang, sp);
   const [testimonials, services] = await Promise.all([
-    getTestimonials(lang as Locale, preview),
-    getServices(lang as Locale, preview),
+    getTestimonials(locale, preview),
+    getServices(locale, preview),
   ]);
   const story = testimonials.find((t) => t.slug === slug);
   if (!story) notFound();

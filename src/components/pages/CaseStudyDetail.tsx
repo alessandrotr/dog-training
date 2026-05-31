@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {ArrowLeft, Sparkles, ArrowUpRight, ArrowRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
-import CaseStudyCard from '../bloks/CaseStudyCard';
+import CaseStudyCard from '../cards/CaseStudyCard';
 import Eyebrow from '../ui/eyebrow';
 import Avatar from '../ui/avatar';
 import {Button} from '../ui/button';

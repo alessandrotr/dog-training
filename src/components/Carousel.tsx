@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import {ArrowLeft, ArrowRight, ArrowUpRight} from 'lucide-react';
 import {useCarousel} from '../lib/use-carousel';
-import Eyebrow from './ui/eyebrow';
+import SectionHeading from './ui/section-heading';
 import {Button} from './ui/button';
 
 // Slide-width variants: `lg` = prominent (home services), `sm` = compact (articles).
@@ -45,15 +45,13 @@ export default function Carousel<T>({
     <div>
       {hasHeader && (
         <div className="mb-4 lg:mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl space-y-2 text-left">
-            {eyebrow && <Eyebrow tone="brand">{eyebrow}</Eyebrow>}
-            {headline && (
-              <h2 className={`font-sans font-extrabold tracking-tight text-amber-950 ${size === 'lg' ? 'text-3xl sm:text-4xl' : 'text-2xl'}`}>
-                {headline}
-              </h2>
-            )}
-            {subheadline && <p className="font-sans text-base leading-relaxed text-stone-500">{subheadline}</p>}
-          </div>
+          <SectionHeading
+            eyebrow={eyebrow}
+            headline={headline}
+            subheadline={subheadline}
+            size={size === 'lg' ? 'lg' : 'md'}
+            className="max-w-2xl space-y-2"
+          />
           <div className="flex shrink-0 justify-between items-center gap-3">
             {footerLabel && footerHref && (
               <Link

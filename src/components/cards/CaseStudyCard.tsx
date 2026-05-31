@@ -3,10 +3,7 @@
 import Link from 'next/link';
 import {Quote, Sparkles, ArrowUpRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
-import Eyebrow from '../ui/eyebrow';
-import Pill from '../ui/pill';
-import Avatar from '../ui/avatar';
-import Card from '../ui/card';
+import {Eyebrow, Pill, Avatar, Card} from '../ui';
 import {cn} from '../../lib/utils';
 import type {TestimonialItem, ServiceItem} from '../../types';
 

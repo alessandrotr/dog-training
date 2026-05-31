@@ -6,7 +6,7 @@ import {usePageData} from '../PageDataProvider';
 import {caseStudyCountByService, guideCountByService} from '../../lib/relations';
 import Carousel from '../Carousel';
 import Section from '../ui/section';
-import ServiceCard from './ServiceCard';
+import ServiceCard from '../cards/ServiceCard';
 
 import type {BlokBase} from '../../types';
 

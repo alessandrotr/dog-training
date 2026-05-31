@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import RenderStoryblokPage from '../../../components/RenderStoryblokPage';
-import {isLocale, DEFAULT_LOCALE, type Locale} from '../../../lib/locales';
+import {isLocale, DEFAULT_LOCALE} from '../../../lib/locales';
+import {isPreview, resolveLocale} from '../../../lib/route-context';
 import {pageMetadata} from '../../../lib/seo';
 
 type SP = Promise<Record<string, string | string[] | undefined>>;
@@ -18,6 +19,6 @@ export default async function Page({
   searchParams: SP;
 }) {
   const {lang} = await params;
-  const preview = '_storyblok' in (await searchParams);
-  return <RenderStoryblokPage slug="about" lang={lang as Locale} preview={preview} />;
+  const sp = await searchParams;
+  return <RenderStoryblokPage slug="about" lang={resolveLocale(lang, sp)} preview={isPreview(sp)} />;
 }

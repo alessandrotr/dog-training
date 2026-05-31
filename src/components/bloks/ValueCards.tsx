@@ -1,6 +1,6 @@
 import {StoryblokServerComponent, storyblokEditable} from '@storyblok/react/rsc';
 import Section from '../ui/section';
-import Eyebrow from '../ui/eyebrow';
+import SectionHeading from '../ui/section-heading';
 
 import type {BlokBase} from '../../types';
 
@@ -17,17 +17,13 @@ export default function ValueCards({blok}: {blok: ValueCardsBlok}) {
 
   return (
     <Section {...storyblokEditable(blok as any)}>
-      {(blok.eyebrow || blok.headline || blok.subheadline) && (
-        <div className="text-center max-w-2xl mx-auto space-y-4 mb-16">
-          {blok.eyebrow && (
-            <Eyebrow tone="brand">{blok.eyebrow}</Eyebrow>
-          )}
-          {blok.headline && (
-            <h2 className="font-sans text-3xl font-extrabold tracking-tight text-amber-955">{blok.headline}</h2>
-          )}
-          {blok.subheadline && <p className="font-sans text-sm text-stone-500">{blok.subheadline}</p>}
-        </div>
-      )}
+      <SectionHeading
+        eyebrow={blok.eyebrow}
+        headline={blok.headline}
+        subheadline={blok.subheadline}
+        align="center"
+        className="mx-auto mb-16 max-w-2xl"
+      />
       <div className={`grid grid-cols-1 gap-8 ${cols} text-left`}>
         {(blok.cards ?? []).map((card) => (
           <StoryblokServerComponent blok={card} key={card._uid} />

@@ -2,7 +2,8 @@ import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import {getServices, getTestimonials, getBlogPosts} from '../../../../lib/content-server';
 import ServiceDetail from '../../../../components/pages/ServiceDetail';
-import {isLocale, DEFAULT_LOCALE, type Locale} from '../../../../lib/locales';
+import {isLocale, DEFAULT_LOCALE} from '../../../../lib/locales';
+import {isPreview, resolveLocale} from '../../../../lib/route-context';
 import {buildMetadata} from '../../../../lib/seo';
 
 type SP = Promise<Record<string, string | string[] | undefined>>;
@@ -32,11 +33,13 @@ export default async function Page({
   searchParams: SP;
 }) {
   const {lang, slug} = await params;
-  const preview = '_storyblok' in (await searchParams);
+  const sp = await searchParams;
+  const preview = isPreview(sp);
+  const locale = resolveLocale(lang, sp);
   const [services, testimonials, posts] = await Promise.all([
-    getServices(lang as Locale, preview),
-    getTestimonials(lang as Locale, preview),
-    getBlogPosts(lang as Locale, preview),
+    getServices(locale, preview),
+    getTestimonials(locale, preview),
+    getBlogPosts(locale, preview),
   ]);
   const service = services.find((s) => s.slug === slug);
   if (!service) notFound();

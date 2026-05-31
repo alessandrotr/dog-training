@@ -10,8 +10,8 @@ import { caseStudyCountByService, guideCountByService } from '../../lib/relation
 import Section from '../ui/section';
 import Eyebrow from '../ui/eyebrow';
 import Carousel from '../Carousel';
-import ArticleCard from '../bloks/ArticleCard';
-import ServiceCard from '../bloks/ServiceCard';
+import ArticleCard from '../cards/ArticleCard';
+import ServiceCard from '../cards/ServiceCard';
 import Availability from '../bloks/Availability';
 
 interface BlogPostTemplateProps {

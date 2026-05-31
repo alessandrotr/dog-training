@@ -5,7 +5,7 @@ import {useHref} from '../../lib/navigation';
 import {usePageData} from '../PageDataProvider';
 import Carousel from '../Carousel';
 import Section from '../ui/section';
-import ArticleCard from './ArticleCard';
+import ArticleCard from '../cards/ArticleCard';
 
 import type {BlokBase} from '../../types';
 

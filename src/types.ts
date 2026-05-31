@@ -98,7 +98,6 @@ export interface ServiceItem {
   features: string[];
   imageUrl: string;
   audience: string;
-  icon: string; // Lucide icon name
 }
 
 // A client case study: the dog, the challenge, what was done (text), the outcome,

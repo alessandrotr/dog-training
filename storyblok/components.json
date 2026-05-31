@@ -13,11 +13,6 @@
         "duration_value": { "type": "number", "pos": 4, "default_value": "1", "description": "How many units, e.g. 2." },
         "duration_unit": { "type": "option", "pos": 5, "use_uuid": false, "description": "Per … (combines with the amount → e.g. €100 / 2 hours).", "options": [{"name": "minute", "value": "minute"}, {"name": "hour", "value": "hour"}, {"name": "session", "value": "session"}, {"name": "day", "value": "day"}, {"name": "week", "value": "week"}, {"name": "month", "value": "month"}, {"name": "year", "value": "year"}] },
         "audience": { "type": "text", "pos": 6, "translatable": true },
-        "icon": {
-          "type": "text",
-          "pos": 7,
-          "description": "Lucide icon name, e.g. Sparkles / ShieldAlert / UserCheck / CalendarDays"
-        },
         "features": {
           "type": "textarea",
           "pos": 8,

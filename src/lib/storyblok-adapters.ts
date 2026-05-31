@@ -66,7 +66,6 @@ export const adaptService = (s: any): ServiceItem => {
     features: lines(c.features),
     imageUrl: assetUrl(c.image) ?? '',
     audience: c.audience ?? '',
-    icon: c.icon ?? '',
   };
 };
 
