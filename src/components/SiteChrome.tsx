@@ -33,7 +33,7 @@ export default function SiteChrome({
         <Navbar config={config} />
 
         {/* Main Display Body */}
-        <main className="flex-grow">
+        <main className="grow">
           <div className="relative">{children}</div>
         </main>
 
