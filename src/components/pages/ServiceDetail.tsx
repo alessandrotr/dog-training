@@ -14,11 +14,11 @@ import type {ServiceItem, TestimonialItem} from '../../types';
 // pattern). Renders from the `service` entry — no bespoke per-service pages.
 export default function ServiceDetail({
   service,
-  reviews,
+  testimonials,
   related,
 }: {
   service: ServiceItem;
-  reviews: TestimonialItem[];
+  testimonials: TestimonialItem[];
   related: ServiceItem[];
 }) {
   const href = useHref();
@@ -27,7 +27,16 @@ export default function ServiceDetail({
   const {emblaRef, prev, next, canPrev, canNext, slideProps} = useCarousel();
 
   const added = cart.has(service.slug);
-  const reviewsForSvc = reviews.filter((r) => r.rating > 0);
+
+  // Per-service review stats (avg + count) from all tagged testimonials, so the
+  // related-services carousel shows real ratings too — same as ServicesGrid.
+  const reviewStats = new Map<string, {avg: number; count: number}>();
+  for (const id of new Set(testimonials.map((t) => t.serviceId).filter(Boolean) as string[])) {
+    const tagged = testimonials.filter((t) => t.serviceId === id && t.rating > 0);
+    if (tagged.length) reviewStats.set(id, {avg: tagged.reduce((s, t) => s + t.rating, 0) / tagged.length, count: tagged.length});
+  }
+
+  const reviewsForSvc = testimonials.filter((t) => t.serviceId === service.id && t.rating > 0);
   const avg = reviewsForSvc.length ? reviewsForSvc.reduce((s, r) => s + r.rating, 0) / reviewsForSvc.length : 0;
 
   return (
@@ -165,7 +174,7 @@ export default function ServiceDetail({
             <div className="overflow-hidden cursor-grab active:cursor-grabbing select-none" ref={emblaRef}>
               <div className="flex gap-6 py-1">
                 {related.map((svc) => (
-                  <ServiceCard key={svc.id} svc={svc} slideProps={slideProps} className="flex-[0_0_80%] sm:flex-[0_0_46%] lg:flex-[0_0_31%]" />
+                  <ServiceCard key={svc.id} svc={svc} review={reviewStats.get(svc.id)} slideProps={slideProps} className="flex-[0_0_80%] sm:flex-[0_0_46%] lg:flex-[0_0_31%]" />
                 ))}
               </div>
             </div>

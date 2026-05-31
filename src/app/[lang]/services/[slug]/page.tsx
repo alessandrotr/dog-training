@@ -39,7 +39,6 @@ export default async function Page({
   ]);
   const service = services.find((s) => s.slug === slug);
   if (!service) notFound();
-  const reviews = testimonials.filter((t) => t.serviceId === service.id);
   const related = services.filter((s) => s.slug !== slug);
-  return <ServiceDetail service={service} reviews={reviews} related={related} />;
+  return <ServiceDetail service={service} testimonials={testimonials} related={related} />;
 }
