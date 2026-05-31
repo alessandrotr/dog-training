@@ -44,14 +44,14 @@ export default function ServiceDetail({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Back link */}
         <Link href={href.page('services')} className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-stone-500 transition-colors hover:text-amber-900">
-          <ArrowLeft className="h-3.5 w-3.5" /> All Programs
+          <ArrowLeft className="h-3.5 w-3.5" /> All Services
         </Link>
 
         {/* Hero */}
         <div className="mt-6 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center">
           <div className="space-y-5">
             {service.audience && (
-              <span className="inline-flex items-center rounded-full bg-amber-700 px-3 py-1 font-mono text-xs font-bold uppercase tracking-wide text-white">
+              <span className="inline-flex items-center rounded-full font-mono text-xs font-bold uppercase tracking-wide">
                 {service.audience}
               </span>
             )}

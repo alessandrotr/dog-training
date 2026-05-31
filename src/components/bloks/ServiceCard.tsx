@@ -43,7 +43,7 @@ export default function ServiceCard({
           />
         )}
         {svc.audience && (
-          <span className="absolute top-3 left-3 rounded-full bg-white/95 px-3 py-1 text-[10px] font-mono font-semibold uppercase tracking-wide text-stone-700 shadow-sm backdrop-blur">
+          <span className="absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] truncate rounded-full bg-amber-700/90 px-3 py-1 text-[10px] font-mono font-semibold uppercase tracking-wide text-stone-100 shadow-sm backdrop-blur">
             {svc.audience}
           </span>
         )}
