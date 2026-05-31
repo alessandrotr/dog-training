@@ -68,7 +68,7 @@ export default function Availability({blok}: {blok: AvailabilityBlok}) {
 
           <div className="min-w-0">
             <div className="flex items-center gap-1">
-              <span className="truncate font-sans font-bold text-stone-900">{blok.name || 'Sophia Binder'}</span>
+              <Link href={href.page('about')} className="truncate font-sans font-bold text-stone-700 hover:text-stone-900">{blok.name || 'Sophia Binder'}</Link>
             </div>
             {blok.handle && <span className="block font-mono text-xs text-stone-400">{blok.handle}</span>}
             <span className={`mt-1.5 inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${available ? 'bg-emerald-50 text-emerald-700' : 'bg-stone-100 text-stone-500'}`}>
