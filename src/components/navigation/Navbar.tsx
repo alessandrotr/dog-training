@@ -41,7 +41,7 @@ export default function Navbar({ config }: { config: SiteConfig }) {
                 href={href.page(item.target)}
                 className={`text-xs font-medium font-mono uppercase transition-colors cursor-pointer relative py-1 px-2 rounded-full ${
                   isActive
-                    ? 'text-amber-200 bg-amber-700'
+                    ? 'text-white bg-amber-700'
                     : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
@@ -97,7 +97,7 @@ export default function Navbar({ config }: { config: SiteConfig }) {
               <Link
                 href={href.page(config.ctaTarget)}
                 onClick={close}
-                className="flex w-full items-center justify-center space-x-2 rounded-xl bg-amber-900 py-3 text-sm font-semibold text-white shadow-sm hover:bg-amber-950"
+                className="flex w-full items-center justify-center space-x-2 rounded-xl bg-amber-700 py-3 text-sm font-semibold text-white shadow-sm hover:bg-amber-950"
               >
                 <CalendarRange className="h-4 w-4" />
                 <span>{config.ctaLabel}</span>

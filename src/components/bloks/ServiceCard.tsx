@@ -80,7 +80,7 @@ export default function ServiceCard({
             <span className="block font-mono text-[10px] uppercase tracking-wider text-stone-400">Starting at</span>
             <span className="mt-1 block font-sans text-xl font-extrabold text-amber-950">{svc.price}</span>
           </div>
-          <span className="inline-flex items-center gap-1.5 rounded-xl bg-amber-900 px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition-all group-hover:bg-amber-950 group-hover:shadow">
+          <span className="inline-flex items-center gap-1.5 rounded-xl bg-amber-700 px-4 py-2.5 text-xs font-semibold text-white shadow-sm transition-all group-hover:bg-amber-950 group-hover:shadow">
             <ShoppingBag className="h-4 w-4" />
             View
           </span>

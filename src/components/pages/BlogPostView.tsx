@@ -28,7 +28,7 @@ export default function BlogPostView({
         </p>
         <Link
           href={href.page('blog')}
-          className="inline-block rounded-xl bg-amber-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-amber-950"
+          className="inline-block rounded-xl bg-amber-700 px-5 py-2.5 text-sm font-semibold text-white hover:bg-amber-950"
         >
           Back to Blog
         </Link>

@@ -26,12 +26,12 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
             <p className="text-sm text-stone-400 max-w-xs leading-relaxed">{config.tagline}</p>
             <div className="flex space-x-4 pt-2">
               {config.instagramUrl && (
-                <a href={config.instagramUrl} target="_blank" rel="noreferrer" className="rounded-lg p-2 bg-stone-800 hover:bg-amber-800 transition-colors text-stone-400 hover:text-white" aria-label="Instagram">
+                <a href={config.instagramUrl} target="_blank" rel="noreferrer" className="rounded-lg p-2 bg-stone-800 hover:bg-amber-700 transition-colors text-stone-400 hover:text-white" aria-label="Instagram">
                   <Instagram className="h-4 w-4" />
                 </a>
               )}
               {config.facebookUrl && (
-                <a href={config.facebookUrl} target="_blank" rel="noreferrer" className="rounded-lg p-2 bg-stone-800 hover:bg-amber-800 transition-colors text-stone-400 hover:text-white" aria-label="Facebook">
+                <a href={config.facebookUrl} target="_blank" rel="noreferrer" className="rounded-lg p-2 bg-stone-800 hover:bg-amber-700 transition-colors text-stone-400 hover:text-white" aria-label="Facebook">
                   <Facebook className="h-4 w-4" />
                 </a>
               )}

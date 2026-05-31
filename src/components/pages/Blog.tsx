@@ -183,7 +183,7 @@ export default function Blog({ posts }: { posts: BlogPost[] }) {
           </div>
           <Link
             href={href.page('contact')}
-            className="rounded-xl bg-amber-900 text-white px-5 py-3 text-xs font-semibold hover:bg-amber-950 transition"
+            className="rounded-xl bg-amber-700 text-white px-5 py-3 text-xs font-semibold hover:bg-amber-950 transition"
           >
             Inquire Directly
           </Link>

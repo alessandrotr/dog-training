@@ -18,7 +18,7 @@ export default function ConnectFab() {
       onClick={() => open('book')}
       aria-label={t('booking.headline')}
       className={cn(
-        'fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 flex items-center gap-3.5 rounded-full bg-amber-900 py-3.5 pl-4 pr-5 text-white shadow-lg shadow-amber-950/25 ring-1 ring-amber-500/20 transition-all duration-300 ease-out hover:bg-amber-950 hover:shadow-xl active:scale-95 sm:right-6 sm:bottom-6',
+        'fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 flex items-center gap-3.5 rounded-full bg-amber-700 py-3.5 pl-4 pr-5 text-white shadow-lg shadow-amber-950/25 ring-1 ring-amber-500/20 transition-all duration-300 ease-out hover:bg-amber-950 hover:shadow-xl active:scale-95 sm:right-6 sm:bottom-6',
         isOpen ? 'pointer-events-none translate-y-28 opacity-0' : 'translate-y-0 opacity-100',
       )}
     >

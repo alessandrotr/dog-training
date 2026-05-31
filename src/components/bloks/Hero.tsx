@@ -16,6 +16,7 @@ interface HeroBlok {
   headline_suffix?: string;
   subheadline?: string;
   image?: {filename?: string; alt?: string};
+  background_image?: {filename?: string; alt?: string};
   primary_label?: string;
   primary_target?: string;
   secondary_label?: string;
@@ -30,13 +31,30 @@ export default function Hero({blok}: {blok: HeroBlok}) {
   const href = useHref();
   // When ON, the right column shows the global Availability card instead of the image.
   const showAvailability = blok.show_availability === true;
+  const bgImage = blok.background_image?.filename;
 
   return (
     <section
       {...storyblokEditable(blok as any)}
       className="relative overflow-hidden bg-linear-to-b from-amber-200 to-amber-50 pt-8 md:pt-24"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      {/* Optional Storyblok-managed background image + readability scrim */}
+      {bgImage && (
+        <>
+          <Image
+            src={bgImage}
+            alt={blok.background_image?.alt || ''}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-linear-to-r from-stone-50/95 via-stone-50/75 to-stone-50/35" />
+        </>
+      )}
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex max-md:flex-col gap-12 md:items-center">
           <div className="lg:w-2/3 space-y-6 text-left">
             {blok.eyebrow && (
@@ -70,7 +88,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
               {!showAvailability && blok.primary_label && (
                 <Link
                   href={href.page(blok.primary_target || 'booking')}
-                  className="rounded-xl bg-amber-900 px-6 py-4 text-sm font-semibold text-white shadow-md hover:bg-amber-950 hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-amber-500/50 cursor-pointer flex items-center justify-center space-x-2"
+                  className="rounded-xl bg-amber-700 px-6 py-4 text-sm font-semibold text-white shadow-md hover:bg-amber-950 hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-amber-500/50 cursor-pointer flex items-center justify-center space-x-2"
                 >
                   <span>{blok.primary_label}</span>
                   <ArrowRight className="h-4.5 w-4.5" />
@@ -99,7 +117,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
               <Availability />
             ) : (
               <div className="relative mx-auto max-w-[420px] lg:max-w-none">
-                <div className="absolute -inset-1 rounded-3xl bg-amber-900/10 blur-xl"></div>
+                <div className="absolute -inset-1 rounded-3xl bg-amber-700/10 blur-xl"></div>
 
                 <div className="relative overflow-hidden rounded-3xl border-8 border-white bg-stone-105 shadow-2xl aspect-video">
                   {blok.image?.filename && (
@@ -116,7 +134,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
 
                 {(blok.badge_title || blok.badge_subtitle) && (
                   <div className="absolute -bottom-6 lg:-left-6 rounded-2xl bg-stone-900 p-4 text-stone-100 shadow-xl border border-stone-800 flex items-center space-x-3.5 max-w-[240px]">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-800 text-amber-100">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-700 text-amber-100">
                       <Award className="h-5.5 w-5.5" />
                     </div>
                     <div className="text-left">

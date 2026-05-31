@@ -28,7 +28,7 @@ export default function SiteChrome({
 
   return (
     <AvailabilityProvider value={availability}>
-      <div className="relative min-h-screen flex flex-col bg-stone-50 font-sans text-stone-850 antialiased selection:bg-amber-900/10 selection:text-amber-900">
+      <div className="relative min-h-screen flex flex-col bg-stone-50 font-sans text-stone-850 antialiased selection:bg-amber-700/10 selection:text-amber-900">
         {/* Primary Top Header Navigation */}
         <Navbar config={config} />
 

@@ -38,7 +38,7 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
             {blok.primary_label && (
               <Link
                 href={href.page(blok.primary_target || 'booking')}
-                className="rounded-xl bg-amber-900 px-5 py-3 text-xs font-mono font-bold uppercase tracking-wider text-white shadow-sm hover:bg-amber-950 hover:shadow transition"
+                className="rounded-xl bg-amber-700 px-5 py-3 text-xs font-mono font-bold uppercase tracking-wider text-white shadow-sm hover:bg-amber-950 hover:shadow transition"
               >
                 {blok.primary_label}
               </Link>

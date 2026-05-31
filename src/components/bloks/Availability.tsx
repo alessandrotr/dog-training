@@ -106,7 +106,7 @@ export default function Availability({blok}: {blok?: {_uid?: string; component?:
             href={href.page(ctaTarget)}
             className={`group relative mt-5 flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-xs font-mono font-bold uppercase tracking-wider transition ${
               available
-                ? 'bg-amber-900 text-white shadow-sm hover:bg-amber-950'
+                ? 'bg-amber-700 text-white shadow-sm hover:bg-amber-950'
                 : 'border border-stone-300 bg-white text-stone-700 hover:bg-stone-50'
             }`}
           >

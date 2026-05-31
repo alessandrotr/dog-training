@@ -19,7 +19,7 @@ export default function LocaleToggle() {
       <div className="relative flex items-center rounded-full border border-stone-200 bg-stone-100 p-0.5">
         {/* Sliding amber thumb that trots between languages */}
         <span
-          className="pointer-events-none absolute inset-y-0.5 left-0.5 w-[calc(50%-2px)] rounded-full bg-amber-900 shadow-sm transition-transform duration-300 ease-out"
+          className="pointer-events-none absolute inset-y-0.5 left-0.5 w-[calc(50%-2px)] rounded-full bg-amber-700 shadow-sm transition-transform duration-300 ease-out"
           style={{transform: `translateX(${activeIndex * 100}%)`}}
         />
         {LOCALES.map((code) => {
