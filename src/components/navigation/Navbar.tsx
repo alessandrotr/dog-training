@@ -56,14 +56,7 @@ export default function Navbar({ config }: { config: SiteConfig }) {
         </nav>
 
         {/* Booking CTA + language */}
-        <div className="hidden lg:flex items-center space-x-4">
-          <Link
-            href={href.page(config.ctaTarget)}
-            className="flex items-center space-x-2 rounded-xl bg-amber-900 px-4 py-2.5 text-xs font-medium tracking-wide text-white shadow-sm transition-all hover:bg-amber-950 focus:outline-none focus:ring-2 focus:ring-amber-500/50 cursor-pointer"
-          >
-            <CalendarRange className="h-4 w-4" />
-            <span>{config.ctaLabel}</span>
-          </Link>
+        
 
           <div className="flex items-center space-x-1 rounded-lg bg-stone-150 p-0.5 border border-stone-200">
             <button
@@ -82,7 +75,6 @@ export default function Navbar({ config }: { config: SiteConfig }) {
             >
               DE
             </button>
-          </div>
         </div>
 
         {/* Mobile toggle */}
