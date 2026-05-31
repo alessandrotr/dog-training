@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion, useScroll, useMotionValueEvent } from 'motion/react';
 import { useTranslation } from 'react-i18next';
-import { Menu, X, CalendarRange } from 'lucide-react';
+import { Menu, X, CalendarRange, PawPrint } from 'lucide-react';
 import { useCurrentPage, useHref } from '../../lib/navigation';
 import LocaleToggle from './LocaleToggle';
+import Logo from './Logo';
 import type { SiteConfig } from '../../types';
 
 export default function Navbar({ config }: { config: SiteConfig }) {
@@ -45,24 +45,16 @@ export default function Navbar({ config }: { config: SiteConfig }) {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
 
         {/* Logo */}
-        <Link
-          href={href.page('home')}
+        <Logo
+          brandName={config.footer.brandName}
+          brandSubtitle={config.footer.brandSubtitle}
           onClick={close}
-          className="flex items-center gap-2.5 text-stone-900 focus:outline-none cursor-pointer"
-        >
-          <Image
-            src="/assets/images/logo.png"
-            alt={config.footer.brandName}
-            width={40}
-            height={40}
-            className="h-10 w-auto"
-            priority
-          />
-          <div className="text-left flex flex-col gap-0.5">
-            <span className="block font-sans text-sm lg:text-lg font-bold tracking-tight text-amber-950">{config.footer.brandName}</span>
-            <span className="block font-mono text-[9px] uppercase tracking-widest text-stone-500 -mt-1">{config.footer.brandSubtitle}</span>
-          </div>
-        </Link>
+          icon={
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-amber-700/12 ring-1 ring-amber-700/15 transition-transform duration-300 group-hover:-rotate-6">
+              <PawPrint className="h-5 w-5 text-amber-700" strokeWidth={2} />
+            </span>
+          }
+        />
 
         {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center space-x-8">

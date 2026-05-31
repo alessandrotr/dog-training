@@ -72,6 +72,8 @@ function adaptConfig(content: any): SiteConfig {
   const accreditations = (content.accreditations ?? []).map((a: any) => ({
     title: a.title ?? '',
     subtitle: a.subtitle ?? '',
+    logoUrl: a.logo?.filename || undefined,
+    logoAlt: a.logo?.alt || a.title || '',
   }));
   return {
     navItems: navItems.length ? navItems : d.navItems,

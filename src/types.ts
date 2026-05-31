@@ -17,6 +17,8 @@ export interface FooterColumn {
 export interface Accreditation {
   title: string;
   subtitle: string;
+  logoUrl?: string;
+  logoAlt?: string;
 }
 // Single global availability record (edited once in the Site Config, surfaced
 // everywhere via useAvailability()).
