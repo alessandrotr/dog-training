@@ -166,3 +166,10 @@ body {
     @apply font-sans;
   }
 }
+
+@layer base {
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}

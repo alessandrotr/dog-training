@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import { Menu, X, CalendarRange } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useCurrentPage, useLocale, useSwitchLocalePath, useHref } from '../../lib/navigation';
+import { useCurrentPage, useHref } from '../../lib/navigation';
+import LocaleToggle from './LocaleToggle';
 import type { SiteConfig } from '../../types';
 
 export default function Navbar({ config }: { config: SiteConfig }) {
@@ -13,10 +13,6 @@ export default function Navbar({ config }: { config: SiteConfig }) {
   const { t } = useTranslation();
   const href = useHref();
   const currentPage = useCurrentPage();
-  const router = useRouter();
-  const locale = useLocale();
-  const switchLocale = useSwitchLocalePath();
-  const changeLocale = (target: 'en' | 'de') => router.push(switchLocale(target));
   const close = () => setIsOpen(false);
 
   return (
@@ -55,26 +51,9 @@ export default function Navbar({ config }: { config: SiteConfig }) {
           })}
         </nav>
 
-        {/* Booking CTA + language */}
-        <div className="hidden lg:flex items-center space-x-4">
-          <div className="flex items-center space-x-1 rounded-lg bg-stone-150 p-0.5 border border-stone-200">
-            <button
-              onClick={() => changeLocale('en')}
-              className={`rounded px-1.5 py-1 text-[10px] font-mono font-bold uppercase transition-all ${
-                locale === 'en' ? 'bg-amber-900 text-white shadow-sm' : 'text-stone-500 hover:text-stone-900'
-              }`}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => changeLocale('de')}
-              className={`rounded px-1.5 py-1 text-[10px] font-mono font-bold uppercase transition-all ${
-                locale === 'de' ? 'bg-amber-900 text-white shadow-sm' : 'text-stone-500 hover:text-stone-900'
-              }`}
-            >
-              DE
-            </button>
-          </div>
+        {/* Language switcher */}
+        <div className="hidden lg:flex items-center">
+          <LocaleToggle />
         </div>
 
         {/* Mobile toggle */}
@@ -109,26 +88,9 @@ export default function Navbar({ config }: { config: SiteConfig }) {
               );
             })}
 
-            <div className="flex items-center justify-between border-t border-stone-200/80 my-2 pt-2">
+            <div className="flex items-center justify-between border-t border-stone-200/80 my-2 pt-3">
               <span className="text-xs font-mono text-stone-500 uppercase tracking-wide px-1">Language / Sprache</span>
-              <div className="flex items-center space-x-1 rounded-lg bg-stone-150 p-0.5 border border-stone-200">
-                <button
-                  onClick={() => changeLocale('en')}
-                  className={`rounded px-2.5 py-1 text-xs font-mono font-bold uppercase transition-all ${
-                    locale === 'en' ? 'bg-amber-900 text-white shadow-sm' : 'text-stone-500 hover:text-stone-950'
-                  }`}
-                >
-                  EN
-                </button>
-                <button
-                  onClick={() => changeLocale('de')}
-                  className={`rounded px-2.5 py-1 text-xs font-mono font-bold uppercase transition-all ${
-                    locale === 'de' ? 'bg-amber-900 text-white shadow-sm' : 'text-stone-500 hover:text-stone-950'
-                  }`}
-                >
-                  DE
-                </button>
-              </div>
+              <LocaleToggle />
             </div>
 
             <div className="border-t border-stone-200/80 my-2 pt-2">
