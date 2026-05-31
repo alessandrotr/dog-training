@@ -60,7 +60,7 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
           {/* Accreditations */}
           <div className="space-y-4">
             <h3 className="font-mono text-xs uppercase tracking-widest text-stone-400 mb-1 font-semibold">Accreditations</h3>
-            <div className="space-y-3.5">
+            <div className="space-y-3.5 pt-3.5">
               {config.accreditations.map((a, ai) => (
                 <div key={ai} className="flex items-start space-x-3 text-stone-450 text-xs">
                   <Award className="h-5 w-5 text-amber-500 mt-0.5 shrink-0" />
