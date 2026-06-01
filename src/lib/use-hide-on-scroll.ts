@@ -7,7 +7,7 @@ import {useScroll, useMotionValueEvent} from 'motion/react';
 // Navbar and the floating action pills (ConnectFab, InquiryCartBar). Returns
 // `hidden` (scrolled down past the threshold) and `atTop` (near the very top,
 // for transparent-header styling).
-export function useHideOnScroll({hideAfter = 75, topThreshold = 8}: {hideAfter?: number; topThreshold?: number} = {}) {
+export function useHideOnScroll({hideAfter = 55, topThreshold = 5}: {hideAfter?: number; topThreshold?: number} = {}) {
   const [hidden, setHidden] = useState(false);
   const [atTop, setAtTop] = useState(true);
 
