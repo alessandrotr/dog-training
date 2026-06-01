@@ -4,7 +4,7 @@ import {useState} from 'react';
 import {storyblokEditable} from '@storyblok/react';
 import {ChevronDown, ChevronUp, Search, HelpCircle} from 'lucide-react';
 import {usePageData} from '../PageDataProvider';
-import Card from '../ui/card';
+import {Card} from '../ui';
 
 import type {BlokBase} from '../../types';
 

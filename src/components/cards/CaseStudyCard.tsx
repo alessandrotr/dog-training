@@ -1,9 +1,8 @@
 'use client';
 
-import Link from 'next/link';
 import {Quote, Sparkles, ArrowUpRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
-import {Eyebrow, Pill, Avatar, Card} from '../ui';
+import {Eyebrow, Pill, Card, PersonByline} from '../ui';
 import {cn} from '../../lib/utils';
 import type {TestimonialItem, ServiceItem} from '../../types';
 
@@ -25,19 +24,14 @@ export default function CaseStudyCard({
   return (
     <Card as="figure" padding="md" interactive className={cn('group relative flex h-full flex-col shadow-sm', className)}>
       {/* 1. The dog / owner — the name is the stretched link to the full case study */}
-      <figcaption className="flex items-center gap-3">
-        <Avatar src={story.imageUrl} name={story.name} size="sm" />
-        <div className="min-w-0">
-          <Link
-            href={href.caseStudy(story.slug)}
-            {...slideProps}
-            className="truncate text-sm font-bold leading-tight text-stone-900 transition-colors before:absolute before:inset-0 before:content-[''] group-hover:text-amber-900"
-          >
-            {story.name}
-          </Link>
-          {story.dogBreed && <p className="truncate font-mono text-[11px] text-stone-500">{story.dogBreed}</p>}
-        </div>
-      </figcaption>
+      <PersonByline
+        name={story.name}
+        breed={story.dogBreed}
+        imageUrl={story.imageUrl}
+        href={href.caseStudy(story.slug)}
+        stretched
+        slideProps={slideProps}
+      />
 
       {/* 2. The challenge */}
       {story.challenge && (

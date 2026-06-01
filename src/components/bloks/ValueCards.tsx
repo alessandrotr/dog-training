@@ -1,6 +1,5 @@
 import {StoryblokServerComponent, storyblokEditable} from '@storyblok/react/rsc';
-import Section from '../ui/section';
-import SectionHeading from '../ui/section-heading';
+import {Section, SectionHeading} from '../ui';
 
 import type {BlokBase} from '../../types';
 

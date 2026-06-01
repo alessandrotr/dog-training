@@ -6,7 +6,7 @@ import {storyblokEditable} from '@storyblok/react';
 import {Award, ArrowRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import Availability from './Availability';
-import {Button} from '../ui/button';
+import {Button} from '../ui';
 
 import type {BlokBase} from '../../types';
 

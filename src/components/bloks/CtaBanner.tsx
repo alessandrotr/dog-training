@@ -4,8 +4,7 @@ import Link from 'next/link';
 import {storyblokEditable} from '@storyblok/react';
 import {PawPrint, ArrowRight, Heart, Bone} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
-import Section from '../ui/section';
-import {Button} from '../ui/button';
+import {Section, Button} from '../ui';
 
 import type {BlokBase} from '../../types';
 

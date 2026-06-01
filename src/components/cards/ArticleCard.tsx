@@ -4,8 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {ArrowRight, GraduationCap} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
-import Card from '../ui/card';
-import CardStat from '../ui/card-stat';
+import {Card, CardStat} from '../ui';
 import type {BlogPost} from '../../types';
 
 // Shared article card used by every article carousel (home blog list + related

@@ -3,8 +3,7 @@
 import Link from 'next/link';
 import {ArrowLeft, ArrowRight, ArrowUpRight} from 'lucide-react';
 import {useCarousel} from '../lib/use-carousel';
-import SectionHeading from './ui/section-heading';
-import {Button} from './ui/button';
+import {SectionHeading, Button} from './ui';
 
 // Slide-width variants: `lg` = prominent (home services), `sm` = compact (articles).
 const SIZES = {

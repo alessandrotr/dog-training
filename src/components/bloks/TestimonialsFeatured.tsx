@@ -4,10 +4,7 @@ import {useState} from 'react';
 import Link from 'next/link';
 import {ArrowLeft, ArrowRight, MessageSquareQuote, Sparkles, ArrowUpRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
-import Eyebrow from '../ui/eyebrow';
-import Pill from '../ui/pill';
-import Avatar from '../ui/avatar';
-import {Button} from '../ui/button';
+import {Eyebrow, Pill, Button, PersonByline} from '../ui';
 import type {TestimonialItem, ServiceItem} from '../../types';
 
 // One rotating featured case study (home). Stateful, so it lives apart from the
@@ -54,15 +51,12 @@ export default function TestimonialsFeatured({
             )}
 
             <div className="flex flex-col items-center space-y-2">
-              <div className="flex items-center space-x-3.5">
-                <Avatar src={active.imageUrl} name={active.name} size="sm" />
-                <div className="text-left font-sans">
-                  <Link href={href.caseStudy(active.slug)} className="text-sm font-bold text-stone-900 leading-none transition-colors hover:text-amber-800">
-                    {active.name}
-                  </Link>
-                  {active.dogBreed && <p className="text-xs text-stone-500 font-mono -mt-0.5">{active.dogBreed}</p>}
-                </div>
-              </div>
+              <PersonByline
+                name={active.name}
+                breed={active.dogBreed}
+                imageUrl={active.imageUrl}
+                href={href.caseStudy(active.slug)}
+              />
               {activeService && (
                 <Pill tone="stone" href={href.service(activeService.slug)} className="group/chip mt-1">
                   {activeService.title}

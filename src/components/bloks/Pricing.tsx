@@ -4,8 +4,7 @@ import {storyblokEditable} from '@storyblok/react';
 import {ShieldCheck} from 'lucide-react';
 import Link from 'next/link';
 import {useHref} from '../../lib/navigation';
-import Section from '../ui/section';
-import {Button} from '../ui/button';
+import {Section, Button} from '../ui';
 
 import type {BlokBase} from '../../types';
 

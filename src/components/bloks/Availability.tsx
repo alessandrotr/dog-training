@@ -6,7 +6,7 @@ import {storyblokEditable} from '@storyblok/react';
 import {MapPin, Zap, ArrowRight, Languages} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import {useAvailability} from '../AvailabilityProvider';
-import {Button} from '../ui/button';
+import {Button} from '../ui';
 
 // Languages Sophia speaks (hardcoded for now; could become a Storyblok field).
 const SPOKEN_LANGUAGES = [

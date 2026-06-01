@@ -5,8 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Search, BookOpen, Tag, X } from 'lucide-react';
 import { useQueryState } from 'nuqs';
 import FilterLayout from '../FilterLayout';
-import Section from '../ui/section';
-import Card from '../ui/card';
+import {Section, Card} from '../ui';
 import ArticleCard from '../cards/ArticleCard';
 import type { BlogPost, BlogTaxonomies } from '../../types';
 

@@ -5,6 +5,8 @@ export {default as Eyebrow} from './eyebrow';
 export {default as SectionHeading} from './section-heading';
 export {default as Pill} from './pill';
 export {default as Avatar} from './avatar';
+export {default as PersonByline} from './person-byline';
 export {default as Card} from './card';
 export {default as CardStat} from './card-stat';
+export {default as PriceTag} from './price-tag';
 export {Button, buttonVariants} from './button';

@@ -4,7 +4,7 @@ import {storyblokEditable} from '@storyblok/react';
 import {useHref} from '../../lib/navigation';
 import {usePageData} from '../PageDataProvider';
 import Carousel from '../Carousel';
-import Section from '../ui/section';
+import {Section} from '../ui';
 import ArticleCard from '../cards/ArticleCard';
 
 import type {BlokBase} from '../../types';

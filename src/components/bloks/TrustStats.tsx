@@ -1,6 +1,6 @@
 import {storyblokEditable} from '@storyblok/react/rsc';
 import {ShieldCheck, Star} from 'lucide-react';
-import Section from '../ui/section';
+import {Section} from '../ui';
 
 import type {BlokBase} from '../../types';
 

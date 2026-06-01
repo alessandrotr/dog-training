@@ -5,7 +5,7 @@ import {useHref} from '../../lib/navigation';
 import {usePageData} from '../PageDataProvider';
 import {mapById} from '../../lib/relations';
 import Carousel from '../Carousel';
-import Section from '../ui/section';
+import {Section} from '../ui';
 import CaseStudyCard from '../cards/CaseStudyCard';
 import TestimonialsFeatured from './TestimonialsFeatured';
 import type {BlokBase} from '../../types';

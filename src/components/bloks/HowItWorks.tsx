@@ -1,5 +1,5 @@
 import {storyblokEditable} from '@storyblok/react/rsc';
-import Section from '../ui/section';
+import {Section} from '../ui';
 
 import type {BlokBase} from '../../types';
 

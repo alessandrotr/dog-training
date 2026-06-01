@@ -5,8 +5,7 @@ import Image from 'next/image';
 import {Sparkles, Plus, Check, BookOpen} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import {useInquiryCart} from '../InquiryCartProvider';
-import Card from '../ui/card';
-import CardStat from '../ui/card-stat';
+import {Card, CardStat, PriceTag} from '../ui';
 import {cn} from '../../lib/utils';
 import type {ServiceItem} from '../../types';
 
@@ -94,10 +93,7 @@ export default function ServiceCard({
         <p className="mt-1.5 text-sm text-stone-500 leading-relaxed line-clamp-2">{svc.shortDescription}</p>
 
         {/* Price footer */}
-        <div className="mt-auto pt-5 leading-none">
-          <span className="block font-mono text-[10px] uppercase tracking-wider text-stone-400">Starting at</span>
-          <span className="mt-1 block font-sans text-xl font-extrabold text-amber-950">{svc.price}</span>
-        </div>
+        <PriceTag price={svc.price} className="mt-auto pt-5" />
       </div>
     </Card>
   );

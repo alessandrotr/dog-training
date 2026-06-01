@@ -9,10 +9,7 @@ import ServiceCard from '../cards/ServiceCard';
 import ArticleCard from '../cards/ArticleCard';
 import CaseStudyCard from '../cards/CaseStudyCard';
 import {caseStudyCountByService, guideCountByService, caseStudiesForService} from '../../lib/relations';
-import Section from '../ui/section';
-import Eyebrow from '../ui/eyebrow';
-import CardStat from '../ui/card-stat';
-import {Button} from '../ui/button';
+import {Section, Eyebrow, CardStat, Button, PriceTag} from '../ui';
 import type {ServiceItem, TestimonialItem, BlogPost} from '../../types';
 
 // One shared, data-driven template for every service (mirrors the blog article
@@ -60,12 +57,7 @@ export default function ServiceDetail({
               <CardStat icon={Sparkles} count={caseStudiesForSvc.length} singular="case study" plural="case studies" />
             )}
 
-            {service.price && (
-              <div className="leading-none">
-                <span className="block font-mono text-[10px] uppercase tracking-wider text-stone-400">Starting at</span>
-                <span className="mt-1 block font-sans text-3xl font-extrabold text-amber-950">{service.price}</span>
-              </div>
-            )}
+            <PriceTag price={service.price} size="lg" />
 
             <div className="flex flex-col gap-3 pt-2 sm:flex-row">
               <Button

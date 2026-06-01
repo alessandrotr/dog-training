@@ -8,7 +8,7 @@ import { Menu, X, CalendarRange, PawPrint } from 'lucide-react';
 import { useCurrentPage, useHref } from '../../lib/navigation';
 import LocaleToggle from './LocaleToggle';
 import Logo from './Logo';
-import {Button} from '../ui/button';
+import {Button} from '../ui';
 import type { SiteConfig } from '../../types';
 
 export default function Navbar({ config }: { config: SiteConfig }) {

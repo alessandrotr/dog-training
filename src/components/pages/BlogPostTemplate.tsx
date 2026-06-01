@@ -7,8 +7,7 @@ import { BlogPost, BlogTaxonomies, ServiceItem, TestimonialItem } from '../../ty
 import { Clock, CalendarDays, Share2, Bookmark, Check, CalendarRange, Sparkles, Tag } from 'lucide-react';
 import { useHref } from '../../lib/navigation';
 import { caseStudyCountByService, guideCountByService } from '../../lib/relations';
-import Section from '../ui/section';
-import Eyebrow from '../ui/eyebrow';
+import {Section, Eyebrow} from '../ui';
 import Carousel from '../Carousel';
 import ArticleCard from '../cards/ArticleCard';
 import ServiceCard from '../cards/ServiceCard';

@@ -5,9 +5,7 @@ import Image from 'next/image';
 import {ArrowLeft, Sparkles, ArrowUpRight, ArrowRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import CaseStudyCard from '../cards/CaseStudyCard';
-import Eyebrow from '../ui/eyebrow';
-import Avatar from '../ui/avatar';
-import {Button} from '../ui/button';
+import {Eyebrow, Button, PersonByline} from '../ui';
 import type {TestimonialItem, ServiceItem} from '../../types';
 
 // Full case-study page: the dog, the challenge, what was done, the outcome,
@@ -38,13 +36,7 @@ export default function CaseStudyDetail({
 
         {/* Header */}
         <header className="mt-8 space-y-5">
-          <div className="flex items-center gap-3">
-            <Avatar src={story.imageUrl} name={story.name} size="lg" />
-            <div className="min-w-0">
-              <p className="text-base font-bold leading-tight text-stone-900">{story.name}</p>
-              {story.dogBreed && <p className="font-mono text-xs text-stone-500">{story.dogBreed}</p>}
-            </div>
-          </div>
+          <PersonByline name={story.name} breed={story.dogBreed} imageUrl={story.imageUrl} size="lg" />
 
           {story.challenge && (
             <h1 className="font-sans text-3xl font-extrabold leading-tight tracking-tight text-amber-950 sm:text-4xl">

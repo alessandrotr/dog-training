@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import {storyblokEditable, renderRichText} from '@storyblok/react/rsc';
 import AvailabilityBadge from '../AvailabilityBadge';
-import Section from '../ui/section';
+import {Section} from '../ui';
 
 import type {BlokBase} from '../../types';
 

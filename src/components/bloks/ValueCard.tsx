@@ -9,7 +9,7 @@ import {
   Sparkles,
   Building,
 } from 'lucide-react';
-import Card from '../ui/card';
+import {Card} from '../ui';
 import type {BlokBase} from '../../types';
 
 const ICONS: Record<string, any> = {
