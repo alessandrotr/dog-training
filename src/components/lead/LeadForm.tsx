@@ -133,7 +133,7 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
       {/* Selected programs — collapsible so a long inquiry doesn't crowd the form */}
       {cart.items.length > 0 && (
         <Accordion.Root
-          defaultValue={['items']}
+          defaultValue={[]}
           className="overflow-hidden rounded-2xl border border-amber-200/60 bg-linear-to-br from-amber-50 to-white shadow-sm"
         >
           <Accordion.Item value="items">
