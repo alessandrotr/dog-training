@@ -53,8 +53,8 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
   }
 
   return (
-    <Section {...storyblokEditable(blok as any)}>
-      <div className="relative overflow-hidden rounded-4xl bg-linear-to-br from-amber-500 via-amber-600 to-amber-800 px-6 py-16 text-center text-amber-50 shadow-xl ring-1 ring-amber-400/30 md:px-12 md:py-20">
+    <Section {...storyblokEditable(blok as any)} className="px-0 sm:px-6 lg:px-8">
+      <div className="relative overflow-hidden rounded-none bg-linear-to-br from-amber-500 via-amber-600 to-amber-800 px-6 py-16 text-center text-amber-50 shadow-xl ring-1 ring-amber-400/30 sm:rounded-4xl md:px-12 md:py-20">
         {/* Soft glows */}
         <div className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-amber-300/30 blur-3xl"></div>
         <div className="pointer-events-none absolute -bottom-24 -left-16 h-80 w-80 rounded-full bg-amber-400/25 blur-3xl"></div>

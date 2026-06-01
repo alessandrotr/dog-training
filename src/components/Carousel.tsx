@@ -51,7 +51,7 @@ export default function Carousel<T>({
             size={size === 'lg' ? 'lg' : 'md'}
             className="max-w-2xl space-y-2"
           />
-          <div className="flex shrink-0 justify-between items-center gap-3">
+          <div className="hidden shrink-0 items-center justify-between gap-3 md:flex">
             {footerLabel && footerHref && (
               <Link
                 href={footerHref}
