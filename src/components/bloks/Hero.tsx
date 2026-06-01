@@ -48,7 +48,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
             fill
             priority
             sizes="100vw"
-            className="object-cover object-left opacity-85"
+            className="object-cover object-center opacity-85"
             referrerPolicy="no-referrer"
           />
           <div className="absolute inset-0 bg-linear-to-r from-stone-50/95 via-stone-50/75 to-stone-50/35" />
@@ -59,7 +59,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-b from-transparent to-stone-50 md:h-32" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex max-md:flex-col gap-12 md:items-center">
+        <div className="flex max-md:flex-col lg:gap-12 md:items-center">
           <div className="lg:w-2/3 space-y-6 text-left">
             {blok.eyebrow && <Eyebrow tone="brand">{blok.eyebrow}</Eyebrow>}
 
@@ -82,7 +82,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
               </Text>
             )}
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-3">
+            <div className="flex flex-col sm:flex-row gap-4 pt-3 max-lg:hidden">
               {/* When an availability card is shown, it carries the booking CTA — so
                   hide the hero's primary button to avoid duplication. */}
               {!showAvailability && blok.primary_label && (
