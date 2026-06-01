@@ -57,7 +57,7 @@ export default function LeadDialog() {
         >
           {/* Header — fills the rounded top of the sheet; the mobile drag
               handle rides on the gradient so there's no off-white seam. */}
-          <div className="relative shrink-0 overflow-hidden bg-linear-to-br from-amber-100 via-stone-50 to-stone-50 px-6 pb-5 pt-4 sm:px-7 sm:pt-7">
+          <div className="relative shrink-0 overflow-hidden bg-linear-to-br from-amber-100 via-stone-50 to-stone-50 px-6 pt-4 sm:px-7 sm:pt-7">
             <div className="mx-auto mb-3.5 h-1 w-10 rounded-full bg-stone-300/80 sm:hidden" />
             <PawPrint className="pointer-events-none absolute -right-3 -top-4 h-20 w-20 rotate-12 text-amber-300/40" />
             <div className="relative pr-8">

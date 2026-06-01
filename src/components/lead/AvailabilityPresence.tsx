@@ -21,7 +21,6 @@ export default function AvailabilityPresence() {
         <div className="min-w-0">
           <div className="flex flex-wrap items-baseline gap-x-2">
             <span className="font-sans text-base font-bold leading-tight text-amber-950">{a.name}</span>
-            {a.handle && <span className="font-mono text-[11px] text-stone-400">{a.handle}</span>}
           </div>
           <span
             className={cn(
@@ -41,7 +40,7 @@ export default function AvailabilityPresence() {
       </div>
 
       {(a.responseTime || a.location) && (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 max-lg:hidden">
           {a.responseTime && (
             <Pill tone="stone" className="gap-1 px-2.5 py-1 text-[11px] font-medium">
               <Clock className="h-3 w-3" /> {a.responseTime}

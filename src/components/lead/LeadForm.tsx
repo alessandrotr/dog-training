@@ -3,7 +3,8 @@
 import {useState} from 'react';
 import Image from 'next/image';
 import {useTranslation} from 'react-i18next';
-import {Send, CheckCircle2, AlertCircle, X, Sparkles, PawPrint} from 'lucide-react';
+import {Accordion} from '@base-ui/react/accordion';
+import {Send, CheckCircle2, AlertCircle, X, Sparkles, PawPrint, ChevronDown} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {Heading, Text, Eyebrow, MultiSelect} from '@/components/ui';
 import {Input} from '@/components/ui/input';
@@ -129,63 +130,75 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
         </div>
       )}
 
-      {/* Selected programs */}
+      {/* Selected programs — collapsible so a long inquiry doesn't crowd the form */}
       {cart.items.length > 0 && (
-        <div className="rounded-2xl border border-amber-200/60 bg-linear-to-br from-amber-50 to-white p-3.5 shadow-sm">
-          <div className="mb-2.5 flex items-center justify-between">
-            <span className="inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-amber-800">
-              <Sparkles className="h-3.5 w-3.5" />
-              {de ? 'Anfrage zu' : 'Inquiring about'}
-            </span>
-            <span className="rounded-full bg-amber-100 px-2 py-0.5 font-mono text-[10px] font-bold text-amber-800">
-              {cart.items.length}
-            </span>
-          </div>
-          <ul className="space-y-2">
-            {cart.items.map((item) => (
-              <li
-                key={item.slug}
-                className="group flex items-center gap-3 rounded-xl border border-amber-200/50 bg-white p-2 shadow-xs transition-colors hover:border-amber-300/70"
-              >
-                <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-amber-100">
-                  {item.imageUrl ? (
-                    <Image
-                      src={item.imageUrl}
-                      alt={item.title}
-                      fill
-                      sizes="48px"
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      referrerPolicy="no-referrer"
-                    />
-                  ) : (
-                    <span className="flex h-full w-full items-center justify-center text-amber-700">
-                      <PawPrint className="h-5 w-5" />
-                    </span>
-                  )}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-baseline justify-between gap-2">
-                    <p className="truncate font-sans text-sm font-bold text-stone-900">{item.title}</p>
-                    {item.price && (
-                      <span className="shrink-0 font-sans text-sm font-extrabold text-amber-950">{item.price}</span>
-                    )}
-                  </div>
-                  {item.shortDescription && (
-                    <p className="mt-0.5 truncate text-xs leading-relaxed text-stone-500">{item.shortDescription}</p>
-                  )}
-                </div>
-                <button
-                  type="button"
-                  aria-label={`Remove ${item.title}`}
-                  onClick={() => cart.remove(item.slug)}
-                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-amber-700/50 transition-colors hover:bg-amber-100 hover:text-amber-900"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <Accordion.Root
+          defaultValue={['items']}
+          className="overflow-hidden rounded-2xl border border-amber-200/60 bg-linear-to-br from-amber-50 to-white shadow-sm"
+        >
+          <Accordion.Item value="items">
+            <Accordion.Header>
+              <Accordion.Trigger className="group flex w-full items-center justify-between gap-2 px-3.5 py-3 text-left outline-none focus-visible:bg-amber-100/40">
+                <span className="inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-amber-800">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  {de ? 'Anfrage zu' : 'Inquiring about'}
+                </span>
+                <span className="flex items-center gap-2">
+                  <span className="rounded-full bg-amber-100 px-2 py-0.5 font-mono text-[10px] font-bold text-amber-800">
+                    {cart.items.length}
+                  </span>
+                  <ChevronDown className="h-4 w-4 text-amber-700/70 transition-transform duration-200 group-data-panel-open:rotate-180" />
+                </span>
+              </Accordion.Trigger>
+            </Accordion.Header>
+            <Accordion.Panel className="h-[var(--accordion-panel-height)] overflow-hidden transition-[height] duration-200 ease-out data-starting-style:h-0 data-ending-style:h-0">
+              <ul className="space-y-2 px-3.5 pb-3.5">
+                {cart.items.map((item) => (
+                  <li
+                    key={item.slug}
+                    className="group flex items-center gap-3 rounded-xl border border-amber-200/50 bg-white p-2 shadow-xs transition-colors hover:border-amber-300/70"
+                  >
+                    <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-amber-100">
+                      {item.imageUrl ? (
+                        <Image
+                          src={item.imageUrl}
+                          alt={item.title}
+                          fill
+                          sizes="48px"
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          referrerPolicy="no-referrer"
+                        />
+                      ) : (
+                        <span className="flex h-full w-full items-center justify-center text-amber-700">
+                          <PawPrint className="h-5 w-5" />
+                        </span>
+                      )}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-baseline justify-between gap-2">
+                        <p className="truncate font-sans text-sm font-bold text-stone-900">{item.title}</p>
+                        {item.price && (
+                          <span className="shrink-0 font-sans text-sm font-extrabold text-amber-950">{item.price}</span>
+                        )}
+                      </div>
+                      {item.shortDescription && (
+                        <p className="mt-0.5 truncate text-xs leading-relaxed text-stone-500">{item.shortDescription}</p>
+                      )}
+                    </div>
+                    <button
+                      type="button"
+                      aria-label={`Remove ${item.title}`}
+                      onClick={() => cart.remove(item.slug)}
+                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-amber-700/50 transition-colors hover:bg-amber-100 hover:text-amber-900"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </Accordion.Panel>
+          </Accordion.Item>
+        </Accordion.Root>
       )}
 
       {/* Manual program picker */}
@@ -258,27 +271,30 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
         {errors.message && <p className="font-mono text-[10px] text-red-500">{errors.message}</p>}
       </div>
 
-      {status === 'error' && (
-        <p className="flex items-center gap-1.5 font-mono text-xs text-red-500">
-          <AlertCircle className="h-4 w-4" /> {t('contact.fields.sendButton')} — try again.
-        </p>
-      )}
-
-      <Button
-        type="submit"
-        size="lg"
-        disabled={status === 'loading'}
-        className="h-12 w-full rounded-xl bg-amber-700 text-sm font-bold tracking-tight text-white shadow-lg shadow-amber-900/15 transition-all hover:bg-amber-800 hover:shadow-xl hover:shadow-amber-900/25 active:scale-[0.98] disabled:hover:bg-amber-700"
-      >
-        {status === 'loading'
-          ? t('contact.fields.transmitting')
-          : waitlist
-            ? de
-              ? 'Auf die Warteliste'
-              : 'Join the waitlist'
-            : t('contact.fields.sendButton')}
-        {status !== 'loading' && <Send className="h-4 w-4" />}
-      </Button>
+      {/* Sticky action footer — the send button stays pinned to the bottom of
+          the sheet while the fields scroll behind a soft fade. */}
+      <div className="sticky bottom-0 -mx-1 mt-1 space-y-2.5 bg-linear-to-t from-stone-50 via-stone-50 to-transparent px-1 pb-1 pt-5">
+        {status === 'error' && (
+          <p className="flex items-center gap-1.5 font-mono text-xs text-red-500">
+            <AlertCircle className="h-4 w-4" /> {t('contact.fields.sendButton')} — try again.
+          </p>
+        )}
+        <Button
+          type="submit"
+          size="lg"
+          disabled={status === 'loading'}
+          className="h-12 w-full rounded-xl bg-amber-700 text-sm font-bold tracking-tight text-white shadow-lg shadow-amber-900/15 transition-all hover:bg-amber-800 hover:shadow-xl hover:shadow-amber-900/25 active:scale-[0.98] disabled:hover:bg-amber-700"
+        >
+          {status === 'loading'
+            ? t('contact.fields.transmitting')
+            : waitlist
+              ? de
+                ? 'Auf die Warteliste'
+                : 'Join the waitlist'
+              : t('contact.fields.sendButton')}
+          {status !== 'loading' && <Send className="h-4 w-4" />}
+        </Button>
+      </div>
     </form>
   );
 }
