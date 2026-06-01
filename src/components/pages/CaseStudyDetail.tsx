@@ -2,10 +2,11 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import {ArrowLeft, Sparkles, ArrowUpRight, ArrowRight} from 'lucide-react';
+import {ArrowLeft, Sparkles, ArrowUpRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import CaseStudyCard from '../cards/CaseStudyCard';
-import {Eyebrow, Button, PersonByline, Heading, Text, Prose} from '../ui';
+import Carousel from '../Carousel';
+import {Section, Eyebrow, Button, PersonByline, Heading, Prose} from '../ui';
 import type {TestimonialItem, ServiceItem} from '../../types';
 
 // Full case-study page: the dog, the challenge, what was done, the outcome,
@@ -25,7 +26,7 @@ export default function CaseStudyDetail({
   const paragraphs = story.text.split('\n').map((p) => p.trim()).filter(Boolean);
 
   return (
-    <article className="py-8 text-left">
+    <article className="pb-8 text-left">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <header className="mt-8 space-y-5">
@@ -87,14 +88,18 @@ export default function CaseStudyDetail({
 
       {/* Related case studies */}
       {related.length > 0 && (
-        <div className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 lg:px-8">
-          <Heading level={2} size="section" className="mb-8">More case studies</Heading>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {related.slice(0, 3).map((r) => (
-              <CaseStudyCard key={r.id} story={r} service={serviceById.get(r.serviceId ?? '')} />
-            ))}
-          </div>
-        </div>
+        <Section className="pt-12">
+          <Carousel
+            items={related}
+            getKey={(r) => r.id}
+            size="sm"
+            label="case studies"
+            headline="More case studies"
+            renderItem={(r, slideProps) => (
+              <CaseStudyCard story={r} service={serviceById.get(r.serviceId ?? '')} slideProps={slideProps} />
+            )}
+          />
+        </Section>
       )}
     </article>
   );
