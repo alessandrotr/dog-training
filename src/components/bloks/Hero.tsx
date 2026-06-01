@@ -37,7 +37,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
   return (
     <section
       {...storyblokEditable(blok as any)}
-      className="relative overflow-hidden bg-linear-to-b from-amber-200 to-amber-50 py-8 md:pt-20"
+      className="relative -mt-16 overflow-hidden bg-linear-to-b from-amber-200 to-amber-50 pt-24 pb-8 md:pt-36"
     >
       {/* Optional Storyblok-managed background image + readability scrim */}
       {bgImage && (

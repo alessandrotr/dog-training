@@ -42,7 +42,11 @@ export default function Navbar({ config }: { config: SiteConfig }) {
     <motion.header
       animate={{y: hidden && !isOpen ? '-100%' : '0%'}}
       transition={{duration: 0.35, ease: [0.22, 1, 0.36, 1]}}
-      className={`sticky top-0 z-40 w-full transition-colors duration-500 border-b border-stone-200/80 bg-stone-50/90 backdrop-blur-md`}
+      className={`sticky top-0 z-40 w-full transition-[background-color,box-shadow] duration-500 ${
+        solid
+          ? 'bg-stone-50/90 shadow-[0_1px_0_0_var(--color-stone-200)] backdrop-blur-md'
+          : 'bg-transparent'
+      }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
 
