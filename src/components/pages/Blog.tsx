@@ -1,19 +1,16 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
-import { Search, BookOpen, ArrowRight, Award, Tag, X } from 'lucide-react';
+import { Search, BookOpen, Tag, X } from 'lucide-react';
 import { useQueryState } from 'nuqs';
-import { useHref } from '../../lib/navigation';
 import FilterLayout from '../FilterLayout';
 import Section from '../ui/section';
 import Card from '../ui/card';
+import ArticleCard from '../cards/ArticleCard';
 import type { BlogPost, BlogTaxonomies } from '../../types';
 
 export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonomies: BlogTaxonomies }) {
-  const href = useHref();
   const catLabel = (c: string) => taxonomies.categories[c] ?? c;
   const tagLabel = (t: string) => taxonomies.tags[t] ?? t;
   const [searchQuery, setSearchQuery] = useState('');
@@ -172,55 +169,7 @@ export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonom
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {filteredPosts.map((post) => (
-              <Card
-                as={Link}
-                key={post.id}
-                href={href.post(post.slug)}
-                interactive
-                className="group flex flex-col overflow-hidden shadow-sm"
-              >
-
-                {/* Upper Thumbnail banner */}
-                <div className="relative overflow-hidden bg-stone-100 max-h-64 aspect-video">
-                  <Image
-                    src={post.imageUrl}
-                    alt={post.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    referrerPolicy="no-referrer"
-                  />
-                  
-                  {/* Category marker */}
-                  <div className="absolute top-4 left-4 rounded-md bg-stone-900/90 text-[10px] font-mono px-2.5 py-1 uppercase tracking-wider text-stone-100">
-                    {catLabel(post.category)}
-                  </div>
-                </div>
-
-                {/* Lower Typography Content */}
-                <div className="flex-1 p-6 flex flex-col justify-between text-left space-y-4">
-                  <div className="space-y-2">
-                    <p className="text-[10px] text-stone-400 font-mono tracking-wider font-semibold">
-                      {post.publishDate}
-                    </p>
-                    <h3 className="font-sans text-lg font-bold text-stone-900 group-hover:text-amber-950 transition-colors leading-snug">
-                      {post.title}
-                    </h3>
-                    <p className="text-xs text-stone-550 leading-relaxed line-clamp-3">
-                      {post.summary}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center justify-between border-t border-stone-100 pt-4 text-xs font-mono">
-                    <span className="text-amber-905 font-bold flex items-center space-x-1">
-                      <span>Read Full Entry</span>
-                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                    </span>
-                    <span className="text-stone-400">{post.readingTime}</span>
-                  </div>
-                </div>
-
-              </Card>
+              <ArticleCard key={post.id} post={post} categoryLabel={catLabel} />
             ))}
           </div>
         )}

@@ -11,6 +11,7 @@ import CaseStudyCard from '../cards/CaseStudyCard';
 import {caseStudyCountByService, guideCountByService, caseStudiesForService} from '../../lib/relations';
 import Section from '../ui/section';
 import Eyebrow from '../ui/eyebrow';
+import CardStat from '../ui/card-stat';
 import {Button} from '../ui/button';
 import type {ServiceItem, TestimonialItem, BlogPost} from '../../types';
 
@@ -56,12 +57,7 @@ export default function ServiceDetail({
             <p className="max-w-xl text-lg leading-relaxed text-stone-600">{service.shortDescription}</p>
 
             {caseStudiesForSvc.length > 0 && (
-              <div className="flex flex-wrap items-center gap-4 font-mono text-xs text-amber-800">
-                <span className="inline-flex items-center gap-1.5">
-                  <Sparkles className="h-4 w-4" />
-                  {caseStudiesForSvc.length} case stud{caseStudiesForSvc.length > 1 ? 'ies' : 'y'}
-                </span>
-              </div>
+              <CardStat icon={Sparkles} count={caseStudiesForSvc.length} singular="case study" plural="case studies" />
             )}
 
             {service.price && (

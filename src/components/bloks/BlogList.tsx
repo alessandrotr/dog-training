@@ -20,13 +20,9 @@ interface BlogListBlok extends BlokBase {
 // the shared Carousel (compact article cards).
 export default function BlogList({blok}: {blok: BlogListBlok}) {
   const href = useHref();
-  const {posts, services} = usePageData();
+  const {posts} = usePageData();
   const limit = Number(blok.limit) || posts.length;
   const items = posts.slice(0, limit);
-  const serviceTitle = (ids?: string[]) => {
-    const id = ids?.[0];
-    return id ? services.find((s) => s.id === id)?.title : undefined;
-  };
 
   return (
     <Section {...storyblokEditable(blok as any)}>
@@ -39,7 +35,7 @@ export default function BlogList({blok}: {blok: BlogListBlok}) {
         headline={blok.headline}
         footerLabel={blok.footer_label}
         footerHref={href.page('blog')}
-        renderItem={(post, slideProps) => <ArticleCard post={post} slideProps={slideProps} serviceTitle={serviceTitle(post.serviceIds)} />}
+        renderItem={(post, slideProps) => <ArticleCard post={post} slideProps={slideProps} />}
       />
     </Section>
   );

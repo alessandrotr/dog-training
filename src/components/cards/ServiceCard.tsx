@@ -6,6 +6,7 @@ import {Sparkles, Plus, Check, BookOpen} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import {useInquiryCart} from '../InquiryCartProvider';
 import Card from '../ui/card';
+import CardStat from '../ui/card-stat';
 import {cn} from '../../lib/utils';
 import type {ServiceItem} from '../../types';
 
@@ -81,19 +82,9 @@ export default function ServiceCard({
       <div className="flex flex-1 flex-col p-5 text-left">
         {/* Social-proof row — case studies tagged to this service + related guides */}
         {(caseStudies > 0 || guides > 0) && (
-          <div className="flex items-center gap-3 font-mono text-[11px]">
-            {caseStudies > 0 && (
-              <span className="inline-flex items-center gap-1 text-amber-800">
-                <Sparkles className="h-3.5 w-3.5" />
-                {caseStudies} case stud{caseStudies > 1 ? 'ies' : 'y'}
-              </span>
-            )}
-            {guides > 0 && (
-              <span className="inline-flex items-center gap-1 text-stone-500">
-                <BookOpen className="h-3.5 w-3.5" />
-                {guides} guide{guides > 1 ? 's' : ''}
-              </span>
-            )}
+          <div className="flex items-center gap-3">
+            {caseStudies > 0 && <CardStat icon={Sparkles} count={caseStudies} singular="case study" plural="case studies" />}
+            {guides > 0 && <CardStat icon={BookOpen} count={guides} singular="guide" />}
           </div>
         )}
 
