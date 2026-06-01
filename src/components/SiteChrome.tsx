@@ -7,21 +7,33 @@ import Footer from './navigation/Footer';
 import ConnectFab from './navigation/ConnectFab';
 import LeadDialogMount from './lead/LeadDialogMount';
 import {AvailabilityProvider} from './AvailabilityProvider';
-import {InquiryCartProvider} from './InquiryCartProvider';
+import {InquiryCartProvider, type InquiryItem} from './InquiryCartProvider';
 import InquiryCartBar from './InquiryCartBar';
-import type {SiteConfig, AvailabilityData} from '../types';
+import type {SiteConfig, AvailabilityData, ServiceItem} from '../types';
 
 // Persistent app shell rendered around every route by the root layout.
 export default function SiteChrome({
   config,
   availability,
+  services,
   children,
 }: {
   config: SiteConfig;
   availability: AvailabilityData;
+  services: ServiceItem[];
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+
+  // Service catalog the inquiry form can offer as an "add a program" picker.
+  const catalog: InquiryItem[] = services.map((s) => ({
+    slug: s.slug,
+    title: s.title,
+    imageUrl: s.imageUrl,
+    shortDescription: s.shortDescription,
+    price: s.price,
+    audience: s.audience,
+  }));
 
   // Scroll to top on route changes.
   useEffect(() => {
@@ -30,7 +42,7 @@ export default function SiteChrome({
 
   return (
     <AvailabilityProvider value={availability}>
-      <InquiryCartProvider>
+      <InquiryCartProvider catalog={catalog}>
         <div className="relative min-h-screen flex flex-col bg-stone-50 font-sans text-stone-850 antialiased selection:bg-amber-700/10 selection:text-amber-900">
           {/* Primary Top Header Navigation */}
           <Navbar config={config} />

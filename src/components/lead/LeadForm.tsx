@@ -5,63 +5,82 @@ import Image from 'next/image';
 import {useTranslation} from 'react-i18next';
 import {Send, CheckCircle2, AlertCircle, X, Sparkles, PawPrint} from 'lucide-react';
 import {Button} from '@/components/ui/button';
-import {Heading, Text} from '@/components/ui';
+import {Heading, Text, Eyebrow, MultiSelect} from '@/components/ui';
 import {Input} from '@/components/ui/input';
 import {Label} from '@/components/ui/label';
 import {Textarea} from '@/components/ui/textarea';
 import {useInquiryCart} from '@/components/InquiryCartProvider';
-import {submitLead, type LeadPayload} from '@/lib/lead';
+import {submitLead, makeLeadSchema, type LeadPayload} from '@/lib/lead';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
 type Errors = Partial<Record<'name' | 'email' | 'message', string>>;
 
-const EMAIL_RE = /\S+@\S+\.\S+/;
+const EMPTY: LeadPayload = {name: '', email: '', dogAge: '', dogBreed: '', message: ''};
 
 // Unified contact intake form. Rendered both on the /contact page and inside
-// the lead dialog. Submits through submitLead() (currently a stub).
+// the lead dialog. Submits through submitLead() (currently a stub). Validation
+// runs through a zod schema (see makeLeadSchema) that drops the message
+// requirement once services are attached to the inquiry.
 export default function LeadForm({onSuccess, available = true}: {onSuccess?: () => void; available?: boolean}) {
   const {t, i18n} = useTranslation();
   const cart = useInquiryCart();
   const de = i18n.language === 'de';
   const waitlist = !available; // fully booked → frame the form as a waitlist join
-  const [data, setData] = useState<LeadPayload>({
-    name: '',
-    email: '',
-    phone: '',
-    dogInfo: '',
-    concern: '',
-    message: '',
-  });
+  const [data, setData] = useState<LeadPayload>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>('idle');
+
+  // Service picker: the catalog drives a multi-select, the inquiry cart is the
+  // source of truth for what's chosen. Reconcile the two on change.
+  const selected = cart.catalog.filter((s) => cart.has(s.slug)).map((s) => s.slug);
+  function handleServices(next: string[]) {
+    next
+      .filter((slug) => !cart.has(slug))
+      .forEach((slug) => {
+        const item = cart.catalog.find((s) => s.slug === slug);
+        if (item) cart.add(item);
+      });
+    selected.filter((slug) => !next.includes(slug)).forEach((slug) => cart.remove(slug));
+  }
 
   function set<K extends keyof LeadPayload>(key: K, value: string) {
     setData((d) => ({...d, [key]: value}));
     if (key in errors) setErrors((e) => ({...e, [key]: undefined}));
   }
 
-  function validate(): boolean {
-    const next: Errors = {};
-    if (!data.name.trim()) next.name = t('contact.fields.fullName');
-    if (!EMAIL_RE.test(data.email)) next.email = t('contact.fields.emailAddress');
-    // A message is required unless services were added to the inquiry.
-    if (!data.message.trim() && cart.items.length === 0) next.message = t('contact.fields.detailBehaviors');
-    setErrors(next);
-    return Object.keys(next).length === 0;
+  function validate(): LeadPayload | null {
+    const schema = makeLeadSchema(
+      {
+        name: t('contact.fields.fullName'),
+        email: t('contact.fields.emailAddress'),
+        message: t('contact.fields.detailBehaviors'),
+      },
+      // A message is required unless services were added to the inquiry.
+      cart.items.length === 0,
+    );
+    const result = schema.safeParse(data);
+    if (!result.success) {
+      const f = result.error.flatten().fieldErrors;
+      setErrors({name: f.name?.[0], email: f.email?.[0], message: f.message?.[0]});
+      return null;
+    }
+    setErrors({});
+    return result.data;
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!validate()) return;
+    const clean = validate();
+    if (!clean) return;
     setStatus('loading');
     try {
       const prefix = de ? 'Interessiert an: ' : 'Interested in: ';
       const services = cart.items.map((i) => i.title);
       const waitlistNote = waitlist ? (de ? '⏳ Wartelisten-Anfrage' : '⏳ Waitlist request') : '';
-      const message = [waitlistNote, services.length ? `${prefix}${services.join(', ')}` : '', data.message.trim()]
+      const message = [waitlistNote, services.length ? `${prefix}${services.join(', ')}` : '', clean.message?.trim()]
         .filter(Boolean)
         .join('\n\n');
-      await submitLead({...data, message});
+      await submitLead({...clean, message});
       cart.clear();
       setStatus('success');
       onSuccess?.();
@@ -89,7 +108,7 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
         <Button
           variant="outline"
           onClick={() => {
-            setData({name: '', email: '', phone: '', dogInfo: '', concern: '', message: ''});
+            setData(EMPTY);
             setStatus('idle');
           }}
         >
@@ -100,7 +119,7 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 text-left">
+    <form onSubmit={handleSubmit} className="space-y-5 text-left">
       {waitlist && (
         <div className="rounded-2xl border border-amber-200/60 bg-amber-50 p-3.5 text-[13px] leading-relaxed text-amber-900">
           <span className="font-bold">{de ? 'Aktuell ausgebucht.' : 'Currently fully booked.'}</span>{' '}
@@ -109,13 +128,15 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
             : 'Join the waitlist and Sophia will reach out as soon as a spot opens up.'}
         </div>
       )}
+
+      {/* Selected programs */}
       {cart.items.length > 0 && (
         <div className="rounded-2xl border border-amber-200/60 bg-linear-to-br from-amber-50 to-white p-3.5 shadow-sm">
           <div className="mb-2.5 flex items-center justify-between">
-            <p className="inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-amber-800">
+            <span className="inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-amber-800">
               <Sparkles className="h-3.5 w-3.5" />
-              {i18n.language === 'de' ? 'Anfrage zu' : 'Inquiring about'}
-            </p>
+              {de ? 'Anfrage zu' : 'Inquiring about'}
+            </span>
             <span className="rounded-full bg-amber-100 px-2 py-0.5 font-mono text-[10px] font-bold text-amber-800">
               {cart.items.length}
             </span>
@@ -167,6 +188,22 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
         </div>
       )}
 
+      {/* Manual program picker */}
+      {cart.catalog.length > 0 && (
+        <div className="space-y-1.5">
+          <Label htmlFor="lead-services">{de ? 'Programme hinzufügen' : 'Add a program'}</Label>
+          <MultiSelect
+            id="lead-services"
+            options={cart.catalog.map((s) => ({value: s.slug, label: s.title, hint: s.price}))}
+            value={selected}
+            onValueChange={handleServices}
+            placeholder={de ? 'Programme auswählen…' : 'Choose programs…'}
+            summary={(n) => (de ? `${n} ausgewählt` : `${n} selected`)}
+          />
+        </div>
+      )}
+
+      {/* Contact details */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-1.5">
           <Label htmlFor="lead-name">{t('contact.fields.fullName')}</Label>
@@ -178,39 +215,42 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
           <Input id="lead-email" type="email" value={data.email} onChange={(e) => set('email', e.target.value)} aria-invalid={!!errors.email} />
           {errors.email && <p className="font-mono text-[10px] text-red-500">{errors.email}</p>}
         </div>
-        <div className="space-y-1.5">
-          <Label htmlFor="lead-phone">{t('contact.fields.contactNumber')}</Label>
-          <Input id="lead-phone" value={data.phone} onChange={(e) => set('phone', e.target.value)} />
-        </div>
-        <div className="space-y-1.5">
-          <Label htmlFor="lead-dog">{t('contact.fields.dogAgeBreed')}</Label>
-          <Input id="lead-dog" value={data.dogInfo} onChange={(e) => set('dogInfo', e.target.value)} />
+      </div>
+
+      {/* About the dog */}
+      <div className="space-y-2.5 pb-1.5">
+        <Eyebrow tone="brand" className="flex items-center gap-1.5">
+          <PawPrint className="h-3.5 w-3.5" /> {de ? 'Über deinen Hund' : 'About your pup'}
+        </Eyebrow>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="space-y-1.5">
+            <Label htmlFor="lead-dog-age">{de ? 'Alter' : 'Age'}</Label>
+            <Input
+              id="lead-dog-age"
+              value={data.dogAge ?? ''}
+              onChange={(e) => set('dogAge', e.target.value)}
+              placeholder={de ? 'z. B. 8 Monate' : 'e.g. 8 months'}
+            />
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="lead-dog-breed">{de ? 'Rasse' : 'Breed'}</Label>
+            <Input
+              id="lead-dog-breed"
+              value={data.dogBreed ?? ''}
+              onChange={(e) => set('dogBreed', e.target.value)}
+              placeholder={de ? 'z. B. Border Collie' : 'e.g. Border Collie'}
+            />
+          </div>
         </div>
       </div>
 
-      <div className="space-y-1.5">
-        <Label htmlFor="lead-concern">{t('contact.fields.primaryConcern')}</Label>
-        <select
-          id="lead-concern"
-          value={data.concern}
-          onChange={(e) => set('concern', e.target.value)}
-          className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-xs outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
-        >
-          <option value="">{t('contact.fields.choose')}</option>
-          <option value="puppy">{t('contact.fields.concernPuppy')}</option>
-          <option value="reactive">{t('contact.fields.concernReactive')}</option>
-          <option value="anxiety">{t('contact.fields.concernAnxiety')}</option>
-          <option value="recall">{t('contact.fields.concernRecall')}</option>
-          <option value="multiple">{t('contact.fields.concernMultiple')}</option>
-        </select>
-      </div>
-
+      {/* Message */}
       <div className="space-y-1.5">
         <Label htmlFor="lead-message">{t('contact.fields.detailBehaviors')}</Label>
         <Textarea
           id="lead-message"
           rows={4}
-          value={data.message}
+          value={data.message ?? ''}
           onChange={(e) => set('message', e.target.value)}
           placeholder={t('contact.fields.detailPlaceholder')}
           aria-invalid={!!errors.message}
@@ -224,7 +264,12 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
         </p>
       )}
 
-      <Button type="submit" size="lg" className="w-full" disabled={status === 'loading'}>
+      <Button
+        type="submit"
+        size="lg"
+        disabled={status === 'loading'}
+        className="h-12 w-full rounded-xl bg-amber-700 text-sm font-bold tracking-tight text-white shadow-lg shadow-amber-900/15 transition-all hover:bg-amber-800 hover:shadow-xl hover:shadow-amber-900/25 active:scale-[0.98] disabled:hover:bg-amber-700"
+      >
         {status === 'loading'
           ? t('contact.fields.transmitting')
           : waitlist

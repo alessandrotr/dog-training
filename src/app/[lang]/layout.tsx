@@ -5,6 +5,7 @@ import SiteChrome from '../../components/SiteChrome';
 import {LOCAL_BUSINESS_SCHEMA} from '../../data';
 import {getConfig} from '../../lib/get-config';
 import {getAvailability} from '../../lib/get-availability';
+import {getServices} from '../../lib/content-server';
 
 export function generateStaticParams() {
   return LOCALES.map((lang) => ({lang}));
@@ -20,7 +21,11 @@ export default async function LangLayout({
   const {lang} = await params;
   if (!isLocale(lang)) notFound();
 
-  const [config, availability] = await Promise.all([getConfig(lang), getAvailability(lang)]);
+  const [config, availability, services] = await Promise.all([
+    getConfig(lang),
+    getAvailability(lang),
+    getServices(lang),
+  ]);
 
   return (
     <I18nProvider lang={lang}>
@@ -29,7 +34,7 @@ export default async function LangLayout({
         type="application/ld+json"
         dangerouslySetInnerHTML={{__html: JSON.stringify(LOCAL_BUSINESS_SCHEMA)}}
       />
-      <SiteChrome config={config} availability={availability}>{children}</SiteChrome>
+      <SiteChrome config={config} availability={availability} services={services}>{children}</SiteChrome>
     </I18nProvider>
   );
 }

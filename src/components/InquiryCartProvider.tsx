@@ -16,6 +16,9 @@ export interface InquiryItem {
 
 interface InquiryCart {
   items: InquiryItem[];
+  // Full set of bookable services, so the inquiry form can offer a picker to
+  // add programs without re-fetching. Provided globally by the app shell.
+  catalog: InquiryItem[];
   add: (item: InquiryItem) => void;
   remove: (slug: string) => void;
   toggle: (item: InquiryItem) => void;
@@ -28,7 +31,7 @@ const STORAGE_KEY = 'inquiry-cart';
 
 // Lightweight "add to inquiry" cart. Persisted to localStorage so a visitor can
 // collect services across pages, then send one message about all of them.
-export function InquiryCartProvider({children}: {children: React.ReactNode}) {
+export function InquiryCartProvider({children, catalog = []}: {children: React.ReactNode; catalog?: InquiryItem[]}) {
   const [items, setItems] = useState<InquiryItem[]>([]);
 
   // Hydrate after mount (avoids SSR mismatch).
@@ -61,7 +64,7 @@ export function InquiryCartProvider({children}: {children: React.ReactNode}) {
   const clear = useCallback(() => setItems([]), []);
   const has = useCallback((slug: string) => items.some((i) => i.slug === slug), [items]);
 
-  return <Ctx.Provider value={{items, add, remove, toggle, clear, has}}>{children}</Ctx.Provider>;
+  return <Ctx.Provider value={{items, catalog, add, remove, toggle, clear, has}}>{children}</Ctx.Provider>;
 }
 
 export function useInquiryCart(): InquiryCart {

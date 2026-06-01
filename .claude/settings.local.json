@@ -49,7 +49,11 @@
       "Bash(sed -n '1,40p' src/lib/get-page.ts)",
       "Bash(sed -n '/\"name\": \"page_header\"/,/^    }/p' storyblok/components.json)",
       "Bash(sed -n '195,230p' src/components/lead/LeadForm.tsx)",
-      "Bash(sed -n '/contact: {/,/}/p' src/lib/i18n.ts)"
+      "Bash(sed -n '/contact: {/,/}/p' src/lib/i18n.ts)",
+      "Bash(node -p \"require\\('zod/package.json'\\).version\")",
+      "Bash(echo \"yes $\\(node -p \"require\\('zod/package.json'\\).version\" \\)\")",
+      "Bash(grep -iA3 \"multiple\\\\|value\\\\b\\\\|onValueChange\")",
+      "Bash(perl -i -pe 's/data-\\\\[\\(popup-open|starting-style|ending-style|highlighted|selected\\)\\\\]:/data-$1:/g; s/group-data-\\\\[selected\\\\]:/group-data-selected:/g' src/components/ui/multi-select.tsx)"
     ],
     "additionalDirectories": [
       "/tmp"
