@@ -1,6 +1,6 @@
 'use client';
 
-import {ClipboardList, ArrowRight, X} from 'lucide-react';
+import {ClipboardList, X} from 'lucide-react';
 import {useInquiryCart} from './InquiryCartProvider';
 import {useLeadDialog} from '../stores/lead-dialog';
 
@@ -34,7 +34,6 @@ export default function InquiryCartBar() {
               </span>
             </span>
             <span className="text-xs font-mono font-bold uppercase tracking-tight text-amber-950">Send inquiry</span>
-            <ArrowRight className="h-4 w-4 text-amber-700 transition-transform group-hover:translate-x-0.5" />
           </button>
           <button
             type="button"
