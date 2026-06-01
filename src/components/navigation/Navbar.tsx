@@ -2,10 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion, useScroll, useMotionValueEvent } from 'motion/react';
+import { motion } from 'motion/react';
 import { useTranslation } from 'react-i18next';
 import { Menu, X, CalendarRange, PawPrint } from 'lucide-react';
 import { useCurrentPage, useHref } from '../../lib/navigation';
+import { useHideOnScroll } from '../../lib/use-hide-on-scroll';
 import LocaleToggle from './LocaleToggle';
 import Logo from './Logo';
 import {Button} from '../ui';
@@ -13,21 +14,13 @@ import type { SiteConfig } from '../../types';
 
 export default function Navbar({ config }: { config: SiteConfig }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const [atTop, setAtTop] = useState(true);
   const { t } = useTranslation();
   const href = useHref();
   const currentPage = useCurrentPage();
   const close = () => setIsOpen(false);
 
   // Hide on scroll down, reveal on scroll up; transparent while at the very top.
-  const {scrollY} = useScroll();
-  useMotionValueEvent(scrollY, 'change', (y) => {
-    const prev = scrollY.getPrevious() ?? 0;
-    setAtTop(y < 8);
-    if (y > prev && y > 75) setHidden(true);
-    else if (y < prev) setHidden(false);
-  });
+  const {hidden, atTop} = useHideOnScroll();
 
   // Publish the navbar offset so sticky elements (filters, TOC, availability)
   // can ride up/down with the navbar via `top: var(--nav-offset)`.

@@ -1,10 +1,9 @@
 'use client';
 
-import {useState} from 'react';
-import {useScroll, useMotionValueEvent} from 'motion/react';
 import {useTranslation} from 'react-i18next';
 import {PawPrint} from 'lucide-react';
 import {cn} from '@/lib/utils';
+import {useHideOnScroll} from '@/lib/use-hide-on-scroll';
 import {useLeadDialog} from '@/stores/lead-dialog';
 
 // Fixed bottom-right action that opens the connect dialog. Replaces the old
@@ -14,14 +13,7 @@ import {useLeadDialog} from '@/stores/lead-dialog';
 export default function ConnectFab() {
   const {t} = useTranslation();
   const {open, isOpen} = useLeadDialog();
-  const [hidden, setHidden] = useState(false);
-
-  const {scrollY} = useScroll();
-  useMotionValueEvent(scrollY, 'change', (y) => {
-    const prev = scrollY.getPrevious() ?? 0;
-    if (y > prev && y > 75) setHidden(true);
-    else if (y < prev) setHidden(false);
-  });
+  const {hidden} = useHideOnScroll();
 
   return (
     <button

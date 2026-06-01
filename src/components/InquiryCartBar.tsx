@@ -1,17 +1,20 @@
 'use client';
 
 import {ClipboardList, X} from 'lucide-react';
+import {useHideOnScroll} from '../lib/use-hide-on-scroll';
 import {useInquiryCart} from './InquiryCartProvider';
 import {useLeadDialog} from '../stores/lead-dialog';
 
 // Floating inquiry-cart pill (bottom-left, opposite the ConnectFab). Appears
 // only when services have been added; opens the Contact dialog to send them,
-// with a built-in clear (✕) to empty the inquiry without opening it.
+// with a built-in clear (✕) to empty the inquiry without opening it. Slides
+// away on scroll-down / back up on scroll-up, mirroring the ConnectFab.
 export default function InquiryCartBar() {
   const {items, clear} = useInquiryCart();
   const {open, isOpen} = useLeadDialog();
+  const {hidden} = useHideOnScroll();
 
-  const show = items.length > 0 && !isOpen;
+  const show = items.length > 0 && !isOpen && !hidden;
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 sm:bottom-6">
