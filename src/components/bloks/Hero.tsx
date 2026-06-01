@@ -68,9 +68,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
               {blok.headline_highlight && (
                 <>
                   {' '}
-                  <span className="text-amber-800 font-serif italic font-normal">
-                    {blok.headline_highlight}
-                  </span>
+                  <span className="text-amber-800">{blok.headline_highlight}</span>
                 </>
               )}
               {blok.headline_suffix ? ` ${blok.headline_suffix}` : ''}

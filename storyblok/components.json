@@ -140,7 +140,7 @@
       "schema": {
         "eyebrow": { "type": "text", "pos": 0, "translatable": true },
         "headline": { "type": "text", "pos": 1, "translatable": true },
-        "headline_highlight": { "type": "text", "pos": 2, "translatable": true, "description": "Italic accent word" },
+        "headline_highlight": { "type": "text", "pos": 2, "translatable": true, "description": "Accent word, highlighted in the brand colour" },
         "headline_suffix": { "type": "text", "pos": 3, "translatable": true },
         "subheadline": { "type": "textarea", "pos": 4, "translatable": true },
         "image": { "type": "asset", "filetypes": ["images"], "pos": 5, "description": "Right-column image (shown when 'show availability' is off)" },
