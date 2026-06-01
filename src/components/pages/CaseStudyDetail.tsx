@@ -47,7 +47,7 @@ export default function CaseStudyDetail({
 
       <div className="relative z-10 mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         {/* Header — clears the stacked label on mobile, tucks behind it on desktop */}
-        <header className="mt-[46vw] space-y-5 sm:mt-[18vw] lg:mt-44">
+        <header className="mt-[27vw] sm:mt-[10vw] space-y-5 lg:mt-25">
           <PersonByline name={story.name} breed={story.dogBreed} imageUrl={story.imageUrl} size="lg" />
 
           {story.challenge && (
