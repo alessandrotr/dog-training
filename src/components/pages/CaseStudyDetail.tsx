@@ -2,11 +2,12 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import {ArrowLeft, Sparkles, ArrowUpRight} from 'lucide-react';
+import {Sparkles, Plus, Check} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
+import {useInquiryCart} from '../InquiryCartProvider';
 import CaseStudyCard from '../cards/CaseStudyCard';
 import Carousel from '../Carousel';
-import {Section, Eyebrow, Button, PersonByline, Heading, Prose} from '../ui';
+import {Section, Eyebrow, PersonByline, Heading, Text, Prose, Pill, PriceTag} from '../ui';
 import type {TestimonialItem, ServiceItem} from '../../types';
 
 // Full case-study page: the dog, the challenge, what was done, the outcome,
@@ -23,6 +24,8 @@ export default function CaseStudyDetail({
   serviceById: Map<string, ServiceItem>;
 }) {
   const href = useHref();
+  const cart = useInquiryCart();
+  const inquiryAdded = !!service && cart.has(service.slug);
   const paragraphs = story.text.split('\n').map((p) => p.trim()).filter(Boolean);
 
   return (
@@ -71,17 +74,71 @@ export default function CaseStudyDetail({
           </div>
         )}
 
-        {/* The service this belonged to */}
+        {/* The service this belonged to — full-width program CTA banner. Whole
+            banner links to the service; the + toggles it in the inquiry. */}
         {service && (
-          <div className="mt-10 flex flex-col gap-3 rounded-2xl border border-stone-200 bg-white p-6 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <Eyebrow>This was part of</Eyebrow>
-              <p className="mt-1 font-sans text-lg font-bold text-stone-900">{service.title}</p>
+          <div className="mt-10">
+            <Eyebrow>This was part of</Eyebrow>
+            <div className="group relative mt-3 flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-colors hover:border-stone-300 sm:flex-row">
+              {service.imageUrl && (
+                <div className="relative aspect-[16/10] shrink-0 overflow-hidden bg-stone-100 sm:aspect-auto sm:w-2/5">
+                  <Image
+                    src={service.imageUrl}
+                    alt={service.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 320px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    referrerPolicy="no-referrer"
+                  />
+                  {service.audience && (
+                    <Pill tone="solid" className="absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] truncate font-mono text-[10px] uppercase tracking-wide shadow-sm backdrop-blur">
+                      {service.audience}
+                    </Pill>
+                  )}
+                </div>
+              )}
+
+              <div className="flex flex-1 flex-col gap-3 p-6">
+                <div>
+                  <Link
+                    href={href.service(service.slug)}
+                    className="before:absolute before:inset-0 before:content-['']"
+                  >
+                    <Heading level={3} size="card" className="transition-colors group-hover:text-amber-900">
+                      {service.title}
+                    </Heading>
+                  </Link>
+                  {service.shortDescription && (
+                    <Text className="mt-1.5 line-clamp-2">{service.shortDescription}</Text>
+                  )}
+                </div>
+
+                <div className="mt-auto flex items-end justify-between gap-4">
+                  <PriceTag price={service.price} />
+                  <button
+                    type="button"
+                    aria-label={inquiryAdded ? 'Remove from inquiry' : 'Add to inquiry'}
+                    onClick={() =>
+                      cart.toggle({
+                        slug: service.slug,
+                        title: service.title,
+                        imageUrl: service.imageUrl,
+                        shortDescription: service.shortDescription,
+                        price: service.price,
+                        audience: service.audience,
+                      })
+                    }
+                    className={`relative z-10 inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-wider shadow-sm transition-colors active:scale-95 ${
+                      inquiryAdded
+                        ? 'bg-emerald-600 text-white hover:bg-emerald-700'
+                        : 'bg-amber-700 text-white hover:bg-amber-950'
+                    }`}
+                  >
+                    {inquiryAdded ? <><Check className="h-3.5 w-3.5" /> Added</> : <><Plus className="h-3.5 w-3.5" /> Add to inquiry</>}
+                  </button>
+                </div>
+              </div>
             </div>
-            <Button render={<Link href={href.service(service.slug)} />} variant="cta" size="lg" className="w-fit rounded-full px-4">
-              Explore the service
-              <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/button:translate-x-0.5 group-hover/button:-translate-y-0.5" />
-            </Button>
           </div>
         )}
       </div>
