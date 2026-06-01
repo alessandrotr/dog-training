@@ -1,5 +1,7 @@
 'use client';
 
+import {useState} from 'react';
+import {useScroll, useMotionValueEvent} from 'motion/react';
 import {useTranslation} from 'react-i18next';
 import {PawPrint} from 'lucide-react';
 import {cn} from '@/lib/utils';
@@ -7,10 +9,19 @@ import {useLeadDialog} from '@/stores/lead-dialog';
 
 // Fixed bottom-right action that opens the connect dialog. Replaces the old
 // full-width mobile sticky banner; shown on every viewport. Tucks away while
-// the dialog is open.
+// the dialog is open, and slides down on scroll-down / back up on scroll-up
+// (mirrors the Navbar's hide-on-scroll behaviour).
 export default function ConnectFab() {
   const {t} = useTranslation();
   const {open, isOpen} = useLeadDialog();
+  const [hidden, setHidden] = useState(false);
+
+  const {scrollY} = useScroll();
+  useMotionValueEvent(scrollY, 'change', (y) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    if (y > prev && y > 75) setHidden(true);
+    else if (y < prev) setHidden(false);
+  });
 
   return (
     <button
@@ -19,7 +30,7 @@ export default function ConnectFab() {
       aria-label={t('booking.headline')}
       className={cn(
         'fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 flex items-center gap-4 rounded-full bg-amber-700 py-3.5 pl-4 pr-5 text-white shadow-lg shadow-amber-950/25 ring-1 ring-amber-500/20 transition-all duration-300 ease-out hover:bg-amber-950 hover:shadow-xl active:scale-95 sm:right-6 sm:bottom-6',
-        isOpen ? 'pointer-events-none translate-y-28 opacity-0' : 'translate-y-0 opacity-100',
+        isOpen || hidden ? 'pointer-events-none translate-y-28 opacity-0' : 'translate-y-0 opacity-100',
       )}
     >
       <span className="relative flex h-6 w-6 items-center justify-center">

@@ -25,7 +25,7 @@ export default function Navbar({ config }: { config: SiteConfig }) {
   useMotionValueEvent(scrollY, 'change', (y) => {
     const prev = scrollY.getPrevious() ?? 0;
     setAtTop(y < 8);
-    if (y > prev && y > 100) setHidden(true);
+    if (y > prev && y > 75) setHidden(true);
     else if (y < prev) setHidden(false);
   });
 
