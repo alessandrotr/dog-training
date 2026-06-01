@@ -2,7 +2,9 @@
 
 import Image from 'next/image';
 import {Check, Plus, Sparkles, CalendarClock} from 'lucide-react';
+import {useTranslation} from 'react-i18next';
 import {useInquiryCart} from '../InquiryCartProvider';
+import {useAvailability} from '../AvailabilityProvider';
 import {useLeadDialog} from '../../stores/lead-dialog';
 import Carousel from '../Carousel';
 import ServiceCard from '../cards/ServiceCard';
@@ -25,8 +27,10 @@ export default function ServiceDetail({
   related: ServiceItem[];
   posts: BlogPost[];
 }) {
+  const {t} = useTranslation();
   const cart = useInquiryCart();
   const {open} = useLeadDialog();
+  const available = useAvailability()?.available ?? true;
 
   const added = cart.has(service.slug);
 
@@ -72,8 +76,13 @@ export default function ServiceDetail({
               >
                 {added ? <><Check className="h-4 w-4" /> Added to inquiry</> : <><Plus className="h-4 w-4" /> Add to inquiry</>}
               </Button>
-              <Button type="button" variant="ctaOutline" size="xl" onClick={() => open('book')}>
-                <CalendarClock className="h-4 w-4" /> Book a consult
+              <Button
+                type="button"
+                variant="ctaOutline"
+                size="xl"
+                onClick={() => open(available ? 'book' : 'contact')}
+              >
+                <CalendarClock className="h-4 w-4" /> {available ? 'Book a consult' : t('booking.waitlist')}
               </Button>
             </div>
           </div>

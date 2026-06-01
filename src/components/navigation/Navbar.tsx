@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Menu, X, CalendarRange, PawPrint } from 'lucide-react';
 import { useCurrentPage, useHref } from '../../lib/navigation';
 import { useHideOnScroll } from '../../lib/use-hide-on-scroll';
+import { useAvailability } from '../AvailabilityProvider';
 import LocaleToggle from './LocaleToggle';
 import Logo from './Logo';
 import {Button} from '../ui';
@@ -18,6 +19,13 @@ export default function Navbar({ config }: { config: SiteConfig }) {
   const href = useHref();
   const currentPage = useCurrentPage();
   const close = () => setIsOpen(false);
+
+  // Fully booked → the booking CTA becomes a waitlist join (routes to the
+  // contact page, which the dialog interceptor opens as the Message tab).
+  const availability = useAvailability();
+  const available = availability?.available ?? true;
+  const ctaLabel = available ? config.ctaLabel : t('booking.waitlist');
+  const ctaTarget = available ? config.ctaTarget : 'contact';
 
   // Hide on scroll down, reveal on scroll up; transparent while at the very top.
   const {hidden, atTop} = useHideOnScroll();
@@ -114,13 +122,13 @@ export default function Navbar({ config }: { config: SiteConfig }) {
 
             <div className="border-t border-stone-200/80 my-2 pt-2">
               <Button
-                render={<Link href={href.page(config.ctaTarget)} onClick={close} />}
+                render={<Link href={href.page(ctaTarget)} onClick={close} />}
                 variant="cta"
                 size="xl"
                 className="w-full py-3"
               >
                 <CalendarRange className="h-4 w-4" />
-                {config.ctaLabel}
+                {ctaLabel}
               </Button>
               <div className="text-center mt-3 text-xs font-mono text-stone-500">
                 {t('nav.directLine')}: {config.footer.phone}

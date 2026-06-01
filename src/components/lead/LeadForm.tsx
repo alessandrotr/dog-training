@@ -11,12 +11,11 @@ import {Input} from '@/components/ui/input';
 import {Label} from '@/components/ui/label';
 import {Textarea} from '@/components/ui/textarea';
 import {useInquiryCart} from '@/components/InquiryCartProvider';
+import {useLeadForm} from '@/stores/lead-form';
 import {submitLead, makeLeadSchema, type LeadPayload} from '@/lib/lead';
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
 type Errors = Partial<Record<'name' | 'email' | 'message', string>>;
-
-const EMPTY: LeadPayload = {name: '', email: '', dogAge: '', dogBreed: '', message: ''};
 
 // Unified contact intake form. Rendered both on the /contact page and inside
 // the lead dialog. Submits through submitLead() (currently a stub). Validation
@@ -27,7 +26,7 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
   const cart = useInquiryCart();
   const de = i18n.language === 'de';
   const waitlist = !available; // fully booked → frame the form as a waitlist join
-  const [data, setData] = useState<LeadPayload>(EMPTY);
+  const {draft: data, setField, reset, programsOpen, setProgramsOpen} = useLeadForm();
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>('idle');
 
@@ -45,7 +44,7 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
   }
 
   function set<K extends keyof LeadPayload>(key: K, value: string) {
-    setData((d) => ({...d, [key]: value}));
+    setField(key, value);
     if (key in errors) setErrors((e) => ({...e, [key]: undefined}));
   }
 
@@ -83,6 +82,7 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
         .join('\n\n');
       await submitLead({...clean, message});
       cart.clear();
+      reset();
       setStatus('success');
       onSuccess?.();
     } catch {
@@ -109,7 +109,7 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
         <Button
           variant="outline"
           onClick={() => {
-            setData(EMPTY);
+            reset();
             setStatus('idle');
           }}
         >
@@ -133,7 +133,8 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
       {/* Selected programs — collapsible so a long inquiry doesn't crowd the form */}
       {cart.items.length > 0 && (
         <Accordion.Root
-          defaultValue={[]}
+          value={programsOpen ? ['items'] : []}
+          onValueChange={(v) => setProgramsOpen(v.includes('items'))}
           className="overflow-hidden rounded-2xl border border-amber-200/60 bg-linear-to-br from-amber-50 to-white shadow-sm"
         >
           <Accordion.Item value="items">

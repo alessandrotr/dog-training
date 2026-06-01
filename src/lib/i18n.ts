@@ -111,6 +111,7 @@ const resources = {
       booking: {
         badge: 'ONLINE SCHEDULING PORTAL',
         tab: 'Book a call',
+        waitlist: 'Join Waitlist',
         headline: 'Schedule Free Consult',
         subheadline: 'Select an active coordinate slot below for your initial, zero-obligation, 15-minute alignment phone call. We\'ll chat about your dog, their physical environment, and check matching timelines.',
         successTitle: 'Your Consult is Arranged!',
@@ -241,6 +242,7 @@ const resources = {
       booking: {
         badge: 'ONLINE-TERMINBUCHUNG',
         tab: 'Termin',
+        waitlist: 'Join Warteliste',
         headline: 'Erstgespräch vereinbaren',
         subheadline: 'Wählen Sie unten einen freien Termin für Ihr kostenloses, unverbindliches 15-minütiges Gespräch per Telefon oder Zoom aus. Wir sprechen über Ihren Hund und die zeitlichen Optionen.',
         successTitle: 'Ihr Termin wurde reserviert!',
