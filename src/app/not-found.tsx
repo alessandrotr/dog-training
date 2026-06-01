@@ -49,14 +49,14 @@ export default async function NotFound() {
 
         {/* 4 · dog · 4 */}
         <div className="flex items-center justify-center gap-3 sm:gap-5">
-          <span className="bg-linear-to-br from-amber-500 via-amber-700 to-amber-950 bg-clip-text font-sans text-8xl font-black leading-none text-transparent sm:text-9xl">
+          <span className="bg-linear-to-br from-amber-400 via-amber-600 to-amber-800 bg-clip-text font-sans text-8xl font-black leading-none text-transparent sm:text-9xl">
             4
           </span>
           <span className="relative flex h-24 w-24 items-center justify-center rounded-full bg-amber-700 text-white shadow-xl shadow-amber-950/25 ring-1 ring-amber-500/30 sm:h-28 sm:w-28">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400/30 [animation-duration:2.5s]" />
             <Dog className="relative h-12 w-12 sm:h-14 sm:w-14" />
           </span>
-          <span className="bg-linear-to-br from-amber-500 via-amber-700 to-amber-950 bg-clip-text font-sans text-8xl font-black leading-none text-transparent sm:text-9xl">
+          <span className="bg-linear-to-br from-amber-400 via-amber-600 to-amber-800 bg-clip-text font-sans text-8xl font-black leading-none text-transparent sm:text-9xl">
             4
           </span>
         </div>
