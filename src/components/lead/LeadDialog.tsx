@@ -1,11 +1,15 @@
 'use client';
 
+import {useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Dialog as DialogPrimitive} from '@base-ui/react/dialog';
-import {CalendarClock, MessageCircle, X, PawPrint} from 'lucide-react';
+import {CalendarClock, MessageCircle, X, PawPrint, Lock} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Tabs, TabsList, TabsTrigger, TabsContent} from '@/components/ui/tabs';
 import {useLeadDialog, type LeadMode} from '@/stores/lead-dialog';
+import {useAvailability} from '@/components/AvailabilityProvider';
+import {Text} from '@/components/ui';
+import AvailabilityPresence from './AvailabilityPresence';
 import Scheduler from './Scheduler';
 import LeadForm from './LeadForm';
 
@@ -13,10 +17,19 @@ import LeadForm from './LeadForm';
 // centered card on desktop. Composes the Base UI dialog primitive (focus trap,
 // aria-modal, scroll-lock) with fully custom brand styling.
 export default function LeadDialog() {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
   const {isOpen, mode, close, setMode} = useLeadDialog();
+  const availability = useAvailability();
+  const available = availability?.available ?? true;
+  const waitlistLabel = i18n.language === 'de' ? 'Warteliste' : 'Waitlist';
   const title = mode === 'contact' ? t('contact.headline') : t('booking.headline');
   const description = mode === 'contact' ? t('contact.subheadline') : t('booking.subheadline');
+
+  // Fully booked → there are no consult slots, so steer the booking tab to the
+  // Message/waitlist tab instead of showing an empty scheduler.
+  useEffect(() => {
+    if (isOpen && !available && mode === 'book') setMode('contact');
+  }, [isOpen, available, mode, setMode]);
 
   return (
     <DialogPrimitive.Root open={isOpen} onOpenChange={(open) => !open && close()}>
@@ -45,16 +58,24 @@ export default function LeadDialog() {
           {/* Header */}
           <div className="relative shrink-0 overflow-hidden bg-linear-to-br from-amber-100 via-stone-50 to-stone-50 px-6 pb-5 pt-5 sm:px-7 sm:pt-7">
             <PawPrint className="pointer-events-none absolute -right-3 -top-4 h-20 w-20 rotate-12 text-amber-300/40" />
-            <div className="relative flex items-start gap-3.5 pr-8">
-              
-              <div className="min-w-0 space-y-1">
-                <DialogPrimitive.Title className="font-sans text-lg font-extrabold leading-tight tracking-tight text-amber-950">
-                  {title}
-                </DialogPrimitive.Title>
-                <DialogPrimitive.Description className="line-clamp-2 text-[13px] leading-relaxed text-stone-500">
-                  {description}
-                </DialogPrimitive.Description>
-              </div>
+            <div className="relative pr-8">
+              {availability ? (
+                <>
+                  <AvailabilityPresence />
+                  {/* Accessible names for the dialog (presence row is the visible header) */}
+                  <DialogPrimitive.Title className="sr-only">{`${availability.name} — ${title}`}</DialogPrimitive.Title>
+                  <DialogPrimitive.Description className="sr-only">{description}</DialogPrimitive.Description>
+                </>
+              ) : (
+                <div className="min-w-0 space-y-1">
+                  <DialogPrimitive.Title className="font-sans text-lg font-extrabold leading-tight tracking-tight text-amber-950">
+                    {title}
+                  </DialogPrimitive.Title>
+                  <DialogPrimitive.Description className="line-clamp-2 text-[13px] leading-relaxed text-stone-500">
+                    {description}
+                  </DialogPrimitive.Description>
+                </div>
+              )}
             </div>
             <DialogPrimitive.Close
               aria-label="Close"
@@ -72,20 +93,29 @@ export default function LeadDialog() {
               className="flex min-h-0 w-full flex-1 flex-col gap-4"
             >
               <TabsList className="w-full shrink-0">
-                <TabsTrigger value="book">
-                  <CalendarClock /> {t('booking.tab')}
+                <TabsTrigger value="book" disabled={!available} title={!available ? 'Fully booked right now' : undefined}>
+                  {available ? <CalendarClock /> : <Lock />} {t('booking.tab')}
                 </TabsTrigger>
                 <TabsTrigger value="contact">
-                  <MessageCircle /> {t('contact.tab')}
+                  <MessageCircle /> {available ? t('contact.tab') : waitlistLabel}
                 </TabsTrigger>
               </TabsList>
 
               <div className="-mx-1 min-h-0 flex-1 overflow-y-auto px-1">
                 <TabsContent value="book">
-                  <Scheduler />
+                  {available ? (
+                    <Scheduler />
+                  ) : (
+                    <div className="flex flex-col items-center gap-3 rounded-2xl bg-stone-100/70 px-6 py-12 text-center">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-700/15 text-amber-800">
+                        <Lock className="h-6 w-6" />
+                      </div>
+                      <Text size="sm" className="font-semibold text-amber-950">{availability?.unavailableStatus ?? 'Fully booked right now'}</Text>
+                    </div>
+                  )}
                 </TabsContent>
                 <TabsContent value="contact">
-                  <LeadForm />
+                  <LeadForm available={available} />
                 </TabsContent>
               </div>
             </Tabs>

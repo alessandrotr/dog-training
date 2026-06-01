@@ -47,7 +47,9 @@
       "Bash(echo \"exit: $?\")",
       "Bash(npm test *)",
       "Bash(sed -n '1,40p' src/lib/get-page.ts)",
-      "Bash(sed -n '/\"name\": \"page_header\"/,/^    }/p' storyblok/components.json)"
+      "Bash(sed -n '/\"name\": \"page_header\"/,/^    }/p' storyblok/components.json)",
+      "Bash(sed -n '195,230p' src/components/lead/LeadForm.tsx)",
+      "Bash(sed -n '/contact: {/,/}/p' src/lib/i18n.ts)"
     ],
     "additionalDirectories": [
       "/tmp"

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import {useTranslation} from 'react-i18next';
 import {Send, CheckCircle2, AlertCircle, X, Sparkles, PawPrint} from 'lucide-react';
 import {Button} from '@/components/ui/button';
+import {Heading, Text} from '@/components/ui';
 import {Input} from '@/components/ui/input';
 import {Label} from '@/components/ui/label';
 import {Textarea} from '@/components/ui/textarea';
@@ -18,9 +19,11 @@ const EMAIL_RE = /\S+@\S+\.\S+/;
 
 // Unified contact intake form. Rendered both on the /contact page and inside
 // the lead dialog. Submits through submitLead() (currently a stub).
-export default function LeadForm({onSuccess}: {onSuccess?: () => void}) {
+export default function LeadForm({onSuccess, available = true}: {onSuccess?: () => void; available?: boolean}) {
   const {t, i18n} = useTranslation();
   const cart = useInquiryCart();
+  const de = i18n.language === 'de';
+  const waitlist = !available; // fully booked → frame the form as a waitlist join
   const [data, setData] = useState<LeadPayload>({
     name: '',
     email: '',
@@ -52,9 +55,12 @@ export default function LeadForm({onSuccess}: {onSuccess?: () => void}) {
     if (!validate()) return;
     setStatus('loading');
     try {
-      const prefix = i18n.language === 'de' ? 'Interessiert an: ' : 'Interested in: ';
+      const prefix = de ? 'Interessiert an: ' : 'Interested in: ';
       const services = cart.items.map((i) => i.title);
-      const message = [services.length ? `${prefix}${services.join(', ')}` : '', data.message.trim()].filter(Boolean).join('\n\n');
+      const waitlistNote = waitlist ? (de ? '⏳ Wartelisten-Anfrage' : '⏳ Waitlist request') : '';
+      const message = [waitlistNote, services.length ? `${prefix}${services.join(', ')}` : '', data.message.trim()]
+        .filter(Boolean)
+        .join('\n\n');
       await submitLead({...data, message});
       cart.clear();
       setStatus('success');
@@ -70,8 +76,16 @@ export default function LeadForm({onSuccess}: {onSuccess?: () => void}) {
         <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700">
           <CheckCircle2 className="h-7 w-7" />
         </div>
-        <h3 className="font-sans text-lg font-bold text-stone-900">{t('contact.successTitle')}</h3>
-        <p className="max-w-sm text-sm text-stone-500">{t('contact.successText')}</p>
+        <Heading level={3} size="card">
+          {waitlist ? (de ? 'Du bist auf der Warteliste!' : "You're on the waitlist!") : t('contact.successTitle')}
+        </Heading>
+        <Text className="max-w-sm">
+          {waitlist
+            ? de
+              ? 'Sophia meldet sich, sobald ein Platz frei wird.'
+              : 'Sophia will reach out as soon as a spot opens up.'
+            : t('contact.successText')}
+        </Text>
         <Button
           variant="outline"
           onClick={() => {
@@ -87,6 +101,14 @@ export default function LeadForm({onSuccess}: {onSuccess?: () => void}) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 text-left">
+      {waitlist && (
+        <div className="rounded-2xl border border-amber-200/60 bg-amber-50 p-3.5 text-[13px] leading-relaxed text-amber-900">
+          <span className="font-bold">{de ? 'Aktuell ausgebucht.' : 'Currently fully booked.'}</span>{' '}
+          {de
+            ? 'Trag dich in die Warteliste ein – Sophia meldet sich, sobald ein Platz frei wird.'
+            : 'Join the waitlist and Sophia will reach out as soon as a spot opens up.'}
+        </div>
+      )}
       {cart.items.length > 0 && (
         <div className="rounded-2xl border border-amber-200/60 bg-linear-to-br from-amber-50 to-white p-3.5 shadow-sm">
           <div className="mb-2.5 flex items-center justify-between">
@@ -203,7 +225,13 @@ export default function LeadForm({onSuccess}: {onSuccess?: () => void}) {
       )}
 
       <Button type="submit" size="lg" className="w-full" disabled={status === 'loading'}>
-        {status === 'loading' ? t('contact.fields.transmitting') : t('contact.fields.sendButton')}
+        {status === 'loading'
+          ? t('contact.fields.transmitting')
+          : waitlist
+            ? de
+              ? 'Auf die Warteliste'
+              : 'Join the waitlist'
+            : t('contact.fields.sendButton')}
         {status !== 'loading' && <Send className="h-4 w-4" />}
       </Button>
     </form>
