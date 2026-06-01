@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import {motion, useScroll, useTransform} from 'motion/react';
 import {Sparkles, Plus, Check} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import {useInquiryCart} from '../InquiryCartProvider';
@@ -25,14 +26,28 @@ export default function CaseStudyDetail({
 }) {
   const href = useHref();
   const cart = useInquiryCart();
+  // Parallax: the oversized label glides upward as the page scrolls down (and
+  // back down when scrolling up) — counter to the page for an obvious drift.
+  const {scrollY} = useScroll();
+  const labelY = useTransform(scrollY, [0, 600], [0, -220]);
   const inquiryAdded = !!service && cart.has(service.slug);
   const paragraphs = story.text.split('\n').map((p) => p.trim()).filter(Boolean);
 
   return (
-    <article className="pb-8 text-left">
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <header className="mt-8 space-y-5">
+    <article className="relative overflow-hidden pb-8 text-left">
+      {/* Oversized page label, blended into the background behind the header. */}
+      <motion.span
+        aria-hidden="true"
+        style={{y: labelY}}
+        className="pointer-events-none absolute top-[-0.12em] left-1/2 flex w-full -translate-x-1/2 select-none flex-col items-center bg-linear-to-b from-amber-700/12 via-amber-700/6 to-transparent bg-clip-text text-center font-sans text-[27vw] font-black uppercase leading-[0.82] tracking-tighter text-transparent sm:w-auto sm:flex-row sm:gap-[0.18em] sm:whitespace-nowrap sm:text-[20vw] sm:leading-none lg:text-[15rem]"
+      >
+        <span>Case</span>
+        <span>Study</span>
+      </motion.span>
+
+      <div className="relative z-10 mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        {/* Header — clears the stacked label on mobile, tucks behind it on desktop */}
+        <header className="mt-[46vw] space-y-5 sm:mt-[18vw] lg:mt-44">
           <PersonByline name={story.name} breed={story.dogBreed} imageUrl={story.imageUrl} size="lg" />
 
           {story.challenge && (
