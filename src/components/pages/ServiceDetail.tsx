@@ -114,19 +114,21 @@ export default function ServiceDetail({
 
         {/* Case studies for this service */}
         {caseStudiesForSvc.length > 0 && (
-          <div className="mt-20 border-t border-stone-200 pt-12">
-            <Heading level={2} size="section" className="mb-8">Case studies from this service</Heading>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {caseStudiesForSvc.slice(0, 6).map((r) => (
-                <CaseStudyCard key={r.id} story={r} />
-              ))}
-            </div>
+          <div className="pt-12 lg:pt-8">
+            <Carousel
+              items={caseStudiesForSvc}
+              getKey={(s) => s.id}
+              size="sm"
+              label="case studies"
+              headline="Case studies from this service"
+              renderItem={(s, slideProps) => <CaseStudyCard story={s} slideProps={slideProps} />}
+            />
           </div>
         )}
 
         {/* Related articles for this program */}
         {relatedArticles.length > 0 && (
-          <div className="mt-20 border-t border-stone-200 pt-12">
+          <div className="pt-12 lg:pt-8">
             <Carousel
               items={relatedArticles}
               getKey={(p) => p.id}
@@ -140,7 +142,7 @@ export default function ServiceDetail({
 
         {/* Related programs — shared Carousel */}
         {related.length > 0 && (
-          <div className="mt-20 border-t border-stone-200 pt-12">
+          <div className="pt-12 lg:pt-8">
             <Carousel
               items={related}
               getKey={(s) => s.id}
