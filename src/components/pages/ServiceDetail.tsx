@@ -9,7 +9,7 @@ import ServiceCard from '../cards/ServiceCard';
 import ArticleCard from '../cards/ArticleCard';
 import CaseStudyCard from '../cards/CaseStudyCard';
 import {caseStudyCountByService, guideCountByService, caseStudiesForService} from '../../lib/relations';
-import {Section, Eyebrow, CardStat, Button, PriceTag} from '../ui';
+import {Section, Eyebrow, CardStat, Button, PriceTag, Heading, Text} from '../ui';
 import type {ServiceItem, TestimonialItem, BlogPost} from '../../types';
 
 // One shared, data-driven template for every service (mirrors the blog article
@@ -43,15 +43,9 @@ export default function ServiceDetail({
         {/* Hero */}
         <div className="mt-6 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center">
           <div className="space-y-5">
-            {service.audience && (
-              <span className="inline-flex items-center rounded-full font-mono text-xs font-bold uppercase tracking-wide">
-                {service.audience}
-              </span>
-            )}
-            <h1 className="font-sans text-4xl font-extrabold leading-tight tracking-tight text-amber-950 sm:text-5xl">
-              {service.title}
-            </h1>
-            <p className="max-w-xl text-lg leading-relaxed text-stone-600">{service.shortDescription}</p>
+            {service.audience && <Eyebrow tone="brand">{service.audience}</Eyebrow>}
+            <Heading level={1} size="display">{service.title}</Heading>
+            <Text size="base" tone="default" className="max-w-xl text-lg">{service.shortDescription}</Text>
 
             {caseStudiesForSvc.length > 0 && (
               <CardStat icon={Sparkles} count={caseStudiesForSvc.length} singular="case study" plural="case studies" />
@@ -113,7 +107,7 @@ export default function ServiceDetail({
           )}
               <div className="lg:col-span-7">
             {service.longDescription && (
-              <p className="whitespace-pre-line text-base leading-relaxed text-stone-600">{service.longDescription}</p>
+              <Text size="base" tone="default" className="whitespace-pre-line">{service.longDescription}</Text>
             )}
           </div>
         </div>
@@ -121,7 +115,7 @@ export default function ServiceDetail({
         {/* Case studies for this service */}
         {caseStudiesForSvc.length > 0 && (
           <div className="mt-20 border-t border-stone-200 pt-12">
-            <h2 className="mb-8 font-sans text-2xl font-extrabold text-amber-955">Case studies from this service</h2>
+            <Heading level={2} size="section" className="mb-8">Case studies from this service</Heading>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {caseStudiesForSvc.slice(0, 6).map((r) => (
                 <CaseStudyCard key={r.id} story={r} />

@@ -4,7 +4,7 @@ import {useState} from 'react';
 import {storyblokEditable} from '@storyblok/react';
 import {ChevronDown, ChevronUp, Search, HelpCircle} from 'lucide-react';
 import {usePageData} from '../PageDataProvider';
-import {Card} from '../ui';
+import {Card, Heading, Text} from '../ui';
 
 import type {BlokBase} from '../../types';
 
@@ -51,10 +51,10 @@ export default function Faq({blok}: {blok: FaqBlok}) {
         {filtered.length === 0 ? (
           <div className="rounded-2xl border-2 border-dashed border-stone-250 py-16 text-center space-y-4">
             <HelpCircle className="h-10 w-10 text-stone-400 mx-auto" />
-            <h3 className="font-sans text-base font-bold text-stone-800">No FAQs found</h3>
-            <p className="text-xs text-stone-500 font-sans">
+            <Heading level={3} size="cardSm">No FAQs found</Heading>
+            <Text size="xs">
               We couldn&apos;t locate any matching responses for &quot;<b>{query}</b>&quot;.
-            </p>
+            </Text>
           </div>
         ) : (
           <div className="space-y-4">

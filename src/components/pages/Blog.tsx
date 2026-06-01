@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Search, BookOpen, Tag, X } from 'lucide-react';
 import { useQueryState } from 'nuqs';
 import FilterLayout from '../FilterLayout';
-import {Section, Card} from '../ui';
+import {Section, Card, Eyebrow, Heading, Text} from '../ui';
 import ArticleCard from '../cards/ArticleCard';
 import type { BlogPost, BlogTaxonomies } from '../../types';
 
@@ -57,13 +57,11 @@ export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonom
       {/* Blog Headers */}
       <Section>
         <div className="max-w-3xl space-y-4">
-          <span className="font-mono text-xs font-bold uppercase tracking-widest text-amber-700">CANINE BEHAVIOR ARTICLES</span>
-          <h1 className="font-sans text-4xl font-extrabold tracking-tight text-amber-955 sm:text-5xl leading-tight">
-            The Journal of Gentle Education
-          </h1>
-          <p className="font-sans text-base text-stone-500 max-w-2xl leading-relaxed">
+          <Eyebrow tone="brand">CANINE BEHAVIOR ARTICLES</Eyebrow>
+          <Heading level={1} size="display">The Journal of Gentle Education</Heading>
+          <Text size="base" className="max-w-2xl">
             Discover actionable, evidence-based guides and research studies written directly by certified consultant Sophia. No myths, no corrections. Just science-backed compassion.
-          </p>
+          </Text>
         </div>
       </Section>
 
@@ -89,7 +87,7 @@ export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonom
 
               {/* Category */}
               <div className="space-y-1.5">
-                <h3 className="font-mono text-[11px] font-bold uppercase tracking-widest text-stone-400">Category</h3>
+                <Eyebrow>Category</Eyebrow>
                 <div className="space-y-1">
                   {categories.map((cat) => (
                     <button
@@ -108,9 +106,9 @@ export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonom
               {/* Topics */}
               {tags.length > 0 && (
                 <div className="space-y-2">
-                  <h3 className="flex items-center gap-1.5 font-mono text-[11px] font-bold uppercase tracking-widest text-stone-400">
+                  <Eyebrow className="flex items-center gap-1.5">
                     <Tag className="h-3.5 w-3.5" /> Topics
-                  </h3>
+                  </Eyebrow>
                   <div className="flex flex-wrap gap-1.5">
                     {tags.map((tag) => {
                       const active = activeTag === tag;
@@ -150,10 +148,10 @@ export default function Blog({ posts, taxonomies }: { posts: BlogPost[]; taxonom
         {filteredPosts.length === 0 ? (
           <div className="rounded-2xl border-2 border-dashed border-stone-250 py-16 text-center space-y-4">
             <BookOpen className="h-10 w-10 text-stone-400 mx-auto" aria-hidden="true" />
-            <h3 className="font-sans text-base font-bold text-stone-800">No Articles Found</h3>
-            <p className="text-xs text-stone-500 font-sans px-4">
+            <Heading level={3} size="cardSm">No Articles Found</Heading>
+            <Text size="xs" className="px-4">
               Nothing matches your filters. Try clearing them.
-            </p>
+            </Text>
             <button
               onClick={() => {
                 setSearchQuery('');

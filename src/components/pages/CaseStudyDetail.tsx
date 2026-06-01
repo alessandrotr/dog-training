@@ -5,7 +5,7 @@ import Image from 'next/image';
 import {ArrowLeft, Sparkles, ArrowUpRight, ArrowRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import CaseStudyCard from '../cards/CaseStudyCard';
-import {Eyebrow, Button, PersonByline} from '../ui';
+import {Eyebrow, Button, PersonByline, Heading, Text, Prose} from '../ui';
 import type {TestimonialItem, ServiceItem} from '../../types';
 
 // Full case-study page: the dog, the challenge, what was done, the outcome,
@@ -39,9 +39,9 @@ export default function CaseStudyDetail({
           <PersonByline name={story.name} breed={story.dogBreed} imageUrl={story.imageUrl} size="lg" />
 
           {story.challenge && (
-            <h1 className="font-sans text-3xl font-extrabold leading-tight tracking-tight text-amber-950 sm:text-4xl">
+            <Heading level={1} size="title" className="leading-tight">
               {story.challenge}
-            </h1>
+            </Heading>
           )}
         </header>
 
@@ -62,9 +62,9 @@ export default function CaseStudyDetail({
         {/* The story */}
         <div className="mt-10 space-y-4">
           <Eyebrow>What we did</Eyebrow>
-          <div className="prose prose-stone max-w-none prose-p:leading-relaxed prose-p:text-stone-600">
+          <Prose>
             {paragraphs.length ? paragraphs.map((p, i) => <p key={i}>{p}</p>) : <p>{story.text}</p>}
-          </div>
+          </Prose>
         </div>
 
         {/* The outcome */}
@@ -93,10 +93,10 @@ export default function CaseStudyDetail({
 
         {/* Booking CTA */}
         <div className="mt-12 rounded-3xl bg-stone-900 px-6 py-10 text-center">
-          <h2 className="font-sans text-2xl font-extrabold text-white">Have a dog with a similar story?</h2>
-          <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-stone-400">
+          <Heading level={2} size="section" tone="inverse">Have a dog with a similar story?</Heading>
+          <Text tone="subtle" className="mx-auto mt-2 max-w-md">
             Every dog is different — let&apos;s talk about what yours needs.
-          </p>
+          </Text>
           <Button render={<Link href={href.page('contact')} />} variant="cta" size="lg" className="mt-6 rounded-full px-6">
             Get in touch <ArrowRight className="h-4 w-4" />
           </Button>
@@ -106,7 +106,7 @@ export default function CaseStudyDetail({
       {/* Related case studies */}
       {related.length > 0 && (
         <div className="mx-auto mt-20 max-w-7xl border-t border-stone-200 px-4 pt-12 sm:px-6 lg:px-8">
-          <h2 className="mb-8 font-sans text-2xl font-extrabold text-amber-955">More case studies</h2>
+          <Heading level={2} size="section" className="mb-8">More case studies</Heading>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {related.slice(0, 3).map((r) => (
               <CaseStudyCard key={r.id} story={r} service={serviceById.get(r.serviceId ?? '')} />

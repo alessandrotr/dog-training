@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import {storyblokEditable, renderRichText} from '@storyblok/react/rsc';
 import AvailabilityBadge from '../AvailabilityBadge';
-import {Section} from '../ui';
+import {Section, Heading, Prose, Eyebrow} from '../ui';
 
 import type {BlokBase} from '../../types';
 
@@ -21,18 +21,14 @@ export default function BioHero({blok}: {blok: BioHeroBlok}) {
     <Section {...storyblokEditable(blok as any)} className="pt-4 sm:pt-6 lg:pt-8">
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-7 text-left space-y-6">
-          {blok.eyebrow && (
-            <span className="font-mono text-xs uppercase tracking-widest text-amber-700">{blok.eyebrow}</span>
-          )}
+          {blok.eyebrow && <Eyebrow tone="brand">{blok.eyebrow}</Eyebrow>}
           {blok.headline && (
-            <h1 className="font-sans text-4xl font-extrabold tracking-tight text-amber-955 sm:text-5xl leading-tight">
-              {blok.headline}
-            </h1>
+            <Heading level={1} size="display">{blok.headline}</Heading>
           )}
           {bodyHtml && (
-            <div
-              className="prose prose-stone max-w-none prose-p:text-stone-600 prose-p:leading-relaxed prose-blockquote:border-amber-800 prose-blockquote:font-serif prose-blockquote:text-amber-950 prose-blockquote:italic"
-              dangerouslySetInnerHTML={{__html: bodyHtml}}
+            <Prose
+              html={bodyHtml}
+              className="prose-blockquote:border-amber-800 prose-blockquote:font-serif prose-blockquote:text-amber-950 prose-blockquote:italic"
             />
           )}
           {(blok.signature_name || blok.signature_role) && (

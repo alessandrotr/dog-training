@@ -9,7 +9,7 @@ import {
   Sparkles,
   Building,
 } from 'lucide-react';
-import {Card} from '../ui';
+import {Card, Heading, Text} from '../ui';
 import type {BlokBase} from '../../types';
 
 const ICONS: Record<string, any> = {
@@ -40,10 +40,8 @@ export default function ValueCard({blok}: {blok: ValueCardBlok}) {
       <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-stone-100 border border-stone-250">
         <Icon className="h-6 w-6 text-amber-800" />
       </div>
-      {blok.title && <h3 className="font-sans text-lg font-bold text-stone-900 mb-2">{blok.title}</h3>}
-      {blok.description && (
-        <p className="font-sans text-sm text-stone-500 leading-relaxed">{blok.description}</p>
-      )}
+      {blok.title && <Heading level={3} size="card" className="mb-2">{blok.title}</Heading>}
+      {blok.description && <Text>{blok.description}</Text>}
     </Card>
   );
 }

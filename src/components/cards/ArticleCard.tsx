@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {ArrowRight, GraduationCap} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
-import {Card, CardStat} from '../ui';
+import {Card, CardStat, Heading, Text} from '../ui';
 import type {BlogPost} from '../../types';
 
 // Shared article card used by every article carousel (home blog list + related
@@ -51,10 +51,10 @@ export default function ArticleCard({
             )}
           </div>
         )}
-        <h3 className="mt-2.5 line-clamp-2 font-sans text-base font-bold leading-snug text-stone-900 transition-colors group-hover:text-amber-950">
+        <Heading level={3} size="cardSm" className="mt-2.5 line-clamp-2 transition-colors group-hover:text-amber-950">
           {post.title}
-        </h3>
-        {post.summary && <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-stone-500">{post.summary}</p>}
+        </Heading>
+        {post.summary && <Text size="xs" className="mt-1.5 line-clamp-2">{post.summary}</Text>}
         <div className="mt-auto flex items-center justify-between pt-4 font-mono text-[11px]">
           <span className="inline-flex items-center gap-1 font-bold uppercase tracking-wider text-amber-900">
             Read <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />

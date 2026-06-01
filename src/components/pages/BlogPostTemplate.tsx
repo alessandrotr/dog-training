@@ -7,7 +7,7 @@ import { BlogPost, BlogTaxonomies, ServiceItem, TestimonialItem } from '../../ty
 import { Clock, CalendarDays, Share2, Bookmark, Check, CalendarRange, Sparkles, Tag } from 'lucide-react';
 import { useHref } from '../../lib/navigation';
 import { caseStudyCountByService, guideCountByService } from '../../lib/relations';
-import {Section, Eyebrow} from '../ui';
+import {Section, Eyebrow, Heading, Prose} from '../ui';
 import Carousel from '../Carousel';
 import ArticleCard from '../cards/ArticleCard';
 import ServiceCard from '../cards/ServiceCard';
@@ -58,9 +58,9 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, te
           <span className="inline-flex items-center rounded-full font-mono uppercase bg-amber-700 px-3 py-1 text-xs font-bold text-white border border-amber-200/45">
             {catLabel(post.category)}
           </span>
-          <h1 className="font-sans text-3xl font-extrabold tracking-tight text-amber-955 sm:text-4xl md:text-5xl leading-tight">
+          <Heading level={1} size="title" className="md:text-5xl leading-tight">
             {post.title}
-          </h1>
+          </Heading>
           
           <div className="flex flex-wrap items-center justify-center md:justify-between gap-4 text-xs font-mono text-stone-450 pt-4 border-t border-stone-100">
             <div className="flex items-center space-x-1">
@@ -128,9 +128,9 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, te
 
           {/* RIGHT: Document Text markdown-body typography */}
           <main className="lg:col-span-8">
-            <div
-              className="prose prose-stone max-w-none prose-headings:font-sans prose-headings:font-extrabold prose-headings:text-amber-955 prose-headings:scroll-mt-24 prose-p:leading-relaxed prose-li:my-1.5 prose-p:my-4 prose-p:text-stone-600 prose-li:text-stone-605"
-              dangerouslySetInnerHTML={{ __html: post.content }}
+            <Prose
+              html={post.content}
+              className="prose-headings:font-sans prose-headings:font-extrabold prose-headings:text-amber-950 prose-headings:scroll-mt-24 prose-li:my-1.5 prose-p:my-4 prose-li:text-stone-605"
             />
 
             {/* Article tags */}

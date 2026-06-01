@@ -4,7 +4,7 @@ import Link from 'next/link';
 import {storyblokEditable} from '@storyblok/react';
 import {PawPrint, ArrowRight, Heart, Bone} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
-import {Section, Button} from '../ui';
+import {Section, Button, Heading, Text} from '../ui';
 
 import type {BlokBase} from '../../types';
 
@@ -31,8 +31,8 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
               <PawPrint className="h-5.5 w-5.5" />
             </div>
             <div className="text-left font-sans space-y-1">
-              {blok.headline && <h3 className="text-base font-bold text-stone-900">{blok.headline}</h3>}
-              {blok.description && <p className="text-xs text-stone-500">{blok.description}</p>}
+              {blok.headline && <Heading level={3} size="cardSm">{blok.headline}</Heading>}
+              {blok.description && <Text size="xs">{blok.description}</Text>}
             </div>
           </div>
           <div className="flex flex-wrap gap-3 justify-center">
@@ -79,9 +79,9 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
           </span>
 
           {blok.headline && (
-            <h2 className="font-sans text-3xl font-extrabold tracking-tight sm:text-4xl text-white">
+            <Heading level={2} size="title" tone="inverse">
               {blok.headline}
-            </h2>
+            </Heading>
           )}
           {blok.description && (
             <p className="mx-auto max-w-xl font-sans text-base text-amber-100/90 leading-relaxed">

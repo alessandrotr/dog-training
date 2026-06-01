@@ -1,5 +1,5 @@
 import {storyblokEditable} from '@storyblok/react/rsc';
-import {Section} from '../ui';
+import {Section, SectionHeading, Heading, Text} from '../ui';
 
 import type {BlokBase} from '../../types';
 
@@ -27,19 +27,14 @@ export default function HowItWorks({blok}: {blok: HowItWorksBlok}) {
 
   return (
     <Section {...storyblokEditable(blok as any)}>
-      <div className="text-center max-w-3xl mx-auto space-y-4 mb-20">
-        {blok.eyebrow && (
-          <span className="font-mono text-xs uppercase tracking-widest text-amber-700">{blok.eyebrow}</span>
-        )}
-        {blok.headline && (
-          <h2 className="font-sans text-3xl font-extrabold tracking-tight text-amber-950 sm:text-4xl">
-            {blok.headline}
-          </h2>
-        )}
-        {blok.subheadline && (
-          <p className="font-sans text-stone-500 text-base leading-relaxed">{blok.subheadline}</p>
-        )}
-      </div>
+      <SectionHeading
+        eyebrow={blok.eyebrow}
+        headline={blok.headline}
+        subheadline={blok.subheadline}
+        align="center"
+        size="lg"
+        className="mx-auto mb-20 max-w-3xl"
+      />
 
       <div className="grid grid-cols-1 gap-12 md:grid-cols-4 relative">
         <div className="hidden md:block absolute top-12 left-12 right-12 h-0.5 bg-stone-200 z-0"></div>
@@ -48,8 +43,8 @@ export default function HowItWorks({blok}: {blok: HowItWorksBlok}) {
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-stone-100 border border-stone-250 text-amber-950 text-lg font-bold font-mono transition-colors group-hover:bg-amber-700 group-hover:text-white">
               {String(i + 1).padStart(2, '0')}
             </div>
-            <h3 className="font-sans text-lg font-bold text-stone-900 mt-2">{step.title}</h3>
-            <p className="text-sm text-stone-500 leading-relaxed">{step.desc}</p>
+            <Heading level={3} size="card" className="mt-2">{step.title}</Heading>
+            <Text>{step.desc}</Text>
           </div>
         ))}
       </div>

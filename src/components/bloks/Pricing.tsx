@@ -4,7 +4,7 @@ import {storyblokEditable} from '@storyblok/react';
 import {ShieldCheck} from 'lucide-react';
 import Link from 'next/link';
 import {useHref} from '../../lib/navigation';
-import {Section, Button} from '../ui';
+import {Section, Button, Heading, Text, Eyebrow} from '../ui';
 
 import type {BlokBase} from '../../types';
 
@@ -35,14 +35,12 @@ export default function Pricing({blok}: {blok: PricingBlok}) {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center relative z-10">
           <div className="lg:col-span-7 space-y-4 text-left">
             {blok.eyebrow && (
-              <span className="font-mono text-xs uppercase tracking-widest text-amber-500 font-bold">{blok.eyebrow}</span>
+              <Eyebrow tone="brand" className="text-amber-500">{blok.eyebrow}</Eyebrow>
             )}
             {blok.headline && (
-              <h2 className="font-sans text-2xl font-extrabold sm:text-3xl text-stone-50">{blok.headline}</h2>
+              <Heading level={2} size="section" tone="inverse" className="sm:text-3xl">{blok.headline}</Heading>
             )}
-            {blok.description && (
-              <p className="font-sans text-sm text-stone-300 leading-relaxed">{blok.description}</p>
-            )}
+            {blok.description && <Text tone="inverse">{blok.description}</Text>}
             <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono text-stone-300 leading-relaxed">
               {lines(blok.trust_items).map((item, i) => (
                 <div key={i} className="flex items-center space-x-2">
@@ -58,10 +56,8 @@ export default function Pricing({blok}: {blok: PricingBlok}) {
               {blok.tier_badge && (
                 <span className="font-mono text-[10px] uppercase bg-amber-700 text-stone-100 px-2 py-0.5 rounded">{blok.tier_badge}</span>
               )}
-              {blok.tier_name && <h3 className="font-sans text-lg font-bold text-stone-100 mt-2">{blok.tier_name}</h3>}
-              {blok.tier_description && (
-                <p className="text-xs text-stone-400 leading-relaxed mt-1">{blok.tier_description}</p>
-              )}
+              {blok.tier_name && <Heading level={3} size="card" tone="inverse" className="mt-2">{blok.tier_name}</Heading>}
+              {blok.tier_description && <Text size="xs" tone="subtle" className="mt-1">{blok.tier_description}</Text>}
             </div>
             {blok.tier_price && (
               <div className="border-t border-stone-850 pt-4 flex items-baseline space-x-1.5 font-mono">

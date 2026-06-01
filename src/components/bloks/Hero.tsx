@@ -6,7 +6,7 @@ import {storyblokEditable} from '@storyblok/react';
 import {Award, ArrowRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
 import Availability from './Availability';
-import {Button} from '../ui';
+import {Button, Heading, Text, Eyebrow} from '../ui';
 
 import type {BlokBase} from '../../types';
 
@@ -61,13 +61,9 @@ export default function Hero({blok}: {blok: HeroBlok}) {
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex max-md:flex-col gap-12 md:items-center">
           <div className="lg:w-2/3 space-y-6 text-left">
-            {blok.eyebrow && (
-              <div className="inline-flex items-center space-x-1.5 rounded-full bg-amber-700 px-3.5 py-1 text-xs font-mono text-white">
-                <span>{blok.eyebrow}</span>
-              </div>
-            )}
+            {blok.eyebrow && <Eyebrow tone="brand">{blok.eyebrow}</Eyebrow>}
 
-            <h1 className="font-sans text-4xl font-extrabold tracking-tight text-amber-950 sm:text-5xl md:text-6xl leading-[1.08]">
+            <Heading level={1} size="display" className="md:text-6xl leading-[1.08]">
               {blok.headline}
               {blok.headline_highlight && (
                 <>
@@ -78,12 +74,12 @@ export default function Hero({blok}: {blok: HeroBlok}) {
                 </>
               )}
               {blok.headline_suffix ? ` ${blok.headline_suffix}` : ''}
-            </h1>
+            </Heading>
 
             {blok.subheadline && (
-              <p className="font-sans text-lg text-stone-900 lg:text-stone-700 max-w-2xl leading-relaxed">
+              <Text size="base" className="text-lg text-stone-900 lg:text-stone-700 max-w-2xl">
                 {blok.subheadline}
-              </p>
+              </Text>
             )}
 
             <div className="flex flex-col sm:flex-row gap-4 pt-3">
