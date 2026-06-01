@@ -41,6 +41,9 @@ export default function LeadDialog() {
           )}
         />
         <DialogPrimitive.Popup
+          // Focus the popup itself, not the first field — otherwise the sheet
+          // scrolls the Name input flush to the top and clips its label.
+          initialFocus={false}
           className={cn(
             'fixed z-50 flex flex-col overflow-hidden bg-stone-50 shadow-2xl outline-none ring-1 ring-stone-900/5',
             // Mobile: bottom sheet
@@ -52,11 +55,10 @@ export default function LeadDialog() {
             'data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-closed:slide-out-to-bottom-4',
           )}
         >
-          {/* Drag affordance (mobile sheet) */}
-          <div className="mx-auto mt-2.5 h-1 w-10 shrink-0 rounded-full bg-stone-300 sm:hidden" />
-
-          {/* Header */}
-          <div className="relative shrink-0 overflow-hidden bg-linear-to-br from-amber-100 via-stone-50 to-stone-50 px-6 pb-5 pt-5 sm:px-7 sm:pt-7">
+          {/* Header — fills the rounded top of the sheet; the mobile drag
+              handle rides on the gradient so there's no off-white seam. */}
+          <div className="relative shrink-0 overflow-hidden bg-linear-to-br from-amber-100 via-stone-50 to-stone-50 px-6 pb-5 pt-4 sm:px-7 sm:pt-7">
+            <div className="mx-auto mb-3.5 h-1 w-10 rounded-full bg-stone-300/80 sm:hidden" />
             <PawPrint className="pointer-events-none absolute -right-3 -top-4 h-20 w-20 rotate-12 text-amber-300/40" />
             <div className="relative pr-8">
               {availability ? (
@@ -101,7 +103,7 @@ export default function LeadDialog() {
                 </TabsTrigger>
               </TabsList>
 
-              <div className="-mx-1 min-h-0 flex-1 overflow-y-auto px-1">
+              <div className="-mx-1 min-h-0 flex-1 overflow-y-auto px-1 pt-1 scroll-pt-2">
                 <TabsContent value="book">
                   {available ? (
                     <Scheduler />
