@@ -100,7 +100,7 @@ const resources = {
           concernMultiple: 'Multiple behavioral elements',
           detailBehaviors: 'Detail Your Dog\'s Behaviors',
           detailPlaceholder: 'Tell us about Baxter\'s typical day, what patterns trigger them, and what your ultimate household goals are...',
-          sendButton: 'Send Intake Packet',
+          sendButton: 'Send',
           transmitting: 'Sending…',
           resendNotice: '* Note: In production, this form triggers a background Node post lambda using @resend/node SDK to forward clinical intake data directly to the head trainer\'s mailbox.',
         },
