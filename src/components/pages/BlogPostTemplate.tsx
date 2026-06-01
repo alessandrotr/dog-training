@@ -162,7 +162,7 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, te
             <Carousel
               items={relatedServices}
               getKey={(s) => s.id}
-              size="lg"
+              size="sm"
               label="programs"
               headline="Related programs"
               renderItem={(svc, slideProps) => <ServiceCard svc={svc} caseStudies={caseStudyCounts.get(svc.id) ?? 0} guides={guidesByService.get(svc.id) ?? 0} slideProps={slideProps} />}

@@ -146,7 +146,7 @@ export default function ServiceDetail({
             <Carousel
               items={related}
               getKey={(s) => s.id}
-              size="lg"
+              size="sm"
               label="programs"
               headline="Other services"
               renderItem={(svc, slideProps) => <ServiceCard svc={svc} caseStudies={caseStudyCounts.get(svc.id) ?? 0} guides={guidesByService.get(svc.id) ?? 0} slideProps={slideProps} />}

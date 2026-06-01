@@ -52,7 +52,7 @@ export default function ServicesGrid({blok}: {blok: ServicesGridBlok}) {
       <Carousel
         items={items}
         getKey={(s) => s.id}
-        size={blok.card_size === 'sm' ? 'sm' : 'lg'}
+        size="sm"
         label="programs"
         eyebrow={blok.eyebrow}
         headline={blok.headline}
