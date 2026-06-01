@@ -27,13 +27,6 @@ export default function CaseStudyDetail({
   return (
     <article className="py-8 text-left">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <Link
-          href={href.page('testimonials')}
-          className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-widest text-stone-500 transition-colors hover:text-amber-800"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" /> All case studies
-        </Link>
-
         {/* Header */}
         <header className="mt-8 space-y-5">
           <PersonByline name={story.name} breed={story.dogBreed} imageUrl={story.imageUrl} size="lg" />
@@ -90,22 +83,11 @@ export default function CaseStudyDetail({
             </Button>
           </div>
         )}
-
-        {/* Booking CTA */}
-        <div className="mt-12 rounded-3xl bg-stone-900 px-6 py-10 text-center">
-          <Heading level={2} size="section" tone="inverse">Have a dog with a similar story?</Heading>
-          <Text tone="subtle" className="mx-auto mt-2 max-w-md">
-            Every dog is different — let&apos;s talk about what yours needs.
-          </Text>
-          <Button render={<Link href={href.page('contact')} />} variant="cta" size="lg" className="mt-6 rounded-full px-6">
-            Get in touch <ArrowRight className="h-4 w-4" />
-          </Button>
-        </div>
       </div>
 
       {/* Related case studies */}
       {related.length > 0 && (
-        <div className="mx-auto mt-20 max-w-7xl border-t border-stone-200 px-4 pt-12 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 lg:px-8">
           <Heading level={2} size="section" className="mb-8">More case studies</Heading>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {related.slice(0, 3).map((r) => (

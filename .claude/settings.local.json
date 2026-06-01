@@ -45,7 +45,9 @@
       "Bash(grep -nE 'interface .*Blok|_uid: string;|component: string;|from '\\\\''../../types'\\\\''' src/components/bloks/__TRACKED_VAR__.tsx)",
       "Bash(grep -nE \"^          \\\\}$|sidebar=\\\\{|results=\\\\{|^            </div>$\" src/components/pages/Blog.tsx)",
       "Bash(echo \"exit: $?\")",
-      "Bash(npm test *)"
+      "Bash(npm test *)",
+      "Bash(sed -n '1,40p' src/lib/get-page.ts)",
+      "Bash(sed -n '/\"name\": \"page_header\"/,/^    }/p' storyblok/components.json)"
     ],
     "additionalDirectories": [
       "/tmp"

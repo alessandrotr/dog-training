@@ -1,7 +1,7 @@
 'use client';
 
 import {createContext, useContext} from 'react';
-import type {ServiceItem, TestimonialItem, FAQItem, BlogPost} from '../types';
+import type {ServiceItem, TestimonialItem, FAQItem, BlogPost, BlogTaxonomies} from '../types';
 
 // Locale-correct content lists prefetched by the page route and shared with the
 // data-bound bloks (services_grid, testimonials, faq, blog_list) so they don't
@@ -12,9 +12,10 @@ export interface PageData {
   testimonials: TestimonialItem[];
   faqs: FAQItem[];
   posts: BlogPost[];
+  taxonomies: BlogTaxonomies;
 }
 
-const EMPTY: PageData = {services: [], testimonials: [], faqs: [], posts: []};
+const EMPTY: PageData = {services: [], testimonials: [], faqs: [], posts: [], taxonomies: {categories: {}, tags: {}}};
 const PageDataContext = createContext<PageData>(EMPTY);
 
 export function PageDataProvider({

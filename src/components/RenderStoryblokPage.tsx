@@ -2,6 +2,7 @@ import {StoryblokStory} from '@storyblok/react/rsc';
 import {notFound} from 'next/navigation';
 import {getPageStory} from '../lib/get-page';
 import {getServices, getTestimonials, getFaqs, getBlogPosts} from '../lib/content-server';
+import {getBlogTaxonomies} from '../lib/get-datasource';
 import {PageDataProvider} from './PageDataProvider';
 import type {Locale} from '../lib/locales';
 
@@ -20,15 +21,16 @@ export default async function RenderStoryblokPage({
   const story = await getPageStory(slug, lang, preview);
   if (!story) notFound();
 
-  const [services, testimonials, faqs, posts] = await Promise.all([
+  const [services, testimonials, faqs, posts, taxonomies] = await Promise.all([
     getServices(lang, preview),
     getTestimonials(lang, preview),
     getFaqs(lang, preview),
     getBlogPosts(lang, preview),
+    getBlogTaxonomies(lang),
   ]);
 
   return (
-    <PageDataProvider value={{services, testimonials, faqs, posts}}>
+    <PageDataProvider value={{services, testimonials, faqs, posts, taxonomies}}>
       <StoryblokStory story={story} />
     </PageDataProvider>
   );

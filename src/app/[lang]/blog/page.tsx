@@ -1,7 +1,5 @@
 import type {Metadata} from 'next';
-import Blog from '../../../components/pages/Blog';
-import {getBlogPosts} from '../../../lib/content-server';
-import {getBlogTaxonomies} from '../../../lib/get-datasource';
+import RenderStoryblokPage from '../../../components/RenderStoryblokPage';
 import {isLocale, DEFAULT_LOCALE} from '../../../lib/locales';
 import {isPreview, resolveLocale} from '../../../lib/route-context';
 import {buildMetadata} from '../../../lib/seo';
@@ -22,6 +20,8 @@ export async function generateMetadata({params}: {params: Promise<{lang: string}
   });
 }
 
+// The blog index is a composed `page` story (pages/blog): a Page Header blok +
+// the Blog with Filters blok — both editable in Storyblok.
 export default async function Page({
   params,
   searchParams,
@@ -31,11 +31,5 @@ export default async function Page({
 }) {
   const {lang} = await params;
   const sp = await searchParams;
-  const preview = isPreview(sp);
-  const locale = resolveLocale(lang, sp);
-  const [posts, taxonomies] = await Promise.all([
-    getBlogPosts(locale, preview),
-    getBlogTaxonomies(locale),
-  ]);
-  return <Blog posts={posts} taxonomies={taxonomies} />;
+  return <RenderStoryblokPage slug="blog" lang={resolveLocale(lang, sp)} preview={isPreview(sp)} />;
 }

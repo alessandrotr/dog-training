@@ -7,6 +7,7 @@ import CtaBanner from '../components/bloks/CtaBanner';
 import ServicesGrid from '../components/bloks/ServicesGrid';
 import Testimonials from '../components/bloks/Testimonials';
 import BlogList from '../components/bloks/BlogList';
+import BlogFiltered from '../components/bloks/BlogFiltered';
 import Faq from '../components/bloks/Faq';
 import BioHero from '../components/bloks/BioHero';
 import ValueCards from '../components/bloks/ValueCards';
@@ -26,6 +27,7 @@ const components = {
   services_grid: ServicesGrid,
   testimonials: Testimonials,
   blog_list: BlogList,
+  blog_filtered: BlogFiltered,
   faq_section: Faq,
   bio_hero: BioHero,
   value_cards: ValueCards,

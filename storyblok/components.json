@@ -120,6 +120,7 @@
             "services_grid",
             "testimonials",
             "blog_list",
+            "blog_filtered",
             "faq_section",
             "bio_hero",
             "value_cards",
@@ -258,6 +259,15 @@
         "headline": { "type": "text", "pos": 1, "translatable": true },
         "footer_label": { "type": "text", "pos": 2, "translatable": true },
         "limit": { "type": "number", "pos": 3, "description": "Max posts to show (blank = all). Items come from the Blog folder." }
+      }
+    },
+    {
+      "name": "blog_filtered",
+      "display_name": "Blog with Filters (auto)",
+      "is_root": false,
+      "is_nestable": true,
+      "schema": {
+        "info": { "type": "text", "pos": 0, "description": "Searchable article grid with category/tag filters. No settings — articles come from the Blog folder. Add a Page Header above it for the title." }
       }
     },
     {
