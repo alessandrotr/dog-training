@@ -108,7 +108,7 @@ export default function Navbar({ config }: { config: SiteConfig }) {
                   onClick={close}
                   className={`block w-full text-left rounded-lg px-4 py-2.5 text-base font-medium transition-colors ${
                     isActive
-                      ? 'bg-stone-150 text-amber-950'
+                      ? 'bg-stone-100 text-amber-950'
                       : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
                   }`}
                 >

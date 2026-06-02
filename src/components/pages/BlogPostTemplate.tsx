@@ -62,7 +62,7 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, te
             {post.title}
           </Heading>
           
-          <div className="flex flex-wrap items-center justify-center md:justify-between gap-4 text-xs font-mono text-stone-450 pt-4 border-t border-stone-100">
+          <div className="flex flex-wrap items-center justify-center md:justify-between gap-4 text-xs font-mono text-stone-400 pt-4 border-t border-stone-100">
             <div className="flex items-center space-x-1">
               <CalendarDays className="h-3.5 w-3.5 text-amber-700" />
               <span>Published: {post.publishDate}</span>
@@ -130,7 +130,7 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, te
           <main className="lg:col-span-8">
             <Prose
               html={post.content}
-              className="prose-headings:font-sans prose-headings:font-extrabold prose-headings:text-amber-950 prose-headings:scroll-mt-24 prose-li:my-1.5 prose-p:my-4 prose-li:text-stone-605"
+              className="prose-headings:font-sans prose-headings:font-extrabold prose-headings:text-amber-950 prose-headings:scroll-mt-24 prose-li:my-1.5 prose-p:my-4 prose-li:text-stone-600"
             />
 
             {/* Article tags */}

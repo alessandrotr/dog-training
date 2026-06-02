@@ -3,8 +3,8 @@
 import Image from 'next/image'
 import { Check, Plus, Sparkles, CalendarClock } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { useInquiryCart, serviceToInquiryItem } from '../InquiryCartProvider'
-import { useIsAvailable } from '../AvailabilityProvider'
+import { useInquiryToggle } from '../InquiryCartProvider'
+import { useBookingMode } from '../AvailabilityProvider'
 import { useLeadDialog } from '../../stores/lead-dialog'
 import Carousel from '../Carousel'
 import ServiceCard from '../cards/ServiceCard'
@@ -32,11 +32,9 @@ export default function ServiceDetail({
   posts: BlogPost[]
 }) {
   const { t } = useTranslation()
-  const cart = useInquiryCart()
   const { open } = useLeadDialog()
-  const available = useIsAvailable()
-
-  const added = cart.has(service.slug)
+  const { available, mode } = useBookingMode()
+  const { added, toggle } = useInquiryToggle(service)
 
   // Per-service social-proof counts + this service's case studies / guides.
   const caseStudyCounts = caseStudyCountByService(testimonials)
@@ -74,7 +72,7 @@ export default function ServiceDetail({
                 type="button"
                 variant="cta"
                 size="xl"
-                onClick={() => cart.toggle(serviceToInquiryItem(service))}
+                onClick={toggle}
                 className={added ? 'bg-emerald-600 hover:bg-emerald-700' : ''}
               >
                 {added ? (
@@ -91,7 +89,7 @@ export default function ServiceDetail({
                 type="button"
                 variant="ctaOutline"
                 size="xl"
-                onClick={() => open(available ? 'book' : 'contact')}
+                onClick={() => open(mode)}
               >
                 <CalendarClock className="h-4 w-4" />{' '}
                 {available ? 'Book a consult' : t('booking.waitlist')}

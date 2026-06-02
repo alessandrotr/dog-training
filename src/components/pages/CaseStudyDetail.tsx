@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { Sparkles, Plus, Check } from 'lucide-react'
 import { useHref } from '../../lib/navigation'
-import { useInquiryCart, serviceToInquiryItem } from '../InquiryCartProvider'
+import { useInquiryToggle } from '../InquiryCartProvider'
 import CaseStudyCard from '../cards/CaseStudyCard'
 import Carousel from '../Carousel'
 import { Section, Eyebrow, PersonByline, Heading, Text, Prose, Pill, PriceTag } from '../ui'
@@ -25,12 +25,11 @@ export default function CaseStudyDetail({
   serviceById: Map<string, ServiceItem>
 }) {
   const href = useHref()
-  const cart = useInquiryCart()
+  const { added: inquiryAdded, toggle: toggleInquiry } = useInquiryToggle(service)
   // Parallax: the oversized label glides upward as the page scrolls down (and
   // back down when scrolling up) — counter to the page for an obvious drift.
   const { scrollY } = useScroll()
   const labelY = useTransform(scrollY, [0, 600], [0, -220])
-  const inquiryAdded = !!service && cart.has(service.slug)
   const paragraphs = story.text
     .split('\n')
     .map((p) => p.trim())
@@ -93,7 +92,7 @@ export default function CaseStudyDetail({
             <Eyebrow tone="brand" className="flex items-center gap-2">
               <Sparkles className="h-4 w-4" /> The outcome
             </Eyebrow>
-            <p className="mt-2 font-serif text-xl italic leading-relaxed text-amber-955">
+            <p className="mt-2 font-serif text-xl italic leading-relaxed text-amber-950">
               {story.outcome}
             </p>
           </div>
@@ -150,7 +149,7 @@ export default function CaseStudyDetail({
                   <button
                     type="button"
                     aria-label={inquiryAdded ? 'Remove from inquiry' : 'Add to inquiry'}
-                    onClick={() => cart.toggle(serviceToInquiryItem(service))}
+                    onClick={toggleInquiry}
                     className={`relative z-10 inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-wider shadow-sm transition-colors active:scale-95 ${
                       inquiryAdded
                         ? 'bg-emerald-600 text-white hover:bg-emerald-700'

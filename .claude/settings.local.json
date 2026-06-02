@@ -54,7 +54,10 @@
       "Bash(echo \"yes $\\(node -p \"require\\('zod/package.json'\\).version\" \\)\")",
       "Bash(grep -iA3 \"multiple\\\\|value\\\\b\\\\|onValueChange\")",
       "Bash(perl -i -pe 's/data-\\\\[\\(popup-open|starting-style|ending-style|highlighted|selected\\)\\\\]:/data-$1:/g; s/group-data-\\\\[selected\\\\]:/group-data-selected:/g' src/components/ui/multi-select.tsx)",
-      "Bash(perl -i -pe 's/from-amber-500 via-amber-700 to-amber-950/from-amber-400 via-amber-600 to-amber-800/g' src/app/not-found.tsx)"
+      "Bash(perl -i -pe 's/from-amber-500 via-amber-700 to-amber-950/from-amber-400 via-amber-600 to-amber-800/g' src/app/not-found.tsx)",
+      "Bash(perl -i -pe 's/\\\\bstone-105\\\\b/stone-100/g; s/\\\\bstone-605\\\\b/stone-600/g; s/\\\\bstone-905\\\\b/stone-900/g; s/\\\\bstone-450\\\\b/stone-400/g; s/\\\\bstone-250\\\\b/stone-200/g; s/\\\\bamber-150\\\\b/amber-100/g; s/\\\\bamber-905\\\\b/amber-900/g; s/\\\\bamber-955\\\\b/amber-950/g' src/components/bloks/Hero.tsx src/components/bloks/TestimonialsFeatured.tsx src/components/bloks/HowItWorks.tsx src/components/bloks/BioHero.tsx src/components/bloks/BlogFiltered.tsx src/components/bloks/Faq.tsx src/components/bloks/ValueCard.tsx src/components/pages/CaseStudyDetail.tsx src/components/pages/BlogPostTemplate.tsx)",
+      "Bash(sed -n '1,80p' src/components/ui/text.tsx)",
+      "Bash(sed -n '1,80p' src/components/ui/heading.tsx)"
     ],
     "additionalDirectories": [
       "/tmp"

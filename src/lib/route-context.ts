@@ -15,3 +15,9 @@ export function resolveLocale(routeLang: string, sp: SearchParams): Locale {
   if (isPreview(sp) && isLocale(previewLang)) return previewLang;
   return isLocale(routeLang) ? routeLang : DEFAULT_LOCALE;
 }
+
+// The two values every page route derives from its params + searchParams.
+// Composes the helpers above so routes don't re-spell the pair.
+export function resolvePageContext(routeLang: string, sp: SearchParams): {preview: boolean; locale: Locale} {
+  return {preview: isPreview(sp), locale: resolveLocale(routeLang, sp)};
+}

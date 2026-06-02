@@ -84,9 +84,9 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
             </Heading>
           )}
           {blok.description && (
-            <p className="mx-auto max-w-xl font-sans text-base text-amber-100/90 leading-relaxed">
+            <Text size="base" className="mx-auto max-w-xl text-amber-100/90">
               {blok.description}
-            </p>
+            </Text>
           )}
 
           <div className="flex flex-col justify-center gap-3 pt-4 sm:flex-row">

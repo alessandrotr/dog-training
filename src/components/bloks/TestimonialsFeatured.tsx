@@ -30,9 +30,9 @@ export default function TestimonialsFeatured({
   const next = () => setIndex((i) => (i === testimonials.length - 1 ? 0 : i + 1));
 
   return (
-    <section {...editable} className="bg-stone-105 border-y border-stone-200/80 py-20 relative overflow-hidden">
+    <section {...editable} className="bg-stone-100 border-y border-stone-200/80 py-20 relative overflow-hidden">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
-        <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-amber-150 mb-4 text-amber-900">
+        <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-amber-100 mb-4 text-amber-900">
           <MessageSquareQuote className="h-6 w-6" />
         </div>
 

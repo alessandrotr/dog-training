@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Instagram, Facebook, Mail, Phone, MapPin, Award, PawPrint } from 'lucide-react';
 import { useHref } from '../../lib/navigation';
 import Logo from './Logo';
+import { Eyebrow, Text } from '../ui';
 import type { SiteConfig } from '../../types';
 
 export default function Footer({ config }: { config: SiteConfig['footer'] }) {
@@ -50,7 +51,7 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
                 </span>
               }
             />
-            <p className="max-w-xs text-sm leading-relaxed text-stone-400">{config.tagline}</p>
+            <Text size="sm" tone="subtle" className="max-w-xs">{config.tagline}</Text>
             <div className="flex items-center gap-3 pt-1">
               {config.instagramUrl && (
                 <a href={config.instagramUrl} target="_blank" rel="noreferrer" aria-label="Instagram"
@@ -70,7 +71,7 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
           {/* Link columns */}
           {config.columns.map((col, ci) => (
             <div key={ci} className="lg:col-span-2">
-              <h3 className="font-mono text-[11px] uppercase tracking-[0.18em] text-amber-300/70 mb-4">{col.title}</h3>
+              <Eyebrow className="mb-4 block text-amber-300/70">{col.title}</Eyebrow>
               <ul className="space-y-2.5 text-sm">
                 {col.links.map((link, li) => (
                   <li key={li}>
@@ -88,7 +89,7 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
 
           {/* Accreditations */}
           <div className="lg:col-span-4">
-            <h3 className="font-mono text-[11px] uppercase tracking-[0.18em] text-amber-300/70 mb-4">Accreditations</h3>
+            <Eyebrow className="mb-4 block text-amber-300/70">Accreditations</Eyebrow>
             <div className="space-y-3">
               {config.accreditations.map((a, ai) => (
                 <div key={ai} className="group flex items-center gap-3.5 rounded-2xl py-2 transition-colors ">

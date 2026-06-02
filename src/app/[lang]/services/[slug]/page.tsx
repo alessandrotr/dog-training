@@ -2,9 +2,8 @@ import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import {getServices, getTestimonials, getBlogPosts} from '../../../../lib/content-server';
 import ServiceDetail from '../../../../components/pages/ServiceDetail';
-import {isLocale, DEFAULT_LOCALE} from '../../../../lib/locales';
-import {isPreview, resolveLocale} from '../../../../lib/route-context';
-import {buildMetadata} from '../../../../lib/seo';
+import {resolvePageContext} from '../../../../lib/route-context';
+import {detailMetadata} from '../../../../lib/seo';
 
 type SP = Promise<Record<string, string | string[] | undefined>>;
 
@@ -14,14 +13,16 @@ export async function generateMetadata({
   params: Promise<{lang: string; slug: string}>;
 }): Promise<Metadata> {
   const {lang, slug} = await params;
-  const l = isLocale(lang) ? lang : DEFAULT_LOCALE;
-  const service = (await getServices(l, false)).find((s) => s.slug === slug);
-  return buildMetadata({
-    title: service?.title,
-    description: service?.shortDescription,
-    image: service?.imageUrl,
+  return detailMetadata({
+    slug,
+    lang,
     path: `services/${slug}`,
-    lang: l,
+    load: (l) => getServices(l, false),
+    map: (service) => ({
+      title: service.title,
+      description: service.shortDescription,
+      image: service.imageUrl,
+    }),
   });
 }
 
@@ -34,8 +35,7 @@ export default async function Page({
 }) {
   const {lang, slug} = await params;
   const sp = await searchParams;
-  const preview = isPreview(sp);
-  const locale = resolveLocale(lang, sp);
+  const {preview, locale} = resolvePageContext(lang, sp);
   const [services, testimonials, posts] = await Promise.all([
     getServices(locale, preview),
     getTestimonials(locale, preview),

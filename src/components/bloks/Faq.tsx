@@ -41,7 +41,7 @@ export default function Faq({blok}: {blok: FaqBlok}) {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={blok.search_placeholder || 'Search...'}
-              className="block w-full rounded-xl border border-stone-300 bg-white py-3 pl-10 pr-4 text-sm text-stone-905 placeholder-stone-450 focus:border-amber-900 focus:outline-none focus:ring-1 focus:ring-amber-900"
+              className="block w-full rounded-xl border border-stone-300 bg-white py-3 pl-10 pr-4 text-sm text-stone-900 placeholder-stone-400 focus:border-amber-900 focus:outline-none focus:ring-1 focus:ring-amber-900"
             />
           </div>
         </div>
@@ -49,7 +49,7 @@ export default function Faq({blok}: {blok: FaqBlok}) {
 
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         {filtered.length === 0 ? (
-          <div className="rounded-2xl border-2 border-dashed border-stone-250 py-16 text-center space-y-4">
+          <div className="rounded-2xl border-2 border-dashed border-stone-200 py-16 text-center space-y-4">
             <HelpCircle className="h-10 w-10 text-stone-400 mx-auto" />
             <Heading level={3} size="cardSm">No FAQs found</Heading>
             <Text size="xs">
@@ -67,14 +67,14 @@ export default function Faq({blok}: {blok: FaqBlok}) {
                     className="flex w-full items-center justify-between p-5 text-left font-sans text-base font-bold text-stone-850 hover:text-amber-950 focus:outline-none cursor-pointer"
                   >
                     <span>{faq.question}</span>
-                    <span className="ml-4 shrink-0 rounded-full bg-stone-100 p-2 text-stone-605">
+                    <span className="ml-4 shrink-0 rounded-full bg-stone-100 p-2 text-stone-600">
                       {isOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                     </span>
                   </button>
                   {isOpen && (
-                    <div className="border-t border-stone-105 bg-stone-50/50 p-5 transition-all text-sm text-stone-600 leading-relaxed text-left font-sans">
+                    <div className="border-t border-stone-100 bg-stone-50/50 p-5 transition-all text-sm text-stone-600 leading-relaxed text-left font-sans">
                       <p>{faq.answer}</p>
-                      <div className="mt-4 pt-4 border-t border-stone-150/50 flex justify-between items-center text-[10px] font-mono text-stone-400">
+                      <div className="mt-4 pt-4 border-t border-stone-200/50 flex justify-between items-center text-[10px] font-mono text-stone-400">
                         <span>Category: <b>{faq.category}</b></span>
                         <span>Verified Answer</span>
                       </div>

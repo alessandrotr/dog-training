@@ -1,5 +1,5 @@
 import type {Metadata} from 'next';
-import {LOCALES, DEFAULT_LOCALE, type Locale} from './locales';
+import {LOCALES, DEFAULT_LOCALE, isLocale, type Locale} from './locales';
 import {getPageStory} from './get-page';
 
 // Public site origin (no trailing slash). Set NEXT_PUBLIC_SITE_URL when you
@@ -66,6 +66,40 @@ export function buildMetadata({
       images: image ? [image] : undefined,
     },
   };
+}
+
+// Metadata for a templated detail route (service / blog post / case study).
+// Normalizes the locale, loads the published list, finds the entry by slug, and
+// maps it to SEO fields — collapsing the boilerplate every `[slug]` route had.
+export async function detailMetadata<T extends {slug: string}>({
+  slug,
+  lang,
+  path,
+  load,
+  map,
+  type,
+}: {
+  slug: string;
+  lang: string;
+  path: string;
+  load: (lang: Locale) => Promise<T[]>;
+  map: (item: T) => {title?: string; description?: string; image?: string};
+  type?: 'website' | 'article';
+}): Promise<Metadata> {
+  const l = isLocale(lang) ? lang : DEFAULT_LOCALE;
+  const item = (await load(l)).find((i) => i.slug === slug);
+  return buildMetadata({...(item ? map(item) : {}), path, lang: l, type});
+}
+
+// Metadata for a static route whose copy is hard-coded per locale (e.g. the
+// contact/booking dialog routes, blog index). Replaces inline `l === 'de' ? …`.
+export function staticMetadata(
+  lang: string,
+  path: string,
+  copy: Record<Locale, {title: string; description: string}>,
+): Metadata {
+  const l = isLocale(lang) ? lang : DEFAULT_LOCALE;
+  return buildMetadata({...copy[l], path, lang: l});
 }
 
 // Metadata for a builder `page` story (home + marketing routes + catch-all),

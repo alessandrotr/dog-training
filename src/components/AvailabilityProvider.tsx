@@ -27,3 +27,10 @@ export function useAvailability(): AvailabilityData | null {
 export function useIsAvailable(): boolean {
   return useAvailability()?.available ?? true
 }
+
+// Which lead-dialog tab a booking CTA should open: the scheduler when taking
+// clients, otherwise the message/waitlist tab. One rule for every `open(...)`.
+export function useBookingMode(): {available: boolean; mode: 'book' | 'contact'} {
+  const available = useIsAvailable()
+  return {available, mode: available ? 'book' : 'contact'}
+}

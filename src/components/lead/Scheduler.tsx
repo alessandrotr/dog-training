@@ -1,6 +1,7 @@
 'use client';
 
 import {CalendarClock} from 'lucide-react';
+import {Heading, Text} from '@/components/ui';
 
 // Config-driven scheduler slot. Set NEXT_PUBLIC_SCHEDULER_URL (Cal.com / Calendly
 // inline embed URL) to render the real widget; until then shows a friendly
@@ -26,11 +27,11 @@ export default function Scheduler({url = ENV_URL}: {url?: string}) {
         <CalendarClock className="h-7 w-7" />
       </div>
       <div className="space-y-1.5">
-        <p className="font-sans text-base font-bold text-amber-950">Live booking opens here soon</p>
-        <p className="mx-auto max-w-xs font-sans text-sm leading-relaxed text-stone-500">
+        <Heading level={3} size="cardSm" tone="default">Live booking opens here soon</Heading>
+        <Text size="sm" tone="muted" className="mx-auto max-w-xs">
           In the meantime, hop over to the <span className="font-semibold text-amber-800">Message</span> tab and
           Sophia will personally arrange your free consult.
-        </p>
+        </Text>
       </div>
       {isDev && (
         <p className="mt-2 max-w-xs font-mono text-[10px] leading-relaxed text-stone-400">

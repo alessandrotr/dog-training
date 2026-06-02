@@ -100,3 +100,15 @@ export function useInquiryCart(): InquiryCart {
   if (!ctx) throw new Error('useInquiryCart must be used within InquiryCartProvider')
   return ctx
 }
+
+// Add/remove a single service to the inquiry. Centralizes the
+// `has`/`toggle`/`serviceToInquiryItem` trio every "add to inquiry" control
+// repeats; callers keep their own markup and label. Accepts an optional service
+// (e.g. a case study without a linked program) and no-ops when absent.
+export function useInquiryToggle(service?: ServiceItem): {added: boolean; toggle: () => void} {
+  const cart = useInquiryCart()
+  return {
+    added: service ? cart.has(service.slug) : false,
+    toggle: () => service && cart.toggle(serviceToInquiryItem(service)),
+  }
+}

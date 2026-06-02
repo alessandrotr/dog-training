@@ -113,7 +113,7 @@ export default function Hero({blok}: {blok: HeroBlok}) {
               <div className="relative mx-auto max-w-[420px] lg:max-w-none">
                 <div className="absolute -inset-1 rounded-3xl bg-amber-700/10 blur-xl"></div>
 
-                <div className="relative overflow-hidden rounded-3xl border-8 border-white bg-stone-105 shadow-2xl aspect-video">
+                <div className="relative overflow-hidden rounded-3xl border-8 border-white bg-stone-100 shadow-2xl aspect-video">
                   {blok.image?.filename && (
                     <Image
                       src={blok.image.filename}

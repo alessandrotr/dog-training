@@ -40,7 +40,7 @@ export default function HowItWorks({blok}: {blok: HowItWorksBlok}) {
         <div className="hidden md:block absolute top-12 left-12 right-12 h-0.5 bg-stone-200 z-0"></div>
         {steps.map((step, i) => (
           <div key={i} className="relative flex flex-col items-center text-center space-y-4 z-10 px-2 group">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-stone-100 border border-stone-250 text-amber-950 text-lg font-bold font-mono transition-colors group-hover:bg-amber-700 group-hover:text-white">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-stone-100 border border-stone-200 text-amber-950 text-lg font-bold font-mono transition-colors group-hover:bg-amber-700 group-hover:text-white">
               {String(i + 1).padStart(2, '0')}
             </div>
             <Heading level={3} size="card" className="mt-2">{step.title}</Heading>

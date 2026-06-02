@@ -130,7 +130,7 @@ export default function BlogFiltered({blok}: {blok: BlogFilteredBlok}) {
         }
       >
         {filteredPosts.length === 0 ? (
-          <div className="rounded-2xl border-2 border-dashed border-stone-250 py-16 text-center space-y-4">
+          <div className="rounded-2xl border-2 border-dashed border-stone-200 py-16 text-center space-y-4">
             <BookOpen className="h-10 w-10 text-stone-400 mx-auto" aria-hidden="true" />
             <Heading level={3} size="cardSm">No Articles Found</Heading>
             <Text size="xs" className="px-4">

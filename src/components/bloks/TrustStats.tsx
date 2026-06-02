@@ -1,6 +1,6 @@
 import {storyblokEditable} from '@storyblok/react/rsc';
 import {ShieldCheck, Star} from 'lucide-react';
-import {Section} from '../ui';
+import {Section, Text, Eyebrow} from '../ui';
 
 import type {BlokBase} from '../../types';
 
@@ -38,8 +38,8 @@ export default function TrustStats({blok}: {blok: TrustStatsBlok}) {
                 {s.value}
                 {s.rating && <Star className="h-5 w-5 fill-amber-600 stroke-none ml-1 shrink-0" />}
               </span>
-              <p className="font-sans text-sm text-stone-600 font-medium">{s.label}</p>
-              <p className="font-mono text-[10px] text-stone-400 uppercase tracking-wider">{s.note}</p>
+              <Text size="sm" tone="default" className="font-medium">{s.label}</Text>
+              <Eyebrow tone="muted">{s.note}</Eyebrow>
             </div>
           ))}
         </div>

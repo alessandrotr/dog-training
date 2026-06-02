@@ -48,7 +48,7 @@ export default function BioHero({blok}: {blok: BioHeroBlok}) {
         {/* Image (right) */}
         <div className="lg:col-span-5 relative">
           <div className="relative max-w-[380px] mx-auto lg:max-w-none">
-            <div className="absolute -inset-1 rounded-3xl bg-amber-905/10 blur-xl"></div>
+            <div className="absolute -inset-1 rounded-3xl bg-amber-900/10 blur-xl"></div>
             <div className="relative overflow-hidden rounded-3xl border-8 border-white shadow-2xl aspect-square bg-stone-100">
               {blok.image?.filename && (
                 <Image

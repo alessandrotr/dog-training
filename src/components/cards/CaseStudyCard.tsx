@@ -2,7 +2,7 @@
 
 import {ArrowUpRight} from 'lucide-react';
 import {useHref} from '../../lib/navigation';
-import {Eyebrow, Pill, Card, PersonByline} from '../ui';
+import {Eyebrow, Pill, Card, PersonByline, Text} from '../ui';
 import {cn} from '../../lib/utils';
 import type {TestimonialItem, ServiceItem} from '../../types';
 
@@ -37,7 +37,7 @@ export default function CaseStudyCard({
       {story.challenge && (
         <div className="mt-4">
           <Eyebrow>The challenge</Eyebrow>
-          <p className="mt-1 text-sm font-semibold leading-snug text-stone-700">{story.challenge}</p>
+          <Text size="sm" className="mt-1 font-semibold leading-snug text-stone-700">{story.challenge}</Text>
         </div>
       )}
 
@@ -45,7 +45,7 @@ export default function CaseStudyCard({
       {story.outcome && (
         <div className="mt-4">
           <Eyebrow>The outcome</Eyebrow>
-          <p className="mt-1 text-sm font-semibold leading-snug text-stone-700">{story.outcome}</p>
+          <Text size="sm" className="mt-1 font-semibold leading-snug text-stone-700">{story.outcome}</Text>
         </div>
       )}
 

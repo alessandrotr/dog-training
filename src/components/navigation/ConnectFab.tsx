@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { PawPrint } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useHideOnScroll } from '@/lib/use-hide-on-scroll'
-import { useIsAvailable } from '@/components/AvailabilityProvider'
+import { useBookingMode } from '@/components/AvailabilityProvider'
 import { useLeadDialog } from '@/stores/lead-dialog'
 
 // Fixed bottom-right action that opens the connect dialog. Replaces the old
@@ -17,13 +17,13 @@ export default function ConnectFab() {
   const { hidden } = useHideOnScroll()
   // Fully booked → there are no consult slots, so the FAB becomes a waitlist
   // join that drops straight into the Message tab.
-  const available = useIsAvailable()
+  const { available, mode } = useBookingMode()
   const label = available ? t('booking.tab') : t('booking.waitlist')
 
   return (
     <button
       type="button"
-      onClick={() => open(available ? 'book' : 'contact')}
+      onClick={() => open(mode)}
       aria-label={label}
       className={cn(
         'fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 flex items-center gap-4 rounded-full bg-amber-700 py-3.5 pl-4 pr-5 text-white shadow-lg shadow-amber-950/25 ring-1 ring-amber-500/20 transition-all duration-300 ease-out hover:bg-amber-950 hover:shadow-xl active:scale-95 sm:right-6 sm:bottom-6',
