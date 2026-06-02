@@ -43,7 +43,7 @@ export default function ServiceDetail({
   const relatedArticles = posts.filter((p) => p.serviceIds?.includes(service.id))
 
   return (
-    <article className="text-left">
+    <article className="text-left pb-8">
       {/* Hero — full-bleed service image as background (mirrors the home hero) */}
       <section className="relative -mt-16 overflow-hidden bg-linear-to-b from-amber-200 to-amber-50">
         {service.imageUrl && (
