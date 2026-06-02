@@ -2,10 +2,11 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, useScroll, useTransform } from 'motion/react'
 import { Sparkles, Plus, Check } from 'lucide-react'
 import { useHref } from '@/lib/navigation'
-import {useInquiryToggle} from '@/features/inquiry/components/InquiryCartProvider';import CaseStudyCard from '@/components/cards/CaseStudyCard'
+import { useParallax } from '@/hooks/use-parallax'
+import { useInquiryToggle } from '@/features/inquiry/components/InquiryCartProvider'
+import CaseStudyCard from '@/components/cards/CaseStudyCard'
 import Carousel from '@/components/Carousel'
 import { Section, Eyebrow, PersonByline, Heading, Text, Prose, Pill, PriceTag } from '@/components/ui'
 import type { TestimonialItem, ServiceItem } from '@/types'
@@ -27,8 +28,7 @@ export default function CaseStudyDetail({
   const { added: inquiryAdded, toggle: toggleInquiry } = useInquiryToggle(service)
   // Parallax: the oversized label glides upward as the page scrolls down (and
   // back down when scrolling up) — counter to the page for an obvious drift.
-  const { scrollY } = useScroll()
-  const labelY = useTransform(scrollY, [0, 600], [0, -220])
+  const labelRef = useParallax<HTMLSpanElement>(0, -220, 600)
   const paragraphs = story.text
     .split('\n')
     .map((p) => p.trim())
@@ -37,14 +37,14 @@ export default function CaseStudyDetail({
   return (
     <article className="relative overflow-hidden pb-8 text-left">
       {/* Oversized page label, blended into the background behind the header. */}
-      <motion.span
+      <span
+        ref={labelRef}
         aria-hidden="true"
-        style={{ y: labelY }}
         className="pointer-events-none absolute top-[-0.12em] left-1/2 flex w-full -translate-x-1/2 select-none flex-col items-center bg-linear-to-b from-amber-700/12 via-amber-700/6 to-transparent bg-clip-text text-center font-sans text-[27vw] font-black uppercase leading-[0.82] tracking-tighter text-transparent sm:w-auto sm:flex-row sm:gap-[0.18em] sm:whitespace-nowrap sm:text-[20vw] sm:leading-none lg:text-[15rem]"
       >
         <span>Case</span>
         <span>Study</span>
-      </motion.span>
+      </span>
 
       <div className="relative z-10 mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         {/* Header — clears the stacked label on mobile, tucks behind it on desktop */}

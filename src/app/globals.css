@@ -178,3 +178,33 @@ body {
     cursor: pointer;
   }
 }
+
+/* Inquiry-cart badge feedback (replaces framer-motion). Replayed by re-mounting
+   the element via a React `key` that changes with the item count. */
+@keyframes cart-bump {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes cart-pop {
+  from {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-safe-cart-bump,
+  .motion-safe-cart-pop {
+    animation: none !important;
+  }
+}

@@ -2,12 +2,12 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { motion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
 import { Menu, X, CalendarRange, PawPrint } from 'lucide-react'
 import { useCurrentPage, useHref } from '@/lib/navigation'
 import { useHideOnScroll } from '@/hooks/use-hide-on-scroll'
-import {useIsAvailable} from '@/features/availability/components/AvailabilityProvider';import LocaleToggle from './LocaleToggle'
+import { useIsAvailable } from '@/features/availability/components/AvailabilityProvider'
+import LocaleToggle from './LocaleToggle'
 import Logo from './Logo'
 import { Button } from '@/components/ui'
 import type { SiteConfig } from '@/types'
@@ -37,10 +37,10 @@ export default function Navbar({ config }: { config: SiteConfig }) {
   const solid = !atTop || isOpen // frosted bar once scrolled or when the mobile menu is open
 
   return (
-    <motion.header
-      animate={{ y: hidden && !isOpen ? '-100%' : '0%' }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className={`sticky top-0 z-40 w-full transition-[background-color,box-shadow] duration-500 ${
+    <header
+      className={`sticky top-0 z-40 w-full transition-[translate,background-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        hidden && !isOpen ? '-translate-y-full' : 'translate-y-0'
+      } ${
         solid
           ? 'bg-stone-50/90 shadow-[0_1px_0_0_var(--color-stone-200)] backdrop-blur-md'
           : 'bg-transparent'
@@ -140,6 +140,6 @@ export default function Navbar({ config }: { config: SiteConfig }) {
           </div>
         </nav>
       )}
-    </motion.header>
+    </header>
   )
 }

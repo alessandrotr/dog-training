@@ -1,7 +1,6 @@
 'use client';
 
 import {useEffect, useRef, useState} from 'react';
-import {motion} from 'motion/react';
 import {ClipboardList, X} from 'lucide-react';
 import {useHideOnScroll} from '@/hooks/use-hide-on-scroll';
 import {useInquiryCart} from './InquiryCartProvider';
@@ -64,22 +63,15 @@ export default function InquiryCartBar() {
             aria-label={`Send inquiry about ${count} service${count > 1 ? 's' : ''}`}
             className="group flex items-center gap-2.5 rounded-full py-1.5 pl-1.5 pr-3 transition-colors hover:bg-stone-50 active:scale-95"
           >
-            <motion.span
+            <span
               key={count}
-              animate={{scale: [1, 1.18, 1]}}
-              transition={{duration: 0.45, ease: 'easeOut'}}
-              className="relative flex h-7 w-7 items-center justify-center rounded-full bg-amber-700 text-white"
+              className="motion-safe-cart-bump relative flex h-7 w-7 items-center justify-center rounded-full bg-amber-700 text-white animate-[cart-bump_0.45s_ease-out]"
             >
               <ClipboardList className="h-4 w-4" />
-              <motion.span
-                initial={{scale: 0.2, opacity: 0}}
-                animate={{scale: 1, opacity: 1}}
-                transition={{type: 'spring', stiffness: 700, damping: 20}}
-                className="absolute -right-1.5 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-stone-900 px-1 text-[10px] font-bold text-white"
-              >
+              <span className="motion-safe-cart-pop absolute -right-1.5 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-stone-900 px-1 text-[10px] font-bold text-white animate-[cart-pop_0.3s_ease-out]">
                 {count}
-              </motion.span>
-            </motion.span>
+              </span>
+            </span>
             <span className="text-xs font-mono font-bold uppercase tracking-tight text-amber-950">Send inquiry</span>
           </button>
           <button
