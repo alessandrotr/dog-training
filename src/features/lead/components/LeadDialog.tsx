@@ -1,35 +1,35 @@
-'use client';
+'use client'
 
-import {useEffect} from 'react';
-import {useTranslation} from 'react-i18next';
-import {Dialog as DialogPrimitive} from '@base-ui/react/dialog';
-import {CalendarClock, MessageCircle, X, PawPrint, Lock} from 'lucide-react';
-import {cn} from '@/lib/utils';
-import {Tabs, TabsList, TabsTrigger, TabsContent} from '@/components/ui/tabs';
-import {useLeadDialog, type LeadMode} from '@/features/lead/stores/lead-dialog';
-import {useAvailability} from '@/features/availability/components/AvailabilityProvider';
-import {Text} from '@/components/ui';
-import AvailabilityPresence from './AvailabilityPresence';
-import Scheduler from './Scheduler';
-import LeadForm from './LeadForm';
+import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Dialog as DialogPrimitive } from '@base-ui/react/dialog'
+import { CalendarClock, MessageCircle, X, PawPrint, Lock } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+import { useLeadDialog, type LeadMode } from '@/features/lead/stores/lead-dialog'
+import { useAvailability } from '@/features/availability/components/AvailabilityProvider'
+import { Text } from '@/components/ui'
+import AvailabilityPresence from './AvailabilityPresence'
+import Scheduler from './Scheduler'
+import LeadForm from './LeadForm'
 
 // Branded, responsive lead dialog: a bottom-sheet on mobile that becomes a
 // centered card on desktop. Composes the Base UI dialog primitive (focus trap,
 // aria-modal, scroll-lock) with fully custom brand styling.
 export default function LeadDialog() {
-  const {t, i18n} = useTranslation();
-  const {isOpen, mode, close, setMode} = useLeadDialog();
-  const availability = useAvailability();
-  const available = availability?.available ?? true;
-  const waitlistLabel = i18n.language === 'de' ? 'Warteliste' : 'Waitlist';
-  const title = mode === 'contact' ? t('contact.headline') : t('booking.headline');
-  const description = mode === 'contact' ? t('contact.subheadline') : t('booking.subheadline');
+  const { t, i18n } = useTranslation()
+  const { isOpen, mode, close, setMode } = useLeadDialog()
+  const availability = useAvailability()
+  const available = availability?.available ?? true
+  const waitlistLabel = i18n.language === 'de' ? 'Warteliste' : 'Waitlist'
+  const title = mode === 'contact' ? t('contact.headline') : t('booking.headline')
+  const description = mode === 'contact' ? t('contact.subheadline') : t('booking.subheadline')
 
   // Fully booked → there are no consult slots, so steer the booking tab to the
   // Message/waitlist tab instead of showing an empty scheduler.
   useEffect(() => {
-    if (isOpen && !available && mode === 'book') setMode('contact');
-  }, [isOpen, available, mode, setMode]);
+    if (isOpen && !available && mode === 'book') setMode('contact')
+  }, [isOpen, available, mode, setMode])
 
   return (
     <DialogPrimitive.Root open={isOpen} onOpenChange={(open) => !open && close()}>
@@ -66,7 +66,9 @@ export default function LeadDialog() {
                   <AvailabilityPresence />
                   {/* Accessible names for the dialog (presence row is the visible header) */}
                   <DialogPrimitive.Title className="sr-only">{`${availability.name} — ${title}`}</DialogPrimitive.Title>
-                  <DialogPrimitive.Description className="sr-only">{description}</DialogPrimitive.Description>
+                  <DialogPrimitive.Description className="sr-only">
+                    {description}
+                  </DialogPrimitive.Description>
                 </>
               ) : (
                 <div className="min-w-0 space-y-1">
@@ -95,7 +97,11 @@ export default function LeadDialog() {
               className="flex min-h-0 w-full flex-1 flex-col gap-4"
             >
               <TabsList className="w-full shrink-0">
-                <TabsTrigger value="book" disabled={!available} title={!available ? 'Fully booked right now' : undefined}>
+                <TabsTrigger
+                  value="book"
+                  disabled={!available}
+                  title={!available ? 'Fully booked right now' : undefined}
+                >
                   {available ? <CalendarClock /> : <Lock />} {t('booking.tab')}
                 </TabsTrigger>
                 <TabsTrigger value="contact">
@@ -112,7 +118,9 @@ export default function LeadDialog() {
                       <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-700/15 text-amber-800">
                         <Lock className="h-6 w-6" />
                       </div>
-                      <Text size="sm" className="font-semibold text-amber-950">{availability?.unavailableStatus ?? 'Fully booked right now'}</Text>
+                      <Text size="sm" className="font-semibold text-amber-950">
+                        {availability?.unavailableStatus ?? 'Fully booked right now'}
+                      </Text>
                     </div>
                   )}
                 </TabsContent>
@@ -125,5 +133,5 @@ export default function LeadDialog() {
         </DialogPrimitive.Popup>
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>
-  );
+  )
 }

@@ -1,61 +1,63 @@
-'use client';
+'use client'
 
-import {useState, useMemo} from 'react';
-import {storyblokEditable} from '@storyblok/react';
-import {Search, BookOpen, Tag, X} from 'lucide-react';
-import {useQueryState} from 'nuqs';
-import FilterLayout from '@/components/FilterLayout';
-import {Section, Card, Eyebrow, Heading, Text} from '@/components/ui';
-import ArticleCard from '@/components/cards/ArticleCard';
-import {usePageData} from '@/features/storyblok/components/PageDataProvider';
-import type {BlokBase} from '@/types';
+import { useState, useMemo } from 'react'
+import { storyblokEditable } from '@storyblok/react'
+import { Search, BookOpen, Tag, X } from 'lucide-react'
+import { useQueryState } from 'nuqs'
+import FilterLayout from '@/components/FilterLayout'
+import { Section, Card, Eyebrow, Heading, Text } from '@/components/ui'
+import ArticleCard from '@/components/cards/ArticleCard'
+import { usePageData } from '@/features/storyblok/components/PageDataProvider'
+import type { BlokBase } from '@/types'
 
 interface BlogFilteredBlok extends BlokBase {}
 
 // Data-bound: the searchable/filterable article grid + left filter rail. Pulls
 // posts + taxonomies from the page route (PageDataProvider) so it can be dropped
 // into any `page` story. Header is a separate Page Header blok above it.
-export default function BlogFiltered({blok}: {blok: BlogFilteredBlok}) {
-  const {posts, taxonomies} = usePageData();
-  const catLabel = (c: string) => taxonomies.categories[c] ?? c;
-  const tagLabel = (t: string) => taxonomies.tags[t] ?? t;
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+export default function BlogFiltered({ blok }: { blok: BlogFilteredBlok }) {
+  const { posts, taxonomies } = usePageData()
+  const catLabel = (c: string) => taxonomies.categories[c] ?? c
+  const tagLabel = (t: string) => taxonomies.tags[t] ?? t
+  const [searchQuery, setSearchQuery] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState<string>('All')
   // Active tag lives in the URL (?tag=…) so article tag chips can deep-link here.
-  const [activeTag, setActiveTag] = useQueryState('tag');
+  const [activeTag, setActiveTag] = useQueryState('tag')
 
   const categories = useMemo(() => {
-    const list = ['All'];
+    const list = ['All']
     posts.forEach((post) => {
-      if (post.category && !list.includes(post.category)) list.push(post.category);
-    });
-    return list;
-  }, [posts]);
+      if (post.category && !list.includes(post.category)) list.push(post.category)
+    })
+    return list
+  }, [posts])
 
   const tags = useMemo(() => {
-    const set = new Set<string>();
-    posts.forEach((post) => post.tags?.forEach((tag) => set.add(tag)));
-    return [...set];
-  }, [posts]);
+    const set = new Set<string>()
+    posts.forEach((post) => post.tags?.forEach((tag) => set.add(tag)))
+    return [...set]
+  }, [posts])
 
   const filteredPosts = useMemo(() => {
-    const q = searchQuery.trim().toLowerCase();
+    const q = searchQuery.trim().toLowerCase()
     return posts.filter((post) => {
       const matchesSearch =
         !q ||
         post.title.toLowerCase().includes(q) ||
         post.summary.toLowerCase().includes(q) ||
-        post.tags?.some((tag) => tag.toLowerCase().includes(q));
-      const matchesCat = selectedCategory === 'All' || post.category === selectedCategory;
-      const matchesTag = !activeTag || post.tags?.includes(activeTag);
-      return matchesSearch && matchesCat && matchesTag;
-    });
-  }, [posts, searchQuery, selectedCategory, activeTag]);
+        post.tags?.some((tag) => tag.toLowerCase().includes(q))
+      const matchesCat = selectedCategory === 'All' || post.category === selectedCategory
+      const matchesTag = !activeTag || post.tags?.includes(activeTag)
+      return matchesSearch && matchesCat && matchesTag
+    })
+  }, [posts, searchQuery, selectedCategory, activeTag])
 
   return (
     <Section {...storyblokEditable(blok as any)}>
       <FilterLayout
-        activeCount={(selectedCategory !== 'All' ? 1 : 0) + (activeTag ? 1 : 0) + (searchQuery ? 1 : 0)}
+        activeCount={
+          (selectedCategory !== 'All' ? 1 : 0) + (activeTag ? 1 : 0) + (searchQuery ? 1 : 0)
+        }
         sidebar={
           <Card padding="sm" className="space-y-6">
             <div className="relative">
@@ -79,7 +81,9 @@ export default function BlogFiltered({blok}: {blok: BlogFilteredBlok}) {
                     key={cat}
                     onClick={() => setSelectedCategory(cat)}
                     className={`block w-full rounded-lg px-3 py-2 text-left text-sm transition-colors ${
-                      selectedCategory === cat ? 'bg-amber-700 font-semibold text-white' : 'text-stone-600 hover:bg-stone-100'
+                      selectedCategory === cat
+                        ? 'bg-amber-700 font-semibold text-white'
+                        : 'text-stone-600 hover:bg-stone-100'
                     }`}
                   >
                     {cat === 'All' ? cat : catLabel(cat)}
@@ -95,7 +99,7 @@ export default function BlogFiltered({blok}: {blok: BlogFilteredBlok}) {
                 </Eyebrow>
                 <div className="flex flex-wrap gap-1.5">
                   {tags.map((tag) => {
-                    const active = activeTag === tag;
+                    const active = activeTag === tag
                     return (
                       <button
                         key={tag}
@@ -108,7 +112,7 @@ export default function BlogFiltered({blok}: {blok: BlogFilteredBlok}) {
                       >
                         {tagLabel(tag)}
                       </button>
-                    );
+                    )
                   })}
                 </div>
               </div>
@@ -117,9 +121,9 @@ export default function BlogFiltered({blok}: {blok: BlogFilteredBlok}) {
             {(activeTag || selectedCategory !== 'All' || searchQuery) && (
               <button
                 onClick={() => {
-                  setSearchQuery('');
-                  setSelectedCategory('All');
-                  setActiveTag(null);
+                  setSearchQuery('')
+                  setSelectedCategory('All')
+                  setActiveTag(null)
                 }}
                 className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-wide text-stone-500 transition-colors hover:text-stone-900"
               >
@@ -132,15 +136,17 @@ export default function BlogFiltered({blok}: {blok: BlogFilteredBlok}) {
         {filteredPosts.length === 0 ? (
           <div className="rounded-2xl border-2 border-dashed border-stone-200 py-16 text-center space-y-4">
             <BookOpen className="h-10 w-10 text-stone-400 mx-auto" aria-hidden="true" />
-            <Heading level={3} size="cardSm">No Articles Found</Heading>
+            <Heading level={3} size="cardSm">
+              No Articles Found
+            </Heading>
             <Text size="xs" className="px-4">
               Nothing matches your filters. Try clearing them.
             </Text>
             <button
               onClick={() => {
-                setSearchQuery('');
-                setSelectedCategory('All');
-                setActiveTag(null);
+                setSearchQuery('')
+                setSelectedCategory('All')
+                setActiveTag(null)
               }}
               className="rounded-lg bg-stone-900 px-4 py-2 text-xs font-semibold text-white tracking-wide"
             >
@@ -156,5 +162,5 @@ export default function BlogFiltered({blok}: {blok: BlogFilteredBlok}) {
         )}
       </FilterLayout>
     </Section>
-  );
+  )
 }

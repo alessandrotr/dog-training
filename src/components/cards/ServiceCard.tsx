@@ -4,7 +4,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Sparkles, Plus, Check, BookOpen } from 'lucide-react'
 import { useHref } from '@/lib/navigation'
-import {useInquiryToggle} from '@/features/inquiry/components/InquiryCartProvider';import { Card, CardStat, PriceTag, Heading, Text } from '@/components/ui'
+import { useInquiryToggle } from '@/features/inquiry/components/InquiryCartProvider'
+import { Card, CardStat, PriceTag, Heading, Text } from '@/components/ui'
 import { cn } from '@/lib/utils'
 import type { ServiceItem } from '@/types'
 
@@ -25,7 +26,7 @@ export default function ServiceCard({
   slideProps?: Record<string, unknown>
 }) {
   const href = useHref()
-  const {added, toggle} = useInquiryToggle(svc)
+  const { added, toggle } = useInquiryToggle(svc)
   return (
     <Card
       as={Link}

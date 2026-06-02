@@ -1,4 +1,4 @@
-import {storyblokEditable} from '@storyblok/react/rsc';
+import { storyblokEditable } from '@storyblok/react/rsc'
 import {
   Award,
   BrainCircuit,
@@ -8,9 +8,9 @@ import {
   ShieldCheck,
   Sparkles,
   Building,
-} from 'lucide-react';
-import {Card, Heading, Text} from '@/components/ui';
-import type {BlokBase} from '@/types';
+} from 'lucide-react'
+import { Card, Heading, Text } from '@/components/ui'
+import type { BlokBase } from '@/types'
 
 const ICONS: Record<string, any> = {
   Award,
@@ -21,16 +21,16 @@ const ICONS: Record<string, any> = {
   ShieldCheck,
   Sparkles,
   Building,
-};
-
-interface ValueCardBlok extends BlokBase {
-  icon?: string;
-  title?: string;
-  description?: string;
 }
 
-export default function ValueCard({blok}: {blok: ValueCardBlok}) {
-  const Icon = ICONS[blok.icon || 'Sparkles'] || Sparkles;
+interface ValueCardBlok extends BlokBase {
+  icon?: string
+  title?: string
+  description?: string
+}
+
+export default function ValueCard({ blok }: { blok: ValueCardBlok }) {
+  const Icon = ICONS[blok.icon || 'Sparkles'] || Sparkles
   return (
     <Card
       {...storyblokEditable(blok as any)}
@@ -40,8 +40,12 @@ export default function ValueCard({blok}: {blok: ValueCardBlok}) {
       <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-stone-100 border border-stone-200">
         <Icon className="h-6 w-6 text-amber-800" />
       </div>
-      {blok.title && <Heading level={3} size="card" className="mb-2">{blok.title}</Heading>}
+      {blok.title && (
+        <Heading level={3} size="card" className="mb-2">
+          {blok.title}
+        </Heading>
+      )}
       {blok.description && <Text>{blok.description}</Text>}
     </Card>
-  );
+  )
 }

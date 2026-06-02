@@ -1,14 +1,14 @@
-import type {Metadata} from 'next';
-import {headers} from 'next/headers';
-import Link from 'next/link';
-import {Dog, PawPrint, ArrowLeft, Compass} from 'lucide-react';
-import {Button, Heading, Text, Eyebrow} from '@/components/ui';
-import {DEFAULT_LOCALE, isLocale} from '@/lib/locales';
+import type { Metadata } from 'next'
+import { headers } from 'next/headers'
+import Link from 'next/link'
+import { Dog, PawPrint, ArrowLeft, Compass } from 'lucide-react'
+import { Button, Heading, Text, Eyebrow } from '@/components/ui'
+import { DEFAULT_LOCALE, isLocale } from '@/lib/locales'
 
 export const metadata: Metadata = {
   title: 'Page not found',
-  robots: {index: false, follow: false},
-};
+  robots: { index: false, follow: false },
+}
 
 const COPY = {
   en: {
@@ -25,16 +25,18 @@ const COPY = {
     home: 'Zur Startseite',
     explore: 'Programme ansehen',
   },
-} as const;
+} as const
 
 export default async function NotFound() {
-  const header = (await headers()).get('x-locale');
-  const lang = isLocale(header ?? '') ? (header as keyof typeof COPY) : (DEFAULT_LOCALE as keyof typeof COPY);
-  const t = COPY[lang] ?? COPY.en;
-  const home = `/${lang}`;
+  const header = (await headers()).get('x-locale')
+  const lang = isLocale(header ?? '')
+    ? (header as keyof typeof COPY)
+    : (DEFAULT_LOCALE as keyof typeof COPY)
+  const t = COPY[lang] ?? COPY.en
+  const home = `/${lang}`
 
   return (
-    <main className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-linear-to-b from-amber-100 via-stone-50 to-stone-50 px-6 py-16 text-center">
+    <main className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-linear-to-b from-amber-100 via-stone-50 to-stone-50 px-6 py-16 text-center">
       {/* Decorative heather glow + scattered paw prints */}
       <div className="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-amber-300/40 blur-3xl" />
       <PawPrint className="pointer-events-none absolute left-[12%] top-[18%] h-10 w-10 -rotate-12 text-amber-300/50" />
@@ -78,5 +80,5 @@ export default async function NotFound() {
         </div>
       </div>
     </main>
-  );
+  )
 }

@@ -1,32 +1,37 @@
-import {storyblokEditable} from '@storyblok/react/rsc';
-import {ShieldCheck, Star} from 'lucide-react';
-import {Section, Text, Eyebrow} from '@/components/ui';
+import { storyblokEditable } from '@storyblok/react/rsc'
+import { ShieldCheck, Star } from 'lucide-react'
+import { Section, Text, Eyebrow } from '@/components/ui'
 
-import type {BlokBase} from '@/types';
+import type { BlokBase } from '@/types'
 
 interface TrustStatsBlok extends BlokBase {
-  stat1_value?: string;
-  stat1_label?: string;
-  stat1_note?: string;
-  stat2_value?: string;
-  stat2_label?: string;
-  stat2_note?: string;
-  stat3_value?: string;
-  stat3_label?: string;
-  stat3_note?: string;
-  badges_title?: string;
-  badges?: string; // one per line
+  stat1_value?: string
+  stat1_label?: string
+  stat1_note?: string
+  stat2_value?: string
+  stat2_label?: string
+  stat2_note?: string
+  stat3_value?: string
+  stat3_label?: string
+  stat3_note?: string
+  badges_title?: string
+  badges?: string // one per line
 }
 
 const lines = (s?: string) =>
-  s ? s.split('\n').map((l) => l.trim()).filter(Boolean) : [];
+  s
+    ? s
+        .split('\n')
+        .map((l) => l.trim())
+        .filter(Boolean)
+    : []
 
-export default function TrustStats({blok}: {blok: TrustStatsBlok}) {
+export default function TrustStats({ blok }: { blok: TrustStatsBlok }) {
   const stats = [
-    {value: blok.stat1_value, label: blok.stat1_label, note: blok.stat1_note},
-    {value: blok.stat2_value, label: blok.stat2_label, note: blok.stat2_note},
-    {value: blok.stat3_value, label: blok.stat3_label, note: blok.stat3_note, rating: true},
-  ];
+    { value: blok.stat1_value, label: blok.stat1_label, note: blok.stat1_note },
+    { value: blok.stat2_value, label: blok.stat2_label, note: blok.stat2_note },
+    { value: blok.stat3_value, label: blok.stat3_label, note: blok.stat3_note, rating: true },
+  ]
 
   return (
     <Section {...storyblokEditable(blok as any)}>
@@ -38,7 +43,9 @@ export default function TrustStats({blok}: {blok: TrustStatsBlok}) {
                 {s.value}
                 {s.rating && <Star className="h-5 w-5 fill-amber-600 stroke-none ml-1 shrink-0" />}
               </span>
-              <Text size="sm" tone="default" className="font-medium">{s.label}</Text>
+              <Text size="sm" tone="default" className="font-medium">
+                {s.label}
+              </Text>
               <Eyebrow tone="muted">{s.note}</Eyebrow>
             </div>
           ))}
@@ -63,5 +70,5 @@ export default function TrustStats({blok}: {blok: TrustStatsBlok}) {
         )}
       </div>
     </Section>
-  );
+  )
 }

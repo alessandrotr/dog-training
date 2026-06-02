@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
-import {useState} from 'react';
-import Link from 'next/link';
-import {ArrowLeft, ArrowRight, MessageSquareQuote, Sparkles, ArrowUpRight} from 'lucide-react';
-import {useHref} from '@/lib/navigation';
-import {Eyebrow, Pill, Button, PersonByline} from '@/components/ui';
-import type {TestimonialItem, ServiceItem} from '@/types';
+import { useState } from 'react'
+import Link from 'next/link'
+import { ArrowLeft, ArrowRight, MessageSquareQuote, Sparkles, ArrowUpRight } from 'lucide-react'
+import { useHref } from '@/lib/navigation'
+import { Eyebrow, Pill, Button, PersonByline } from '@/components/ui'
+import type { TestimonialItem, ServiceItem } from '@/types'
 
 // One rotating featured case study (home). Stateful, so it lives apart from the
 // declarative grid/cards layouts. `editable` carries storyblokEditable from the
@@ -16,21 +16,24 @@ export default function TestimonialsFeatured({
   footerLabel,
   editable,
 }: {
-  testimonials: TestimonialItem[];
-  serviceById: Map<string, ServiceItem>;
-  footerLabel?: string;
-  editable?: Record<string, unknown>;
+  testimonials: TestimonialItem[]
+  serviceById: Map<string, ServiceItem>
+  footerLabel?: string
+  editable?: Record<string, unknown>
 }) {
-  const href = useHref();
-  const [index, setIndex] = useState(0);
+  const href = useHref()
+  const [index, setIndex] = useState(0)
 
-  const active = testimonials[index];
-  const activeService = active ? serviceById.get(active.serviceId ?? '') : undefined;
-  const prev = () => setIndex((i) => (i === 0 ? testimonials.length - 1 : i - 1));
-  const next = () => setIndex((i) => (i === testimonials.length - 1 ? 0 : i + 1));
+  const active = testimonials[index]
+  const activeService = active ? serviceById.get(active.serviceId ?? '') : undefined
+  const prev = () => setIndex((i) => (i === 0 ? testimonials.length - 1 : i - 1))
+  const next = () => setIndex((i) => (i === testimonials.length - 1 ? 0 : i + 1))
 
   return (
-    <section {...editable} className="bg-stone-100 border-y border-stone-200/80 py-20 relative overflow-hidden">
+    <section
+      {...editable}
+      className="bg-stone-100 border-y border-stone-200/80 py-20 relative overflow-hidden"
+    >
       <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
         <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-amber-100 mb-4 text-amber-900">
           <MessageSquareQuote className="h-6 w-6" />
@@ -58,7 +61,11 @@ export default function TestimonialsFeatured({
                 href={href.caseStudy(active.slug)}
               />
               {activeService && (
-                <Pill tone="stone" href={href.service(activeService.slug)} className="group/chip mt-1">
+                <Pill
+                  tone="stone"
+                  href={href.service(activeService.slug)}
+                  className="group/chip mt-1"
+                >
                   {activeService.title}
                   <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover/chip:translate-x-0.5 group-hover/chip:-translate-y-0.5" />
                 </Pill>
@@ -69,11 +76,25 @@ export default function TestimonialsFeatured({
 
         {testimonials.length > 1 && (
           <div className="flex items-center justify-center space-x-4 mt-8">
-            <Button onClick={prev} variant="outline" size="icon" className="rounded-full" aria-label="Previous case study">
+            <Button
+              onClick={prev}
+              variant="outline"
+              size="icon"
+              className="rounded-full"
+              aria-label="Previous case study"
+            >
               <ArrowLeft className="h-4 w-4" />
             </Button>
-            <span className="text-xs font-mono text-stone-400">{index + 1} of {testimonials.length}</span>
-            <Button onClick={next} variant="outline" size="icon" className="rounded-full" aria-label="Next case study">
+            <span className="text-xs font-mono text-stone-400">
+              {index + 1} of {testimonials.length}
+            </span>
+            <Button
+              onClick={next}
+              variant="outline"
+              size="icon"
+              className="rounded-full"
+              aria-label="Next case study"
+            >
               <ArrowRight className="h-4 w-4" />
             </Button>
           </div>
@@ -91,5 +112,5 @@ export default function TestimonialsFeatured({
         )}
       </div>
     </section>
-  );
+  )
 }

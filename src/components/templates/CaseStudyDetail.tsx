@@ -8,7 +8,16 @@ import { useParallax } from '@/hooks/use-parallax'
 import { useInquiryToggle } from '@/features/inquiry/components/InquiryCartProvider'
 import CaseStudyCard from '@/components/cards/CaseStudyCard'
 import Carousel from '@/components/Carousel'
-import { Section, Eyebrow, PersonByline, Heading, Text, Prose, Pill, PriceTag } from '@/components/ui'
+import {
+  Section,
+  Eyebrow,
+  PersonByline,
+  Heading,
+  Text,
+  Prose,
+  Pill,
+  PriceTag,
+} from '@/components/ui'
 import type { TestimonialItem, ServiceItem } from '@/types'
 
 // Full case-study page: the dog, the challenge, what was done, the outcome,

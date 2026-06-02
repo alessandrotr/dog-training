@@ -1,15 +1,15 @@
-'use client';
+'use client'
 
-import {CalendarClock} from 'lucide-react';
-import {Heading, Text} from '@/components/ui';
+import { CalendarClock } from 'lucide-react'
+import { Heading, Text } from '@/components/ui'
 
 // Config-driven scheduler slot. Set NEXT_PUBLIC_SCHEDULER_URL (Cal.com / Calendly
 // inline embed URL) to render the real widget; until then shows a friendly
 // branded placeholder. `url` can later be sourced from Storyblok site config.
-const ENV_URL = process.env.NEXT_PUBLIC_SCHEDULER_URL;
-const isDev = process.env.NODE_ENV !== 'production';
+const ENV_URL = process.env.NEXT_PUBLIC_SCHEDULER_URL
+const isDev = process.env.NODE_ENV !== 'production'
 
-export default function Scheduler({url = ENV_URL}: {url?: string}) {
+export default function Scheduler({ url = ENV_URL }: { url?: string }) {
   if (url) {
     return (
       <iframe
@@ -18,7 +18,7 @@ export default function Scheduler({url = ENV_URL}: {url?: string}) {
         className="h-[460px] w-full rounded-2xl border border-stone-200 sm:h-[520px]"
         loading="lazy"
       />
-    );
+    )
   }
 
   return (
@@ -27,17 +27,21 @@ export default function Scheduler({url = ENV_URL}: {url?: string}) {
         <CalendarClock className="h-7 w-7" />
       </div>
       <div className="space-y-1.5">
-        <Heading level={3} size="cardSm" tone="default">Live booking opens here soon</Heading>
+        <Heading level={3} size="cardSm" tone="default">
+          Live booking opens here soon
+        </Heading>
         <Text size="sm" tone="muted" className="mx-auto max-w-xs">
-          In the meantime, hop over to the <span className="font-semibold text-amber-800">Message</span> tab and
-          Sophia will personally arrange your free consult.
+          In the meantime, hop over to the{' '}
+          <span className="font-semibold text-amber-800">Message</span> tab and Sophia will
+          personally arrange your free consult.
         </Text>
       </div>
       {isDev && (
         <p className="mt-2 max-w-xs font-mono text-[10px] leading-relaxed text-stone-400">
-          dev: set <code className="rounded bg-stone-200 px-1">NEXT_PUBLIC_SCHEDULER_URL</code> (Cal.com / Calendly) to embed the live widget.
+          dev: set <code className="rounded bg-stone-200 px-1">NEXT_PUBLIC_SCHEDULER_URL</code>{' '}
+          (Cal.com / Calendly) to embed the live widget.
         </p>
       )}
     </div>
-  );
+  )
 }

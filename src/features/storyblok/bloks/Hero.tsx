@@ -1,38 +1,38 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import Image from 'next/image';
-import {storyblokEditable} from '@storyblok/react';
-import {Award, ArrowRight} from 'lucide-react';
-import {useHref} from '@/lib/navigation';
-import Availability from './Availability';
-import {Button, Heading, Text, Eyebrow} from '@/components/ui';
+import Link from 'next/link'
+import Image from 'next/image'
+import { storyblokEditable } from '@storyblok/react'
+import { Award, ArrowRight } from 'lucide-react'
+import { useHref } from '@/lib/navigation'
+import Availability from './Availability'
+import { Button, Heading, Text, Eyebrow } from '@/components/ui'
 
-import type {BlokBase} from '@/types';
+import type { BlokBase } from '@/types'
 
 interface HeroBlok extends BlokBase {
-  eyebrow?: string;
-  headline?: string;
-  headline_highlight?: string;
-  headline_suffix?: string;
-  subheadline?: string;
-  image?: {filename?: string; alt?: string};
-  background_image?: {filename?: string; alt?: string};
-  primary_label?: string;
-  primary_target?: string;
-  secondary_label?: string;
-  secondary_target?: string;
-  badge_title?: string;
-  badge_subtitle?: string;
-  availability?: string;
-  show_availability?: boolean;
+  eyebrow?: string
+  headline?: string
+  headline_highlight?: string
+  headline_suffix?: string
+  subheadline?: string
+  image?: { filename?: string; alt?: string }
+  background_image?: { filename?: string; alt?: string }
+  primary_label?: string
+  primary_target?: string
+  secondary_label?: string
+  secondary_target?: string
+  badge_title?: string
+  badge_subtitle?: string
+  availability?: string
+  show_availability?: boolean
 }
 
-export default function Hero({blok}: {blok: HeroBlok}) {
-  const href = useHref();
+export default function Hero({ blok }: { blok: HeroBlok }) {
+  const href = useHref()
   // When ON, the right column shows the global Availability card instead of the image.
-  const showAvailability = blok.show_availability === true;
-  const bgImage = blok.background_image?.filename;
+  const showAvailability = blok.show_availability === true
+  const bgImage = blok.background_image?.filename
 
   return (
     <section
@@ -86,13 +86,21 @@ export default function Hero({blok}: {blok: HeroBlok}) {
               {/* When an availability card is shown, it carries the booking CTA — so
                   hide the hero's primary button to avoid duplication. */}
               {!showAvailability && blok.primary_label && (
-                <Button render={<Link href={href.page(blok.primary_target || 'booking')} />} variant="cta" size="xl">
+                <Button
+                  render={<Link href={href.page(blok.primary_target || 'booking')} />}
+                  variant="cta"
+                  size="xl"
+                >
                   {blok.primary_label}
                   <ArrowRight className="h-4.5 w-4.5" />
                 </Button>
               )}
               {blok.secondary_label && (
-                <Button render={<Link href={href.page(blok.secondary_target || 'services')} />} variant="ctaOutline" size="xl">
+                <Button
+                  render={<Link href={href.page(blok.secondary_target || 'services')} />}
+                  variant="ctaOutline"
+                  size="xl"
+                >
                   {blok.secondary_label}
                 </Button>
               )}
@@ -132,7 +140,9 @@ export default function Hero({blok}: {blok: HeroBlok}) {
                       <Award className="h-5.5 w-5.5" />
                     </div>
                     <div className="text-left">
-                      <p className="text-xs font-bold leading-tight font-sans text-stone-100">{blok.badge_title}</p>
+                      <p className="text-xs font-bold leading-tight font-sans text-stone-100">
+                        {blok.badge_title}
+                      </p>
                       <p className="text-[10px] font-mono text-stone-400">{blok.badge_subtitle}</p>
                     </div>
                   </div>
@@ -143,5 +153,5 @@ export default function Hero({blok}: {blok: HeroBlok}) {
         </div>
       </div>
     </section>
-  );
+  )
 }

@@ -1,51 +1,57 @@
-'use client';
+'use client'
 
-import {useState} from 'react';
-import Image from 'next/image';
-import {useTranslation} from 'react-i18next';
-import {Accordion} from '@base-ui/react/accordion';
-import {Send, CheckCircle2, AlertCircle, X, Sparkles, PawPrint, ChevronDown} from 'lucide-react';
-import {Button} from '@/components/ui/button';
-import {Heading, Text, Eyebrow, MultiSelect} from '@/components/ui';
-import {Input} from '@/components/ui/input';
-import {Label} from '@/components/ui/label';
-import {Textarea} from '@/components/ui/textarea';
-import {useInquiryCart} from '@/features/inquiry/components/InquiryCartProvider';
-import {useLeadForm} from '@/features/lead/stores/lead-form';
-import {submitLead, makeLeadSchema, type LeadPayload} from '@/features/lead/lib/lead';
+import { useState } from 'react'
+import Image from 'next/image'
+import { useTranslation } from 'react-i18next'
+import { Accordion } from '@base-ui/react/accordion'
+import { Send, CheckCircle2, AlertCircle, X, Sparkles, PawPrint, ChevronDown } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Heading, Text, Eyebrow, MultiSelect } from '@/components/ui'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { useInquiryCart } from '@/features/inquiry/components/InquiryCartProvider'
+import { useLeadForm } from '@/features/lead/stores/lead-form'
+import { submitLead, makeLeadSchema, type LeadPayload } from '@/features/lead/lib/lead'
 
-type Status = 'idle' | 'loading' | 'success' | 'error';
-type Errors = Partial<Record<'name' | 'email' | 'message', string>>;
+type Status = 'idle' | 'loading' | 'success' | 'error'
+type Errors = Partial<Record<'name' | 'email' | 'message', string>>
 
 // Unified contact intake form. Rendered both on the /contact page and inside
 // the lead dialog. Submits through submitLead() (currently a stub). Validation
 // runs through a zod schema (see makeLeadSchema) that drops the message
 // requirement once services are attached to the inquiry.
-export default function LeadForm({onSuccess, available = true}: {onSuccess?: () => void; available?: boolean}) {
-  const {t, i18n} = useTranslation();
-  const cart = useInquiryCart();
-  const de = i18n.language === 'de';
-  const waitlist = !available; // fully booked → frame the form as a waitlist join
-  const {draft: data, setField, reset, programsOpen, setProgramsOpen} = useLeadForm();
-  const [errors, setErrors] = useState<Errors>({});
-  const [status, setStatus] = useState<Status>('idle');
+export default function LeadForm({
+  onSuccess,
+  available = true,
+}: {
+  onSuccess?: () => void
+  available?: boolean
+}) {
+  const { t, i18n } = useTranslation()
+  const cart = useInquiryCart()
+  const de = i18n.language === 'de'
+  const waitlist = !available // fully booked → frame the form as a waitlist join
+  const { draft: data, setField, reset, programsOpen, setProgramsOpen } = useLeadForm()
+  const [errors, setErrors] = useState<Errors>({})
+  const [status, setStatus] = useState<Status>('idle')
 
   // Service picker: the catalog drives a multi-select, the inquiry cart is the
   // source of truth for what's chosen. Reconcile the two on change.
-  const selected = cart.catalog.filter((s) => cart.has(s.slug)).map((s) => s.slug);
+  const selected = cart.catalog.filter((s) => cart.has(s.slug)).map((s) => s.slug)
   function handleServices(next: string[]) {
     next
       .filter((slug) => !cart.has(slug))
       .forEach((slug) => {
-        const item = cart.catalog.find((s) => s.slug === slug);
-        if (item) cart.add(item);
-      });
-    selected.filter((slug) => !next.includes(slug)).forEach((slug) => cart.remove(slug));
+        const item = cart.catalog.find((s) => s.slug === slug)
+        if (item) cart.add(item)
+      })
+    selected.filter((slug) => !next.includes(slug)).forEach((slug) => cart.remove(slug))
   }
 
   function set<K extends keyof LeadPayload>(key: K, value: string) {
-    setField(key, value);
-    if (key in errors) setErrors((e) => ({...e, [key]: undefined}));
+    setField(key, value)
+    if (key in errors) setErrors((e) => ({ ...e, [key]: undefined }))
   }
 
   function validate(): LeadPayload | null {
@@ -57,36 +63,40 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
       },
       // A message is required unless services were added to the inquiry.
       cart.items.length === 0,
-    );
-    const result = schema.safeParse(data);
+    )
+    const result = schema.safeParse(data)
     if (!result.success) {
-      const f = result.error.flatten().fieldErrors;
-      setErrors({name: f.name?.[0], email: f.email?.[0], message: f.message?.[0]});
-      return null;
+      const f = result.error.flatten().fieldErrors
+      setErrors({ name: f.name?.[0], email: f.email?.[0], message: f.message?.[0] })
+      return null
     }
-    setErrors({});
-    return result.data;
+    setErrors({})
+    return result.data
   }
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    const clean = validate();
-    if (!clean) return;
-    setStatus('loading');
+    e.preventDefault()
+    const clean = validate()
+    if (!clean) return
+    setStatus('loading')
     try {
-      const prefix = de ? 'Interessiert an: ' : 'Interested in: ';
-      const services = cart.items.map((i) => i.title);
-      const waitlistNote = waitlist ? (de ? '⏳ Wartelisten-Anfrage' : '⏳ Waitlist request') : '';
-      const message = [waitlistNote, services.length ? `${prefix}${services.join(', ')}` : '', clean.message?.trim()]
+      const prefix = de ? 'Interessiert an: ' : 'Interested in: '
+      const services = cart.items.map((i) => i.title)
+      const waitlistNote = waitlist ? (de ? '⏳ Wartelisten-Anfrage' : '⏳ Waitlist request') : ''
+      const message = [
+        waitlistNote,
+        services.length ? `${prefix}${services.join(', ')}` : '',
+        clean.message?.trim(),
+      ]
         .filter(Boolean)
-        .join('\n\n');
-      await submitLead({...clean, message});
-      cart.clear();
-      reset();
-      setStatus('success');
-      onSuccess?.();
+        .join('\n\n')
+      await submitLead({ ...clean, message })
+      cart.clear()
+      reset()
+      setStatus('success')
+      onSuccess?.()
     } catch {
-      setStatus('error');
+      setStatus('error')
     }
   }
 
@@ -97,7 +107,11 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
           <CheckCircle2 className="h-7 w-7" />
         </div>
         <Heading level={3} size="card">
-          {waitlist ? (de ? 'Du bist auf der Warteliste!' : "You're on the waitlist!") : t('contact.successTitle')}
+          {waitlist
+            ? de
+              ? 'Du bist auf der Warteliste!'
+              : "You're on the waitlist!"
+            : t('contact.successTitle')}
         </Heading>
         <Text className="max-w-sm">
           {waitlist
@@ -109,21 +123,23 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
         <Button
           variant="outline"
           onClick={() => {
-            reset();
-            setStatus('idle');
+            reset()
+            setStatus('idle')
           }}
         >
           {t('contact.sendAnother')}
         </Button>
       </div>
-    );
+    )
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5 text-left">
       {waitlist && (
         <div className="rounded-2xl border border-amber-200/60 bg-amber-50 p-3.5 text-[13px] leading-relaxed text-amber-900">
-          <span className="font-bold">{de ? 'Aktuell ausgebucht.' : 'Currently fully booked.'}</span>{' '}
+          <span className="font-bold">
+            {de ? 'Aktuell ausgebucht.' : 'Currently fully booked.'}
+          </span>{' '}
           {de
             ? 'Trag dich in die Warteliste ein – Sophia meldet sich, sobald ein Platz frei wird.'
             : 'Join the waitlist and Sophia will reach out as soon as a spot opens up.'}
@@ -177,13 +193,19 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-baseline justify-between gap-2">
-                        <p className="truncate font-sans text-sm font-bold text-stone-900">{item.title}</p>
+                        <p className="truncate font-sans text-sm font-bold text-stone-900">
+                          {item.title}
+                        </p>
                         {item.price && (
-                          <span className="shrink-0 font-sans text-sm font-extrabold text-amber-950">{item.price}</span>
+                          <span className="shrink-0 font-sans text-sm font-extrabold text-amber-950">
+                            {item.price}
+                          </span>
                         )}
                       </div>
                       {item.shortDescription && (
-                        <p className="mt-0.5 truncate text-xs leading-relaxed text-stone-500">{item.shortDescription}</p>
+                        <p className="mt-0.5 truncate text-xs leading-relaxed text-stone-500">
+                          {item.shortDescription}
+                        </p>
                       )}
                     </div>
                     <button
@@ -208,7 +230,7 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
           <Label htmlFor="lead-services">{de ? 'Programme hinzufügen' : 'Add a program'}</Label>
           <MultiSelect
             id="lead-services"
-            options={cart.catalog.map((s) => ({value: s.slug, label: s.title, hint: s.price}))}
+            options={cart.catalog.map((s) => ({ value: s.slug, label: s.title, hint: s.price }))}
             value={selected}
             onValueChange={handleServices}
             placeholder={de ? 'Programme auswählen…' : 'Choose programs…'}
@@ -221,12 +243,23 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-1.5">
           <Label htmlFor="lead-name">{t('contact.fields.fullName')}</Label>
-          <Input id="lead-name" value={data.name} onChange={(e) => set('name', e.target.value)} aria-invalid={!!errors.name} />
+          <Input
+            id="lead-name"
+            value={data.name}
+            onChange={(e) => set('name', e.target.value)}
+            aria-invalid={!!errors.name}
+          />
           {errors.name && <p className="font-mono text-[10px] text-red-500">{errors.name}</p>}
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="lead-email">{t('contact.fields.emailAddress')}</Label>
-          <Input id="lead-email" type="email" value={data.email} onChange={(e) => set('email', e.target.value)} aria-invalid={!!errors.email} />
+          <Input
+            id="lead-email"
+            type="email"
+            value={data.email}
+            onChange={(e) => set('email', e.target.value)}
+            aria-invalid={!!errors.email}
+          />
           {errors.email && <p className="font-mono text-[10px] text-red-500">{errors.email}</p>}
         </div>
       </div>
@@ -289,13 +322,13 @@ export default function LeadForm({onSuccess, available = true}: {onSuccess?: () 
           {status === 'loading'
             ? t('contact.fields.transmitting')
             : waitlist
-              ? de
-                ? 'Auf die Warteliste'
-                : 'Join the waitlist'
-              : t('contact.fields.sendButton')}
+            ? de
+              ? 'Auf die Warteliste'
+              : 'Join the waitlist'
+            : t('contact.fields.sendButton')}
           {status !== 'loading' && <Send className="h-4 w-4" />}
         </Button>
       </div>
     </form>
-  );
+  )
 }

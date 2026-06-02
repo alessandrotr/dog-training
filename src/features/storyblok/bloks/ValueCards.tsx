@@ -1,18 +1,18 @@
-import {StoryblokServerComponent, storyblokEditable} from '@storyblok/react/rsc';
-import {Section, SectionHeading} from '@/components/ui';
+import { StoryblokServerComponent, storyblokEditable } from '@storyblok/react/rsc'
+import { Section, SectionHeading } from '@/components/ui'
 
-import type {BlokBase} from '@/types';
+import type { BlokBase } from '@/types'
 
 interface ValueCardsBlok extends BlokBase {
-  eyebrow?: string;
-  headline?: string;
-  subheadline?: string;
-  columns?: string | number;
-  cards?: Array<{_uid: string; component: string}>;
+  eyebrow?: string
+  headline?: string
+  subheadline?: string
+  columns?: string | number
+  cards?: Array<{ _uid: string; component: string }>
 }
 
-export default function ValueCards({blok}: {blok: ValueCardsBlok}) {
-  const cols = Number(blok.columns) === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3';
+export default function ValueCards({ blok }: { blok: ValueCardsBlok }) {
+  const cols = Number(blok.columns) === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3'
 
   return (
     <Section {...storyblokEditable(blok as any)}>
@@ -29,5 +29,5 @@ export default function ValueCards({blok}: {blok: ValueCardsBlok}) {
         ))}
       </div>
     </Section>
-  );
+  )
 }

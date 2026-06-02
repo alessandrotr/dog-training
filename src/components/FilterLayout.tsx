@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import {useState} from 'react';
-import {SlidersHorizontal, X} from 'lucide-react';
+import { useState } from 'react'
+import { SlidersHorizontal, X } from 'lucide-react'
 
 // Listings-style layout (à la ImmoScout): a sticky filter rail on the left with
 // the results on the right. On mobile the rail collapses behind a Filters toggle.
@@ -10,11 +10,11 @@ export default function FilterLayout({
   children,
   activeCount = 0,
 }: {
-  sidebar: React.ReactNode;
-  children: React.ReactNode;
-  activeCount?: number;
+  sidebar: React.ReactNode
+  children: React.ReactNode
+  activeCount?: number
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
   return (
     <div className="grid gap-8 lg:grid-cols-[16rem_1fr]">
       {/* Mobile Filters toggle */}
@@ -27,9 +27,15 @@ export default function FilterLayout({
         Filters{activeCount ? ` · ${activeCount}` : ''}
       </button>
 
-      <aside className={`${open ? 'block' : 'hidden'} lg:block lg:sticky lg:top-(--nav-offset) lg:h-fit lg:transition-[top] lg:duration-300 lg:ease-out`}>{sidebar}</aside>
+      <aside
+        className={`${
+          open ? 'block' : 'hidden'
+        } lg:block lg:sticky lg:top-(--nav-offset) lg:h-fit lg:transition-[top] lg:duration-300 lg:ease-out`}
+      >
+        {sidebar}
+      </aside>
 
       <div className="min-w-0">{children}</div>
     </div>
-  );
+  )
 }

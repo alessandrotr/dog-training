@@ -1,22 +1,22 @@
-'use client';
+'use client'
 
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Instagram, Facebook, Mail, Phone, MapPin, Award, PawPrint } from 'lucide-react';
-import { useHref } from '@/lib/navigation';
-import Logo from './Logo';
-import { Eyebrow, Text } from '@/components/ui';
-import type { SiteConfig } from '@/types';
+import React from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { Instagram, Facebook, Mail, Phone, MapPin, Award, PawPrint } from 'lucide-react'
+import { useHref } from '@/lib/navigation'
+import Logo from './Logo'
+import { Eyebrow, Text } from '@/components/ui'
+import type { SiteConfig } from '@/types'
 
 export default function Footer({ config }: { config: SiteConfig['footer'] }) {
-  const href = useHref();
+  const href = useHref()
 
   const contacts = [
     { icon: MapPin, label: config.address, kind: 'text' as const },
     { icon: Phone, label: config.phone, kind: 'tel' as const },
     { icon: Mail, label: config.email, kind: 'mail' as const },
-  ].filter((c) => c.label);
+  ].filter((c) => c.label)
 
   return (
     <footer className="relative overflow-hidden bg-amber-950 text-stone-300 pt-12 pb-24 lg:py-24">
@@ -36,9 +36,7 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
       />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8 pb-4">
-
           {/* Brand & bio */}
           <div className="lg:col-span-4 space-y-5">
             <Logo
@@ -51,17 +49,29 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
                 </span>
               }
             />
-            <Text size="sm" tone="subtle" className="max-w-xs">{config.tagline}</Text>
+            <Text size="sm" tone="subtle" className="max-w-xs">
+              {config.tagline}
+            </Text>
             <div className="flex items-center gap-3 pt-1">
               {config.instagramUrl && (
-                <a href={config.instagramUrl} target="_blank" rel="noreferrer" aria-label="Instagram"
-                  className="rounded-full p-2.5 bg-white/5 ring-1 ring-white/10 text-stone-300 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-700 hover:text-white hover:ring-amber-600">
+                <a
+                  href={config.instagramUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Instagram"
+                  className="rounded-full p-2.5 bg-white/5 ring-1 ring-white/10 text-stone-300 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-700 hover:text-white hover:ring-amber-600"
+                >
                   <Instagram className="h-4 w-4" />
                 </a>
               )}
               {config.facebookUrl && (
-                <a href={config.facebookUrl} target="_blank" rel="noreferrer" aria-label="Facebook"
-                  className="rounded-full p-2.5 bg-white/5 ring-1 ring-white/10 text-stone-300 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-700 hover:text-white hover:ring-amber-600">
+                <a
+                  href={config.facebookUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Facebook"
+                  className="rounded-full p-2.5 bg-white/5 ring-1 ring-white/10 text-stone-300 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-700 hover:text-white hover:ring-amber-600"
+                >
                   <Facebook className="h-4 w-4" />
                 </a>
               )}
@@ -92,7 +102,10 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
             <Eyebrow className="mb-4 block text-amber-300/70">Accreditations</Eyebrow>
             <div className="space-y-3">
               {config.accreditations.map((a, ai) => (
-                <div key={ai} className="group flex items-center gap-3.5 rounded-2xl py-2 transition-colors ">
+                <div
+                  key={ai}
+                  className="group flex items-center gap-3.5 rounded-2xl py-2 transition-colors "
+                >
                   {/* Trust badge: real logo on a soft white tile, or an icon fallback */}
                   {a.logoUrl ? (
                     <span className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl bg-white p-1.5 shadow-sm ring-1 ring-white/20 transition-transform duration-300 group-hover:scale-105">
@@ -128,10 +141,20 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
                   <c.icon className="h-4 w-4 text-amber-400" />
                   {c.label}
                 </span>
-              );
-              if (c.kind === 'tel') return <a key={i} href={`tel:${c.label.replace(/\s+/g, '')}`}>{Inner}</a>;
-              if (c.kind === 'mail') return <a key={i} href={`mailto:${c.label}`}>{Inner}</a>;
-              return <span key={i}>{Inner}</span>;
+              )
+              if (c.kind === 'tel')
+                return (
+                  <a key={i} href={`tel:${c.label.replace(/\s+/g, '')}`}>
+                    {Inner}
+                  </a>
+                )
+              if (c.kind === 'mail')
+                return (
+                  <a key={i} href={`mailto:${c.label}`}>
+                    {Inner}
+                  </a>
+                )
+              return <span key={i}>{Inner}</span>
             })}
           </div>
         )}
@@ -144,11 +167,13 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-mono uppercase tracking-wider text-stone-600">
             {config.bottomTags.map((tag, ti) => (
-              <span key={ti} className="transition-colors hover:text-stone-400">{tag}</span>
+              <span key={ti} className="transition-colors hover:text-stone-400">
+                {tag}
+              </span>
             ))}
           </div>
         </div>
       </div>
     </footer>
-  );
+  )
 }

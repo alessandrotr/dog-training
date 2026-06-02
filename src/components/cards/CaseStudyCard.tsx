@@ -1,10 +1,10 @@
-'use client';
+'use client'
 
-import {ArrowUpRight} from 'lucide-react';
-import {useHref} from '@/lib/navigation';
-import {Eyebrow, Pill, Card, PersonByline, Text} from '@/components/ui';
-import {cn} from '@/lib/utils';
-import type {TestimonialItem, ServiceItem} from '@/types';
+import { ArrowUpRight } from 'lucide-react'
+import { useHref } from '@/lib/navigation'
+import { Eyebrow, Pill, Card, PersonByline, Text } from '@/components/ui'
+import { cn } from '@/lib/utils'
+import type { TestimonialItem, ServiceItem } from '@/types'
 
 // The single case-study card used everywhere a client story is shown.
 // Order: dog/owner → the challenge → the story → the outcome → the service.
@@ -14,15 +14,20 @@ export default function CaseStudyCard({
   className = '',
   slideProps,
 }: {
-  story: TestimonialItem;
-  service?: ServiceItem; // the service this case study is about; omit to hide the link
-  className?: string;
-  slideProps?: Record<string, unknown>; // drag-guard from useCarousel (card carousel)
+  story: TestimonialItem
+  service?: ServiceItem // the service this case study is about; omit to hide the link
+  className?: string
+  slideProps?: Record<string, unknown> // drag-guard from useCarousel (card carousel)
 }) {
-  const href = useHref();
+  const href = useHref()
 
   return (
-    <Card as="figure" padding="md" interactive className={cn('group relative flex flex-col shadow-sm', className)}>
+    <Card
+      as="figure"
+      padding="md"
+      interactive
+      className={cn('group relative flex flex-col shadow-sm', className)}
+    >
       {/* 1. The dog / owner — the name is the stretched link to the full case study */}
       <PersonByline
         name={story.name}
@@ -37,7 +42,9 @@ export default function CaseStudyCard({
       {story.challenge && (
         <div className="mt-4">
           <Eyebrow>The challenge</Eyebrow>
-          <Text size="sm" className="mt-1 font-semibold leading-snug text-stone-700">{story.challenge}</Text>
+          <Text size="sm" className="mt-1 font-semibold leading-snug text-stone-700">
+            {story.challenge}
+          </Text>
         </div>
       )}
 
@@ -45,7 +52,9 @@ export default function CaseStudyCard({
       {story.outcome && (
         <div className="mt-4">
           <Eyebrow>The outcome</Eyebrow>
-          <Text size="sm" className="mt-1 font-semibold leading-snug text-stone-700">{story.outcome}</Text>
+          <Text size="sm" className="mt-1 font-semibold leading-snug text-stone-700">
+            {story.outcome}
+          </Text>
         </div>
       )}
 
@@ -72,5 +81,5 @@ export default function CaseStudyCard({
         </span>
       </div>
     </Card>
-  );
+  )
 }

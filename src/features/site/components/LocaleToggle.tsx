@@ -1,17 +1,17 @@
-'use client';
+'use client'
 
-import {useRouter} from 'next/navigation';
-import {PawPrint} from 'lucide-react';
-import {LOCALES} from '@/lib/locales';
-import {useLocale, useSwitchLocalePath} from '@/lib/navigation';
+import { useRouter } from 'next/navigation'
+import { PawPrint } from 'lucide-react'
+import { LOCALES } from '@/lib/locales'
+import { useLocale, useSwitchLocalePath } from '@/lib/navigation'
 
 // Playful language switcher: a paw "trots" (slides) between EN / DE on an amber
 // thumb. Shared by the desktop nav and the mobile drawer.
 export default function LocaleToggle() {
-  const router = useRouter();
-  const locale = useLocale();
-  const switchLocale = useSwitchLocalePath();
-  const activeIndex = LOCALES.indexOf(locale);
+  const router = useRouter()
+  const locale = useLocale()
+  const switchLocale = useSwitchLocalePath()
+  const activeIndex = LOCALES.indexOf(locale)
 
   return (
     <div className="inline-flex items-center gap-2">
@@ -20,10 +20,10 @@ export default function LocaleToggle() {
         {/* Sliding amber thumb that trots between languages */}
         <span
           className="pointer-events-none absolute inset-y-0.5 left-0.5 w-[calc(50%-2px)] rounded-full bg-amber-700 shadow-sm transition-transform duration-300 ease-out"
-          style={{transform: `translateX(${activeIndex * 100}%)`}}
+          style={{ transform: `translateX(${activeIndex * 100}%)` }}
         />
         {LOCALES.map((code) => {
-          const active = code === locale;
+          const active = code === locale
           return (
             <button
               key={code}
@@ -36,9 +36,9 @@ export default function LocaleToggle() {
             >
               {code}
             </button>
-          );
+          )
         })}
       </div>
     </div>
-  );
+  )
 }

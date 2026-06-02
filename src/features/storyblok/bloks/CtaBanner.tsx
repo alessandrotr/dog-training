@@ -1,26 +1,26 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import {storyblokEditable} from '@storyblok/react';
-import {PawPrint, ArrowRight, Heart, Bone} from 'lucide-react';
-import {useHref} from '@/lib/navigation';
-import {Section, Button, Heading, Text} from '@/components/ui';
+import Link from 'next/link'
+import { storyblokEditable } from '@storyblok/react'
+import { PawPrint, ArrowRight, Heart, Bone } from 'lucide-react'
+import { useHref } from '@/lib/navigation'
+import { Section, Button, Heading, Text } from '@/components/ui'
 
-import type {BlokBase} from '@/types';
+import type { BlokBase } from '@/types'
 
 interface CtaBannerBlok extends BlokBase {
-  headline?: string;
-  description?: string;
-  primary_label?: string;
-  primary_target?: string;
-  secondary_label?: string;
-  secondary_target?: string;
-  note?: string;
-  variant?: 'dark' | 'light';
+  headline?: string
+  description?: string
+  primary_label?: string
+  primary_target?: string
+  secondary_label?: string
+  secondary_target?: string
+  note?: string
+  variant?: 'dark' | 'light'
 }
 
-export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
-  const href = useHref();
+export default function CtaBanner({ blok }: { blok: CtaBannerBlok }) {
+  const href = useHref()
 
   if (blok.variant === 'light') {
     return (
@@ -31,25 +31,39 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
               <PawPrint className="h-5.5 w-5.5" />
             </div>
             <div className="text-left font-sans space-y-1">
-              {blok.headline && <Heading level={3} size="cardSm">{blok.headline}</Heading>}
+              {blok.headline && (
+                <Heading level={3} size="cardSm">
+                  {blok.headline}
+                </Heading>
+              )}
               {blok.description && <Text size="xs">{blok.description}</Text>}
             </div>
           </div>
           <div className="flex flex-wrap gap-3 justify-center">
             {blok.primary_label && (
-              <Button render={<Link href={href.page(blok.primary_target || 'booking')} />} variant="cta" size="xl" className="px-5 py-3">
+              <Button
+                render={<Link href={href.page(blok.primary_target || 'booking')} />}
+                variant="cta"
+                size="xl"
+                className="px-5 py-3"
+              >
                 {blok.primary_label}
               </Button>
             )}
             {blok.secondary_label && (
-              <Button render={<Link href={href.page(blok.secondary_target || 'contact')} />} variant="ctaOutline" size="xl" className="px-5 py-3">
+              <Button
+                render={<Link href={href.page(blok.secondary_target || 'contact')} />}
+                variant="ctaOutline"
+                size="xl"
+                className="px-5 py-3"
+              >
                 {blok.secondary_label}
               </Button>
             )}
           </div>
         </div>
       </Section>
-    );
+    )
   }
 
   return (
@@ -72,7 +86,6 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
         <Heart className="pointer-events-none absolute right-12 top-12 h-5 w-5 -rotate-12 fill-white/15 text-transparent" />
 
         <div className="relative z-10 mx-auto max-w-3xl space-y-6">
-
           {/* Friendly paw badge */}
           <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 text-white ring-1 ring-white/25 backdrop-blur-sm">
             <PawPrint className="h-7 w-7" />
@@ -91,13 +104,23 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
 
           <div className="flex flex-col justify-center gap-3 pt-4 sm:flex-row">
             {blok.primary_label && (
-              <Button render={<Link href={href.page(blok.primary_target || 'booking')} />} variant="ctaSoft" size="xl" className="rounded-2xl px-7">
+              <Button
+                render={<Link href={href.page(blok.primary_target || 'booking')} />}
+                variant="ctaSoft"
+                size="xl"
+                className="rounded-2xl px-7"
+              >
                 {blok.primary_label}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover/button:translate-x-1" />
               </Button>
             )}
             {blok.secondary_label && (
-              <Button render={<Link href={href.page(blok.secondary_target || 'contact')} />} variant="ctaGlass" size="xl" className="rounded-2xl px-7">
+              <Button
+                render={<Link href={href.page(blok.secondary_target || 'contact')} />}
+                variant="ctaGlass"
+                size="xl"
+                className="rounded-2xl px-7"
+              >
                 {blok.secondary_label}
               </Button>
             )}
@@ -112,5 +135,5 @@ export default function CtaBanner({blok}: {blok: CtaBannerBlok}) {
         </div>
       </div>
     </Section>
-  );
+  )
 }

@@ -1,5 +1,5 @@
-import type {ElementType, ComponentPropsWithoutRef} from 'react';
-import {cn} from '@/lib/utils';
+import type { ElementType, ComponentPropsWithoutRef } from 'react'
+import { cn } from '@/lib/utils'
 
 // The shared card surface (white panel, hairline border, rounded). Centralises
 // the one "card skin" token so a restyle is a single edit. Polymorphic via `as`
@@ -9,13 +9,13 @@ const PADDING = {
   none: '',
   sm: 'p-5',
   md: 'p-6',
-} as const;
+} as const
 
 type CardProps<T extends ElementType> = {
-  as?: T;
-  padding?: keyof typeof PADDING;
-  interactive?: boolean; // hover affordance for clickable cards
-} & Omit<ComponentPropsWithoutRef<T>, 'as'>;
+  as?: T
+  padding?: keyof typeof PADDING
+  interactive?: boolean // hover affordance for clickable cards
+} & Omit<ComponentPropsWithoutRef<T>, 'as'>
 
 export default function Card<T extends ElementType = 'div'>({
   as,
@@ -24,7 +24,7 @@ export default function Card<T extends ElementType = 'div'>({
   className,
   ...rest
 }: CardProps<T>) {
-  const Tag = (as ?? 'div') as ElementType;
+  const Tag = (as ?? 'div') as ElementType
   return (
     <Tag
       className={cn(
@@ -36,5 +36,5 @@ export default function Card<T extends ElementType = 'div'>({
       )}
       {...rest}
     />
-  );
+  )
 }

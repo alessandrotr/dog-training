@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { PawPrint } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useHideOnScroll } from '@/hooks/use-hide-on-scroll'
-import {useBookingMode} from '@/features/availability/components/AvailabilityProvider';import {useLeadDialog} from '@/features/lead/stores/lead-dialog';// Fixed bottom-right action that opens the connect dialog. Replaces the old
+import { useBookingMode } from '@/features/availability/components/AvailabilityProvider'
+import { useLeadDialog } from '@/features/lead/stores/lead-dialog' // Fixed bottom-right action that opens the connect dialog. Replaces the old
 // full-width mobile sticky banner; shown on every viewport. Tucks away while
 // the dialog is open, and slides down on scroll-down / back up on scroll-up
 // (mirrors the Navbar's hide-on-scroll behaviour).

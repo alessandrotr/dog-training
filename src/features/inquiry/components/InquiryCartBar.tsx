@@ -1,10 +1,10 @@
-'use client';
+'use client'
 
-import {useEffect, useRef, useState} from 'react';
-import {ClipboardList, X} from 'lucide-react';
-import {useHideOnScroll} from '@/hooks/use-hide-on-scroll';
-import {useInquiryCart} from './InquiryCartProvider';
-import {useLeadDialog} from '@/features/lead/stores/lead-dialog';
+import { useEffect, useRef, useState } from 'react'
+import { ClipboardList, X } from 'lucide-react'
+import { useHideOnScroll } from '@/hooks/use-hide-on-scroll'
+import { useInquiryCart } from './InquiryCartProvider'
+import { useLeadDialog } from '@/features/lead/stores/lead-dialog'
 
 // Floating inquiry-cart pill (bottom-left, opposite the ConnectFab). Appears
 // only when services have been added; opens the Contact dialog to send them,
@@ -15,39 +15,39 @@ import {useLeadDialog} from '@/features/lead/stores/lead-dialog';
 // if the pill is currently hidden by scroll — it peeks out briefly to show the
 // new total, then tucks away again.
 export default function InquiryCartBar() {
-  const {items, clear} = useInquiryCart();
-  const {open, isOpen} = useLeadDialog();
-  const {hidden} = useHideOnScroll();
-  const count = items.length;
+  const { items, clear } = useInquiryCart()
+  const { open, isOpen } = useLeadDialog()
+  const { hidden } = useHideOnScroll()
+  const count = items.length
 
-  const [peek, setPeek] = useState(false);
-  const prevCount = useRef(count);
-  const ready = useRef(false);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [peek, setPeek] = useState(false)
+  const prevCount = useRef(count)
+  const ready = useRef(false)
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // Ignore the initial localStorage hydration burst so we only react to real
   // user additions, not the cart rehydrating on load.
   useEffect(() => {
     const t = setTimeout(() => {
-      ready.current = true;
-    }, 600);
-    return () => clearTimeout(t);
-  }, []);
+      ready.current = true
+    }, 600)
+    return () => clearTimeout(t)
+  }, [])
 
   // On an add (count increased) while the dialog is closed → it came from a
   // card. Briefly force the pill into view to flash the new count.
   useEffect(() => {
-    const prev = prevCount.current;
-    prevCount.current = count;
-    if (!ready.current || count <= prev || isOpen) return;
-    setPeek(true);
-    if (timer.current) clearTimeout(timer.current);
-    timer.current = setTimeout(() => setPeek(false), 1900);
-  }, [count, isOpen]);
+    const prev = prevCount.current
+    prevCount.current = count
+    if (!ready.current || count <= prev || isOpen) return
+    setPeek(true)
+    if (timer.current) clearTimeout(timer.current)
+    timer.current = setTimeout(() => setPeek(false), 1900)
+  }, [count, isOpen])
 
-  useEffect(() => () => void (timer.current && clearTimeout(timer.current)), []);
+  useEffect(() => () => void (timer.current && clearTimeout(timer.current)), [])
 
-  const show = count > 0 && !isOpen && (!hidden || peek);
+  const show = count > 0 && !isOpen && (!hidden || peek)
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 sm:bottom-6">
@@ -72,7 +72,9 @@ export default function InquiryCartBar() {
                 {count}
               </span>
             </span>
-            <span className="text-xs font-mono font-bold uppercase tracking-tight text-amber-950">Send inquiry</span>
+            <span className="text-xs font-mono font-bold uppercase tracking-tight text-amber-950">
+              Send inquiry
+            </span>
           </button>
           <button
             type="button"
@@ -86,5 +88,5 @@ export default function InquiryCartBar() {
         </div>
       </div>
     </div>
-  );
+  )
 }

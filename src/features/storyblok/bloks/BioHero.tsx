@@ -1,21 +1,21 @@
-import Image from 'next/image';
-import {storyblokEditable, renderRichText} from '@storyblok/react/rsc';
-import AvailabilityBadge from '@/features/availability/components/AvailabilityBadge';
-import {Section, Heading, Prose, Eyebrow} from '@/components/ui';
+import Image from 'next/image'
+import { storyblokEditable, renderRichText } from '@storyblok/react/rsc'
+import AvailabilityBadge from '@/features/availability/components/AvailabilityBadge'
+import { Section, Heading, Prose, Eyebrow } from '@/components/ui'
 
-import type {BlokBase} from '@/types';
+import type { BlokBase } from '@/types'
 
 interface BioHeroBlok extends BlokBase {
-  eyebrow?: string;
-  headline?: string;
-  image?: {filename?: string; alt?: string};
-  body?: any; // richtext
-  signature_name?: string;
-  signature_role?: string;
+  eyebrow?: string
+  headline?: string
+  image?: { filename?: string; alt?: string }
+  body?: any // richtext
+  signature_name?: string
+  signature_role?: string
 }
 
-export default function BioHero({blok}: {blok: BioHeroBlok}) {
-  const bodyHtml = blok.body ? renderRichText(blok.body) : '';
+export default function BioHero({ blok }: { blok: BioHeroBlok }) {
+  const bodyHtml = blok.body ? renderRichText(blok.body) : ''
 
   return (
     <Section {...storyblokEditable(blok as any)} className="pt-4 sm:pt-6 lg:pt-8">
@@ -23,7 +23,9 @@ export default function BioHero({blok}: {blok: BioHeroBlok}) {
         <div className="lg:col-span-7 text-left space-y-6">
           {blok.eyebrow && <Eyebrow tone="brand">{blok.eyebrow}</Eyebrow>}
           {blok.headline && (
-            <Heading level={1} size="display">{blok.headline}</Heading>
+            <Heading level={1} size="display">
+              {blok.headline}
+            </Heading>
           )}
           {bodyHtml && (
             <Prose
@@ -35,10 +37,14 @@ export default function BioHero({blok}: {blok: BioHeroBlok}) {
             <div className="pt-4 flex items-center space-x-4">
               <div className="text-left">
                 {blok.signature_name && (
-                  <p className="font-serif italic text-lg text-amber-950 leading-none">{blok.signature_name}</p>
+                  <p className="font-serif italic text-lg text-amber-950 leading-none">
+                    {blok.signature_name}
+                  </p>
                 )}
                 {blok.signature_role && (
-                  <p className="text-[10px] uppercase font-mono tracking-widest text-stone-400 mt-1">{blok.signature_role}</p>
+                  <p className="text-[10px] uppercase font-mono tracking-widest text-stone-400 mt-1">
+                    {blok.signature_role}
+                  </p>
                 )}
               </div>
             </div>
@@ -66,5 +72,5 @@ export default function BioHero({blok}: {blok: BioHeroBlok}) {
         </div>
       </div>
     </Section>
-  );
+  )
 }

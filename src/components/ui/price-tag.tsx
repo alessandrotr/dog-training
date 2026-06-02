@@ -1,5 +1,5 @@
-import {Sparkles} from 'lucide-react';
-import {cn} from '@/lib/utils';
+import { Sparkles } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 // "Starting at €X / period" — the amount pops, the period is a soft suffix,
 // topped by a little heather "Starting at" chip. Shared by the service card and
@@ -7,21 +7,21 @@ import {cn} from '@/lib/utils';
 const AMOUNT = {
   sm: 'text-2xl',
   lg: 'text-4xl',
-} as const;
+} as const
 
 export default function PriceTag({
   price,
   size = 'sm',
   className,
 }: {
-  price?: string;
-  size?: keyof typeof AMOUNT;
-  className?: string;
+  price?: string
+  size?: keyof typeof AMOUNT
+  className?: string
 }) {
-  if (!price) return null;
+  if (!price) return null
   // Price reads e.g. "€100 / 2 hours" — split the amount from its period.
-  const [amount, ...rest] = price.split(' / ');
-  const period = rest.join(' / ');
+  const [amount, ...rest] = price.split(' / ')
+  const period = rest.join(' / ')
 
   return (
     <div className={cn('leading-none', className)}>
@@ -29,9 +29,13 @@ export default function PriceTag({
         <Sparkles className="h-2.5 w-2.5" /> Starting at
       </span>
       <div className="mt-2 flex items-baseline gap-1">
-        <span className={cn('font-sans font-extrabold tracking-tight text-amber-950', AMOUNT[size])}>{amount}</span>
+        <span
+          className={cn('font-sans font-extrabold tracking-tight text-amber-950', AMOUNT[size])}
+        >
+          {amount}
+        </span>
         {period && <span className="font-mono text-xs font-medium text-stone-400">/ {period}</span>}
       </div>
     </div>
-  );
+  )
 }

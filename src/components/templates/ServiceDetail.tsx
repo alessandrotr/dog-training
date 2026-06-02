@@ -3,7 +3,10 @@
 import Image from 'next/image'
 import { Check, Plus, Sparkles, CalendarClock } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import {useInquiryToggle} from '@/features/inquiry/components/InquiryCartProvider';import {useBookingMode} from '@/features/availability/components/AvailabilityProvider';import {useLeadDialog} from '@/features/lead/stores/lead-dialog';import Carousel from '@/components/Carousel'
+import { useInquiryToggle } from '@/features/inquiry/components/InquiryCartProvider'
+import { useBookingMode } from '@/features/availability/components/AvailabilityProvider'
+import { useLeadDialog } from '@/features/lead/stores/lead-dialog'
+import Carousel from '@/components/Carousel'
 import ServiceCard from '@/components/cards/ServiceCard'
 import ArticleCard from '@/components/cards/ArticleCard'
 import CaseStudyCard from '@/components/cards/CaseStudyCard'
@@ -82,12 +85,7 @@ export default function ServiceDetail({
                   </>
                 )}
               </Button>
-              <Button
-                type="button"
-                variant="ctaOutline"
-                size="xl"
-                onClick={() => open(mode)}
-              >
+              <Button type="button" variant="ctaOutline" size="xl" onClick={() => open(mode)}>
                 <CalendarClock className="h-4 w-4" />{' '}
                 {available ? 'Book a consult' : t('booking.waitlist')}
               </Button>

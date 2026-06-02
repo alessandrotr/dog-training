@@ -105,7 +105,7 @@ export function useInquiryCart(): InquiryCart {
 // `has`/`toggle`/`serviceToInquiryItem` trio every "add to inquiry" control
 // repeats; callers keep their own markup and label. Accepts an optional service
 // (e.g. a case study without a linked program) and no-ops when absent.
-export function useInquiryToggle(service?: ServiceItem): {added: boolean; toggle: () => void} {
+export function useInquiryToggle(service?: ServiceItem): { added: boolean; toggle: () => void } {
   const cart = useInquiryCart()
   return {
     added: service ? cart.has(service.slug) : false,

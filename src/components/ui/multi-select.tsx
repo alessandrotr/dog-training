@@ -1,13 +1,13 @@
-'use client';
+'use client'
 
-import {Select} from '@base-ui/react/select';
-import {Check, ChevronsUpDown} from 'lucide-react';
-import {cn} from '@/lib/utils';
+import { Select } from '@base-ui/react/select'
+import { Check, ChevronsUpDown } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 export interface MultiSelectOption {
-  value: string;
-  label: string;
-  hint?: string;
+  value: string
+  label: string
+  hint?: string
 }
 
 // Brand-styled multiple-choice select built on the Base UI Select primitive
@@ -22,16 +22,16 @@ export default function MultiSelect({
   id,
   className,
 }: {
-  options: MultiSelectOption[];
-  value: string[];
-  onValueChange: (value: string[]) => void;
-  placeholder?: string;
+  options: MultiSelectOption[]
+  value: string[]
+  onValueChange: (value: string[]) => void
+  placeholder?: string
   /** Builds the trigger label from the current selection. */
-  summary?: (count: number) => string;
-  id?: string;
-  className?: string;
+  summary?: (count: number) => string
+  id?: string
+  className?: string
 }) {
-  const count = value.length;
+  const count = value.length
 
   return (
     <Select.Root multiple value={value} onValueChange={onValueChange}>
@@ -45,7 +45,7 @@ export default function MultiSelect({
         )}
       >
         <span className="truncate">
-          {count === 0 ? (placeholder ?? 'Select…') : summary ? summary(count) : `${count} selected`}
+          {count === 0 ? placeholder ?? 'Select…' : summary ? summary(count) : `${count} selected`}
         </span>
         <Select.Icon className="shrink-0 text-stone-400">
           <ChevronsUpDown className="h-4 w-4" />
@@ -62,7 +62,7 @@ export default function MultiSelect({
             )}
           >
             {options.map((opt) => {
-              const isSelected = value.includes(opt.value);
+              const isSelected = value.includes(opt.value)
               return (
                 <Select.Item
                   key={opt.value}
@@ -81,15 +81,19 @@ export default function MultiSelect({
                     {isSelected && <Check className="h-3 w-3" strokeWidth={3} />}
                   </span>
                   <span className="min-w-0 flex-1">
-                    <Select.ItemText className="block truncate font-medium">{opt.label}</Select.ItemText>
-                    {opt.hint && <span className="block truncate text-xs text-stone-400">{opt.hint}</span>}
+                    <Select.ItemText className="block truncate font-medium">
+                      {opt.label}
+                    </Select.ItemText>
+                    {opt.hint && (
+                      <span className="block truncate text-xs text-stone-400">{opt.hint}</span>
+                    )}
                   </span>
                 </Select.Item>
-              );
+              )
             })}
           </Select.Popup>
         </Select.Positioner>
       </Select.Portal>
     </Select.Root>
-  );
+  )
 }

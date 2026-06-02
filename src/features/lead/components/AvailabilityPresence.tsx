@@ -1,18 +1,18 @@
-'use client';
+'use client'
 
-import {Clock, MapPin} from 'lucide-react';
-import {cn} from '@/lib/utils';
-import {Avatar, Pill} from '@/components/ui';
-import {useAvailability} from '@/features/availability/components/AvailabilityProvider';
+import { Clock, MapPin } from 'lucide-react'
+import { cn } from '@/lib/utils'
+import { Avatar, Pill } from '@/components/ui'
+import { useAvailability } from '@/features/availability/components/AvailabilityProvider'
 
 // Live "presence" row for the lead dialog header: trainer avatar + name/handle,
 // an animated status badge (pulsing emerald when taking clients, steady amber
 // when booked) and response-time / location chips. All from the global
 // availability record Sophia edits once in Storyblok.
 export default function AvailabilityPresence() {
-  const a = useAvailability();
-  if (!a) return null;
-  const {available} = a;
+  const a = useAvailability()
+  if (!a) return null
+  const { available } = a
 
   return (
     <div className="space-y-3">
@@ -20,7 +20,9 @@ export default function AvailabilityPresence() {
         <Avatar src={a.avatar} name={a.name} size="lg" />
         <div className="min-w-0">
           <div className="flex flex-wrap items-baseline gap-x-2">
-            <span className="font-sans text-base font-bold leading-tight text-amber-950">{a.name}</span>
+            <span className="font-sans text-base font-bold leading-tight text-amber-950">
+              {a.name}
+            </span>
           </div>
           <span
             className={cn(
@@ -32,7 +34,12 @@ export default function AvailabilityPresence() {
               {available && (
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/70" />
               )}
-              <span className={cn('relative inline-flex h-2 w-2 rounded-full', available ? 'bg-emerald-500' : 'bg-amber-500')} />
+              <span
+                className={cn(
+                  'relative inline-flex h-2 w-2 rounded-full',
+                  available ? 'bg-emerald-500' : 'bg-amber-500',
+                )}
+              />
             </span>
             {available ? a.availableStatus : a.unavailableStatus}
           </span>
@@ -54,5 +61,5 @@ export default function AvailabilityPresence() {
         </div>
       )}
     </div>
-  );
+  )
 }

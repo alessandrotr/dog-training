@@ -1,58 +1,72 @@
-'use client';
+'use client'
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { BlogPost, BlogTaxonomies, ServiceItem, TestimonialItem } from '@/types';
-import { Clock, CalendarDays, Share2, Bookmark, Check, CalendarRange, Sparkles, Tag } from 'lucide-react';
-import { useHref } from '@/lib/navigation';
-import { caseStudyCountByService, guideCountByService } from '@/lib/relations';
-import {Section, Eyebrow, Heading, Prose} from '@/components/ui';
-import Carousel from '@/components/Carousel';
-import ArticleCard from '@/components/cards/ArticleCard';
-import ServiceCard from '@/components/cards/ServiceCard';
-import Availability from '@/features/storyblok/bloks/Availability';
+import React, { useState } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { BlogPost, BlogTaxonomies, ServiceItem, TestimonialItem } from '@/types'
+import {
+  Clock,
+  CalendarDays,
+  Share2,
+  Bookmark,
+  Check,
+  CalendarRange,
+  Sparkles,
+  Tag,
+} from 'lucide-react'
+import { useHref } from '@/lib/navigation'
+import { caseStudyCountByService, guideCountByService } from '@/lib/relations'
+import { Section, Eyebrow, Heading, Prose } from '@/components/ui'
+import Carousel from '@/components/Carousel'
+import ArticleCard from '@/components/cards/ArticleCard'
+import ServiceCard from '@/components/cards/ServiceCard'
+import Availability from '@/features/storyblok/bloks/Availability'
 
 interface BlogPostTemplateProps {
-  post: BlogPost;
-  posts: BlogPost[];
-  taxonomies: BlogTaxonomies;
-  services: ServiceItem[];
-  testimonials: TestimonialItem[];
+  post: BlogPost
+  posts: BlogPost[]
+  taxonomies: BlogTaxonomies
+  services: ServiceItem[]
+  testimonials: TestimonialItem[]
 }
 
-export default function BlogPostTemplate({ post, posts, taxonomies, services, testimonials }: BlogPostTemplateProps) {
-  const [copiedLink, setCopiedLink] = useState(false);
-  const href = useHref();
-  const blogPosts = posts;
-  const catLabel = (c: string) => taxonomies.categories[c] ?? c;
-  const tagLabel = (t: string) => taxonomies.tags[t] ?? t;
+export default function BlogPostTemplate({
+  post,
+  posts,
+  taxonomies,
+  services,
+  testimonials,
+}: BlogPostTemplateProps) {
+  const [copiedLink, setCopiedLink] = useState(false)
+  const href = useHref()
+  const blogPosts = posts
+  const catLabel = (c: string) => taxonomies.categories[c] ?? c
+  const tagLabel = (t: string) => taxonomies.tags[t] ?? t
 
   // Table of contents is built server-side (ids injected into the article HTML).
-  const toc = post.tableOfContents ?? [];
+  const toc = post.tableOfContents ?? []
 
   // Related posts: prefer same category, then fill with the rest.
-  const others = blogPosts.filter((p) => p.slug !== post.slug);
+  const others = blogPosts.filter((p) => p.slug !== post.slug)
   const relatedPosts = [
     ...others.filter((p) => p.category && p.category === post.category),
     ...others.filter((p) => !p.category || p.category !== post.category),
-  ];
+  ]
 
   // Programs this article relates to + per-service social-proof counts.
-  const relatedServices = services.filter((s) => post.serviceIds?.includes(s.id));
-  const guidesByService = guideCountByService(blogPosts);
-  const caseStudyCounts = caseStudyCountByService(testimonials);
+  const relatedServices = services.filter((s) => post.serviceIds?.includes(s.id))
+  const guidesByService = guideCountByService(blogPosts)
+  const caseStudyCounts = caseStudyCountByService(testimonials)
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setCopiedLink(true);
-    setTimeout(() => setCopiedLink(false), 2000);
-  };
+    navigator.clipboard.writeText(window.location.href)
+    setCopiedLink(true)
+    setTimeout(() => setCopiedLink(false), 2000)
+  }
 
   return (
     <article className="py-8 text-left">
       <Section as="div">
-
         {/* Heading Container */}
         <div className="max-w-3xl mx-auto space-y-4 mb-10 text-center md:text-left">
           <span className="inline-flex items-center rounded-full font-mono uppercase bg-amber-700 px-3 py-1 text-xs font-bold text-white border border-amber-200/45">
@@ -61,7 +75,7 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, te
           <Heading level={1} size="title" className="md:text-5xl leading-tight">
             {post.title}
           </Heading>
-          
+
           <div className="flex flex-wrap items-center justify-center md:justify-between gap-4 text-xs font-mono text-stone-400 pt-4 border-t border-stone-100">
             <div className="flex items-center space-x-1">
               <CalendarDays className="h-3.5 w-3.5 text-amber-700" />
@@ -88,10 +102,8 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, te
 
         {/* Main Body Split (Sidebar / Content) */}
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
-          
           {/* LEFT: Sidebar with Author & TOC */}
           <aside className="lg:col-span-4 space-y-8 lg:sticky lg:top-(--nav-offset) h-fit lg:transition-[top] lg:duration-300 lg:ease-out">
-            
             {/* Table of Contents (auto-generated from the article headings) */}
             {toc.length > 1 && (
               <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6 text-left">
@@ -102,15 +114,17 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, te
                       key={item.id}
                       href={`#${item.id}`}
                       onClick={(e) => {
-                        const el = document.getElementById(item.id);
+                        const el = document.getElementById(item.id)
                         if (el) {
-                          e.preventDefault();
-                          el.scrollIntoView({behavior: 'smooth', block: 'start'});
-                          history.replaceState(null, '', `#${item.id}`);
+                          e.preventDefault()
+                          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                          history.replaceState(null, '', `#${item.id}`)
                         }
                       }}
                       className={`block border-l-2 py-1 leading-normal text-stone-600 transition-colors hover:border-amber-700 hover:text-amber-900 ${
-                        item.depth === 3 ? 'border-stone-200 pl-5' : 'border-stone-300 pl-3 font-medium'
+                        item.depth === 3
+                          ? 'border-stone-200 pl-5'
+                          : 'border-stone-300 pl-3 font-medium'
                       }`}
                     >
                       {item.text}
@@ -122,8 +136,6 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, te
 
             {/* Trainer availability (global, synced from Site Config) */}
             <Availability />
-
-
           </aside>
 
           {/* RIGHT: Document Text markdown-body typography */}
@@ -153,7 +165,6 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, te
               </div>
             )}
           </main>
-
         </div>
 
         {/* Related programs (cross-sell) */}
@@ -165,7 +176,14 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, te
               size="sm"
               label="programs"
               headline="Related programs"
-              renderItem={(svc, slideProps) => <ServiceCard svc={svc} caseStudies={caseStudyCounts.get(svc.id) ?? 0} guides={guidesByService.get(svc.id) ?? 0} slideProps={slideProps} />}
+              renderItem={(svc, slideProps) => (
+                <ServiceCard
+                  svc={svc}
+                  caseStudies={caseStudyCounts.get(svc.id) ?? 0}
+                  guides={guidesByService.get(svc.id) ?? 0}
+                  slideProps={slideProps}
+                />
+              )}
             />
           </div>
         )}
@@ -179,12 +197,13 @@ export default function BlogPostTemplate({ post, posts, taxonomies, services, te
               size="sm"
               label="articles"
               headline="Related Articles"
-              renderItem={(rel, slideProps) => <ArticleCard post={rel} slideProps={slideProps} categoryLabel={catLabel} />}
+              renderItem={(rel, slideProps) => (
+                <ArticleCard post={rel} slideProps={slideProps} categoryLabel={catLabel} />
+              )}
             />
           </div>
         )}
-
       </Section>
     </article>
-  );
+  )
 }
