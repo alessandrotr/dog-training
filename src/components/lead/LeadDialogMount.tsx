@@ -1,9 +1,13 @@
 'use client';
 
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
+import dynamic from 'next/dynamic';
 import {LOCALES} from '@/lib/locales';
 import {useLeadDialog} from '@/stores/lead-dialog';
-import LeadDialog from './LeadDialog';
+
+// The dialog (form + zod + scheduler + multi-select) is a heavy, interaction-only
+// surface — load its chunk on first open instead of in every page's bundle.
+const LeadDialog = dynamic(() => import('./LeadDialog'), {ssr: false});
 
 // Matches /<locale>/booking and /<locale>/contact (the real fallback pages).
 const PATH_RE = new RegExp(`^/(?:${LOCALES.join('|')})/(booking|contact)/?$`);
@@ -12,7 +16,13 @@ const PATH_RE = new RegExp(`^/(?:${LOCALES.join('|')})/(booking|contact)/?$`);
 // clicks on any link to the booking/contact pages, opening the dialog instead.
 // Modifier/middle clicks and no-JS still hit the real pages (crawlable + SEO).
 export default function LeadDialogMount() {
-  const {open} = useLeadDialog();
+  const {open, isOpen} = useLeadDialog();
+  // Keep the dialog mounted once it has been opened (preserves Base UI's close
+  // animation), but never load its chunk until the first open.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    if (isOpen) setMounted(true);
+  }, [isOpen]);
 
   useEffect(() => {
     function onClick(e: MouseEvent) {
@@ -39,5 +49,5 @@ export default function LeadDialogMount() {
     return () => document.removeEventListener('click', onClick, true);
   }, [open]);
 
-  return <LeadDialog />;
+  return mounted ? <LeadDialog /> : null;
 }

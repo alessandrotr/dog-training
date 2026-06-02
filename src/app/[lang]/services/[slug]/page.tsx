@@ -2,10 +2,17 @@ import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import {getServices, getTestimonials, getBlogPosts} from '../../../../lib/content-server';
 import ServiceDetail from '../../../../components/pages/ServiceDetail';
+import {DEFAULT_LOCALE, LOCALES} from '../../../../lib/locales';
 import {resolvePageContext} from '../../../../lib/route-context';
 import {detailMetadata} from '../../../../lib/seo';
 
 type SP = Promise<Record<string, string | string[] | undefined>>;
+
+// Prebuild every service in every locale so the detail pages are static (●).
+export async function generateStaticParams() {
+  const services = await getServices(DEFAULT_LOCALE, false);
+  return LOCALES.flatMap((lang) => services.map((s) => ({lang, slug: s.slug})));
+}
 
 export async function generateMetadata({
   params,
