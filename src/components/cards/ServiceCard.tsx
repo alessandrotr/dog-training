@@ -68,11 +68,11 @@ export default function ServiceCard({
 
         {/* Bottom-left: title + subtitle (over the image) */}
         <div className="absolute inset-x-0 bottom-0 p-4 text-left">
-          {svc.audience && (
+          {/* {svc.audience && (
             <span className="mb-1.5 inline-block max-w-full truncate rounded-full bg-white/15 px-2.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wide text-white backdrop-blur">
               {svc.audience}
             </span>
-          )}
+          )} */}
           <Heading level={3} size="card" tone="inverse" className="leading-snug">
             {svc.title}
           </Heading>
