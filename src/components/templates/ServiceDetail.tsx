@@ -43,11 +43,28 @@ export default function ServiceDetail({
   const relatedArticles = posts.filter((p) => p.serviceIds?.includes(service.id))
 
   return (
-    <article className="lg:py-8 text-left">
-      <Section as="div">
-        {/* Hero */}
-        <div className="mt-6 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center">
-          <div className="space-y-5">
+    <article className="text-left">
+      {/* Hero — full-bleed service image as background (mirrors the home hero) */}
+      <section className="relative -mt-16 overflow-hidden bg-linear-to-b from-amber-200 to-amber-50">
+        {service.imageUrl && (
+          <>
+            <Image
+              src={service.imageUrl}
+              alt={service.title}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center opacity-85"
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-linear-to-r from-stone-50/95 via-stone-50/80 to-stone-50/40" />
+          </>
+        )}
+        {/* Seamless fade into the body (stone-50) */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-b from-transparent to-stone-50 md:h-32" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 pt-24 pb-12 sm:px-6 md:pt-36 md:pb-20 lg:px-8">
+          <div className="max-w-2xl space-y-5">
             {service.audience && <Eyebrow tone="brand">{service.audience}</Eyebrow>}
             <Heading level={1} size="display">
               {service.title}
@@ -91,27 +108,12 @@ export default function ServiceDetail({
               </Button>
             </div>
           </div>
-
-          <div className="relative mx-auto w-full max-w-lg">
-            <div className="absolute -inset-1 rounded-3xl bg-amber-700/10 blur-xl" />
-            <div className="relative aspect-4/3 overflow-hidden rounded-3xl border-8 border-white bg-stone-100 shadow-2xl">
-              {service.imageUrl && (
-                <Image
-                  src={service.imageUrl}
-                  alt={service.title}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover"
-                  referrerPolicy="no-referrer"
-                  priority
-                />
-              )}
-            </div>
-          </div>
         </div>
+      </section>
 
+      <Section as="div">
         {/* Body: long description + features */}
-        <div className="mt-16 grid grid-cols-1 gap-12 lg:grid-cols-12">
+        <div className="mt-4 grid grid-cols-1 gap-12 lg:mt-8 lg:grid-cols-12">
           {service.features.length > 0 && (
             <aside className="lg:col-span-5">
               <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6">
