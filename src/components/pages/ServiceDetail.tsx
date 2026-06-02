@@ -1,18 +1,22 @@
-'use client';
+'use client'
 
-import Image from 'next/image';
-import {Check, Plus, Sparkles, CalendarClock} from 'lucide-react';
-import {useTranslation} from 'react-i18next';
-import {useInquiryCart} from '../InquiryCartProvider';
-import {useAvailability} from '../AvailabilityProvider';
-import {useLeadDialog} from '../../stores/lead-dialog';
-import Carousel from '../Carousel';
-import ServiceCard from '../cards/ServiceCard';
-import ArticleCard from '../cards/ArticleCard';
-import CaseStudyCard from '../cards/CaseStudyCard';
-import {caseStudyCountByService, guideCountByService, caseStudiesForService} from '../../lib/relations';
-import {Section, Eyebrow, CardStat, Button, PriceTag, Heading, Text} from '../ui';
-import type {ServiceItem, TestimonialItem, BlogPost} from '../../types';
+import Image from 'next/image'
+import { Check, Plus, Sparkles, CalendarClock } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { useInquiryCart, serviceToInquiryItem } from '../InquiryCartProvider'
+import { useIsAvailable } from '../AvailabilityProvider'
+import { useLeadDialog } from '../../stores/lead-dialog'
+import Carousel from '../Carousel'
+import ServiceCard from '../cards/ServiceCard'
+import ArticleCard from '../cards/ArticleCard'
+import CaseStudyCard from '../cards/CaseStudyCard'
+import {
+  caseStudyCountByService,
+  guideCountByService,
+  caseStudiesForService,
+} from '../../lib/relations'
+import { Section, Eyebrow, CardStat, Button, PriceTag, Heading, Text } from '../ui'
+import type { ServiceItem, TestimonialItem, BlogPost } from '../../types'
 
 // One shared, data-driven template for every service (mirrors the blog article
 // pattern). Renders from the `service` entry — no bespoke per-service pages.
@@ -22,37 +26,45 @@ export default function ServiceDetail({
   related,
   posts,
 }: {
-  service: ServiceItem;
-  testimonials: TestimonialItem[];
-  related: ServiceItem[];
-  posts: BlogPost[];
+  service: ServiceItem
+  testimonials: TestimonialItem[]
+  related: ServiceItem[]
+  posts: BlogPost[]
 }) {
-  const {t} = useTranslation();
-  const cart = useInquiryCart();
-  const {open} = useLeadDialog();
-  const available = useAvailability()?.available ?? true;
+  const { t } = useTranslation()
+  const cart = useInquiryCart()
+  const { open } = useLeadDialog()
+  const available = useIsAvailable()
 
-  const added = cart.has(service.slug);
+  const added = cart.has(service.slug)
 
   // Per-service social-proof counts + this service's case studies / guides.
-  const caseStudyCounts = caseStudyCountByService(testimonials);
-  const guidesByService = guideCountByService(posts);
-  const caseStudiesForSvc = caseStudiesForService(testimonials, service.id);
-  const relatedArticles = posts.filter((p) => p.serviceIds?.includes(service.id));
+  const caseStudyCounts = caseStudyCountByService(testimonials)
+  const guidesByService = guideCountByService(posts)
+  const caseStudiesForSvc = caseStudiesForService(testimonials, service.id)
+  const relatedArticles = posts.filter((p) => p.serviceIds?.includes(service.id))
 
   return (
     <article className="lg:py-8 text-left">
       <Section as="div">
-
         {/* Hero */}
         <div className="mt-6 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center">
           <div className="space-y-5">
             {service.audience && <Eyebrow tone="brand">{service.audience}</Eyebrow>}
-            <Heading level={1} size="display">{service.title}</Heading>
-            <Text size="base" tone="default" className="max-w-xl text-lg">{service.shortDescription}</Text>
+            <Heading level={1} size="display">
+              {service.title}
+            </Heading>
+            <Text size="base" tone="default" className="max-w-xl text-lg">
+              {service.shortDescription}
+            </Text>
 
             {caseStudiesForSvc.length > 0 && (
-              <CardStat icon={Sparkles} count={caseStudiesForSvc.length} singular="case study" plural="case studies" />
+              <CardStat
+                icon={Sparkles}
+                count={caseStudiesForSvc.length}
+                singular="case study"
+                plural="case studies"
+              />
             )}
 
             <PriceTag price={service.price} size="lg" />
@@ -62,19 +74,18 @@ export default function ServiceDetail({
                 type="button"
                 variant="cta"
                 size="xl"
-                onClick={() =>
-                  cart.toggle({
-                    slug: service.slug,
-                    title: service.title,
-                    imageUrl: service.imageUrl,
-                    shortDescription: service.shortDescription,
-                    price: service.price,
-                    audience: service.audience,
-                  })
-                }
+                onClick={() => cart.toggle(serviceToInquiryItem(service))}
                 className={added ? 'bg-emerald-600 hover:bg-emerald-700' : ''}
               >
-                {added ? <><Check className="h-4 w-4" /> Added to inquiry</> : <><Plus className="h-4 w-4" /> Add to inquiry</>}
+                {added ? (
+                  <>
+                    <Check className="h-4 w-4" /> Added to inquiry
+                  </>
+                ) : (
+                  <>
+                    <Plus className="h-4 w-4" /> Add to inquiry
+                  </>
+                )}
               </Button>
               <Button
                 type="button"
@@ -82,7 +93,8 @@ export default function ServiceDetail({
                 size="xl"
                 onClick={() => open(available ? 'book' : 'contact')}
               >
-                <CalendarClock className="h-4 w-4" /> {available ? 'Book a consult' : t('booking.waitlist')}
+                <CalendarClock className="h-4 w-4" />{' '}
+                {available ? 'Book a consult' : t('booking.waitlist')}
               </Button>
             </div>
           </div>
@@ -91,7 +103,15 @@ export default function ServiceDetail({
             <div className="absolute -inset-1 rounded-3xl bg-amber-700/10 blur-xl" />
             <div className="relative aspect-4/3 overflow-hidden rounded-3xl border-8 border-white bg-stone-100 shadow-2xl">
               {service.imageUrl && (
-                <Image src={service.imageUrl} alt={service.title} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" referrerPolicy="no-referrer" priority />
+                <Image
+                  src={service.imageUrl}
+                  alt={service.title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                  referrerPolicy="no-referrer"
+                  priority
+                />
               )}
             </div>
           </div>
@@ -105,7 +125,10 @@ export default function ServiceDetail({
                 <Eyebrow className="mb-4 block">What&apos;s included</Eyebrow>
                 <ul className="space-y-3">
                   {service.features.map((f, i) => (
-                    <li key={i} className="flex items-start gap-2.5 text-sm leading-relaxed text-stone-600">
+                    <li
+                      key={i}
+                      className="flex items-start gap-2.5 text-sm leading-relaxed text-stone-600"
+                    >
                       <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
                       <span>{f}</span>
                     </li>
@@ -114,9 +137,11 @@ export default function ServiceDetail({
               </div>
             </aside>
           )}
-              <div className="lg:col-span-7">
+          <div className="lg:col-span-7">
             {service.longDescription && (
-              <Text size="base" tone="default" className="whitespace-pre-line">{service.longDescription}</Text>
+              <Text size="base" tone="default" className="whitespace-pre-line">
+                {service.longDescription}
+              </Text>
             )}
           </div>
         </div>
@@ -158,11 +183,18 @@ export default function ServiceDetail({
               size="sm"
               label="programs"
               headline="Other services"
-              renderItem={(svc, slideProps) => <ServiceCard svc={svc} caseStudies={caseStudyCounts.get(svc.id) ?? 0} guides={guidesByService.get(svc.id) ?? 0} slideProps={slideProps} />}
+              renderItem={(svc, slideProps) => (
+                <ServiceCard
+                  svc={svc}
+                  caseStudies={caseStudyCounts.get(svc.id) ?? 0}
+                  guides={guidesByService.get(svc.id) ?? 0}
+                  slideProps={slideProps}
+                />
+              )}
             />
           </div>
         )}
       </Section>
     </article>
-  );
+  )
 }

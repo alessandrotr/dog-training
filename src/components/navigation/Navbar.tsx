@@ -1,47 +1,46 @@
-'use client';
+'use client'
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { motion } from 'motion/react';
-import { useTranslation } from 'react-i18next';
-import { Menu, X, CalendarRange, PawPrint } from 'lucide-react';
-import { useCurrentPage, useHref } from '../../lib/navigation';
-import { useHideOnScroll } from '../../lib/use-hide-on-scroll';
-import { useAvailability } from '../AvailabilityProvider';
-import LocaleToggle from './LocaleToggle';
-import Logo from './Logo';
-import {Button} from '../ui';
-import type { SiteConfig } from '../../types';
+import React, { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { motion } from 'motion/react'
+import { useTranslation } from 'react-i18next'
+import { Menu, X, CalendarRange, PawPrint } from 'lucide-react'
+import { useCurrentPage, useHref } from '../../lib/navigation'
+import { useHideOnScroll } from '../../lib/use-hide-on-scroll'
+import { useIsAvailable } from '../AvailabilityProvider'
+import LocaleToggle from './LocaleToggle'
+import Logo from './Logo'
+import { Button } from '../ui'
+import type { SiteConfig } from '../../types'
 
 export default function Navbar({ config }: { config: SiteConfig }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const { t } = useTranslation();
-  const href = useHref();
-  const currentPage = useCurrentPage();
-  const close = () => setIsOpen(false);
+  const [isOpen, setIsOpen] = useState(false)
+  const { t } = useTranslation()
+  const href = useHref()
+  const currentPage = useCurrentPage()
+  const close = () => setIsOpen(false)
 
   // Fully booked → the booking CTA becomes a waitlist join (routes to the
   // contact page, which the dialog interceptor opens as the Message tab).
-  const availability = useAvailability();
-  const available = availability?.available ?? true;
-  const ctaLabel = available ? config.ctaLabel : t('booking.waitlist');
-  const ctaTarget = available ? config.ctaTarget : 'contact';
+  const available = useIsAvailable()
+  const ctaLabel = available ? config.ctaLabel : t('booking.waitlist')
+  const ctaTarget = available ? config.ctaTarget : 'contact'
 
   // Hide on scroll down, reveal on scroll up; transparent while at the very top.
-  const {hidden, atTop} = useHideOnScroll();
+  const { hidden, atTop } = useHideOnScroll()
 
   // Publish the navbar offset so sticky elements (filters, TOC, availability)
   // can ride up/down with the navbar via `top: var(--nav-offset)`.
   useEffect(() => {
-    document.documentElement.style.setProperty('--nav-offset', hidden ? '1.5rem' : '6rem');
-  }, [hidden]);
+    document.documentElement.style.setProperty('--nav-offset', hidden ? '1.5rem' : '6rem')
+  }, [hidden])
 
-  const solid = !atTop || isOpen; // frosted bar once scrolled or when the mobile menu is open
+  const solid = !atTop || isOpen // frosted bar once scrolled or when the mobile menu is open
 
   return (
     <motion.header
-      animate={{y: hidden && !isOpen ? '-100%' : '0%'}}
-      transition={{duration: 0.35, ease: [0.22, 1, 0.36, 1]}}
+      animate={{ y: hidden && !isOpen ? '-100%' : '0%' }}
+      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       className={`sticky top-0 z-40 w-full transition-[background-color,box-shadow] duration-500 ${
         solid
           ? 'bg-stone-50/90 shadow-[0_1px_0_0_var(--color-stone-200)] backdrop-blur-md'
@@ -49,7 +48,6 @@ export default function Navbar({ config }: { config: SiteConfig }) {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-
         {/* Logo */}
         <Logo
           brandName={config.footer.brandName}
@@ -65,20 +63,18 @@ export default function Navbar({ config }: { config: SiteConfig }) {
         {/* Desktop Navigation Links */}
         <nav className="hidden md:flex items-center space-x-8">
           {config.navItems.map((item) => {
-            const isActive = currentPage === item.target;
+            const isActive = currentPage === item.target
             return (
               <Link
                 key={item.target}
                 href={href.page(item.target)}
                 className={`text-xs font-medium font-mono uppercase transition-colors cursor-pointer relative py-1 px-2 rounded-full ${
-                  isActive
-                    ? 'text-white bg-amber-700'
-                    : 'text-stone-600 hover:text-stone-900'
+                  isActive ? 'text-white bg-amber-700' : 'text-stone-600 hover:text-stone-900'
                 }`}
               >
                 {item.label}
               </Link>
-            );
+            )
           })}
         </nav>
 
@@ -104,23 +100,27 @@ export default function Navbar({ config }: { config: SiteConfig }) {
         <nav className="border-t border-stone-200 bg-stone-50 md:hidden">
           <div className="space-y-1 px-4 py-3">
             {config.navItems.map((item) => {
-              const isActive = currentPage === item.target;
+              const isActive = currentPage === item.target
               return (
                 <Link
                   key={item.target}
                   href={href.page(item.target)}
                   onClick={close}
                   className={`block w-full text-left rounded-lg px-4 py-2.5 text-base font-medium transition-colors ${
-                    isActive ? 'bg-stone-150 text-amber-950' : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
+                    isActive
+                      ? 'bg-stone-150 text-amber-950'
+                      : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
                   }`}
                 >
                   {item.label}
                 </Link>
-              );
+              )
             })}
 
             <div className="flex items-center justify-between border-t border-stone-200/80 my-2 pt-3">
-              <span className="text-xs font-mono text-stone-500 uppercase tracking-wide px-1">Language / Sprache</span>
+              <span className="text-xs font-mono text-stone-500 uppercase tracking-wide px-1">
+                Language / Sprache
+              </span>
               <LocaleToggle />
             </div>
 
@@ -142,5 +142,5 @@ export default function Navbar({ config }: { config: SiteConfig }) {
         </nav>
       )}
     </motion.header>
-  );
+  )
 }

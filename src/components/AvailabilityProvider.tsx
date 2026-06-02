@@ -1,23 +1,29 @@
-'use client';
+'use client'
 
-import {createContext, useContext} from 'react';
-import type {AvailabilityData} from '../types';
+import { createContext, useContext } from 'react'
+import type { AvailabilityData } from '../types'
 
 // App-wide availability, sourced once from the Site Config and provided here so
 // every <Availability /> (home hero, blog sidebar, anywhere) renders the same
 // data. Sophia edits it in one place; the whole site updates.
-const AvailabilityContext = createContext<AvailabilityData | null>(null);
+const AvailabilityContext = createContext<AvailabilityData | null>(null)
 
 export function AvailabilityProvider({
   value,
   children,
 }: {
-  value: AvailabilityData;
-  children: React.ReactNode;
+  value: AvailabilityData
+  children: React.ReactNode
 }) {
-  return <AvailabilityContext.Provider value={value}>{children}</AvailabilityContext.Provider>;
+  return <AvailabilityContext.Provider value={value}>{children}</AvailabilityContext.Provider>
 }
 
 export function useAvailability(): AvailabilityData | null {
-  return useContext(AvailabilityContext);
+  return useContext(AvailabilityContext)
+}
+
+// Just the open/booked boolean, defaulting to available when no data is set —
+// the single rule every booking CTA uses to decide book vs. waitlist.
+export function useIsAvailable(): boolean {
+  return useAvailability()?.available ?? true
 }

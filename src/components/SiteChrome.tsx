@@ -1,15 +1,15 @@
-'use client';
+'use client'
 
-import {useEffect} from 'react';
-import {usePathname} from 'next/navigation';
-import Navbar from './navigation/Navbar';
-import Footer from './navigation/Footer';
-import ConnectFab from './navigation/ConnectFab';
-import LeadDialogMount from './lead/LeadDialogMount';
-import {AvailabilityProvider} from './AvailabilityProvider';
-import {InquiryCartProvider, type InquiryItem} from './InquiryCartProvider';
-import InquiryCartBar from './InquiryCartBar';
-import type {SiteConfig, AvailabilityData, ServiceItem} from '../types';
+import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
+import Navbar from './navigation/Navbar'
+import Footer from './navigation/Footer'
+import ConnectFab from './navigation/ConnectFab'
+import LeadDialogMount from './lead/LeadDialogMount'
+import { AvailabilityProvider } from './AvailabilityProvider'
+import { InquiryCartProvider, serviceToInquiryItem } from './InquiryCartProvider'
+import InquiryCartBar from './InquiryCartBar'
+import type { SiteConfig, AvailabilityData, ServiceItem } from '../types'
 
 // Persistent app shell rendered around every route by the root layout.
 export default function SiteChrome({
@@ -18,27 +18,20 @@ export default function SiteChrome({
   services,
   children,
 }: {
-  config: SiteConfig;
-  availability: AvailabilityData;
-  services: ServiceItem[];
-  children: React.ReactNode;
+  config: SiteConfig
+  availability: AvailabilityData
+  services: ServiceItem[]
+  children: React.ReactNode
 }) {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   // Service catalog the inquiry form can offer as an "add a program" picker.
-  const catalog: InquiryItem[] = services.map((s) => ({
-    slug: s.slug,
-    title: s.title,
-    imageUrl: s.imageUrl,
-    shortDescription: s.shortDescription,
-    price: s.price,
-    audience: s.audience,
-  }));
+  const catalog = services.map(serviceToInquiryItem)
 
   // Scroll to top on route changes.
   useEffect(() => {
-    window.scrollTo({top: 0, behavior: 'instant' as ScrollBehavior});
-  }, [pathname]);
+    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
+  }, [pathname])
 
   return (
     <AvailabilityProvider value={availability}>
@@ -64,5 +57,5 @@ export default function SiteChrome({
         </div>
       </InquiryCartProvider>
     </AvailabilityProvider>
-  );
+  )
 }
