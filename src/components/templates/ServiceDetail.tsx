@@ -71,23 +71,14 @@ export default function ServiceDetail({
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-b from-transparent to-stone-50 md:h-32" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 pt-24 pb-12 sm:px-6 md:pt-36 md:pb-20 lg:px-8">
-          <div className="max-w-2xl flex flex-col gap-4 max-lg:mb-4">
-            {service.audience && <Eyebrow tone="brand">{service.audience}</Eyebrow>}
+          <div className="max-w-2xl flex flex-col gap-4 lg:gap-8 max-lg:mb-4">
+            {/* {service.audience && <Eyebrow tone="brand">{service.audience}</Eyebrow>} */}
             <Heading level={1} size="display">
               {service.title}
             </Heading>
             <Text size="base" tone="default" className="max-w-xl text-lg">
               {service.shortDescription}
             </Text>
-
-            {caseStudiesForSvc.length > 0 && (
-              <CardStat
-                icon={Sparkles}
-                count={caseStudiesForSvc.length}
-                singular="case study"
-                plural="case studies"
-              />
-            )}
 
             <PriceTag price={service.price} size="lg" />
 

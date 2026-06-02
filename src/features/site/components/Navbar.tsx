@@ -53,8 +53,8 @@ export default function Navbar({ config }: { config: SiteConfig }) {
           brandSubtitle={config.footer.brandSubtitle}
           onClick={close}
           icon={
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-amber-700/30 ring-1 ring-amber-500/30 transition-transform duration-300 group-hover:-rotate-6">
-              <PawPrint className="h-5 w-5 text-amber-700" strokeWidth={2} />
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-amber-700 ring-1 ring-amber-200/30 transition-transform duration-300 group-hover:-rotate-6">
+              <PawPrint className="h-5 w-5 text-amber-100" strokeWidth={2} />
             </span>
           }
         />

@@ -98,7 +98,7 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
               {blok.secondary_label && (
                 <Button
                   render={<Link href={href.page(blok.secondary_target || 'services')} />}
-                  variant="ctaOutline"
+                  variant="cta"
                   size="xl"
                 >
                   {blok.secondary_label}

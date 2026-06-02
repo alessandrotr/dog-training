@@ -25,7 +25,7 @@ export default function ConnectFab() {
       onClick={() => open(mode)}
       aria-label={label}
       className={cn(
-        'fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 flex items-center gap-4 rounded-full bg-amber-700 py-3.5 pl-4 pr-5 text-white shadow-lg shadow-amber-950/25 ring-1 ring-amber-500/20 transition-all duration-300 ease-out hover:bg-amber-950 hover:shadow-xl active:scale-95 sm:right-6 sm:bottom-6',
+        'fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 flex items-center gap-4 rounded-full py-3.5 pl-4 pr-5 text-white ring-1 ring-amber-400/30 shadow-sm shadow-amber-950/15 transition-all duration-300 ease-out hover:brightness-105 hover:shadow-md active:scale-95 sm:right-6 sm:bottom-6 [background-image:radial-gradient(circle,rgba(255,255,255,0.08)_1.5px,transparent_1.5px),linear-gradient(to_bottom_right,var(--color-amber-500),var(--color-amber-600),var(--color-amber-800))] [background-size:16px_16px,100%_100%]',
         isOpen || hidden
           ? 'pointer-events-none translate-y-28 opacity-0'
           : 'translate-y-0 opacity-100',
