@@ -24,6 +24,10 @@ const buttonVariants = cva(
         ctaOutline: 'border-stone-300 bg-white text-stone-700 hover:bg-stone-50',
         ctaGlass:
           'border-amber-100/30 bg-white/10 text-white backdrop-blur hover:border-amber-100/50 hover:bg-white/20',
+        // Heather-gradient CTA with the dark-hero polka-dot texture. Two stacked
+        // backgrounds: white dots (tiled) over the brand gradient. Pair with size="xl".
+        ctaDots:
+          'text-white shadow-lg shadow-amber-950/25 ring-1 ring-amber-400/30 transition-[filter,box-shadow] hover:shadow-xl hover:brightness-105 [background-image:radial-gradient(circle,rgba(255,255,255,0.14)_1.5px,transparent_1.5px),linear-gradient(to_bottom_right,var(--color-amber-500),var(--color-amber-600),var(--color-amber-800))] [background-size:16px_16px,100%_100%]',
       },
       size: {
         default:

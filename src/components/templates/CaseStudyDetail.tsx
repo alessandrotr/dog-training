@@ -1,23 +1,12 @@
 'use client'
 
-import Link from 'next/link'
 import Image from 'next/image'
-import { Sparkles, ClipboardPlus, ClipboardCheck } from 'lucide-react'
-import { useHref } from '@/lib/navigation'
+import { Sparkles } from 'lucide-react'
 import { useParallax } from '@/hooks/use-parallax'
-import { useInquiryToggle } from '@/features/inquiry/components/InquiryCartProvider'
 import CaseStudyCard from '@/components/cards/CaseStudyCard'
+import ServiceCard from '@/components/cards/ServiceCard'
 import Carousel from '@/components/Carousel'
-import {
-  Section,
-  Eyebrow,
-  PersonByline,
-  Heading,
-  Text,
-  Prose,
-  Pill,
-  PriceTag,
-} from '@/components/ui'
+import { Section, Eyebrow, PersonByline, Heading, Prose } from '@/components/ui'
 import type { TestimonialItem, ServiceItem } from '@/types'
 
 // Full case-study page: the dog, the challenge, what was done, the outcome,
@@ -33,8 +22,6 @@ export default function CaseStudyDetail({
   related: TestimonialItem[]
   serviceById: Map<string, ServiceItem>
 }) {
-  const href = useHref()
-  const { added: inquiryAdded, toggle: toggleInquiry } = useInquiryToggle(service)
   // Parallax: the oversized label glides upward as the page scrolls down (and
   // back down when scrolling up) — counter to the page for an obvious drift.
   const labelRef = useParallax<HTMLSpanElement>(0, -220, 600)
@@ -106,77 +93,11 @@ export default function CaseStudyDetail({
           </div>
         )}
 
-        {/* The service this belonged to — full-width program CTA banner. Whole
-            banner links to the service; the + toggles it in the inquiry. */}
+        {/* The service this case study belonged to */}
         {service && (
           <div className="mt-10">
-            <Eyebrow>This was part of</Eyebrow>
-            <div className="group relative mt-3 flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-colors hover:border-stone-300 sm:flex-row">
-              {service.imageUrl && (
-                <div className="relative aspect-16/10 shrink-0 overflow-hidden bg-stone-100 sm:aspect-auto sm:w-2/5">
-                  <Image
-                    src={service.imageUrl}
-                    alt={service.title}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 320px"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    referrerPolicy="no-referrer"
-                  />
-                  {service.audience && (
-                    <Pill
-                      tone="solid"
-                      className="absolute bottom-3 left-3 max-w-[calc(100%-1.5rem)] truncate font-mono text-[10px] uppercase tracking-wide shadow-sm backdrop-blur"
-                    >
-                      {service.audience}
-                    </Pill>
-                  )}
-                </div>
-              )}
-
-              <div className="flex flex-1 flex-col gap-3 p-6">
-                <div>
-                  <Link
-                    href={href.service(service.slug)}
-                    className="before:absolute before:inset-0 before:content-['']"
-                  >
-                    <Heading
-                      level={3}
-                      size="card"
-                      className="transition-colors group-hover:text-amber-900"
-                    >
-                      {service.title}
-                    </Heading>
-                  </Link>
-                  {service.shortDescription && (
-                    <Text className="mt-1.5 line-clamp-2">{service.shortDescription}</Text>
-                  )}
-                </div>
-
-                <div className="mt-auto flex items-end justify-between gap-4">
-                  <PriceTag price={service.price} />
-                  <button
-                    type="button"
-                    aria-label={inquiryAdded ? 'Remove from inquiry' : 'Add to inquiry'}
-                    onClick={toggleInquiry}
-                    className={`relative z-10 inline-flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 font-mono text-[11px] font-bold uppercase tracking-wider shadow-sm transition-colors active:scale-95 ${
-                      inquiryAdded
-                        ? 'bg-emerald-600 text-white hover:bg-emerald-700'
-                        : 'bg-amber-700 text-white hover:bg-amber-950'
-                    }`}
-                  >
-                    {inquiryAdded ? (
-                      <>
-                        <ClipboardCheck className="h-3.5 w-3.5" /> Added
-                      </>
-                    ) : (
-                      <>
-                        <ClipboardPlus className="h-3.5 w-3.5" /> Add to inquiry
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-            </div>
+            <Eyebrow className="mb-3 block">This was part of</Eyebrow>
+            <ServiceCard svc={service} className="max-w-lg" />
           </div>
         )}
       </div>

@@ -151,7 +151,7 @@ export default function Availability({
         {ctaLabel && (
           <Button
             render={<Link href={href.page(ctaTarget)} />}
-            variant={available ? 'cta' : 'ctaOutline'}
+            variant={available ? 'ctaDots' : 'ctaOutline'}
             size="xl"
             className="mt-5 w-full px-5 py-3"
           >
