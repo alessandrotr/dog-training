@@ -5,7 +5,7 @@ import {motion} from 'motion/react';
 import {ClipboardList, X} from 'lucide-react';
 import {useHideOnScroll} from '@/hooks/use-hide-on-scroll';
 import {useInquiryCart} from './InquiryCartProvider';
-import {useLeadDialog} from '@/features/lead';
+import {useLeadDialog} from '@/features/lead/stores/lead-dialog';
 
 // Floating inquiry-cart pill (bottom-left, opposite the ConnectFab). Appears
 // only when services have been added; opens the Contact dialog to send them,

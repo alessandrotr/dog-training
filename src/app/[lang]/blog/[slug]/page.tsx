@@ -1,10 +1,10 @@
 import type {Metadata} from 'next';
-import {getBlogPosts, getServices, getTestimonials} from '../../../../lib/content-server';
-import {getBlogTaxonomies} from '../../../../lib/get-datasource';
-import BlogPostView from '../../../../components/pages/BlogPostView';
-import {DEFAULT_LOCALE, LOCALES} from '../../../../lib/locales';
-import {resolvePageContext} from '../../../../lib/route-context';
-import {detailMetadata} from '../../../../lib/seo';
+import {getBlogPosts, getServices, getTestimonials} from '@/features/storyblok/api/content-server';
+import {getBlogTaxonomies} from '@/features/storyblok/api/get-datasource';
+import BlogPostView from '@/components/templates/BlogPostView';
+import {DEFAULT_LOCALE, LOCALES} from '@/lib/locales';
+import {resolvePageContext} from '@/lib/route-context';
+import {detailMetadata} from '@/lib/seo';
 
 type SP = Promise<Record<string, string | string[] | undefined>>;
 

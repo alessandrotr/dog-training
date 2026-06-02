@@ -1,11 +1,11 @@
 import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
-import {getServices, getTestimonials} from '../../../../lib/content-server';
-import CaseStudyDetail from '../../../../components/pages/CaseStudyDetail';
-import {DEFAULT_LOCALE, LOCALES} from '../../../../lib/locales';
-import {resolvePageContext} from '../../../../lib/route-context';
-import {detailMetadata} from '../../../../lib/seo';
-import {mapById} from '../../../../lib/relations';
+import {getServices, getTestimonials} from '@/features/storyblok/api/content-server';
+import CaseStudyDetail from '@/components/templates/CaseStudyDetail';
+import {DEFAULT_LOCALE, LOCALES} from '@/lib/locales';
+import {resolvePageContext} from '@/lib/route-context';
+import {detailMetadata} from '@/lib/seo';
+import {mapById} from '@/lib/relations';
 
 type SP = Promise<Record<string, string | string[] | undefined>>;
 

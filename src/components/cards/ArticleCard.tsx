@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import {ArrowRight, GraduationCap} from 'lucide-react';
-import {useHref} from '../../lib/navigation';
-import {Card, CardStat, Heading, Text} from '../ui';
-import type {BlogPost} from '../../types';
+import {useHref} from '@/lib/navigation';
+import {Card, CardStat, Heading, Text} from '@/components/ui';
+import type {BlogPost} from '@/types';
 
 // Shared article card used by every article carousel (home blog list + related
 // articles). `slideProps` (from Carousel) guards drag-vs-click.

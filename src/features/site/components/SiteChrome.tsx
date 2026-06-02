@@ -5,11 +5,7 @@ import { usePathname } from 'next/navigation'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import ConnectFab from './ConnectFab'
-import {LeadDialogMount} from '@/features/lead'
-import { AvailabilityProvider } from '@/features/availability'
-import { InquiryCartProvider, serviceToInquiryItem } from '@/features/inquiry'
-import {InquiryCartBar} from '@/features/inquiry'
-import type { SiteConfig, AvailabilityData, ServiceItem } from '@/types'
+import LeadDialogMount from '@/features/lead/components/LeadDialogMount';import {AvailabilityProvider} from '@/features/availability/components/AvailabilityProvider';import {InquiryCartProvider, serviceToInquiryItem} from '@/features/inquiry/components/InquiryCartProvider';import InquiryCartBar from '@/features/inquiry/components/InquiryCartBar';import type { SiteConfig, AvailabilityData, ServiceItem } from '@/types'
 
 // Persistent app shell rendered around every route by the root layout.
 export default function SiteChrome({

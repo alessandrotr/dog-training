@@ -7,7 +7,7 @@ import {CalendarClock, MessageCircle, X, PawPrint, Lock} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Tabs, TabsList, TabsTrigger, TabsContent} from '@/components/ui/tabs';
 import {useLeadDialog, type LeadMode} from '@/features/lead/stores/lead-dialog';
-import {useAvailability} from '@/features/availability';
+import {useAvailability} from '@/features/availability/components/AvailabilityProvider';
 import {Text} from '@/components/ui';
 import AvailabilityPresence from './AvailabilityPresence';
 import Scheduler from './Scheduler';

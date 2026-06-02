@@ -1,10 +1,10 @@
 import type {Metadata} from 'next';
 import {notFound} from 'next/navigation';
-import {getServices, getTestimonials, getBlogPosts} from '../../../../lib/content-server';
-import ServiceDetail from '../../../../components/pages/ServiceDetail';
-import {DEFAULT_LOCALE, LOCALES} from '../../../../lib/locales';
-import {resolvePageContext} from '../../../../lib/route-context';
-import {detailMetadata} from '../../../../lib/seo';
+import {getServices, getTestimonials, getBlogPosts} from '@/features/storyblok/api/content-server';
+import ServiceDetail from '@/components/templates/ServiceDetail';
+import {DEFAULT_LOCALE, LOCALES} from '@/lib/locales';
+import {resolvePageContext} from '@/lib/route-context';
+import {detailMetadata} from '@/lib/seo';
 
 type SP = Promise<Record<string, string | string[] | undefined>>;
 

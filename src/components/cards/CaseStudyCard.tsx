@@ -1,10 +1,10 @@
 'use client';
 
 import {ArrowUpRight} from 'lucide-react';
-import {useHref} from '../../lib/navigation';
-import {Eyebrow, Pill, Card, PersonByline, Text} from '../ui';
-import {cn} from '../../lib/utils';
-import type {TestimonialItem, ServiceItem} from '../../types';
+import {useHref} from '@/lib/navigation';
+import {Eyebrow, Pill, Card, PersonByline, Text} from '@/components/ui';
+import {cn} from '@/lib/utils';
+import type {TestimonialItem, ServiceItem} from '@/types';
 
 // The single case-study card used everywhere a client story is shown.
 // Order: dog/owner → the challenge → the story → the outcome → the service.

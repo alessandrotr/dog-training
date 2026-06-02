@@ -1,7 +1,7 @@
 import type {MetadataRoute} from 'next';
-import {LOCALES} from '../lib/locales';
-import {getStoryblokApi} from '../lib/storyblok';
-import {SITE_URL} from '../lib/seo';
+import {LOCALES} from '@/lib/locales';
+import {getStoryblokApi} from '@/features/storyblok/lib/client';
+import {SITE_URL} from '@/lib/seo';
 
 // Explicit, code-owned routes (not builder pages). Contact/booking are dialogs,
 // not indexable pages, so they're intentionally excluded.

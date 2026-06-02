@@ -1,11 +1,11 @@
 import {notFound} from 'next/navigation';
-import {isLocale, LOCALES} from '../../lib/locales';
-import I18nProvider from '../../components/I18nProvider';
-import SiteChrome from '../../components/SiteChrome';
-import {LOCAL_BUSINESS_SCHEMA} from '../../data';
-import {getConfig} from '../../lib/get-config';
-import {getAvailability} from '../../lib/get-availability';
-import {getServices} from '../../lib/content-server';
+import {isLocale, LOCALES} from '@/lib/locales';
+import I18nProvider from '@/features/site/components/I18nProvider';
+import SiteChrome from '@/features/site/components/SiteChrome';
+import {LOCAL_BUSINESS_SCHEMA} from '@/lib/business-schema';
+import {getConfig} from '@/features/storyblok/api/get-config';
+import {getAvailability} from '@/features/storyblok/api/get-availability';
+import {getServices} from '@/features/storyblok/api/content-server';
 
 export function generateStaticParams() {
   return LOCALES.map((lang) => ({lang}));

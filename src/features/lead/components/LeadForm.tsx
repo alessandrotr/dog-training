@@ -10,7 +10,7 @@ import {Heading, Text, Eyebrow, MultiSelect} from '@/components/ui';
 import {Input} from '@/components/ui/input';
 import {Label} from '@/components/ui/label';
 import {Textarea} from '@/components/ui/textarea';
-import {useInquiryCart} from '@/features/inquiry';
+import {useInquiryCart} from '@/features/inquiry/components/InquiryCartProvider';
 import {useLeadForm} from '@/features/lead/stores/lead-form';
 import {submitLead, makeLeadSchema, type LeadPayload} from '@/features/lead/lib/lead';
 

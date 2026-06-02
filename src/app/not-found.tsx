@@ -2,8 +2,8 @@ import type {Metadata} from 'next';
 import {headers} from 'next/headers';
 import Link from 'next/link';
 import {Dog, PawPrint, ArrowLeft, Compass} from 'lucide-react';
-import {Button, Heading, Text, Eyebrow} from '../components/ui';
-import {DEFAULT_LOCALE, isLocale} from '../lib/locales';
+import {Button, Heading, Text, Eyebrow} from '@/components/ui';
+import {DEFAULT_LOCALE, isLocale} from '@/lib/locales';
 
 export const metadata: Metadata = {
   title: 'Page not found',

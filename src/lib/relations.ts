@@ -1,4 +1,4 @@
-import type {TestimonialItem, BlogPost} from '../types';
+import type {TestimonialItem, BlogPost} from '@/types';
 
 // Pure, framework-agnostic selectors over the content lists. These centralise
 // the per-service aggregations that were previously re-implemented in

@@ -1,6 +1,6 @@
 import type {Metadata} from 'next';
 import {LOCALES, DEFAULT_LOCALE, isLocale, type Locale} from './locales';
-import {getPageStory} from './get-page';
+import {getPageStory} from '@/features/storyblok/api/get-page';
 
 // Public site origin (no trailing slash). Set NEXT_PUBLIC_SITE_URL when you
 // move to a custom domain; falls back to the current Vercel URL.

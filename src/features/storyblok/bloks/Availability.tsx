@@ -5,7 +5,7 @@ import Image from 'next/image';
 import {storyblokEditable} from '@storyblok/react';
 import {MapPin, Zap, ArrowRight, Languages} from 'lucide-react';
 import {useHref} from '@/lib/navigation';
-import {useAvailability} from '@/features/availability';
+import {useAvailability} from '@/features/availability/components/AvailabilityProvider';
 import {Button} from '@/components/ui';
 
 // Languages Sophia speaks (hardcoded for now; could become a Storyblok field).

@@ -1,6 +1,6 @@
 import {describe, it, expect} from 'vitest';
 import {mapById, caseStudyCountByService, guideCountByService, caseStudiesForService} from './relations';
-import type {ServiceItem, TestimonialItem, BlogPost} from '../types';
+import type {ServiceItem, TestimonialItem, BlogPost} from '@/types';
 
 // Minimal fixtures — the selectors only read id / serviceId / serviceIds.
 const svc = (id: string) => ({id} as ServiceItem);

@@ -3,7 +3,7 @@
 import {Clock, MapPin} from 'lucide-react';
 import {cn} from '@/lib/utils';
 import {Avatar, Pill} from '@/components/ui';
-import {useAvailability} from '@/features/availability';
+import {useAvailability} from '@/features/availability/components/AvailabilityProvider';
 
 // Live "presence" row for the lead dialog header: trainer avatar + name/handle,
 // an animated status badge (pulsing emerald when taking clients, steady amber

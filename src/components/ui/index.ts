@@ -1,5 +1,5 @@
 // Barrel for the shared UI primitives — import several with one line:
-//   import {Card, Pill, Eyebrow, Avatar} from '../ui';
+//   import {Card, Pill, Eyebrow, Avatar} from '@/components/ui';
 export {default as Section} from './section';
 export {default as Eyebrow} from './eyebrow';
 export {default as Heading} from './heading';

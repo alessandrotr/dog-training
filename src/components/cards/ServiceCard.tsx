@@ -3,11 +3,10 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Sparkles, Plus, Check, BookOpen } from 'lucide-react'
-import { useHref } from '../../lib/navigation'
-import { useInquiryToggle } from '../InquiryCartProvider'
-import { Card, CardStat, PriceTag, Heading, Text } from '../ui'
-import { cn } from '../../lib/utils'
-import type { ServiceItem } from '../../types'
+import { useHref } from '@/lib/navigation'
+import {useInquiryToggle} from '@/features/inquiry/components/InquiryCartProvider';import { Card, CardStat, PriceTag, Heading, Text } from '@/components/ui'
+import { cn } from '@/lib/utils'
+import type { ServiceItem } from '@/types'
 
 // Shared ecommerce-style program card used by both the home carousel and the
 // services-page grid. `slideProps` (from useCarousel) is spread onto the link

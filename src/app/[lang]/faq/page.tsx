@@ -1,8 +1,8 @@
 import type {Metadata} from 'next';
-import RenderStoryblokPage from '../../../components/RenderStoryblokPage';
-import {isLocale, DEFAULT_LOCALE} from '../../../lib/locales';
-import {resolvePageContext} from '../../../lib/route-context';
-import {pageMetadata} from '../../../lib/seo';
+import RenderStoryblokPage from '@/features/storyblok/components/RenderStoryblokPage';
+import {isLocale, DEFAULT_LOCALE} from '@/lib/locales';
+import {resolvePageContext} from '@/lib/route-context';
+import {pageMetadata} from '@/lib/seo';
 
 type SP = Promise<Record<string, string | string[] | undefined>>;
 

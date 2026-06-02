@@ -1,7 +1,7 @@
 import type {Metadata} from 'next';
-import RenderStoryblokPage from '../../../components/RenderStoryblokPage';
-import {resolvePageContext} from '../../../lib/route-context';
-import {staticMetadata} from '../../../lib/seo';
+import RenderStoryblokPage from '@/features/storyblok/components/RenderStoryblokPage';
+import {resolvePageContext} from '@/lib/route-context';
+import {staticMetadata} from '@/lib/seo';
 
 type SP = Promise<Record<string, string | string[] | undefined>>;
 
