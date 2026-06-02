@@ -1,0 +1,147 @@
+'use client';
+
+import Link from 'next/link';
+import Image from 'next/image';
+import {storyblokEditable} from '@storyblok/react';
+import {Award, ArrowRight} from 'lucide-react';
+import {useHref} from '@/lib/navigation';
+import Availability from './Availability';
+import {Button, Heading, Text, Eyebrow} from '@/components/ui';
+
+import type {BlokBase} from '@/types';
+
+interface HeroBlok extends BlokBase {
+  eyebrow?: string;
+  headline?: string;
+  headline_highlight?: string;
+  headline_suffix?: string;
+  subheadline?: string;
+  image?: {filename?: string; alt?: string};
+  background_image?: {filename?: string; alt?: string};
+  primary_label?: string;
+  primary_target?: string;
+  secondary_label?: string;
+  secondary_target?: string;
+  badge_title?: string;
+  badge_subtitle?: string;
+  availability?: string;
+  show_availability?: boolean;
+}
+
+export default function Hero({blok}: {blok: HeroBlok}) {
+  const href = useHref();
+  // When ON, the right column shows the global Availability card instead of the image.
+  const showAvailability = blok.show_availability === true;
+  const bgImage = blok.background_image?.filename;
+
+  return (
+    <section
+      {...storyblokEditable(blok as any)}
+      className="relative -mt-16 overflow-hidden bg-linear-to-b from-amber-200 to-amber-50 pt-24 pb-8 md:pt-36"
+    >
+      {/* Optional Storyblok-managed background image + readability scrim */}
+      {bgImage && (
+        <>
+          <Image
+            src={bgImage}
+            alt={blok.background_image?.alt || ''}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center opacity-85"
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-linear-to-r from-stone-50/95 via-stone-50/75 to-stone-50/35" />
+        </>
+      )}
+
+      {/* Seamless fade into the next section (body stone-50) */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-b from-transparent to-stone-50 md:h-32" />
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex max-md:flex-col lg:gap-12 md:items-center">
+          <div className="lg:w-2/3 space-y-6 text-left">
+            {blok.eyebrow && <Eyebrow tone="brand">{blok.eyebrow}</Eyebrow>}
+
+            <Heading level={1} size="display" className="md:text-6xl leading-[1.08]">
+              {blok.headline}
+              {blok.headline_highlight && (
+                <>
+                  {' '}
+                  <span className="bg-linear-to-br from-amber-500 via-amber-600 to-amber-700 bg-clip-text text-transparent">
+                    {blok.headline_highlight}
+                  </span>
+                </>
+              )}
+              {blok.headline_suffix ? ` ${blok.headline_suffix}` : ''}
+            </Heading>
+
+            {blok.subheadline && (
+              <Text size="base" className="text-lg text-stone-900 lg:text-stone-700 max-w-2xl">
+                {blok.subheadline}
+              </Text>
+            )}
+
+            <div className="flex flex-col sm:flex-row gap-4 pt-3 max-lg:hidden">
+              {/* When an availability card is shown, it carries the booking CTA — so
+                  hide the hero's primary button to avoid duplication. */}
+              {!showAvailability && blok.primary_label && (
+                <Button render={<Link href={href.page(blok.primary_target || 'booking')} />} variant="cta" size="xl">
+                  {blok.primary_label}
+                  <ArrowRight className="h-4.5 w-4.5" />
+                </Button>
+              )}
+              {blok.secondary_label && (
+                <Button render={<Link href={href.page(blok.secondary_target || 'services')} />} variant="ctaOutline" size="xl">
+                  {blok.secondary_label}
+                </Button>
+              )}
+            </div>
+
+            {!showAvailability && blok.availability && (
+              <div className="flex items-center space-x-1.5 text-xs text-stone-400 font-mono">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>{blok.availability}</span>
+              </div>
+            )}
+          </div>
+
+          <div className="lg:max-w-lg w-full relative">
+            {showAvailability ? (
+              <Availability />
+            ) : (
+              <div className="relative mx-auto max-w-[420px] lg:max-w-none">
+                <div className="absolute -inset-1 rounded-3xl bg-amber-700/10 blur-xl"></div>
+
+                <div className="relative overflow-hidden rounded-3xl border-8 border-white bg-stone-100 shadow-2xl aspect-video">
+                  {blok.image?.filename && (
+                    <Image
+                      src={blok.image.filename}
+                      alt={blok.image.alt || ''}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 40vw"
+                      className="object-cover transition-transform duration-700 hover:scale-105"
+                      referrerPolicy="no-referrer"
+                    />
+                  )}
+                </div>
+
+                {(blok.badge_title || blok.badge_subtitle) && (
+                  <div className="absolute -bottom-6 lg:-left-6 rounded-2xl bg-stone-900 p-4 text-stone-100 shadow-xl border border-stone-800 flex items-center space-x-3.5 max-w-[240px]">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-700 text-amber-100">
+                      <Award className="h-5.5 w-5.5" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-xs font-bold leading-tight font-sans text-stone-100">{blok.badge_title}</p>
+                      <p className="text-[10px] font-mono text-stone-400">{blok.badge_subtitle}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
