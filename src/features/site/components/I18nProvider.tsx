@@ -5,11 +5,13 @@ import {I18nextProvider} from 'react-i18next';
 import i18n from '@/lib/i18n';
 import type {Locale} from '@/lib/locales';
 
-// Drives the i18next language from the URL locale. The language is set
-// synchronously during render so the server-rendered HTML matches the route
-// (avoiding hydration mismatches). NOTE: i18n is a module singleton — fine for
-// this low-traffic site; a per-request instance would be the fully
-// concurrency-safe upgrade (see plan: Future Improvements).
+// Module-level (survives provider re-mounts): flips true after the first client
+// commit. Distinguishes the safe initial render from later locale switches.
+let booted = false;
+
+// Drives the i18next language from the URL locale. NOTE: i18n is a module
+// singleton — fine for this low-traffic site; a per-request instance would be
+// the fully concurrency-safe upgrade (see plan: Future Improvements).
 export default function I18nProvider({
   lang,
   children,
@@ -17,11 +19,20 @@ export default function I18nProvider({
   lang: Locale;
   children: React.ReactNode;
 }) {
-  if (i18n.language !== lang) {
+  // Set synchronously only on the server (SSR) and the very first client render —
+  // at that point nothing is committed, so no consumer is subscribed yet. On the
+  // server it keeps SSR HTML on the route's language; on the first client render
+  // it avoids a hydration mismatch for non-default locales.
+  if ((typeof window === 'undefined' || !booted) && i18n.language !== lang) {
     i18n.changeLanguage(lang);
   }
 
+  // Every later (post-hydration) locale switch happens in an effect — never
+  // during render — so i18next notifies the already-mounted Navbar/etc. through
+  // the normal commit phase instead of mid-render (which React forbids).
   useEffect(() => {
+    booted = true;
+    if (i18n.language !== lang) i18n.changeLanguage(lang);
     document.documentElement.lang = lang;
   }, [lang]);
 
