@@ -8,7 +8,7 @@ interface PageBlok extends BlokBase {
 // Root `page` content type: renders its composed bloks in order.
 export default function Page({ blok }: { blok: PageBlok }) {
   return (
-    <div {...storyblokEditable(blok as any)} className="space-y-8 lg:space-y-12 pb-8">
+    <div {...storyblokEditable(blok as any)} className="space-y-8 pb-8">
       {(blok.body ?? []).map((nested) => (
         <StoryblokServerComponent blok={nested} key={nested._uid} />
       ))}

@@ -81,12 +81,6 @@
           "translatable": true
         },
         "category": { "type": "option", "pos": 3, "source": "internal", "datasource_slug": "categories", "description": "Pick a category. Add new ones under Datasources → Categories." },
-        "reading_time": {
-          "type": "text",
-          "pos": 4,
-          "translatable": true,
-          "description": "e.g. 6 min read"
-        },
         "publish_date": { "type": "text", "pos": 5, "translatable": true },
         "tags": {
           "type": "options",

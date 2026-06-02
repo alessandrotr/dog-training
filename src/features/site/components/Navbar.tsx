@@ -86,7 +86,7 @@ export default function Navbar({ config }: { config: SiteConfig }) {
         <div className="flex md:hidden items-center space-x-2">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="rounded-lg p-2 text-stone-600 hover:bg-stone-100 hover:text-stone-900 focus:outline-none"
+            className="rounded-lg p-2 text-stone-900 hover:bg-stone-100 hover:text-stone-900 focus:outline-none"
             aria-label="Toggle menu"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -130,7 +130,11 @@ export default function Navbar({ config }: { config: SiteConfig }) {
                 size="xl"
                 className="w-full py-3"
               >
-                {available ? <CalendarClock className="h-4 w-4" /> : <BellPlus className="h-4 w-4" />}
+                {available ? (
+                  <CalendarClock className="h-4 w-4" />
+                ) : (
+                  <BellPlus className="h-4 w-4" />
+                )}
                 {ctaLabel}
               </Button>
               <div className="text-center mt-3 text-xs font-mono text-stone-500">

@@ -91,7 +91,7 @@ export default function Carousel<T>({
         className="overflow-hidden cursor-grab select-none active:cursor-grabbing"
         ref={emblaRef}
       >
-        <div className="flex gap-6 py-1">
+        <div className="flex gap-2.5 lg:gap-4 py-1">
           {items.map((item) => (
             <div key={getKey(item)} className={`min-w-0 ${SIZES[size]}`}>
               {renderItem(item, slideProps)}

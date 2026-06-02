@@ -76,20 +76,20 @@ export default function BlogPostTemplate({
             {post.title}
           </Heading>
 
-          <div className="flex flex-wrap items-center justify-center md:justify-between gap-4 text-xs font-mono text-stone-400 pt-4 border-t border-stone-100">
-            <div className="flex items-center space-x-1">
+          <div className="flex flex-wrap items-center justify-center md:justify-between gap-4 text-xs font-mono text-stone-400 pt-4">
+            <div className="flex items-center gap-1.5">
               <CalendarDays className="h-3.5 w-3.5 text-amber-700" />
-              <span>Published: {post.publishDate}</span>
+              <span className="text-stone-600">Published: {post.publishDate}</span>
             </div>
-            <div className="flex items-center space-x-1">
+            <div className="flex items-center gap-1.5">
               <Clock className="h-3.5 w-3.5 text-amber-700" />
-              <span>{post.readingTime}</span>
+              <span className="text-stone-600">{post.readingTime}</span>
             </div>
           </div>
         </div>
 
         {/* Big visual header */}
-        <div className="relative overflow-hidden rounded-3xl bg-stone-100 shadow-lg mb-12 max-h-[420px] aspect-[16/9] w-full">
+        <div className="relative overflow-hidden rounded-3xl bg-stone-100 shadow-lg mb-12 max-h-[420px] aspect-video w-full">
           <Image
             src={post.imageUrl}
             alt={post.title}
@@ -101,9 +101,9 @@ export default function BlogPostTemplate({
         </div>
 
         {/* Main Body Split (Sidebar / Content) */}
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+        <div className="grid grid-cols-1 gap-4 lg:gap-12 lg:grid-cols-12">
           {/* LEFT: Sidebar with Author & TOC */}
-          <aside className="lg:col-span-4 space-y-8 lg:sticky lg:top-(--nav-offset) h-fit lg:transition-[top] lg:duration-300 lg:ease-out">
+          <aside className="lg:col-span-4 space-y-4 lg:sticky lg:top-(--nav-offset) h-fit lg:transition-[top] lg:duration-300 lg:ease-out">
             {/* Table of Contents (auto-generated from the article headings) */}
             {toc.length > 1 && (
               <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6 text-left">
@@ -136,18 +136,10 @@ export default function BlogPostTemplate({
 
             {/* Trainer availability (global, synced from Site Config) */}
             <Availability />
-          </aside>
-
-          {/* RIGHT: Document Text markdown-body typography */}
-          <main className="lg:col-span-8">
-            <Prose
-              html={post.content}
-              className="prose-headings:font-sans prose-headings:font-extrabold prose-headings:text-amber-950 prose-headings:scroll-mt-24 prose-li:my-1.5 prose-p:my-4 prose-li:text-stone-600"
-            />
 
             {/* Article tags */}
             {post.tags && post.tags.length > 0 && (
-              <div className="mt-12 border-t border-stone-200 pt-8">
+              <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6 text-left">
                 <Eyebrow className="mb-3 flex items-center gap-1.5">
                   <Tag className="h-3.5 w-3.5 text-amber-700" /> Topics
                 </Eyebrow>
@@ -164,12 +156,20 @@ export default function BlogPostTemplate({
                 </div>
               </div>
             )}
+          </aside>
+
+          {/* RIGHT: Document Text markdown-body typography */}
+          <main className="lg:col-span-8 max-lg:mt-4">
+            <Prose
+              html={post.content}
+              className="prose-headings:font-sans prose-headings:font-extrabold prose-headings:text-amber-950 prose-headings:scroll-mt-24 prose-li:my-1.5 prose-p:my-4 prose-li:text-stone-600"
+            />
           </main>
         </div>
 
         {/* Related programs (cross-sell) */}
         {relatedServices.length > 0 && (
-          <div className="pt-12 lg:pt-8">
+          <div className="pt-8">
             <Carousel
               items={relatedServices}
               getKey={(s) => s.id}
@@ -190,7 +190,7 @@ export default function BlogPostTemplate({
 
         {/* Related articles — shared Carousel */}
         {relatedPosts.length > 0 && (
-          <div className="pt-12 lg:pt-8">
+          <div className="pt-8">
             <Carousel
               items={relatedPosts}
               getKey={(p) => p.id}

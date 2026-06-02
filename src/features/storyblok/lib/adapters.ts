@@ -16,6 +16,17 @@ const richText = (val: any): string => {
   }
 };
 
+// Estimate reading time from the article body (computed, not authored in
+// Storyblok). Strips HTML tags, counts words, ~200 wpm, floored at 1 minute.
+const readingTime = (html: string): string => {
+  const words = html
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&[a-z]+;/gi, ' ')
+    .split(/\s+/)
+    .filter(Boolean).length;
+  return `${Math.max(1, Math.round(words / 200))} min read`;
+};
+
 // Injects stable `id`s into the article's h2/h3 headings and extracts a table
 // of contents, server-side, so anchors exist in the SSR HTML (reliable scroll).
 const buildToc = (html: string): {html: string; toc: BlogPost['tableOfContents']} => {
@@ -109,7 +120,7 @@ export const adaptBlogPost = (s: any): BlogPost => {
     tableOfContents: toc,
     imageUrl: assetUrl(c.image) ?? '',
     publishDate: c.publish_date ?? '',
-    readingTime: c.reading_time ?? '',
+    readingTime: readingTime(html),
     category: c.category ?? '',
     // tags is now a multi-option (datasource) array; tolerate the old textarea.
     tags: Array.isArray(c.tags) ? c.tags.filter(Boolean) : lines(c.tags),
