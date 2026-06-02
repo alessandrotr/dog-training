@@ -60,7 +60,7 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex max-md:flex-col lg:gap-12 md:items-center">
-          <div className="lg:w-2/3 space-y-6 text-left">
+          <div className="lg:w-2/3 flex flex-col gap-4 max-lg:mb-4 text-left">
             {blok.eyebrow && <Eyebrow tone="brand">{blok.eyebrow}</Eyebrow>}
 
             <Heading level={1} size="display" className="md:text-6xl leading-[1.08]">
