@@ -43,7 +43,7 @@ export default function Carousel<T>({
   return (
     <div>
       {hasHeader && (
-        <div className="mb-4 lg:mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+        <div className="mb-2.5 lg:mb-4 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <SectionHeading
             eyebrow={eyebrow}
             headline={headline}
