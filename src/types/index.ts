@@ -48,6 +48,13 @@ export interface SiteConfig {
   navItems: NavLink[];
   ctaLabel: string;
   ctaTarget: string;
+  // Site-wide SEO defaults (single source of truth for title suffix, fallback
+  // meta description, default OG image, and the LocalBusiness structured data).
+  seo: {
+    siteName: string;
+    defaultDescription: string;
+    defaultImageUrl: string;
+  };
   footer: {
     brandName: string;
     brandSubtitle: string;

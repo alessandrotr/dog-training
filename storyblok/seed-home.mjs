@@ -124,7 +124,7 @@ const content = {
   component: 'page',
   _uid: 'home-page-root',
   body,
-  ...tr('seo_title', 'Sophia Binder Canine Academy', 'Sophia Binder Hundeakademie'),
+  ...tr('seo_title', 'Sophia Binder Dog Trainer', 'Sophia Binder Hundeakademie'),
   ...tr(
     'seo_description',
     'Scandinavian-inspired force-free dog training in Seattle & Bellevue.',

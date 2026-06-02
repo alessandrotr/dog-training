@@ -1,6 +1,7 @@
 import type {Metadata} from 'next';
 import {LOCALES, DEFAULT_LOCALE, isLocale, type Locale} from './locales';
 import {getPageStory} from '@/features/storyblok/api/get-page';
+import {getConfig} from '@/features/storyblok/api/get-config';
 
 // Public site origin (no trailing slash). Set NEXT_PUBLIC_SITE_URL when you
 // move to a custom domain; falls back to the current Vercel URL.
@@ -8,9 +9,10 @@ export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ?? 'https://dog-training-indol.vercel.app'
 ).replace(/\/$/, '');
 
-export const SITE_NAME = 'Sophia Binder Canine Academy';
-
-const DEFAULT_DESCRIPTION =
+// Last-resort fallbacks only — used when the Storyblok Site Config is
+// unreachable. The real site name / description / OG image come from config.seo.
+const FALLBACK_SITE_NAME = 'Sophia Binder Dog Trainer';
+const FALLBACK_DESCRIPTION =
   'Scandinavian-inspired force-free dog training. Professional private obedience coaching, puppy foundations, and complex reactive dog rehabilitation.';
 
 const OG_LOCALE: Record<Locale, string> = {en: 'en_US', de: 'de_DE'};
@@ -33,6 +35,8 @@ export function buildMetadata({
   lang,
   image,
   type = 'website',
+  siteName = FALLBACK_SITE_NAME,
+  defaultDescription = FALLBACK_DESCRIPTION,
 }: {
   title?: string;
   description?: string;
@@ -40,9 +44,11 @@ export function buildMetadata({
   lang: Locale;
   image?: string;
   type?: 'website' | 'article';
+  siteName?: string;
+  defaultDescription?: string;
 }): Metadata {
-  const fullTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
-  const desc = description || DEFAULT_DESCRIPTION;
+  const fullTitle = title ? `${title} | ${siteName}` : siteName;
+  const desc = description || defaultDescription;
   const alts = alternates(path, lang);
   const images = image ? [{url: image}] : undefined;
 
@@ -54,7 +60,7 @@ export function buildMetadata({
       title: fullTitle,
       description: desc,
       url: alts.canonical,
-      siteName: SITE_NAME,
+      siteName,
       locale: OG_LOCALE[lang],
       type,
       images,
@@ -87,31 +93,33 @@ export async function detailMetadata<T extends {slug: string}>({
   type?: 'website' | 'article';
 }): Promise<Metadata> {
   const l = isLocale(lang) ? lang : DEFAULT_LOCALE;
-  const item = (await load(l)).find((i) => i.slug === slug);
-  return buildMetadata({...(item ? map(item) : {}), path, lang: l, type});
-}
-
-// Metadata for a static route whose copy is hard-coded per locale (e.g. the
-// contact/booking dialog routes, blog index). Replaces inline `l === 'de' ? …`.
-export function staticMetadata(
-  lang: string,
-  path: string,
-  copy: Record<Locale, {title: string; description: string}>,
-): Metadata {
-  const l = isLocale(lang) ? lang : DEFAULT_LOCALE;
-  return buildMetadata({...copy[l], path, lang: l});
+  const [items, config] = await Promise.all([load(l), getConfig(l)]);
+  const item = items.find((i) => i.slug === slug);
+  const mapped = item ? map(item) : {};
+  return buildMetadata({
+    ...mapped,
+    image: mapped.image || config.seo.defaultImageUrl || undefined,
+    path,
+    lang: l,
+    type,
+    siteName: config.seo.siteName,
+    defaultDescription: config.seo.defaultDescription,
+  });
 }
 
 // Metadata for a builder `page` story (home + marketing routes + catch-all),
-// derived from its translatable seo_* fields. Reuses the cached published fetch.
+// derived from its translatable seo_* fields, with site-wide fallbacks from the
+// Storyblok Site Config. Both fetches are React-cached.
 export async function pageMetadata(slug: string, lang: Locale, path: string): Promise<Metadata> {
-  const story = await getPageStory(slug, lang, false);
+  const [story, config] = await Promise.all([getPageStory(slug, lang, false), getConfig(lang)]);
   const c: Record<string, any> = story?.content ?? {};
   return buildMetadata({
     title: c.seo_title || story?.name,
     description: c.seo_description,
-    image: c.seo_image?.filename,
+    image: c.seo_image?.filename || config.seo.defaultImageUrl || undefined,
     path,
     lang,
+    siteName: config.seo.siteName,
+    defaultDescription: config.seo.defaultDescription,
   });
 }

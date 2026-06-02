@@ -65,7 +65,8 @@
       "Bash(node -e ' *)",
       "Bash(git stash *)",
       "Bash(sed -i '' \"s#  // site#  InquiryCartBar:{mod:'@/features/inquiry/components/InquiryCartBar',kind:'default'},\\\\n  // site#\" /tmp/debarrel.mjs)",
-      "Bash(node /tmp/debarrel.mjs)"
+      "Bash(node /tmp/debarrel.mjs)",
+      "Bash(sed -n 1,25p src/app/[lang]/__TRACKED_VAR__/page.tsx)"
     ],
     "additionalDirectories": [
       "/tmp",

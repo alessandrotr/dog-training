@@ -75,7 +75,7 @@ const content = {
   ...tr('footer_address', '42 Moss Ridge Road, Bellevue, WA 98004', '42 Moss Ridge Road, Bellevue, WA 98004'),
   footer_phone: '+1 (555) 019-2819',
   footer_email: 'hello@sophiabindercanine.com',
-  ...tr('footer_copyright', '© 2026 Sophia Binder Canine Academy LLC. All rights reserved.', '© 2026 Sophia Binder Canine Academy LLC. Alle Rechte vorbehalten.'),
+  ...tr('footer_copyright', '© 2026 Sophia Binder Dog Trainer LLC. All rights reserved.', '© 2026 Sophia Binder Dog Trainer LLC. Alle Rechte vorbehalten.'),
   ...tr('footer_bottom_tags', 'Force-Free & Scientifically Aligned\nScandinavian Philosophy', 'Gewaltfrei & wissenschaftlich fundiert\nSkandinavische Philosophie'),
 };
 

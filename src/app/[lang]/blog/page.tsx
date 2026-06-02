@@ -1,22 +1,16 @@
 import type {Metadata} from 'next';
 import RenderStoryblokPage from '@/features/storyblok/components/RenderStoryblokPage';
+import {isLocale, DEFAULT_LOCALE} from '@/lib/locales';
 import {resolvePageContext} from '@/lib/route-context';
-import {staticMetadata} from '@/lib/seo';
+import {pageMetadata} from '@/lib/seo';
 
 type SP = Promise<Record<string, string | string[] | undefined>>;
 
+// SEO comes from the `pages/blog` story's seo_* fields, like every other
+// builder page — editable in Storyblok, nothing hardcoded here.
 export async function generateMetadata({params}: {params: Promise<{lang: string}>}): Promise<Metadata> {
   const {lang} = await params;
-  return staticMetadata(lang, 'blog', {
-    en: {
-      title: 'Insights & News',
-      description: 'Dog-training tips, methods, and news from the Sophia Binder Canine Academy.',
-    },
-    de: {
-      title: 'Ratgeber & Neuigkeiten',
-      description: 'Tipps zur Hundeerziehung, Trainingsmethoden und Neuigkeiten aus der Sophia Binder Canine Academy.',
-    },
-  });
+  return pageMetadata('blog', isLocale(lang) ? lang : DEFAULT_LOCALE, 'blog');
 }
 
 // The blog index is a composed `page` story (pages/blog): a Page Header blok +

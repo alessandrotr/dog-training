@@ -360,7 +360,11 @@
         "footer_phone": { "type": "text", "pos": 12 },
         "footer_email": { "type": "text", "pos": 13 },
         "footer_copyright": { "type": "text", "pos": 14, "translatable": true },
-        "footer_bottom_tags": { "type": "textarea", "pos": 15, "translatable": true, "description": "One tag per line" }
+        "footer_bottom_tags": { "type": "textarea", "pos": 15, "translatable": true, "description": "One tag per line" },
+        "seo_group": { "type": "section", "pos": 16, "keys": ["seo_site_name", "seo_default_description", "seo_default_image"] },
+        "seo_site_name": { "type": "text", "pos": 17, "description": "Business name used in page titles (\"… | Name\"), Open Graph, and structured data. e.g. Sophia Binder Dog Trainer" },
+        "seo_default_description": { "type": "textarea", "pos": 18, "translatable": true, "description": "Fallback meta description for pages that don't set their own seo_description." },
+        "seo_default_image": { "type": "asset", "filetypes": ["images"], "pos": 19, "description": "Default social-share image (Open Graph) when a page has none. ~1200x630." }
       }
     },
     {

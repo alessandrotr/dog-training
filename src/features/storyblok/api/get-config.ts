@@ -19,6 +19,12 @@ export const DEFAULT_CONFIG: SiteConfig = {
   ],
   ctaLabel: 'Book Consult',
   ctaTarget: 'booking',
+  seo: {
+    siteName: 'Sophia Binder Dog Trainer',
+    defaultDescription:
+      'Scandinavian-inspired force-free dog training. Professional private obedience coaching, puppy foundations, and complex reactive dog rehabilitation.',
+    defaultImageUrl: '',
+  },
   footer: {
     brandName: 'SOPHIA BINDER',
     brandSubtitle: 'Gentle Education',
@@ -54,7 +60,7 @@ export const DEFAULT_CONFIG: SiteConfig = {
     address: '42 Moss Ridge Road, Bellevue, WA 98004',
     phone: '+1 (555) 019-2819',
     email: 'hello@sophiabindercanine.com',
-    copyright: '© 2026 Sophia Binder Canine Academy LLC. All rights reserved.',
+    copyright: '© 2026 Sophia Binder Dog Trainer LLC. All rights reserved.',
     bottomTags: ['Force-Free & Scientifically Aligned', 'Scandinavian Philosophy'],
   },
 };
@@ -80,6 +86,11 @@ function adaptConfig(content: any): SiteConfig {
     navItems: navItems.length ? navItems : d.navItems,
     ctaLabel: content.cta_label || d.ctaLabel,
     ctaTarget: content.cta_target || d.ctaTarget,
+    seo: {
+      siteName: content.seo_site_name || d.seo.siteName,
+      defaultDescription: content.seo_default_description || d.seo.defaultDescription,
+      defaultImageUrl: assetUrl(content.seo_default_image) || d.seo.defaultImageUrl,
+    },
     footer: {
       brandName: content.footer_brand_name || d.footer.brandName,
       brandSubtitle: content.footer_brand_subtitle || d.footer.brandSubtitle,

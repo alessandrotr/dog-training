@@ -2,7 +2,8 @@ import {notFound} from 'next/navigation';
 import {isLocale, LOCALES} from '@/lib/locales';
 import I18nProvider from '@/features/site/components/I18nProvider';
 import SiteChrome from '@/features/site/components/SiteChrome';
-import {LOCAL_BUSINESS_SCHEMA} from '@/lib/business-schema';
+import {buildLocalBusinessSchema} from '@/lib/business-schema';
+import {SITE_URL} from '@/lib/seo';
 import {getConfig} from '@/features/storyblok/api/get-config';
 import {getAvailability} from '@/features/storyblok/api/get-availability';
 import {getServices} from '@/features/storyblok/api/content-server';
@@ -32,7 +33,7 @@ export default async function LangLayout({
       {/* Server-rendered structured data for local search. */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{__html: JSON.stringify(LOCAL_BUSINESS_SCHEMA)}}
+        dangerouslySetInnerHTML={{__html: JSON.stringify(buildLocalBusinessSchema(config, SITE_URL))}}
       />
       <SiteChrome config={config} availability={availability} services={services}>{children}</SiteChrome>
     </I18nProvider>
