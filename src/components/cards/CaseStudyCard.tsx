@@ -1,13 +1,16 @@
 'use client'
 
-import { ArrowUpRight } from 'lucide-react'
+import Link from 'next/link'
+import Image from 'next/image'
 import { useHref } from '@/lib/navigation'
-import { Eyebrow, Pill, Card, PersonByline, Text } from '@/components/ui'
+import { Avatar, Pill, Card, Heading, Text } from '@/components/ui'
 import { cn } from '@/lib/utils'
 import type { TestimonialItem, ServiceItem } from '@/types'
 
-// The single case-study card used everywhere a client story is shown.
-// Order: dog/owner → the challenge → the story → the outcome → the service.
+// The single case-study card — framed like an Instagram *story* for the dog:
+// a full-bleed portrait photo with story progress bars + a ringed-avatar header
+// up top, and the caption (challenge → outcome) + service tag overlaid at the
+// bottom. The whole card opens the full story; the service tag links out.
 export default function CaseStudyCard({
   story,
   service,
@@ -15,70 +18,77 @@ export default function CaseStudyCard({
   slideProps,
 }: {
   story: TestimonialItem
-  service?: ServiceItem // the service this case study is about; omit to hide the link
+  service?: ServiceItem // the service this case study is about; omit to hide the tag
   className?: string
   slideProps?: Record<string, unknown> // drag-guard from useCarousel (card carousel)
 }) {
   const href = useHref()
+  const handle = `@${(story.dogBreed || story.name).toLowerCase().replace(/[^a-z0-9]+/g, '') || 'goodboy'}`
 
   return (
     <Card
       as="figure"
-      padding="md"
+      padding="none"
       interactive
-      className={cn('group relative flex flex-col shadow-sm', className)}
+      className={cn('group relative aspect-4/5 overflow-hidden shadow-sm', className)}
     >
-      {/* 1. The dog / owner — the name is the stretched link to the full case study */}
-      <PersonByline
-        name={story.name}
-        breed={story.dogBreed}
-        imageUrl={story.imageUrl}
+      {/* Full-bleed photo */}
+      {story.imageUrl && (
+        <Image
+          src={story.imageUrl}
+          alt={story.name}
+          fill
+          sizes="(max-width: 640px) 85vw, 320px"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          referrerPolicy="no-referrer"
+        />
+      )}
+      {/* Scrims: subtle at top (bars/header), heather-plum at bottom (caption) */}
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-stone-950/45 via-transparent to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-amber-950/95 via-amber-950/35 to-transparent" />
+
+      {/* Header: ringed avatar + name + @handle */}
+      <div className="absolute inset-x-3 top-3.5 flex items-center gap-2.5">
+        <span className="rounded-full bg-linear-to-br from-amber-400 to-amber-700 p-0.5">
+          <Avatar src={story.imageUrl} name={story.name} size="sm" className="h-9 w-9 border-2 border-white" />
+        </span>
+        <div className="min-w-0 leading-tight">
+          <p className="truncate text-sm font-bold text-white drop-shadow-sm">{story.name}</p>
+          <p className="truncate font-mono text-[10px] text-white/70">{handle}</p>
+        </div>
+      </div>
+
+      {/* Whole-card stretched link → the full story */}
+      <Link
         href={href.caseStudy(story.slug)}
-        stretched
-        slideProps={slideProps}
+        {...slideProps}
+        aria-label={`Read ${story.name}'s story`}
+        className="absolute inset-0 z-10"
       />
 
-      {/* 2. The challenge */}
-      {story.challenge && (
-        <div className="mt-4">
-          <Eyebrow>The challenge</Eyebrow>
-          <Text size="sm" className="mt-1 font-semibold leading-snug text-stone-700">
+      {/* Caption overlay */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 space-y-2 p-4 text-left">
+        {story.challenge && (
+          <Heading level={3} size="card" tone="inverse" className="line-clamp-3 leading-snug">
             {story.challenge}
-          </Text>
-        </div>
-      )}
-
-      {/* The outcome — styled like the challenge */}
-      {story.outcome && (
-        <div className="mt-4">
-          <Eyebrow>The outcome</Eyebrow>
-          <Text size="sm" className="mt-1 font-semibold leading-snug text-stone-700">
+          </Heading>
+        )}
+        {story.outcome && (
+          <Text size="sm" className="line-clamp-2 text-white/80">
+            <span className="font-semibold text-emerald-300">Outcome — </span>
             {story.outcome}
           </Text>
-        </div>
-      )}
-
-      {/* 5. The service + read-more affordance */}
-      <div className="mt-5 flex items-end justify-between gap-5 border-t border-stone-100 pt-4">
-        {service ? (
-          <div className="flex min-w-0 flex-col gap-1.5">
-            <Eyebrow>Service</Eyebrow>
-            <Pill
-              tone="stone"
-              href={href.service(service.slug)}
-              title={service.title}
-              className="group/chip relative z-10 max-w-full"
-            >
-              <span className="truncate">{service.title}</span>
-              <ArrowUpRight className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 group-hover/chip:translate-x-0.5 group-hover/chip:-translate-y-0.5" />
-            </Pill>
-          </div>
-        ) : (
-          <span />
         )}
-        <span className="hidden shrink-0 items-center gap-1 font-mono text-[11px] font-semibold uppercase tracking-wider text-amber-800 transition-transform duration-300 group-hover:translate-x-0.5 sm:inline-flex">
-          Read story <ArrowUpRight className="h-3.5 w-3.5" />
-        </span>
+        {service && (
+          <Pill
+            tone="solid"
+            href={href.service(service.slug)}
+            title={service.title}
+            className="pointer-events-auto relative z-30 mt-1 max-w-full"
+          >
+            <span className="truncate">#{service.title}</span>
+          </Pill>
+        )}
       </div>
     </Card>
   )
