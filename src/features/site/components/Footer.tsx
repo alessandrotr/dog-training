@@ -19,7 +19,7 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
   ].filter((c) => c.label)
 
   return (
-    <footer className="relative overflow-hidden bg-amber-950 text-stone-300 pt-12 pb-24 lg:py-24">
+    <footer className="relative overflow-hidden bg-amber-900 text-stone-300 pt-12 pb-24 lg:py-24">
       {/* Soft heather glow + paw watermark for a warm, branded backdrop */}
       <div
         aria-hidden

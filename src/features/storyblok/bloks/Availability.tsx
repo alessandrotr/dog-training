@@ -7,6 +7,7 @@ import { MapPin, Zap, ArrowRight, Languages, CalendarClock, BellPlus } from 'luc
 import { useHref } from '@/lib/navigation'
 import { useAvailability } from '@/features/availability/components/AvailabilityProvider'
 import { Button } from '@/components/ui'
+import CtaDecor from '@/components/ui/cta-decor'
 
 // Languages Sophia speaks (hardcoded for now; could become a Storyblok field).
 const SPOKEN_LANGUAGES = [
@@ -155,6 +156,7 @@ export default function Availability({
             size="xl"
             className="mt-5 w-full px-5 py-3"
           >
+            {available && <CtaDecor />}
             {available ? <CalendarClock className="h-4 w-4" /> : <BellPlus className="h-4 w-4" />}
             {ctaLabel}
             <ArrowRight className="h-4 w-4 transition-transform group-hover/button:translate-x-1" />
