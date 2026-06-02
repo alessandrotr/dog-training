@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { Check, Plus, Sparkles, CalendarClock } from 'lucide-react'
+import { Check, ClipboardPlus, ClipboardCheck, Sparkles, CalendarClock, BellPlus } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useInquiryToggle } from '@/features/inquiry/components/InquiryCartProvider'
 import { useBookingMode } from '@/features/availability/components/AvailabilityProvider'
@@ -94,16 +94,16 @@ export default function ServiceDetail({
               >
                 {added ? (
                   <>
-                    <Check className="h-4 w-4" /> Added to inquiry
+                    <ClipboardCheck className="h-4 w-4" /> Added to inquiry
                   </>
                 ) : (
                   <>
-                    <Plus className="h-4 w-4" /> Add to inquiry
+                    <ClipboardPlus className="h-4 w-4" /> Add to inquiry
                   </>
                 )}
               </Button>
               <Button type="button" variant="ctaOutline" size="xl" onClick={() => open(mode)}>
-                <CalendarClock className="h-4 w-4" />{' '}
+                {available ? <CalendarClock className="h-4 w-4" /> : <BellPlus className="h-4 w-4" />}{' '}
                 {available ? 'Book a consult' : t('booking.waitlist')}
               </Button>
             </div>

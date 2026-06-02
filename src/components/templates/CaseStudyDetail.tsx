@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Sparkles, Plus, Check } from 'lucide-react'
+import { Sparkles, ClipboardPlus, ClipboardCheck } from 'lucide-react'
 import { useHref } from '@/lib/navigation'
 import { useParallax } from '@/hooks/use-parallax'
 import { useInquiryToggle } from '@/features/inquiry/components/InquiryCartProvider'
@@ -166,11 +166,11 @@ export default function CaseStudyDetail({
                   >
                     {inquiryAdded ? (
                       <>
-                        <Check className="h-3.5 w-3.5" /> Added
+                        <ClipboardCheck className="h-3.5 w-3.5" /> Added
                       </>
                     ) : (
                       <>
-                        <Plus className="h-3.5 w-3.5" /> Add to inquiry
+                        <ClipboardPlus className="h-3.5 w-3.5" /> Add to inquiry
                       </>
                     )}
                   </button>

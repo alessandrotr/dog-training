@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
-import { Menu, X, CalendarRange, PawPrint } from 'lucide-react'
+import { Menu, X, CalendarClock, BellPlus, PawPrint } from 'lucide-react'
 import { useCurrentPage, useHref } from '@/lib/navigation'
 import { useHideOnScroll } from '@/hooks/use-hide-on-scroll'
 import { useIsAvailable } from '@/features/availability/components/AvailabilityProvider'
@@ -130,7 +130,7 @@ export default function Navbar({ config }: { config: SiteConfig }) {
                 size="xl"
                 className="w-full py-3"
               >
-                <CalendarRange className="h-4 w-4" />
+                {available ? <CalendarClock className="h-4 w-4" /> : <BellPlus className="h-4 w-4" />}
                 {ctaLabel}
               </Button>
               <div className="text-center mt-3 text-xs font-mono text-stone-500">

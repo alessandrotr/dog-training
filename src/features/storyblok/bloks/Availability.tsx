@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { storyblokEditable } from '@storyblok/react'
-import { MapPin, Zap, ArrowRight, Languages } from 'lucide-react'
+import { MapPin, Zap, ArrowRight, Languages, CalendarClock, BellPlus } from 'lucide-react'
 import { useHref } from '@/lib/navigation'
 import { useAvailability } from '@/features/availability/components/AvailabilityProvider'
 import { Button } from '@/components/ui'
@@ -155,6 +155,7 @@ export default function Availability({
             size="xl"
             className="mt-5 w-full px-5 py-3"
           >
+            {available ? <CalendarClock className="h-4 w-4" /> : <BellPlus className="h-4 w-4" />}
             {ctaLabel}
             <ArrowRight className="h-4 w-4 transition-transform group-hover/button:translate-x-1" />
           </Button>

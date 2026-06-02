@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
 import { Accordion } from '@base-ui/react/accordion'
-import { Send, CheckCircle2, AlertCircle, X, Sparkles, PawPrint, ChevronDown } from 'lucide-react'
+import { Send, BellPlus, CheckCircle2, AlertCircle, X, Sparkles, PawPrint, ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Heading, Text, Eyebrow, MultiSelect } from '@/components/ui'
 import { Input } from '@/components/ui/input'
@@ -326,7 +326,8 @@ export default function LeadForm({
               ? 'Auf die Warteliste'
               : 'Join the waitlist'
             : t('contact.fields.sendButton')}
-          {status !== 'loading' && <Send className="h-4 w-4" />}
+          {status !== 'loading' &&
+            (waitlist ? <BellPlus className="h-4 w-4" /> : <Send className="h-4 w-4" />)}
         </Button>
       </div>
     </form>
