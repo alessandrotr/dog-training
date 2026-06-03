@@ -25,6 +25,23 @@ import { Textarea } from '@/components/ui/textarea'
 import { useInquiryCart } from '@/features/inquiry/components/InquiryCartProvider'
 import { useLeadForm } from '@/features/lead/stores/lead-form'
 import { submitLead, makeLeadSchema, type LeadPayload } from '@/features/lead/lib/lead'
+import { useTypewriter } from '@/hooks/use-typewriter'
+
+// Rotating "what people write" prompts that auto-type under the message field.
+const MESSAGE_PROMPTS = {
+  en: [
+    'My pup pulls on the leash — I want calm walks.',
+    'He barks at other dogs and I want to help him.',
+    "We're getting a puppy and want to start right.",
+    'She panics when left alone at home.',
+  ],
+  de: [
+    'Mein Hund zieht an der Leine — ich will entspannte Spaziergänge.',
+    'Er bellt andere Hunde an und ich möchte ihm helfen.',
+    'Wir bekommen bald einen Welpen und wollen es richtig machen.',
+    'Sie ist ängstlich, wenn sie allein zu Hause ist.',
+  ],
+}
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
 type Errors = Partial<Record<'name' | 'email' | 'message', string>>
@@ -47,6 +64,10 @@ export default function LeadForm({
   const { draft: data, setField, reset, programsOpen, setProgramsOpen } = useLeadForm()
   const [errors, setErrors] = useState<Errors>({})
   const [status, setStatus] = useState<Status>('idle')
+  // Auto-typing inspiration under the message label; pauses once they write.
+  const inspiration = useTypewriter(de ? MESSAGE_PROMPTS.de : MESSAGE_PROMPTS.en, {
+    enabled: !data.message,
+  })
 
   function set<K extends keyof LeadPayload>(key: K, value: string) {
     setField(key, value)
@@ -348,12 +369,18 @@ export default function LeadForm({
           <MessageSquareText className="h-3.5 w-3.5 text-amber-700" />
           {t('contact.fields.detailBehaviors')}
         </Label>
+        {!data.message && (
+          <p className="flex min-w-0 items-center font-mono text-xs text-stone-400" aria-hidden>
+            <span className="mr-1 shrink-0 text-amber-700/70">{de ? 'z. B.' : 'e.g.'}</span>
+            <span className="truncate">{inspiration}</span>
+            <span className="ml-px inline-block h-3.5 w-px shrink-0 bg-stone-400 motion-safe:animate-pulse" />
+          </p>
+        )}
         <Textarea
           id="lead-message"
           rows={4}
           value={data.message ?? ''}
           onChange={(e) => set('message', e.target.value)}
-          placeholder={t('contact.fields.detailPlaceholder')}
           aria-invalid={!!errors.message}
         />
         {errors.message && <p className="font-mono text-[10px] text-red-500">{errors.message}</p>}
