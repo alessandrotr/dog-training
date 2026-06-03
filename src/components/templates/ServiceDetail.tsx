@@ -165,7 +165,7 @@ export default function ServiceDetail({
               getKey={(p) => p.id}
               size="sm"
               label="articles"
-              headline="Guides for this program"
+              headline="Articles about this service"
               renderItem={(post, slideProps) => <ArticleCard post={post} slideProps={slideProps} />}
             />
           </div>
