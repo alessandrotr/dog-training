@@ -15,3 +15,6 @@ export {default as PriceTag} from './price-tag';
 export {Button, buttonVariants} from './button';
 export {default as MultiSelect, type MultiSelectOption} from './multi-select';
 export {default as ScrollArea} from './scroll-area';
+export {default as MetaPill} from './meta-pill';
+export {default as ReadingTime} from './reading-time';
+export {default as PublishDate} from './publish-date';

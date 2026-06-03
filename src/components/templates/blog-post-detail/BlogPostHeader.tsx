@@ -1,6 +1,5 @@
 import Image from 'next/image'
-import { CalendarDays, Clock } from 'lucide-react'
-import { Heading } from '@/components/ui'
+import { Heading, ReadingTime, PublishDate } from '@/components/ui'
 import { ShareMenu } from '@/components/share'
 import type { BlogPost } from '@/types'
 
@@ -23,15 +22,9 @@ export default function BlogPostHeader({
         </Heading>
 
         <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 pt-4 font-mono text-xs text-stone-400 md:justify-between">
-          <div className="flex flex-wrap items-center gap-4">
-            <span className="flex items-center gap-1.5">
-              <CalendarDays className="size-3.5 text-amber-700" />
-              <span className="text-stone-600">Published: {post.publishDate}</span>
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Clock className="size-3.5 text-amber-700" />
-              <span className="text-stone-600">{post.readingTime}</span>
-            </span>
+          <div className="flex flex-wrap items-center gap-2">
+            <PublishDate date={post.publishDate} />
+            <ReadingTime time={post.readingTime} />
           </div>
           <ShareMenu title={post.title} text={post.summary} />
         </div>

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, GraduationCap } from 'lucide-react'
 import { useHref } from '@/lib/navigation'
-import { Card, CardStat, Heading, Text } from '@/components/ui'
+import { Card, CardStat, Eyebrow, Heading, Text, ReadingTime } from '@/components/ui'
 import type { BlogPost } from '@/types'
 
 // Shared article card used by every article carousel (home blog list + related
@@ -41,23 +41,8 @@ export default function ArticleCard({
           />
         )}
       </div>
-      <div className="flex flex-1 flex-col p-5 text-left">
-        {/* Meta row — category + related-services count (mirrors ServiceCard) */}
-        {(post.category || serviceCount > 0) && (
-          <div className="flex items-center gap-3 font-mono text-[11px]">
-            {post.category && (
-              <span className="font-bold uppercase tracking-wider text-amber-800">{cat}</span>
-            )}
-            {serviceCount > 0 && (
-              <CardStat
-                icon={GraduationCap}
-                count={serviceCount}
-                singular="service"
-                className="ml-auto"
-              />
-            )}
-          </div>
-        )}
+      <div className="flex flex-1 flex-col p-5 pt-4 text-left">
+        {post.category && post.category && <Eyebrow>{cat}</Eyebrow>}
         <Heading
           level={3}
           size="cardSm"
@@ -72,10 +57,9 @@ export default function ArticleCard({
         )}
         <div className="mt-auto flex items-center justify-between pt-4 font-mono text-[11px]">
           <span className="inline-flex items-center gap-1 font-bold uppercase tracking-wider text-amber-900">
-            Read{' '}
-            <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
+            Read <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
           </span>
-          {post.readingTime && <span className="text-stone-400">{post.readingTime}</span>}
+          <ReadingTime time={post.readingTime} />
         </div>
       </div>
     </Card>
