@@ -11,7 +11,7 @@ import { useAvailability } from '@/features/availability/components/Availability
 import { Text } from '@/components/ui'
 import AvailabilityPresence from './AvailabilityPresence'
 import Scheduler from './Scheduler'
-import LeadForm from './LeadForm'
+import LeadForm from './lead-form'
 
 // Branded, responsive lead dialog: a bottom-sheet on mobile that becomes a
 // centered card on desktop. Composes the Base UI dialog primitive (focus trap,

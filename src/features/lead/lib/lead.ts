@@ -12,12 +12,14 @@ import {z} from 'zod';
 // inquiry — the selected programs carry the intent).
 export function makeLeadSchema(messages: {name: string; email: string; message: string}, requireMessage: boolean) {
   return z.object({
-    name: z.string().trim().min(1, messages.name),
+    name: z.string().trim().min(2, messages.name),
     email: z.string().trim().email(messages.email),
     dogName: z.string().trim().optional(),
     dogAge: z.string().trim().optional(),
     dogBreed: z.string().trim().optional(),
-    message: requireMessage ? z.string().trim().min(1, messages.message) : z.string().trim().optional(),
+    message: requireMessage
+      ? z.string().trim().min(15, messages.message)
+      : z.string().trim().optional(),
   });
 }
 
