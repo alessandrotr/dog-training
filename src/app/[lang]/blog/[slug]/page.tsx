@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import { getBlogPosts, getServices, getTestimonials } from '@/features/storyblok/api/content-server'
 import { getBlogTaxonomies } from '@/features/storyblok/api/get-datasource'
-import BlogPostView from '@/components/templates/BlogPostView'
+import BlogPostDetail from '@/components/templates/blog-post-detail'
 import { DEFAULT_LOCALE, LOCALES } from '@/lib/locales'
 import { resolvePageContext } from '@/lib/route-context'
 import { detailMetadata } from '@/lib/seo'
@@ -50,10 +51,12 @@ export default async function Page({
     getServices(locale, preview),
     getTestimonials(locale, preview),
   ])
+  const post = posts.find((p) => p.slug === slug)
+  if (!post) notFound()
   return (
-    <BlogPostView
+    <BlogPostDetail
+      post={post}
       posts={posts}
-      slug={slug}
       taxonomies={taxonomies}
       services={services}
       testimonials={testimonials}

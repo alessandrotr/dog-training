@@ -2,7 +2,7 @@ import type {TestimonialItem, BlogPost} from '@/types';
 
 // Pure, framework-agnostic selectors over the content lists. These centralise
 // the per-service aggregations that were previously re-implemented in
-// ServicesGrid, ServiceDetail, BlogPostTemplate, Testimonials and the routes.
+// ServicesGrid, ServiceDetail, BlogPostDetail, Testimonials and the routes.
 
 /** Index any id-bearing list by id for O(1) lookup. */
 export function mapById<T extends {id: string}>(items: T[]): Map<string, T> {

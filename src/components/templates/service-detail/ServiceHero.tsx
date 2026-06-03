@@ -10,9 +10,6 @@ import { useLeadDialog } from '@/features/lead/stores/lead-dialog'
 import { Button, PriceTag, Heading, Text } from '@/components/ui'
 import type { ServiceItem } from '@/types'
 
-// Full-bleed hero with the service image as background (mirrors the home hero)
-// plus the primary CTAs. `heroRef` is observed by the parent to toggle the
-// sticky bar once this scrolls out of view.
 export default function ServiceHero({
   service,
   heroRef,

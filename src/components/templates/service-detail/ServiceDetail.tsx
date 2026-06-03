@@ -8,14 +8,11 @@ import ServiceHero from './ServiceHero'
 import ServiceOverview from './ServiceOverview'
 import ServiceRelated from './ServiceRelated'
 
-// One shared, data-driven template for every service. Pure composition: data
-// comes from `useServiceDetail`, each section owns its own presentation.
 export default function ServiceDetail(props: ServiceDetailProps) {
   const { service } = props
   const { caseStudies, articles, relatedServices, caseStudyCounts, guideCounts } =
     useServiceDetail(props)
-  // The hero's visibility drives the sticky bar. Assume in-view initially (the
-  // page loads at the top) so the bar starts hidden — no mount-time flash.
+
   const { ref: heroRef, isIntersecting: heroInView } = useIntersectionObserver({
     threshold: 0,
     initialIsIntersecting: true,

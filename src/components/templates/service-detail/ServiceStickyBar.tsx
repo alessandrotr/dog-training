@@ -7,8 +7,6 @@ import { useInquiryToggle } from '@/features/inquiry/components/InquiryCartProvi
 import { Button } from '@/components/ui'
 import type { ServiceItem } from '@/types'
 
-// Slim CTA bar (name · price · add-to-inquiry) that slides in once the hero is
-// out of view, and rides up/down with the navbar's hide-on-scroll.
 export default function ServiceStickyBar({
   service,
   heroInView,

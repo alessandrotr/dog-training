@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getServices, getTestimonials } from '@/features/storyblok/api/content-server'
-import CaseStudyDetail from '@/components/templates/CaseStudyDetail'
+import CaseStudyDetail from '@/components/templates/case-study-detail'
 import { DEFAULT_LOCALE, LOCALES } from '@/lib/locales'
 import { resolvePageContext } from '@/lib/route-context'
 import { detailMetadata } from '@/lib/seo'

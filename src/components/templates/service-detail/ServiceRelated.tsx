@@ -9,7 +9,6 @@ type ServiceRelatedProps = Pick<
   'caseStudies' | 'articles' | 'relatedServices' | 'caseStudyCounts' | 'guideCounts'
 >
 
-// The three cross-sell carousels: case studies, related articles, other programs.
 export default function ServiceRelated({
   caseStudies,
   articles,

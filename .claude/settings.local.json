@@ -69,7 +69,10 @@
       "Bash(sed -n 1,25p src/app/[lang]/__TRACKED_VAR__/page.tsx)",
       "Bash(sed -n '55,72p' src/features/storyblok/bloks/CtaBanner.tsx)",
       "Bash(sed -n '1,50p' src/components/ui/button.tsx)",
-      "Bash(node -e \"console.log\\('useIntersectionObserver:', !!require\\('usehooks-ts'\\).useIntersectionObserver\\)\")"
+      "Bash(node -e \"console.log\\('useIntersectionObserver:', !!require\\('usehooks-ts'\\).useIntersectionObserver\\)\")",
+      "Bash(sed -n '28,60p' \"src/app/[lang]/services/[slug]/page.tsx\")",
+      "Bash(sed -n '36,70p' \"src/app/[lang]/case-studies/[slug]/page.tsx\")",
+      "Bash(perl -i -pe 's/BlogPostTemplate/BlogPostDetail/g' src/lib/relations.ts)"
     ],
     "additionalDirectories": [
       "/tmp",

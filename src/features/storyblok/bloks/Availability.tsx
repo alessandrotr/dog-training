@@ -38,7 +38,7 @@ export default function Availability({
   const editable = blok ? storyblokEditable(blok as never) : {}
 
   return (
-    <section {...editable} className="mx-auto max-w-md">
+    <section {...editable} className="mx-auto">
       <div className="relative overflow-hidden rounded-3xl border border-stone-200 bg-white p-5 shadow-lg">
         <div className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-amber-200/40 blur-3xl" />
 
