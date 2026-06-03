@@ -6,6 +6,7 @@ import { Tag } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useHref } from '@/lib/navigation'
 import { Eyebrow } from '@/components/ui'
+import { ShareMenu } from '@/components/share'
 import Availability from '@/features/storyblok/bloks/Availability'
 import type { BlogPost } from '@/types'
 
@@ -44,10 +45,14 @@ export default function BlogPostSidebar({
   toc,
   tags,
   tagLabel,
+  shareTitle,
+  shareText,
 }: {
   toc: TocItem[]
   tags: BlogPost['tags']
   tagLabel: (t: string) => string
+  shareTitle: string
+  shareText?: string
 }) {
   const href = useHref()
   const ids = useMemo(() => toc.map((t) => t.id), [toc])
@@ -110,6 +115,8 @@ export default function BlogPostSidebar({
       )}
 
       <Availability compact />
+
+      <ShareMenu title={shareTitle} text={shareText} className="w-full justify-center" />
     </aside>
   )
 }

@@ -1,5 +1,6 @@
 import type { Ref } from 'react'
 import { Prose } from '@/components/ui'
+import { ShareMenu } from '@/components/share'
 
 // Editorial reading treatment for the article body. Grouped by intent so each
 // typographic decision is legible (and tweakable) on its own line.
@@ -30,10 +31,27 @@ const ARTICLE_PROSE = [
 
 // The article content (rich text rendered to HTML, with ToC anchor ids).
 // `ref` targets the prose region so the reading-progress bar tracks it alone.
-export default function BlogPostBody({ html, ref }: { html: string; ref?: Ref<HTMLElement> }) {
+// A share button is appended after the prose on mobile only (on desktop it
+// lives in the sidebar).
+export default function BlogPostBody({
+  html,
+  ref,
+  shareTitle,
+  shareText,
+}: {
+  html: string
+  ref?: Ref<HTMLElement>
+  shareTitle: string
+  shareText?: string
+}) {
   return (
     <main ref={ref} className="max-lg:mt-4 lg:col-span-8">
       <Prose html={html} className={ARTICLE_PROSE} />
+      <ShareMenu
+        title={shareTitle}
+        text={shareText}
+        className="mt-8 w-full justify-center lg:hidden"
+      />
     </main>
   )
 }

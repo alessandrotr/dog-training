@@ -24,8 +24,19 @@ export default function BlogPostDetail(props: BlogPostDetailProps) {
         <BlogPostHeader post={post} categoryLabel={catLabel(post.category)} />
 
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-12 lg:gap-12">
-          <BlogPostSidebar toc={toc} tags={post.tags} tagLabel={tagLabel} />
-          <BlogPostBody html={post.content} ref={bodyRef} />
+          <BlogPostSidebar
+            toc={toc}
+            tags={post.tags}
+            tagLabel={tagLabel}
+            shareTitle={post.title}
+            shareText={post.summary}
+          />
+          <BlogPostBody
+            html={post.content}
+            ref={bodyRef}
+            shareTitle={post.title}
+            shareText={post.summary}
+          />
         </div>
 
         <BlogPostRelated

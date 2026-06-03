@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { Heading, ReadingTime, PublishDate } from '@/components/ui'
-import { ShareMenu } from '@/components/share'
 import type { BlogPost } from '@/types'
 
 // Category chip, title, published/reading-time meta, and the big hero image.
@@ -21,12 +20,9 @@ export default function BlogPostHeader({
           {post.title}
         </Heading>
 
-        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 pt-4 font-mono text-xs text-stone-400 md:justify-between">
-          <div className="flex flex-wrap items-center gap-2">
-            <PublishDate date={post.publishDate} />
-            <ReadingTime time={post.readingTime} />
-          </div>
-          <ShareMenu title={post.title} text={post.summary} />
+        <div className="flex flex-wrap items-center justify-center gap-2 pt-4 md:justify-start">
+          <PublishDate date={post.publishDate} />
+          <ReadingTime time={post.readingTime} />
         </div>
       </div>
 
