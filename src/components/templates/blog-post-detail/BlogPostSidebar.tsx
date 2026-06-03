@@ -90,9 +90,6 @@ export default function BlogPostSidebar({
         </div>
       )}
 
-      {/* Trainer availability (global, synced from Site Config) */}
-      <Availability />
-
       {tags && tags.length > 0 && (
         <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6 text-left">
           <Eyebrow className="mb-3 flex items-center gap-1.5">
@@ -111,6 +108,8 @@ export default function BlogPostSidebar({
           </div>
         </div>
       )}
+
+      <Availability compact />
     </aside>
   )
 }

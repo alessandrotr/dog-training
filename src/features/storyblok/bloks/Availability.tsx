@@ -22,8 +22,12 @@ const SPOKEN_LANGUAGES = [
 // click-to-edit when this is placed via the page builder.
 export default function Availability({
   blok,
+  compact = false,
 }: {
   blok?: { _uid?: string; component?: string; [key: string]: unknown }
+  // Lean sidebar variant: drops the languages row and shows the location in
+  // place of the @handle.
+  compact?: boolean
 }) {
   const href = useHref()
   const data = useAvailability()
@@ -91,9 +95,16 @@ export default function Availability({
                 {data.name || 'Sophia Binder'}
               </Link>
             </div>
-            {data.handle && (
-              <span className="block font-mono text-xs text-stone-400">{data.handle}</span>
-            )}
+            {compact
+              ? data.location && (
+                  <span className="mt-0.5 flex items-center gap-1 font-mono text-xs text-stone-500">
+                    <MapPin className="h-3 w-3 text-amber-700" />
+                    {data.location}
+                  </span>
+                )
+              : data.handle && (
+                  <span className="block font-mono text-xs text-stone-400">{data.handle}</span>
+                )}
             <span
               className={`mt-1.5 inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[11px] font-semibold ${
                 available ? 'bg-emerald-50 text-emerald-700' : 'bg-stone-100 text-stone-500'
@@ -109,8 +120,8 @@ export default function Availability({
           </div>
         </div>
 
-        {/* Meta */}
-        {(data.location || data.responseTime) && (
+        {/* Meta — folded into the name row in compact mode */}
+        {!compact && (data.location || data.responseTime) && (
           <div className="relative mt-4 flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs text-stone-500">
             {data.location && (
               <span className="inline-flex items-center gap-1">
@@ -127,26 +138,28 @@ export default function Availability({
           </div>
         )}
 
-        {/* Languages spoken */}
-        <div className="relative mt-4 flex items-center gap-2.5">
-          <Languages className="h-3.5 w-3.5 shrink-0 text-amber-700" />
-          <div className="flex -space-x-1.5">
-            {SPOKEN_LANGUAGES.map((lang) => (
-              <span key={lang.name} className="group/lang relative">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-white bg-stone-50 text-sm shadow-sm ring-1 ring-stone-200 transition-transform duration-150 hover:z-10 hover:-translate-y-0.5 hover:scale-110">
-                  {lang.flag}
+        {/* Languages spoken — hidden in the lean sidebar variant */}
+        {!compact && (
+          <div className="relative mt-4 flex items-center gap-2.5">
+            <Languages className="h-3.5 w-3.5 shrink-0 text-amber-700" />
+            <div className="flex -space-x-1.5">
+              {SPOKEN_LANGUAGES.map((lang) => (
+                <span key={lang.name} className="group/lang relative">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-white bg-stone-50 text-sm shadow-sm ring-1 ring-stone-200 transition-transform duration-150 hover:z-10 hover:-translate-y-0.5 hover:scale-110">
+                    {lang.flag}
+                  </span>
+                  <span
+                    role="tooltip"
+                    className="pointer-events-none absolute -top-9 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-lg bg-stone-900 px-2 py-1 text-[10px] font-semibold text-white opacity-0 shadow-md transition-opacity duration-150 group-hover/lang:opacity-100"
+                  >
+                    {lang.name} · {lang.level}
+                    <span className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-stone-900" />
+                  </span>
                 </span>
-                <span
-                  role="tooltip"
-                  className="pointer-events-none absolute -top-9 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap rounded-lg bg-stone-900 px-2 py-1 text-[10px] font-semibold text-white opacity-0 shadow-md transition-opacity duration-150 group-hover/lang:opacity-100"
-                >
-                  {lang.name} · {lang.level}
-                  <span className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-stone-900" />
-                </span>
-              </span>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* CTA */}
         {ctaLabel && (

@@ -13,8 +13,9 @@ const ARTICLE_PROSE = [
   'prose-headings:font-sans prose-headings:font-extrabold prose-headings:tracking-tight prose-headings:text-balance prose-headings:text-amber-950 prose-headings:scroll-mt-24',
   // body — uniform ink copy, generous leading, no orphans
   'prose-p:text-stone-700 prose-p:text-pretty prose-p:leading-[1.75]',
-  // lists — identical size & rhythm to paragraphs, accent markers
-  'prose-li:text-stone-700 prose-li:marker:text-amber-500',
+  // lists — identical size & rhythm to paragraphs. `paw-list` swaps <ul> bullets
+  // for paw prints (see globals.css); marker color stays amber for <ol> numbers.
+  'paw-list prose-li:text-stone-700 prose-li:marker:text-amber-500',
   // emphasis — bold reads as true ink
   'prose-strong:font-semibold prose-strong:text-stone-900',
   // links — on-brand amber, underline with offset
