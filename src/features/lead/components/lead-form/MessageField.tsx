@@ -68,7 +68,8 @@ export default function MessageField({
         {(field) => {
           const error = fieldError(field.state.meta.errors)
           const len = field.state.value.length
-          const belowMin = required && len > 0 && len < MIN_CHARS
+          const belowMin = required && len < MIN_CHARS
+          const remaining = MIN_CHARS - len
           return (
             <>
               <Textarea
@@ -85,14 +86,18 @@ export default function MessageField({
                 ) : (
                   <span />
                 )}
-                <span
-                  className={cn(
-                    'shrink-0 font-mono text-[10px] tabular-nums',
-                    belowMin ? 'text-amber-600' : 'text-stone-400',
-                  )}
-                >
-                  {required && len < MIN_CHARS ? `${len} / ${MIN_CHARS}` : len}
-                </span>
+                {/* Hidden while empty (a bare "0/15" reads like a 15-char limit).
+                    While short, count down to the minimum; then show the count. */}
+                {len > 0 && (
+                  <span
+                    className={cn(
+                      'shrink-0 font-mono text-[10px] tabular-nums',
+                      belowMin ? 'text-amber-600' : 'text-stone-400',
+                    )}
+                  >
+                    {belowMin ? (de ? `noch ${remaining}` : `${remaining} more`) : len}
+                  </span>
+                )}
               </div>
             </>
           )
