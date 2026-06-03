@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog'
 import { CalendarClock, MessageCircle, X, PawPrint, Lock } from 'lucide-react'
@@ -19,14 +19,17 @@ import LeadForm from './LeadForm'
 export default function LeadDialog() {
   const { t, i18n } = useTranslation()
   const { isOpen, mode, close, setMode } = useLeadDialog()
+
+  const lastModeRef = useRef(mode)
+  if (isOpen) lastModeRef.current = mode
+  const displayMode = isOpen ? mode : lastModeRef.current
   const availability = useAvailability()
   const available = availability?.available ?? true
   const waitlistLabel = i18n.language === 'de' ? 'Warteliste' : 'Waitlist'
-  const title = mode === 'contact' ? t('contact.headline') : t('booking.headline')
-  const description = mode === 'contact' ? t('contact.subheadline') : t('booking.subheadline')
+  const title = displayMode === 'contact' ? t('contact.headline') : t('booking.headline')
+  const description =
+    displayMode === 'contact' ? t('contact.subheadline') : t('booking.subheadline')
 
-  // Fully booked → there are no consult slots, so steer the booking tab to the
-  // Message/waitlist tab instead of showing an empty scheduler.
   useEffect(() => {
     if (isOpen && !available && mode === 'book') setMode('contact')
   }, [isOpen, available, mode, setMode])
@@ -92,7 +95,7 @@ export default function LeadDialog() {
           {/* Body */}
           <div className="flex min-h-0 flex-1 flex-col px-6 pb-2 lg:pb-4 pt-4 sm:px-7">
             <Tabs
-              value={mode}
+              value={displayMode}
               onValueChange={(v) => setMode(v as LeadMode)}
               className="flex min-h-0 w-full flex-1 flex-col gap-4"
             >
