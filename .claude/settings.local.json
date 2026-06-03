@@ -68,7 +68,8 @@
       "Bash(node /tmp/debarrel.mjs)",
       "Bash(sed -n 1,25p src/app/[lang]/__TRACKED_VAR__/page.tsx)",
       "Bash(sed -n '55,72p' src/features/storyblok/bloks/CtaBanner.tsx)",
-      "Bash(sed -n '1,50p' src/components/ui/button.tsx)"
+      "Bash(sed -n '1,50p' src/components/ui/button.tsx)",
+      "Bash(node -e \"console.log\\('useIntersectionObserver:', !!require\\('usehooks-ts'\\).useIntersectionObserver\\)\")"
     ],
     "additionalDirectories": [
       "/tmp",
