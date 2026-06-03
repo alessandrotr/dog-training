@@ -164,15 +164,21 @@ export default function LeadForm({
                       ? 'Anfrage zu'
                       : 'Inquiring about'
                     : de
-                      ? 'Programm hinzufügen'
-                      : 'Add a program'}
+                    ? 'Programm hinzufügen'
+                    : 'Add a program'}
                 </span>
                 <span className="flex items-center gap-2">
-                  {cart.items.length > 0 && (
-                    <span className="rounded-full bg-amber-100 px-2 py-0.5 font-mono text-[10px] font-bold text-amber-800">
-                      {cart.items.length}
-                    </span>
-                  )}
+                  {/* Always rendered (just hidden when empty) so the chevron
+                      doesn't shift when the count first appears. */}
+                  <span
+                    aria-hidden={cart.items.length === 0}
+                    className={cn(
+                      'min-w-5 rounded-full bg-amber-100 px-2 py-0.5 text-center font-mono text-[10px] font-bold text-amber-800',
+                      cart.items.length === 0 && 'invisible',
+                    )}
+                  >
+                    {cart.items.length || 0}
+                  </span>
                   <ChevronDown className="h-4 w-4 text-amber-700/70 transition-transform duration-200 group-data-panel-open:rotate-180" />
                 </span>
               </Accordion.Trigger>
@@ -363,17 +369,18 @@ export default function LeadForm({
         )}
         <Button
           type="submit"
-          size="lg"
+          size="xl"
+          className="w-full"
           disabled={status === 'loading'}
-          className="h-12 w-full rounded-xl bg-amber-700 text-sm font-bold tracking-tight text-white shadow-lg shadow-amber-900/15 transition-all hover:bg-amber-800 hover:shadow-xl hover:shadow-amber-900/25 active:scale-[0.98] disabled:hover:bg-amber-700"
+          variant="ctaDots"
         >
           {status === 'loading'
             ? t('contact.fields.transmitting')
             : waitlist
-              ? de
-                ? 'Auf die Warteliste'
-                : 'Join the waitlist'
-              : t('contact.fields.sendButton')}
+            ? de
+              ? 'Auf die Warteliste'
+              : 'Join the waitlist'
+            : t('contact.fields.sendButton')}
           {status !== 'loading' &&
             (waitlist ? <BellPlus className="h-4 w-4" /> : <Send className="h-4 w-4" />)}
         </Button>

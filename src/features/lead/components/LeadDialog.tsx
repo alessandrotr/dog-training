@@ -90,7 +90,7 @@ export default function LeadDialog() {
           </div>
 
           {/* Body */}
-          <div className="flex min-h-0 flex-1 flex-col px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-4 sm:px-7">
+          <div className="flex min-h-0 flex-1 flex-col px-6 pb-2 lg:pb-4 pt-4 sm:px-7">
             <Tabs
               value={mode}
               onValueChange={(v) => setMode(v as LeadMode)}

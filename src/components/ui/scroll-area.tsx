@@ -21,7 +21,14 @@ export default function ScrollArea({
   return (
     <Base.Root className={cn('relative overflow-hidden', className)} {...props}>
       <Base.Viewport
-        className={cn('h-full w-full overscroll-contain rounded-[inherit]', viewportClassName)}
+        // The viewport (overflow: scroll) carries the height cap itself via
+        // `max-h-[inherit]` — it inherits whatever `max-h-*` is set on the Root.
+        // `h-full` alone can't resolve against a max-height-only parent, so the
+        // viewport would never scroll without this.
+        className={cn(
+          'h-full max-h-[inherit] w-full overscroll-contain rounded-[inherit]',
+          viewportClassName,
+        )}
       >
         {children}
       </Base.Viewport>
