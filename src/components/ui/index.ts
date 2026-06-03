@@ -14,3 +14,4 @@ export {default as CardStat} from './card-stat';
 export {default as PriceTag} from './price-tag';
 export {Button, buttonVariants} from './button';
 export {default as MultiSelect, type MultiSelectOption} from './multi-select';
+export {default as ScrollArea} from './scroll-area';

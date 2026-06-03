@@ -4,7 +4,7 @@ import {create} from 'zustand';
 import {persist} from 'zustand/middleware';
 import type {LeadPayload} from '@/features/lead/lib/lead';
 
-const EMPTY: LeadPayload = {name: '', email: '', dogAge: '', dogBreed: '', message: ''};
+const EMPTY: LeadPayload = {name: '', email: '', dogName: '', dogAge: '', dogBreed: '', message: ''};
 
 interface LeadFormState {
   draft: LeadPayload;

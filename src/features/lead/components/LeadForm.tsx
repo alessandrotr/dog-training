@@ -4,9 +4,21 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { useTranslation } from 'react-i18next'
 import { Accordion } from '@base-ui/react/accordion'
-import { Send, BellPlus, CheckCircle2, AlertCircle, X, Sparkles, PawPrint, ChevronDown } from 'lucide-react'
+import {
+  Send,
+  BellPlus,
+  CheckCircle2,
+  AlertCircle,
+  Check,
+  Plus,
+  ClipboardList,
+  MessageSquareText,
+  PawPrint,
+  ChevronDown,
+} from 'lucide-react'
+import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { Heading, Text, Eyebrow, MultiSelect } from '@/components/ui'
+import { Heading, Text, ScrollArea } from '@/components/ui'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
@@ -35,19 +47,6 @@ export default function LeadForm({
   const { draft: data, setField, reset, programsOpen, setProgramsOpen } = useLeadForm()
   const [errors, setErrors] = useState<Errors>({})
   const [status, setStatus] = useState<Status>('idle')
-
-  // Service picker: the catalog drives a multi-select, the inquiry cart is the
-  // source of truth for what's chosen. Reconcile the two on change.
-  const selected = cart.catalog.filter((s) => cart.has(s.slug)).map((s) => s.slug)
-  function handleServices(next: string[]) {
-    next
-      .filter((slug) => !cart.has(slug))
-      .forEach((slug) => {
-        const item = cart.catalog.find((s) => s.slug === slug)
-        if (item) cart.add(item)
-      })
-    selected.filter((slug) => !next.includes(slug)).forEach((slug) => cart.remove(slug))
-  }
 
   function set<K extends keyof LeadPayload>(key: K, value: string) {
     setField(key, value)
@@ -146,97 +145,117 @@ export default function LeadForm({
         </div>
       )}
 
-      {/* Selected programs — collapsible so a long inquiry doesn't crowd the form */}
-      {cart.items.length > 0 && (
+      {/* Programs — one collapsible section that is both the picker and the
+          selected list. Every catalog card toggles add/remove, so adding a
+          program and reviewing the inquiry share one unified, easy UI. */}
+      {cart.catalog.length > 0 && (
         <Accordion.Root
           value={programsOpen ? ['items'] : []}
           onValueChange={(v) => setProgramsOpen(v.includes('items'))}
-          className="overflow-hidden rounded-2xl border border-amber-200/60 bg-linear-to-br from-amber-50 to-white shadow-sm"
+          className="overflow-hidden rounded-xl border border-amber-200/60 bg-linear-to-br from-amber-50 to-white shadow-sm"
         >
           <Accordion.Item value="items">
             <Accordion.Header>
               <Accordion.Trigger className="group flex w-full items-center justify-between gap-2 px-3.5 py-3 text-left outline-none focus-visible:bg-amber-100/40">
                 <span className="inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-amber-800">
-                  <Sparkles className="h-3.5 w-3.5" />
-                  {de ? 'Anfrage zu' : 'Inquiring about'}
+                  <ClipboardList className="h-3.5 w-3.5" />
+                  {cart.items.length > 0
+                    ? de
+                      ? 'Anfrage zu'
+                      : 'Inquiring about'
+                    : de
+                      ? 'Programm hinzufügen'
+                      : 'Add a program'}
                 </span>
                 <span className="flex items-center gap-2">
-                  <span className="rounded-full bg-amber-100 px-2 py-0.5 font-mono text-[10px] font-bold text-amber-800">
-                    {cart.items.length}
-                  </span>
+                  {cart.items.length > 0 && (
+                    <span className="rounded-full bg-amber-100 px-2 py-0.5 font-mono text-[10px] font-bold text-amber-800">
+                      {cart.items.length}
+                    </span>
+                  )}
                   <ChevronDown className="h-4 w-4 text-amber-700/70 transition-transform duration-200 group-data-panel-open:rotate-180" />
                 </span>
               </Accordion.Trigger>
             </Accordion.Header>
-            <Accordion.Panel className="h-[var(--accordion-panel-height)] overflow-hidden transition-[height] duration-200 ease-out data-starting-style:h-0 data-ending-style:h-0">
-              <ul className="space-y-2 px-3.5 pb-3.5">
-                {cart.items.map((item) => (
-                  <li
-                    key={item.slug}
-                    className="group flex items-center gap-3 rounded-xl border border-amber-200/50 bg-white p-2 shadow-xs transition-colors hover:border-amber-300/70"
-                  >
-                    <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-amber-100">
-                      {item.imageUrl ? (
-                        <Image
-                          src={item.imageUrl}
-                          alt={item.title}
-                          fill
-                          sizes="48px"
-                          className="object-cover transition-transform duration-500 group-hover:scale-110"
-                          referrerPolicy="no-referrer"
-                        />
-                      ) : (
-                        <span className="flex h-full w-full items-center justify-center text-amber-700">
-                          <PawPrint className="h-5 w-5" />
-                        </span>
-                      )}
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-baseline justify-between gap-2">
-                        <p className="truncate font-sans text-sm font-bold text-stone-900">
-                          {item.title}
-                        </p>
-                        {item.price && (
-                          <span className="shrink-0 font-sans text-sm font-extrabold text-amber-950">
-                            {item.price}
+            <Accordion.Panel className="h-(--accordion-panel-height) overflow-hidden transition-[height] duration-200 ease-out data-starting-style:h-0 data-ending-style:h-0">
+              <ScrollArea className="max-h-72">
+                <ul className="space-y-2 px-3.5 pb-3.5">
+                  {cart.catalog.map((item) => {
+                    const isSelected = cart.has(item.slug)
+                    return (
+                      <li key={item.slug}>
+                        <button
+                          type="button"
+                          onClick={() => cart.toggle(item)}
+                          aria-pressed={isSelected}
+                          className={cn(
+                            'group/item flex w-full items-center gap-3 rounded-lg border p-2 text-left shadow-xs transition-colors',
+                            isSelected
+                              ? 'border-amber-300/70 bg-white hover:border-amber-300'
+                              : 'border-stone-200 bg-stone-50/60 hover:border-amber-200 hover:bg-white',
+                          )}
+                        >
+                          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-amber-100">
+                            {item.imageUrl ? (
+                              <Image
+                                src={item.imageUrl}
+                                alt={item.title}
+                                fill
+                                sizes="48px"
+                                className="object-cover transition-transform duration-500 group-hover/item:scale-110"
+                                referrerPolicy="no-referrer"
+                              />
+                            ) : (
+                              <span className="flex h-full w-full items-center justify-center text-amber-700">
+                                <PawPrint className="h-5 w-5" />
+                              </span>
+                            )}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-baseline justify-between gap-2">
+                              <p
+                                className={cn(
+                                  'truncate font-sans text-sm font-bold',
+                                  isSelected ? 'text-stone-900' : 'text-stone-700',
+                                )}
+                              >
+                                {item.title}
+                              </p>
+                              {item.price && (
+                                <span className="shrink-0 font-sans text-sm font-extrabold text-amber-950">
+                                  {item.price}
+                                </span>
+                              )}
+                            </div>
+                            {item.shortDescription && (
+                              <p className="mt-0.5 truncate text-xs leading-relaxed text-stone-500">
+                                {item.shortDescription}
+                              </p>
+                            )}
+                          </div>
+                          <span
+                            className={cn(
+                              'flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-colors',
+                              isSelected
+                                ? 'bg-amber-100 text-amber-800'
+                                : 'border border-stone-300 text-stone-400 group-hover/item:border-amber-300 group-hover/item:text-amber-700',
+                            )}
+                          >
+                            {isSelected ? (
+                              <Check className="h-4 w-4" />
+                            ) : (
+                              <Plus className="h-4 w-4" />
+                            )}
                           </span>
-                        )}
-                      </div>
-                      {item.shortDescription && (
-                        <p className="mt-0.5 truncate text-xs leading-relaxed text-stone-500">
-                          {item.shortDescription}
-                        </p>
-                      )}
-                    </div>
-                    <button
-                      type="button"
-                      aria-label={`Remove ${item.title}`}
-                      onClick={() => cart.remove(item.slug)}
-                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-amber-700/50 transition-colors hover:bg-amber-100 hover:text-amber-900"
-                    >
-                      <X className="h-4 w-4" />
-                    </button>
-                  </li>
-                ))}
-              </ul>
+                        </button>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </ScrollArea>
             </Accordion.Panel>
           </Accordion.Item>
         </Accordion.Root>
-      )}
-
-      {/* Manual program picker */}
-      {cart.catalog.length > 0 && (
-        <div className="space-y-1.5">
-          <Label htmlFor="lead-services">{de ? 'Programme hinzufügen' : 'Add a program'}</Label>
-          <MultiSelect
-            id="lead-services"
-            options={cart.catalog.map((s) => ({ value: s.slug, label: s.title, hint: s.price }))}
-            value={selected}
-            onValueChange={handleServices}
-            placeholder={de ? 'Programme auswählen…' : 'Choose programs…'}
-            summary={(n) => (de ? `${n} ausgewählt` : `${n} selected`)}
-          />
-        </div>
       )}
 
       {/* Contact details */}
@@ -247,6 +266,7 @@ export default function LeadForm({
             id="lead-name"
             value={data.name}
             onChange={(e) => set('name', e.target.value)}
+            placeholder={de ? 'z. B. Anna Müller' : 'e.g. Jane Doe'}
             aria-invalid={!!errors.name}
           />
           {errors.name && <p className="font-mono text-[10px] text-red-500">{errors.name}</p>}
@@ -258,18 +278,43 @@ export default function LeadForm({
             type="email"
             value={data.email}
             onChange={(e) => set('email', e.target.value)}
+            placeholder={de ? 'du@beispiel.de' : 'you@example.com'}
             aria-invalid={!!errors.email}
           />
           {errors.email && <p className="font-mono text-[10px] text-red-500">{errors.email}</p>}
         </div>
       </div>
 
-      {/* About the dog */}
-      <div className="space-y-2.5 pb-1.5">
-        <Eyebrow tone="brand" className="flex items-center gap-1.5">
-          <PawPrint className="h-3.5 w-3.5" /> {de ? 'Über deinen Hund' : 'About your pup'}
-        </Eyebrow>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      {/* About the dog — soft, friendly card so the optional bits feel inviting */}
+      <div className="relative overflow-hidden rounded-xl border border-amber-200/60 bg-linear-to-br from-amber-50/80 to-white p-4 shadow-sm">
+        {/* faint paw watermark in the corner */}
+        <PawPrint
+          className="pointer-events-none absolute -bottom-4 -right-3 h-24 w-24 -rotate-12 text-amber-200/40"
+          strokeWidth={1.5}
+        />
+        <div className="relative flex items-center gap-2.5">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-700">
+            <PawPrint className="h-4 w-4" />
+          </span>
+          <div className="leading-tight">
+            <p className="font-sans text-sm font-bold text-amber-950">
+              {de ? 'Über deinen Hund' : 'About your pup'}
+            </p>
+            <p className="font-mono text-[10px] font-medium uppercase tracking-wider text-amber-700/70">
+              {de ? 'Optional, aber hilfreich' : 'Optional, but it helps'}
+            </p>
+          </div>
+        </div>
+        <div className="relative mt-3.5 grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="space-y-1.5">
+            <Label htmlFor="lead-dog-name">{de ? 'Name' : 'Name'}</Label>
+            <Input
+              id="lead-dog-name"
+              value={data.dogName ?? ''}
+              onChange={(e) => set('dogName', e.target.value)}
+              placeholder={de ? 'z. B. Baxter' : 'e.g. Baxter'}
+            />
+          </div>
           <div className="space-y-1.5">
             <Label htmlFor="lead-dog-age">{de ? 'Alter' : 'Age'}</Label>
             <Input
@@ -291,9 +336,12 @@ export default function LeadForm({
         </div>
       </div>
 
-      {/* Message */}
+      {/* Message — the actual ask; framed as "tell us what you need", not pup trivia */}
       <div className="space-y-1.5">
-        <Label htmlFor="lead-message">{t('contact.fields.detailBehaviors')}</Label>
+        <Label htmlFor="lead-message" className="text-amber-950">
+          <MessageSquareText className="h-3.5 w-3.5 text-amber-700" />
+          {t('contact.fields.detailBehaviors')}
+        </Label>
         <Textarea
           id="lead-message"
           rows={4}
@@ -322,10 +370,10 @@ export default function LeadForm({
           {status === 'loading'
             ? t('contact.fields.transmitting')
             : waitlist
-            ? de
-              ? 'Auf die Warteliste'
-              : 'Join the waitlist'
-            : t('contact.fields.sendButton')}
+              ? de
+                ? 'Auf die Warteliste'
+                : 'Join the waitlist'
+              : t('contact.fields.sendButton')}
           {status !== 'loading' &&
             (waitlist ? <BellPlus className="h-4 w-4" /> : <Send className="h-4 w-4" />)}
         </Button>

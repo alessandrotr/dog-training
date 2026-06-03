@@ -1,14 +1,14 @@
 'use client'
 
-import { Clock, MapPin } from 'lucide-react'
+import { MapPin } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { Avatar, Pill } from '@/components/ui'
+import { Avatar } from '@/components/ui'
 import { useAvailability } from '@/features/availability/components/AvailabilityProvider'
 
-// Live "presence" row for the lead dialog header: trainer avatar + name/handle,
-// an animated status badge (pulsing emerald when taking clients, steady amber
-// when booked) and response-time / location chips. All from the global
-// availability record Sophia edits once in Storyblok.
+// Live "presence" row for the lead dialog header: trainer avatar + name, the
+// location line, and an animated status badge (pulsing emerald when taking
+// clients, steady amber when booked). All from the global availability record
+// Sophia edits once in Storyblok.
 export default function AvailabilityPresence() {
   const a = useAvailability()
   if (!a) return null
@@ -24,6 +24,12 @@ export default function AvailabilityPresence() {
               {a.name}
             </span>
           </div>
+          {a.location && (
+            <span className="mt-1 flex items-center gap-1 font-mono text-xs text-stone-500">
+              <MapPin className="h-3 w-3 text-amber-700" />
+              {a.location}
+            </span>
+          )}
           <span
             className={cn(
               'mt-1.5 inline-flex items-center gap-1.5 font-mono text-[11px] font-semibold uppercase tracking-wide',
@@ -45,21 +51,6 @@ export default function AvailabilityPresence() {
           </span>
         </div>
       </div>
-
-      {(a.responseTime || a.location) && (
-        <div className="flex flex-wrap gap-2 max-lg:hidden">
-          {a.responseTime && (
-            <Pill tone="stone" className="gap-1 px-2.5 py-1 text-[11px] font-medium">
-              <Clock className="h-3 w-3" /> {a.responseTime}
-            </Pill>
-          )}
-          {a.location && (
-            <Pill tone="stone" className="gap-1 px-2.5 py-1 text-[11px] font-medium">
-              <MapPin className="h-3 w-3" /> {a.location}
-            </Pill>
-          )}
-        </div>
-      )}
     </div>
   )
 }

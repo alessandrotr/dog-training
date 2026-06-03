@@ -72,7 +72,13 @@
       "Bash(node -e \"console.log\\('useIntersectionObserver:', !!require\\('usehooks-ts'\\).useIntersectionObserver\\)\")",
       "Bash(sed -n '28,60p' \"src/app/[lang]/services/[slug]/page.tsx\")",
       "Bash(sed -n '36,70p' \"src/app/[lang]/case-studies/[slug]/page.tsx\")",
-      "Bash(perl -i -pe 's/BlogPostTemplate/BlogPostDetail/g' src/lib/relations.ts)"
+      "Bash(perl -i -pe 's/BlogPostTemplate/BlogPostDetail/g' src/lib/relations.ts)",
+      "Bash(node -e \"const p=require\\('@base-ui/react/package.json'\\); console.log\\('version', p.version\\); console.log\\(Object.keys\\(p.exports||{}\\).filter\\(k=>/scroll/i.test\\(k\\)\\)\\)\")",
+      "Bash(node -e \"const s=require\\('@base-ui/react/scroll-area'\\); console.log\\(Object.keys\\(s\\)\\)\")",
+      "Bash(node -e \"import\\('@base-ui/react/scroll-area'\\).then\\(s=>console.log\\(Object.keys\\(s\\)\\)\\)\")",
+      "Bash(sed -n '1,15p' src/components/ui/prose.tsx)",
+      "Bash(node -e \"const {ScrollArea}=require\\('@base-ui/react/scroll-area'\\); console.log\\(Object.keys\\(ScrollArea\\)\\)\")",
+      "Bash(node --input-type=module -e \"import {ScrollArea} from '@base-ui/react/scroll-area'; console.log\\(Object.keys\\(ScrollArea\\)\\)\")"
     ],
     "additionalDirectories": [
       "/tmp",
