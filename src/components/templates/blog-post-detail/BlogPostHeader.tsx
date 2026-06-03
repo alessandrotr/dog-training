@@ -17,7 +17,7 @@ export default function BlogPostHeader({
         <span className="inline-flex items-center rounded-full border border-amber-200/45 bg-amber-700 px-3 py-1 font-mono text-xs font-bold uppercase text-white">
           {categoryLabel}
         </span>
-        <Heading level={1} size="title" className="leading-tight md:text-5xl">
+        <Heading level={1} size="title" className="text-balance leading-tight md:text-5xl">
           {post.title}
         </Heading>
 
