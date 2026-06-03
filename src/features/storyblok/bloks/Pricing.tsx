@@ -37,7 +37,7 @@ export default function Pricing({ blok }: { blok: PricingBlok }) {
   return (
     <Section {...storyblokEditable(blok as any)}>
       <div className="rounded-3xl bg-amber-950 p-8 md:p-12 text-stone-100 shadow-xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 h-64 w-64 bg-amber-700/10 blur-3xl rounded-full"></div>
+        <div className="absolute top-0 right-0 size-64 bg-amber-700/10 blur-3xl rounded-full"></div>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:items-center relative z-10">
           <div className="lg:col-span-7 space-y-4 text-left">
             {blok.eyebrow && (
@@ -54,7 +54,7 @@ export default function Pricing({ blok }: { blok: PricingBlok }) {
             <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono text-stone-300 leading-relaxed">
               {lines(blok.trust_items).map((item, i) => (
                 <div key={i} className="flex items-center space-x-2">
-                  <ShieldCheck className="h-4.5 w-4.5 text-amber-400 shrink-0" />
+                  <ShieldCheck className="size-4.5 text-amber-400 shrink-0" />
                   <span>{item}</span>
                 </div>
               ))}

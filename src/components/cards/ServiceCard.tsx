@@ -55,12 +55,12 @@ export default function ServiceCard({
           <div className="absolute left-3 top-3 flex items-center gap-1.5">
             {caseStudies > 0 && (
               <span className="inline-flex items-center gap-1 rounded-full bg-amber-950/60 px-2 py-1 font-mono text-[10px] font-bold text-white backdrop-blur">
-                <Sparkles className="h-3 w-3" /> {caseStudies}
+                <Sparkles className="size-3" /> {caseStudies}
               </span>
             )}
             {guides > 0 && (
               <span className="inline-flex items-center gap-1 rounded-full bg-amber-950/60 px-2 py-1 font-mono text-[10px] font-bold text-white backdrop-blur">
-                <BookOpen className="h-3 w-3" /> {guides}
+                <BookOpen className="size-3" /> {guides}
               </span>
             )}
           </div>
@@ -102,11 +102,11 @@ export default function ServiceCard({
         >
           {added ? (
             <>
-              <ClipboardCheck className="h-3.5 w-3.5" /> Added
+              <ClipboardCheck className="size-3.5" /> Added
             </>
           ) : (
             <>
-              <ClipboardPlus className="h-3.5 w-3.5" /> Add
+              <ClipboardPlus className="size-3.5" /> Add
             </>
           )}
         </button>

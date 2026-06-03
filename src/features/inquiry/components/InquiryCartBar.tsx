@@ -65,9 +65,9 @@ export default function InquiryCartBar() {
           >
             <span
               key={count}
-              className="motion-safe-cart-bump relative flex h-7 w-7 items-center justify-center rounded-full bg-amber-700 text-white animate-[cart-bump_0.45s_ease-out]"
+              className="motion-safe-cart-bump relative flex size-7 items-center justify-center rounded-full bg-amber-700 text-white animate-[cart-bump_0.45s_ease-out]"
             >
-              <ClipboardList className="h-4 w-4" />
+              <ClipboardList className="size-4" />
               <span className="motion-safe-cart-pop absolute -right-1.5 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-stone-900 px-1 text-[10px] font-bold text-white animate-[cart-pop_0.3s_ease-out]">
                 {count}
               </span>
@@ -81,9 +81,9 @@ export default function InquiryCartBar() {
             onClick={clear}
             aria-label="Clear inquiry"
             title="Clear inquiry"
-            className="flex h-8 w-8 items-center justify-center rounded-full text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-700 active:scale-90"
+            className="flex size-8 items-center justify-center rounded-full text-stone-400 transition-colors hover:bg-stone-100 hover:text-stone-700 active:scale-90"
           >
-            <X className="h-4 w-4" />
+            <X className="size-4" />
           </button>
         </div>
       </div>

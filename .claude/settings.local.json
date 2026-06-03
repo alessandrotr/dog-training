@@ -86,7 +86,8 @@
       "Bash(sed -n '1,60p' src/components/templates/case-study-detail/CaseStudyHeader.tsx)",
       "Bash(sed -n '1,50p' src/components/templates/service-detail/ServiceHero.tsx)",
       "Bash(sed -n '50,130p' src/components/templates/service-detail/ServiceHero.tsx)",
-      "Bash(sed -n '20,46p' src/components/templates/blog-post-detail/BlogPostHeader.tsx)"
+      "Bash(sed -n '20,46p' src/components/templates/blog-post-detail/BlogPostHeader.tsx)",
+      "Bash(awk '{ if \\(substr\\($1,3\\)==substr\\($2,3\\)\\) print }')"
     ],
     "additionalDirectories": [
       "/tmp",

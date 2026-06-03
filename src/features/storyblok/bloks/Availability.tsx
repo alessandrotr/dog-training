@@ -44,7 +44,7 @@ export default function Availability({
   return (
     <section {...editable} className="mx-auto">
       <div className="relative overflow-hidden rounded-3xl border border-stone-200 bg-white p-5 shadow-lg">
-        <div className="pointer-events-none absolute -top-16 -right-16 h-40 w-40 rounded-full bg-amber-200/40 blur-3xl" />
+        <div className="pointer-events-none absolute -top-16 -right-16 size-40 rounded-full bg-amber-200/40 blur-3xl" />
 
         {/* Profile row */}
         <div className="relative flex items-center gap-4">
@@ -56,30 +56,30 @@ export default function Availability({
                   : 'bg-stone-300'
               }`}
             >
-              <div className="h-16 w-16 overflow-hidden rounded-full border-2 border-white bg-stone-100">
+              <div className="size-16 overflow-hidden rounded-full border-2 border-white bg-stone-100">
                 {data.avatar ? (
                   <Image
                     src={data.avatar}
                     alt={data.name}
                     width={64}
                     height={64}
-                    className="h-full w-full object-cover"
+                    className="size-full object-cover"
                     referrerPolicy="no-referrer"
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center font-serif text-xl text-amber-900">
+                  <div className="flex size-full items-center justify-center font-serif text-xl text-amber-900">
                     {(data.name || 'S').charAt(0)}
                   </div>
                 )}
               </div>
             </div>
             {/* online dot */}
-            <span className="absolute bottom-0.5 right-0.5 flex h-4 w-4">
+            <span className="absolute bottom-0.5 right-0.5 flex size-4">
               {available && (
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               )}
               <span
-                className={`relative inline-flex h-4 w-4 rounded-full border-2 border-white ${
+                className={`relative inline-flex size-4 rounded-full border-2 border-white ${
                   available ? 'bg-emerald-500' : 'bg-stone-400'
                 }`}
               />
@@ -98,7 +98,7 @@ export default function Availability({
             {compact
               ? data.location && (
                   <span className="mt-0.5 flex items-center gap-1 font-mono text-xs text-stone-500">
-                    <MapPin className="h-3 w-3 text-amber-700" />
+                    <MapPin className="size-3 text-amber-700" />
                     {data.location}
                   </span>
                 )
@@ -111,7 +111,7 @@ export default function Availability({
               }`}
             >
               <span
-                className={`h-1.5 w-1.5 rounded-full ${
+                className={`size-1.5 rounded-full ${
                   available ? 'bg-emerald-500 animate-pulse' : 'bg-stone-400'
                 }`}
               />
@@ -125,13 +125,13 @@ export default function Availability({
           <div className="relative mt-4 flex flex-wrap gap-x-4 gap-y-1 font-mono text-xs text-stone-500">
             {data.location && (
               <span className="inline-flex items-center gap-1">
-                <MapPin className="h-3.5 w-3.5 text-amber-700" />
+                <MapPin className="size-3.5 text-amber-700" />
                 {data.location}
               </span>
             )}
             {data.responseTime && (
               <span className="inline-flex items-center gap-1">
-                <Zap className="h-3.5 w-3.5 text-amber-700" />
+                <Zap className="size-3.5 text-amber-700" />
                 {data.responseTime}
               </span>
             )}
@@ -141,11 +141,11 @@ export default function Availability({
         {/* Languages spoken — hidden in the lean sidebar variant */}
         {!compact && (
           <div className="relative mt-4 flex items-center gap-2.5">
-            <Languages className="h-3.5 w-3.5 shrink-0 text-amber-700" />
+            <Languages className="size-3.5 shrink-0 text-amber-700" />
             <div className="flex -space-x-1.5">
               {SPOKEN_LANGUAGES.map((lang) => (
                 <span key={lang.name} className="group/lang relative">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full border-2 border-white bg-stone-50 text-sm shadow-sm ring-1 ring-stone-200 transition-transform duration-150 hover:z-10 hover:-translate-y-0.5 hover:scale-110">
+                  <span className="flex size-7 items-center justify-center rounded-full border-2 border-white bg-stone-50 text-sm shadow-sm ring-1 ring-stone-200 transition-transform duration-150 hover:z-10 hover:-translate-y-0.5 hover:scale-110">
                     {lang.flag}
                   </span>
                   <span
@@ -170,9 +170,9 @@ export default function Availability({
             className="mt-5 w-full px-5 py-3"
           >
             {available && <CtaDecor />}
-            {available ? <CalendarClock className="h-4 w-4" /> : <BellPlus className="h-4 w-4" />}
+            {available ? <CalendarClock className="size-4" /> : <BellPlus className="size-4" />}
             {ctaLabel}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover/button:translate-x-1" />
+            <ArrowRight className="size-4 transition-transform group-hover/button:translate-x-1" />
           </Button>
         )}
       </div>

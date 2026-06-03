@@ -123,8 +123,8 @@ export default function LeadForm({
   if (status === 'success') {
     return (
       <div className="flex flex-col items-center gap-3 py-8 text-center">
-        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700">
-          <CheckCircle2 className="h-7 w-7" />
+        <div className="flex size-14 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700">
+          <CheckCircle2 className="size-7" />
         </div>
         <Heading level={3} size="card">
           {waitlist
@@ -179,7 +179,7 @@ export default function LeadForm({
             <Accordion.Header>
               <Accordion.Trigger className="group flex w-full items-center justify-between gap-2 px-3.5 py-3 text-left outline-none focus-visible:bg-amber-100/40">
                 <span className="inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider text-amber-800">
-                  <ClipboardList className="h-3.5 w-3.5" />
+                  <ClipboardList className="size-3.5" />
                   {cart.items.length > 0
                     ? de
                       ? 'Anfrage zu'
@@ -200,7 +200,7 @@ export default function LeadForm({
                   >
                     {cart.items.length || 0}
                   </span>
-                  <ChevronDown className="h-4 w-4 text-amber-700/70 transition-transform duration-200 group-data-panel-open:rotate-180" />
+                  <ChevronDown className="size-4 text-amber-700/70 transition-transform duration-200 group-data-panel-open:rotate-180" />
                 </span>
               </Accordion.Trigger>
             </Accordion.Header>
@@ -222,7 +222,7 @@ export default function LeadForm({
                               : 'border-stone-200 bg-stone-50/60 hover:border-amber-200 hover:bg-white',
                           )}
                         >
-                          <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-amber-100">
+                          <div className="relative size-12 shrink-0 overflow-hidden rounded-lg bg-amber-100">
                             {item.imageUrl ? (
                               <Image
                                 src={item.imageUrl}
@@ -233,8 +233,8 @@ export default function LeadForm({
                                 referrerPolicy="no-referrer"
                               />
                             ) : (
-                              <span className="flex h-full w-full items-center justify-center text-amber-700">
-                                <PawPrint className="h-5 w-5" />
+                              <span className="flex size-full items-center justify-center text-amber-700">
+                                <PawPrint className="size-5" />
                               </span>
                             )}
                           </div>
@@ -262,16 +262,16 @@ export default function LeadForm({
                           </div>
                           <span
                             className={cn(
-                              'flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-colors',
+                              'flex size-7 shrink-0 items-center justify-center rounded-full transition-colors',
                               isSelected
                                 ? 'bg-amber-100 text-amber-800'
                                 : 'border border-stone-300 text-stone-400 group-hover/item:border-amber-300 group-hover/item:text-amber-700',
                             )}
                           >
                             {isSelected ? (
-                              <Check className="h-4 w-4" />
+                              <Check className="size-4" />
                             ) : (
-                              <Plus className="h-4 w-4" />
+                              <Plus className="size-4" />
                             )}
                           </span>
                         </button>
@@ -316,12 +316,12 @@ export default function LeadForm({
       <div className="relative overflow-hidden rounded-xl border border-amber-200/60 bg-linear-to-br from-amber-50/80 to-white p-4 shadow-sm">
         {/* faint paw watermark in the corner */}
         <PawPrint
-          className="pointer-events-none absolute -bottom-4 -right-3 h-24 w-24 -rotate-12 text-amber-200/40"
+          className="pointer-events-none absolute -bottom-4 -right-3 size-24 -rotate-12 text-amber-200/40"
           strokeWidth={1.5}
         />
         <div className="relative flex items-center gap-2.5">
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-700">
-            <PawPrint className="h-4 w-4" />
+          <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-amber-100 text-amber-700">
+            <PawPrint className="size-4" />
           </span>
           <div className="leading-tight">
             <p className="font-sans text-sm font-bold text-amber-950">
@@ -366,7 +366,7 @@ export default function LeadForm({
       {/* Message — the actual ask; framed as "tell us what you need", not pup trivia */}
       <div className="space-y-1.5">
         <Label htmlFor="lead-message" className="text-amber-950">
-          <MessageSquareText className="h-3.5 w-3.5 text-amber-700" />
+          <MessageSquareText className="size-3.5 text-amber-700" />
           {t('contact.fields.detailBehaviors')}
         </Label>
         {!data.message && (
@@ -391,7 +391,7 @@ export default function LeadForm({
       <div className="sticky bottom-0 -mx-1 mt-1 space-y-2.5 bg-linear-to-t from-stone-50 via-stone-50 to-transparent px-1 pb-1 pt-5">
         {status === 'error' && (
           <p className="flex items-center gap-1.5 font-mono text-xs text-red-500">
-            <AlertCircle className="h-4 w-4" /> {t('contact.fields.sendButton')} — try again.
+            <AlertCircle className="size-4" /> {t('contact.fields.sendButton')} — try again.
           </p>
         )}
         <Button
@@ -409,7 +409,7 @@ export default function LeadForm({
               : 'Join the waitlist'
             : t('contact.fields.sendButton')}
           {status !== 'loading' &&
-            (waitlist ? <BellPlus className="h-4 w-4" /> : <Send className="h-4 w-4" />)}
+            (waitlist ? <BellPlus className="size-4" /> : <Send className="size-4" />)}
         </Button>
       </div>
     </form>

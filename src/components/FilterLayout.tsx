@@ -23,7 +23,7 @@ export default function FilterLayout({
         onClick={() => setOpen((o) => !o)}
         className="inline-flex w-fit items-center gap-2 rounded-xl border border-stone-300 bg-white px-4 py-2.5 font-mono text-xs font-bold uppercase tracking-wide text-stone-700 lg:hidden"
       >
-        {open ? <X className="h-4 w-4" /> : <SlidersHorizontal className="h-4 w-4" />}
+        {open ? <X className="size-4" /> : <SlidersHorizontal className="size-4" />}
         Filters{activeCount ? ` · ${activeCount}` : ''}
       </button>
 

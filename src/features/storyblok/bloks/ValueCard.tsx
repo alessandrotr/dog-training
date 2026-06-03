@@ -37,8 +37,8 @@ export default function ValueCard({ blok }: { blok: ValueCardBlok }) {
       padding="md"
       className="flex flex-col justify-start shadow-sm"
     >
-      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-stone-100 border border-stone-200">
-        <Icon className="h-6 w-6 text-amber-800" />
+      <div className="mb-4 flex size-12 items-center justify-center rounded-xl bg-stone-100 border border-stone-200">
+        <Icon className="size-6 text-amber-800" />
       </div>
       {blok.title && (
         <Heading level={3} size="card" className="mb-2">

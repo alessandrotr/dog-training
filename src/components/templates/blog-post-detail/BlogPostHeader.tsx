@@ -25,11 +25,11 @@ export default function BlogPostHeader({
         <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 pt-4 font-mono text-xs text-stone-400 md:justify-between">
           <div className="flex flex-wrap items-center gap-4">
             <span className="flex items-center gap-1.5">
-              <CalendarDays className="h-3.5 w-3.5 text-amber-700" />
+              <CalendarDays className="size-3.5 text-amber-700" />
               <span className="text-stone-600">Published: {post.publishDate}</span>
             </span>
             <span className="flex items-center gap-1.5">
-              <Clock className="h-3.5 w-3.5 text-amber-700" />
+              <Clock className="size-3.5 text-amber-700" />
               <span className="text-stone-600">{post.readingTime}</span>
             </span>
           </div>

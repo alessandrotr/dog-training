@@ -23,8 +23,8 @@ export default function Scheduler({ url = ENV_URL }: { url?: string }) {
 
   return (
     <div className="flex flex-col items-center justify-center gap-4 rounded-2xl bg-stone-100/70 px-6 py-12 text-center">
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-700 text-amber-50 shadow-sm ring-1 ring-amber-500/20">
-        <CalendarClock className="h-7 w-7" />
+      <div className="flex size-14 items-center justify-center rounded-2xl bg-amber-700 text-amber-50 shadow-sm ring-1 ring-amber-500/20">
+        <CalendarClock className="size-7" />
       </div>
       <div className="space-y-1.5">
         <Heading level={3} size="cardSm" tone="default">

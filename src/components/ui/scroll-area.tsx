@@ -26,7 +26,7 @@ export default function ScrollArea({
         // `h-full` alone can't resolve against a max-height-only parent, so the
         // viewport would never scroll without this.
         className={cn(
-          'h-full max-h-[inherit] w-full overscroll-contain rounded-[inherit]',
+          'size-full max-h-[inherit] overscroll-contain rounded-[inherit]',
           viewportClassName,
         )}
       >

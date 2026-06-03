@@ -93,7 +93,7 @@ export default function BlogPostSidebar({
       {tags && tags.length > 0 && (
         <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6 text-left">
           <Eyebrow className="mb-3 flex items-center gap-1.5">
-            <Tag className="h-3.5 w-3.5 text-amber-700" /> Topics
+            <Tag className="size-3.5 text-amber-700" /> Topics
           </Eyebrow>
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (

@@ -53,8 +53,8 @@ export default function Navbar({ config }: { config: SiteConfig }) {
           brandSubtitle={config.footer.brandSubtitle}
           onClick={close}
           icon={
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-amber-700 ring-1 ring-amber-200/30 transition-transform duration-300 group-hover:-rotate-6">
-              <PawPrint className="h-5 w-5 text-amber-100" strokeWidth={2} />
+            <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-amber-700 ring-1 ring-amber-200/30 transition-transform duration-300 group-hover:-rotate-6">
+              <PawPrint className="size-5 text-amber-100" strokeWidth={2} />
             </span>
           }
         />
@@ -89,7 +89,7 @@ export default function Navbar({ config }: { config: SiteConfig }) {
             className="rounded-lg p-2 text-stone-900 hover:bg-stone-100 hover:text-stone-900 focus:outline-none"
             aria-label="Toggle menu"
           >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {isOpen ? <X className="size-6" /> : <Menu className="size-6" />}
           </button>
         </div>
       </div>
@@ -131,9 +131,9 @@ export default function Navbar({ config }: { config: SiteConfig }) {
                 className="w-full py-3"
               >
                 {available ? (
-                  <CalendarClock className="h-4 w-4" />
+                  <CalendarClock className="size-4" />
                 ) : (
-                  <BellPlus className="h-4 w-4" />
+                  <BellPlus className="size-4" />
                 )}
                 {ctaLabel}
               </Button>

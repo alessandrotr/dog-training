@@ -20,7 +20,7 @@ export default function CaseStudyStory({ story }: { story: TestimonialItem }) {
       {story.outcome && (
         <div className="mt-10 rounded-2xl bg-amber-50 p-6 ring-1 ring-amber-200/60">
           <Eyebrow tone="brand" className="flex items-center gap-2">
-            <Sparkles className="h-4 w-4" /> The outcome
+            <Sparkles className="size-4" /> The outcome
           </Eyebrow>
           <p className="mt-2 font-serif text-xl italic leading-relaxed text-amber-950">
             {story.outcome}

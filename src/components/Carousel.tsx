@@ -58,7 +58,7 @@ export default function Carousel<T>({
                 className="inline-flex items-center gap-1.5 font-mono text-xs font-bold uppercase tracking-wider text-amber-900 transition-colors hover:text-amber-950"
               >
                 <span>{footerLabel}</span>
-                <ArrowUpRight className="h-4 w-4" />
+                <ArrowUpRight className="size-4" />
               </Link>
             )}
             <div className="flex items-center gap-2">
@@ -70,7 +70,7 @@ export default function Carousel<T>({
                 size="icon"
                 className="rounded-full"
               >
-                <ArrowLeft className="h-4 w-4" />
+                <ArrowLeft className="size-4" />
               </Button>
               <Button
                 onClick={next}
@@ -80,7 +80,7 @@ export default function Carousel<T>({
                 size="icon"
                 className="rounded-full"
               >
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="size-4" />
               </Button>
             </div>
           </div>

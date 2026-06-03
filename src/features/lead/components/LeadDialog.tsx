@@ -59,7 +59,7 @@ export default function LeadDialog() {
               handle rides on the gradient so there's no off-white seam. */}
           <div className="relative shrink-0 overflow-hidden bg-linear-to-br from-amber-100 via-stone-50 to-stone-50 px-6 pt-4 sm:px-7 sm:pt-7">
             <div className="mx-auto mb-3.5 h-1 w-10 rounded-full bg-stone-300/80 sm:hidden" />
-            <PawPrint className="pointer-events-none absolute -right-3 -top-4 h-20 w-20 rotate-12 text-amber-300/40" />
+            <PawPrint className="pointer-events-none absolute -right-3 -top-4 size-20 rotate-12 text-amber-300/40" />
             <div className="relative pr-8">
               {availability ? (
                 <>
@@ -83,9 +83,9 @@ export default function LeadDialog() {
             </div>
             <DialogPrimitive.Close
               aria-label="Close"
-              className="absolute right-3.5 top-3.5 flex h-8 w-8 items-center justify-center rounded-full text-stone-500 transition hover:bg-stone-900/5 hover:text-stone-900 focus-visible:ring-2 focus-visible:ring-amber-700/40 focus-visible:outline-none"
+              className="absolute right-3.5 top-3.5 flex size-8 items-center justify-center rounded-full text-stone-500 transition hover:bg-stone-900/5 hover:text-stone-900 focus-visible:ring-2 focus-visible:ring-amber-700/40 focus-visible:outline-none"
             >
-              <X className="h-[18px] w-[18px]" />
+              <X className="size-[18px]" />
             </DialogPrimitive.Close>
           </div>
 
@@ -115,8 +115,8 @@ export default function LeadDialog() {
                     <Scheduler />
                   ) : (
                     <div className="flex flex-col items-center gap-3 rounded-2xl bg-stone-100/70 px-6 py-12 text-center">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-700/15 text-amber-800">
-                        <Lock className="h-6 w-6" />
+                      <div className="flex size-12 items-center justify-center rounded-2xl bg-amber-700/15 text-amber-800">
+                        <Lock className="size-6" />
                       </div>
                       <Text size="sm" className="font-semibold text-amber-950">
                         {availability?.unavailableStatus ?? 'Fully booked right now'}

@@ -92,7 +92,7 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
                   size="xl"
                 >
                   {blok.primary_label}
-                  <ArrowRight className="h-4.5 w-4.5" />
+                  <ArrowRight className="size-4.5" />
                 </Button>
               )}
               {blok.secondary_label && (
@@ -108,7 +108,7 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
 
             {!showAvailability && blok.availability && (
               <div className="flex items-center space-x-1.5 text-xs text-stone-400 font-mono">
-                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="size-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span>{blok.availability}</span>
               </div>
             )}
@@ -136,8 +136,8 @@ export default function Hero({ blok }: { blok: HeroBlok }) {
 
                 {(blok.badge_title || blok.badge_subtitle) && (
                   <div className="absolute -bottom-6 lg:-left-6 rounded-2xl bg-stone-900 p-4 text-stone-100 shadow-xl border border-stone-800 flex items-center space-x-3.5 max-w-[240px]">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-700 text-amber-100">
-                      <Award className="h-5.5 w-5.5" />
+                    <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-amber-700 text-amber-100">
+                      <Award className="size-5.5" />
                     </div>
                     <div className="text-left">
                       <p className="text-xs font-bold leading-tight font-sans text-stone-100">

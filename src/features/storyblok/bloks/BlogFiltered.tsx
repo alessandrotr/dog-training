@@ -62,7 +62,7 @@ export default function BlogFiltered({ blok }: { blok: BlogFilteredBlok }) {
           <Card padding="sm" className="space-y-6">
             <div className="relative">
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                <Search className="h-4 w-4 text-stone-400" />
+                <Search className="size-4 text-stone-400" />
               </div>
               <input
                 type="text"
@@ -95,7 +95,7 @@ export default function BlogFiltered({ blok }: { blok: BlogFilteredBlok }) {
             {tags.length > 0 && (
               <div className="space-y-2">
                 <Eyebrow className="flex items-center gap-1.5">
-                  <Tag className="h-3.5 w-3.5" /> Topics
+                  <Tag className="size-3.5" /> Topics
                 </Eyebrow>
                 <div className="flex flex-wrap gap-1.5">
                   {tags.map((tag) => {
@@ -127,7 +127,7 @@ export default function BlogFiltered({ blok }: { blok: BlogFilteredBlok }) {
                 }}
                 className="inline-flex items-center gap-1 font-mono text-[11px] font-bold uppercase tracking-wide text-stone-500 transition-colors hover:text-stone-900"
               >
-                <X className="h-3.5 w-3.5" /> Clear all
+                <X className="size-3.5" /> Clear all
               </button>
             )}
           </Card>
@@ -135,7 +135,7 @@ export default function BlogFiltered({ blok }: { blok: BlogFilteredBlok }) {
       >
         {filteredPosts.length === 0 ? (
           <div className="rounded-2xl border-2 border-dashed border-stone-200 py-16 text-center space-y-4">
-            <BookOpen className="h-10 w-10 text-stone-400 mx-auto" aria-hidden="true" />
+            <BookOpen className="size-10 text-stone-400 mx-auto" aria-hidden="true" />
             <Heading level={3} size="cardSm">
               No Articles Found
             </Heading>

@@ -45,11 +45,11 @@ export default function ServiceStickyBar({
         >
           {added ? (
             <>
-              <ClipboardCheck className="h-4 w-4" /> Added
+              <ClipboardCheck className="size-4" /> Added
             </>
           ) : (
             <>
-              <ClipboardPlus className="h-4 w-4" /> Add to inquiry
+              <ClipboardPlus className="size-4" /> Add to inquiry
             </>
           )}
         </Button>

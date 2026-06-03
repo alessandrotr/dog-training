@@ -23,15 +23,15 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
       {/* Soft heather glow + paw watermark for a warm, branded backdrop */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-32 -left-24 h-80 w-80 rounded-full bg-amber-700/25 blur-3xl"
+        className="pointer-events-none absolute -top-32 -left-24 size-80 rounded-full bg-amber-700/25 blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-24 right-0 h-72 w-72 rounded-full bg-amber-500/10 blur-3xl"
+        className="pointer-events-none absolute -bottom-24 right-0 size-72 rounded-full bg-amber-500/10 blur-3xl"
       />
       <PawPrint
         aria-hidden
-        className="pointer-events-none absolute -right-10 top-16 h-64 w-64 rotate-12 text-white/[0.025]"
+        className="pointer-events-none absolute -right-10 top-16 size-64 rotate-12 text-white/[0.025]"
         strokeWidth={1}
       />
 
@@ -44,8 +44,8 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
               brandSubtitle={config.brandSubtitle}
               tone="light"
               icon={
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-amber-700/30 ring-1 ring-amber-500/30 transition-transform duration-300 group-hover:-rotate-6">
-                  <PawPrint className="h-5 w-5 text-amber-300" strokeWidth={2} />
+                <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-amber-700/30 ring-1 ring-amber-500/30 transition-transform duration-300 group-hover:-rotate-6">
+                  <PawPrint className="size-5 text-amber-300" strokeWidth={2} />
                 </span>
               }
             />
@@ -61,7 +61,7 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
                   aria-label="Instagram"
                   className="rounded-full p-2.5 bg-white/5 ring-1 ring-white/10 text-stone-300 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-700 hover:text-white hover:ring-amber-600"
                 >
-                  <Instagram className="h-4 w-4" />
+                  <Instagram className="size-4" />
                 </a>
               )}
               {config.facebookUrl && (
@@ -72,7 +72,7 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
                   aria-label="Facebook"
                   className="rounded-full p-2.5 bg-white/5 ring-1 ring-white/10 text-stone-300 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-700 hover:text-white hover:ring-amber-600"
                 >
-                  <Facebook className="h-4 w-4" />
+                  <Facebook className="size-4" />
                 </a>
               )}
             </div>
@@ -108,18 +108,18 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
                 >
                   {/* Trust badge: real logo on a soft white tile, or an icon fallback */}
                   {a.logoUrl ? (
-                    <span className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl bg-white p-1.5 shadow-sm ring-1 ring-white/20 transition-transform duration-300 group-hover:scale-105">
+                    <span className="grid size-12 shrink-0 place-items-center overflow-hidden rounded-xl bg-white p-1.5 shadow-sm ring-1 ring-white/20 transition-transform duration-300 group-hover:scale-105">
                       <Image
                         src={a.logoUrl}
                         alt={a.logoAlt || a.title}
                         width={44}
                         height={44}
-                        className="h-full w-full object-contain"
+                        className="size-full object-contain"
                       />
                     </span>
                   ) : (
-                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-amber-700/20 ring-1 ring-amber-600/30">
-                      <Award className="h-5 w-5 text-amber-300" />
+                    <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-amber-700/20 ring-1 ring-amber-600/30">
+                      <Award className="size-5 text-amber-300" />
                     </span>
                   )}
                   <div className="min-w-0 text-xs leading-relaxed">
@@ -138,7 +138,7 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
             {contacts.map((c, i) => {
               const Inner = (
                 <span className="inline-flex items-center gap-2.5 rounded-full bg-white/[0.04] ring-1 ring-white/10 px-4 py-2.5 font-mono text-xs text-stone-300 transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/[0.08] hover:text-white">
-                  <c.icon className="h-4 w-4 text-amber-400" />
+                  <c.icon className="size-4 text-amber-400" />
                   {c.label}
                 </span>
               )
@@ -162,7 +162,7 @@ export default function Footer({ config }: { config: SiteConfig['footer'] }) {
         {/* Bottom credits */}
         <div className="flex flex-col-reverse md:flex-row lg:items-center justify-between gap-4 pt-8 text-xs text-stone-500">
           <p className="inline-flex items-center gap-1.5">
-            <PawPrint className="h-3.5 w-3.5 text-amber-500" />
+            <PawPrint className="size-3.5 text-amber-500" />
             {config.copyright}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 font-mono uppercase tracking-wider text-stone-600">

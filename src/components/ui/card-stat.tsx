@@ -32,7 +32,7 @@ export default function CardStat({
         className,
       )}
     >
-      <Icon className="h-3.5 w-3.5" />
+      <Icon className="size-3.5" />
       {count} {count === 1 ? singular : plural ?? `${singular}s`}
     </span>
   )

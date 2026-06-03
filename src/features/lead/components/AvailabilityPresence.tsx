@@ -26,7 +26,7 @@ export default function AvailabilityPresence() {
           </div>
           {a.location && (
             <span className="mt-1 flex items-center gap-1 font-mono text-xs text-stone-500">
-              <MapPin className="h-3 w-3 text-amber-700" />
+              <MapPin className="size-3 text-amber-700" />
               {a.location}
             </span>
           )}
@@ -36,13 +36,13 @@ export default function AvailabilityPresence() {
               available ? 'text-emerald-700' : 'text-amber-800',
             )}
           >
-            <span className="relative flex h-2 w-2">
+            <span className="relative flex size-2">
               {available && (
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/70" />
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400/70" />
               )}
               <span
                 className={cn(
-                  'relative inline-flex h-2 w-2 rounded-full',
+                  'relative inline-flex size-2 rounded-full',
                   available ? 'bg-emerald-500' : 'bg-amber-500',
                 )}
               />

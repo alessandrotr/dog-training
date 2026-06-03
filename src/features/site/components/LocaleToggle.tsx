@@ -15,7 +15,7 @@ export default function LocaleToggle() {
 
   return (
     <div className="inline-flex items-center gap-2">
-      <PawPrint className="h-4 w-4 shrink-0 text-amber-700/70" aria-hidden="true" />
+      <PawPrint className="size-4 shrink-0 text-amber-700/70" aria-hidden="true" />
       <div className="relative flex items-center rounded-full border border-stone-200 bg-stone-100 p-0.5">
         {/* Sliding amber thumb that trots between languages */}
         <span

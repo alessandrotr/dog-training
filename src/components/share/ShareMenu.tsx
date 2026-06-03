@@ -44,7 +44,7 @@ export default function ShareMenu({
           className,
         )}
       >
-        <Share2 className="h-4 w-4 text-amber-700" />
+        <Share2 className="size-4 text-amber-700" />
         {label ?? (de ? 'Teilen' : 'Share')}
       </Popover.Trigger>
       <Popover.Portal>
@@ -52,16 +52,16 @@ export default function ShareMenu({
           <Popover.Popup className="w-56 origin-(--transform-origin) rounded-xl border border-stone-200 bg-white p-1.5 shadow-lg shadow-stone-900/5 transition-[transform,opacity] data-starting-style:scale-95 data-starting-style:opacity-0 data-ending-style:scale-95 data-ending-style:opacity-0">
             {canNativeShare && (
               <button type="button" className={rowClass} onClick={() => nativeShare(ctx)}>
-                <Share className="h-4 w-4 text-stone-400" />
+                <Share className="size-4 text-stone-400" />
                 {de ? 'Teilen über…' : 'Share via…'}
               </button>
             )}
 
             <button type="button" className={rowClass} onClick={() => copy(url)}>
               {copied ? (
-                <Check className="h-4 w-4 text-emerald-600" />
+                <Check className="size-4 text-emerald-600" />
               ) : (
-                <Link2 className="h-4 w-4 text-stone-400" />
+                <Link2 className="size-4 text-stone-400" />
               )}
               {copied ? (de ? 'Kopiert!' : 'Copied!') : de ? 'Link kopieren' : 'Copy link'}
             </button>
@@ -76,7 +76,7 @@ export default function ShareMenu({
                 rel="noopener noreferrer"
                 className={rowClass}
               >
-                <target.Icon className="h-4 w-4 text-stone-400" />
+                <target.Icon className="size-4 text-stone-400" />
                 {target.label}
               </a>
             ))}

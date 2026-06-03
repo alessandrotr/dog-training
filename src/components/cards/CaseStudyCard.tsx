@@ -50,7 +50,7 @@ export default function CaseStudyCard({
       {/* Header: ringed avatar + name + @handle */}
       <div className="absolute inset-x-3 top-3.5 flex items-center gap-2.5">
         <span className="rounded-full bg-linear-to-br from-amber-400 to-amber-700 p-0.5">
-          <Avatar src={story.imageUrl} name={story.name} size="sm" className="h-9 w-9 border-2 border-white" />
+          <Avatar src={story.imageUrl} name={story.name} size="sm" className="size-9 border-2 border-white" />
         </span>
         <div className="min-w-0 leading-tight">
           <p className="truncate text-sm font-bold text-white drop-shadow-sm">{story.name}</p>

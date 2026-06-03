@@ -48,7 +48,7 @@ export default function MultiSelect({
           {count === 0 ? placeholder ?? 'Select…' : summary ? summary(count) : `${count} selected`}
         </span>
         <Select.Icon className="shrink-0 text-stone-400">
-          <ChevronsUpDown className="h-4 w-4" />
+          <ChevronsUpDown className="size-4" />
         </Select.Icon>
       </Select.Trigger>
 
@@ -74,11 +74,11 @@ export default function MultiSelect({
                 >
                   <span
                     className={cn(
-                      'flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-md border transition-colors',
+                      'flex size-[18px] shrink-0 items-center justify-center rounded-md border transition-colors',
                       isSelected ? 'border-amber-600 bg-amber-600 text-white' : 'border-stone-300',
                     )}
                   >
-                    {isSelected && <Check className="h-3 w-3" strokeWidth={3} />}
+                    {isSelected && <Check className="size-3" strokeWidth={3} />}
                   </span>
                   <span className="min-w-0 flex-1">
                     <Select.ItemText className="block truncate font-medium">

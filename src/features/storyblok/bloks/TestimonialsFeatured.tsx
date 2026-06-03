@@ -35,8 +35,8 @@ export default function TestimonialsFeatured({
       className="bg-stone-100 border-y border-stone-200/80 py-20 relative overflow-hidden"
     >
       <div className="mx-auto max-w-4xl px-4 sm:px-6 text-center">
-        <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-amber-100 mb-4 text-amber-900">
-          <MessageSquareQuote className="h-6 w-6" />
+        <div className="inline-flex size-12 items-center justify-center rounded-full bg-amber-100 mb-4 text-amber-900">
+          <MessageSquareQuote className="size-6" />
         </div>
 
         {active && (
@@ -48,7 +48,7 @@ export default function TestimonialsFeatured({
 
             {active.outcome && (
               <p className="mx-auto inline-flex max-w-xl items-center justify-center gap-1.5 rounded-full bg-amber-50 px-4 py-2 text-sm font-medium text-amber-900 ring-1 ring-amber-200/60">
-                <Sparkles className="h-4 w-4 shrink-0 text-amber-700" />
+                <Sparkles className="size-4 shrink-0 text-amber-700" />
                 {active.outcome}
               </p>
             )}
@@ -67,7 +67,7 @@ export default function TestimonialsFeatured({
                   className="group/chip mt-1"
                 >
                   {activeService.title}
-                  <ArrowUpRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover/chip:translate-x-0.5 group-hover/chip:-translate-y-0.5" />
+                  <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover/chip:translate-x-0.5 group-hover/chip:-translate-y-0.5" />
                 </Pill>
               )}
             </div>
@@ -83,7 +83,7 @@ export default function TestimonialsFeatured({
               className="rounded-full"
               aria-label="Previous case study"
             >
-              <ArrowLeft className="h-4 w-4" />
+              <ArrowLeft className="size-4" />
             </Button>
             <span className="text-xs font-mono text-stone-400">
               {index + 1} of {testimonials.length}
@@ -95,7 +95,7 @@ export default function TestimonialsFeatured({
               className="rounded-full"
               aria-label="Next case study"
             >
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="size-4" />
             </Button>
           </div>
         )}

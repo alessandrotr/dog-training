@@ -16,7 +16,7 @@ export default function ServiceOverview({ service }: { service: ServiceItem }) {
                   key={i}
                   className="flex items-start gap-2.5 text-sm leading-relaxed text-stone-600"
                 >
-                  <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
+                  <Check className="mt-0.5 size-4 shrink-0 text-emerald-600" />
                   <span>{f}</span>
                 </li>
               ))}

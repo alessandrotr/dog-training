@@ -41,7 +41,7 @@ export default function TrustStats({ blok }: { blok: TrustStatsBlok }) {
             <div key={i} className="flex flex-col items-center text-center px-4 space-y-2">
               <span className="font-serif italic text-4xl font-semibold text-amber-950 flex items-center justify-center">
                 {s.value}
-                {s.rating && <Star className="h-5 w-5 fill-amber-600 stroke-none ml-1 shrink-0" />}
+                {s.rating && <Star className="size-5 fill-amber-600 stroke-none ml-1 shrink-0" />}
               </span>
               <Text size="sm" tone="default" className="font-medium">
                 {s.label}
@@ -61,7 +61,7 @@ export default function TrustStats({ blok }: { blok: TrustStatsBlok }) {
             <div className="flex flex-wrap justify-center gap-6 md:gap-12 text-stone-400 text-xs font-mono">
               {lines(blok.badges).map((b, i) => (
                 <div key={i} className="flex items-center space-x-1.5">
-                  <ShieldCheck className="h-4 w-4 text-amber-700" />
+                  <ShieldCheck className="size-4 text-amber-700" />
                   <span>{b}</span>
                 </div>
               ))}

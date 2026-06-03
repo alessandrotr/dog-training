@@ -4,8 +4,8 @@ import { cn } from '@/lib/utils'
 // Person/dog avatar: shows the photo, or a brand-tinted initial fallback so the
 // header never looks broken when an image is missing.
 const SIZES = {
-  sm: { box: 'h-11 w-11', text: 'text-sm', px: 44 },
-  lg: { box: 'h-14 w-14', text: 'text-lg', px: 56 },
+  sm: { box: 'size-11', text: 'text-sm', px: 44 },
+  lg: { box: 'size-14', text: 'text-lg', px: 56 },
 } as const
 
 type AvatarProps = {

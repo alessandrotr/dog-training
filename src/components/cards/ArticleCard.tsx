@@ -73,7 +73,7 @@ export default function ArticleCard({
         <div className="mt-auto flex items-center justify-between pt-4 font-mono text-[11px]">
           <span className="inline-flex items-center gap-1 font-bold uppercase tracking-wider text-amber-900">
             Read{' '}
-            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
           </span>
           {post.readingTime && <span className="text-stone-400">{post.readingTime}</span>}
         </div>

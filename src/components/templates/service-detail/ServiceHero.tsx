@@ -66,16 +66,16 @@ export default function ServiceHero({
             >
               {added ? (
                 <>
-                  <ClipboardCheck className="h-4 w-4" /> Added to inquiry
+                  <ClipboardCheck className="size-4" /> Added to inquiry
                 </>
               ) : (
                 <>
-                  <ClipboardPlus className="h-4 w-4" /> Add to inquiry
+                  <ClipboardPlus className="size-4" /> Add to inquiry
                 </>
               )}
             </Button>
             <Button type="button" variant="ctaOutline" size="xl" onClick={() => open(mode)}>
-              {available ? <CalendarClock className="h-4 w-4" /> : <BellPlus className="h-4 w-4" />}{' '}
+              {available ? <CalendarClock className="size-4" /> : <BellPlus className="size-4" />}{' '}
               {available ? 'Book a consult' : t('booking.waitlist')}
             </Button>
           </div>

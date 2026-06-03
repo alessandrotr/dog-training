@@ -19,12 +19,12 @@ export default function AvailabilityBadge({ className = '' }: { className?: stri
           : 'border-stone-200 bg-stone-50 text-stone-600'
       } ${className}`}
     >
-      <span className="relative flex h-2.5 w-2.5">
+      <span className="relative flex size-2.5">
         {available && (
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+          <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-75" />
         )}
         <span
-          className={`relative inline-flex h-2.5 w-2.5 rounded-full ${
+          className={`relative inline-flex size-2.5 rounded-full ${
             available ? 'bg-emerald-500' : 'bg-stone-400'
           }`}
         />

@@ -36,7 +36,7 @@ export default function PriceTag({
   return (
     <div className={cn('leading-none', className)}>
       <span className="inline-flex items-center gap-1 rounded-full bg-amber-100/70 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-[0.12em] text-amber-800 ring-1 ring-amber-200/60">
-        <Sparkles className="h-2.5 w-2.5" /> Starting at
+        <Sparkles className="size-2.5" /> Starting at
       </span>
       <div className="mt-2 flex items-baseline gap-1">
         <span className="inline-flex items-start">

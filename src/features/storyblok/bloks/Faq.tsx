@@ -34,7 +34,7 @@ export default function Faq({ blok }: { blok: FaqBlok }) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative max-w-md w-full border-b border-stone-200 pb-8">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-              <Search className="h-4 w-4 text-stone-400" />
+              <Search className="size-4 text-stone-400" />
             </div>
             <input
               type="text"
@@ -50,7 +50,7 @@ export default function Faq({ blok }: { blok: FaqBlok }) {
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         {filtered.length === 0 ? (
           <div className="rounded-2xl border-2 border-dashed border-stone-200 py-16 text-center space-y-4">
-            <HelpCircle className="h-10 w-10 text-stone-400 mx-auto" />
+            <HelpCircle className="size-10 text-stone-400 mx-auto" />
             <Heading level={3} size="cardSm">
               No FAQs found
             </Heading>
@@ -71,9 +71,9 @@ export default function Faq({ blok }: { blok: FaqBlok }) {
                     <span>{faq.question}</span>
                     <span className="ml-4 shrink-0 rounded-full bg-stone-100 p-2 text-stone-600">
                       {isOpen ? (
-                        <ChevronUp className="h-4 w-4" />
+                        <ChevronUp className="size-4" />
                       ) : (
-                        <ChevronDown className="h-4 w-4" />
+                        <ChevronDown className="size-4" />
                       )}
                     </span>
                   </button>

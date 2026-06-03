@@ -33,12 +33,12 @@ export default function ConnectFab() {
       )}
     >
       <CtaDecor />
-      <span className="relative flex h-6 w-6 items-center justify-center">
-        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-300/40 duration-2000 ease-out delay-1000" />
+      <span className="relative flex size-6 items-center justify-center">
+        <span className="absolute inline-flex size-full animate-ping rounded-full bg-amber-300/40 duration-2000 ease-out delay-1000" />
         {available ? (
-          <CalendarClock className="relative h-5 w-5" />
+          <CalendarClock className="relative size-5" />
         ) : (
-          <BellPlus className="relative h-5 w-5" />
+          <BellPlus className="relative size-5" />
         )}
       </span>
       <span className="text-xs font-mono uppercase font-bold tracking-tight">{label}</span>
