@@ -8,6 +8,7 @@ import { useInquiryToggle } from '@/features/inquiry/components/InquiryCartProvi
 import { useBookingMode } from '@/features/availability/components/AvailabilityProvider'
 import { useLeadDialog } from '@/features/lead/stores/lead-dialog'
 import { Button, PriceTag, Heading, Text } from '@/components/ui'
+import { ShareMenu } from '@/components/share'
 import type { ServiceItem } from '@/types'
 
 export default function ServiceHero({
@@ -78,6 +79,12 @@ export default function ServiceHero({
               {available ? 'Book a consult' : t('booking.waitlist')}
             </Button>
           </div>
+
+          <ShareMenu
+            title={service.title}
+            text={service.shortDescription}
+            className="self-start bg-white/60 backdrop-blur-sm"
+          />
         </div>
       </div>
     </section>

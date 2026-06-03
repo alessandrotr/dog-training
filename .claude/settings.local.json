@@ -78,7 +78,15 @@
       "Bash(node -e \"import\\('@base-ui/react/scroll-area'\\).then\\(s=>console.log\\(Object.keys\\(s\\)\\)\\)\")",
       "Bash(sed -n '1,15p' src/components/ui/prose.tsx)",
       "Bash(node -e \"const {ScrollArea}=require\\('@base-ui/react/scroll-area'\\); console.log\\(Object.keys\\(ScrollArea\\)\\)\")",
-      "Bash(node --input-type=module -e \"import {ScrollArea} from '@base-ui/react/scroll-area'; console.log\\(Object.keys\\(ScrollArea\\)\\)\")"
+      "Bash(node --input-type=module -e \"import {ScrollArea} from '@base-ui/react/scroll-area'; console.log\\(Object.keys\\(ScrollArea\\)\\)\")",
+      "Bash(sed -n '1,80p' src/lib/navigation.ts)",
+      "Bash(node -e \"const p=require\\('@base-ui/react/package.json'\\); console.log\\(Object.keys\\(p.exports||{}\\).filter\\(k=>/popover|menu|dialog|tooltip/.test\\(k\\)\\)\\)\")",
+      "Bash(sed -n '1,40p' src/components/ui/multi-select.tsx)",
+      "Bash(node --input-type=module -e \"import {Popover} from '@base-ui/react/popover'; console.log\\(Object.keys\\(Popover\\)\\)\")",
+      "Bash(sed -n '1,60p' src/components/templates/case-study-detail/CaseStudyHeader.tsx)",
+      "Bash(sed -n '1,50p' src/components/templates/service-detail/ServiceHero.tsx)",
+      "Bash(sed -n '50,130p' src/components/templates/service-detail/ServiceHero.tsx)",
+      "Bash(sed -n '20,46p' src/components/templates/blog-post-detail/BlogPostHeader.tsx)"
     ],
     "additionalDirectories": [
       "/tmp",
